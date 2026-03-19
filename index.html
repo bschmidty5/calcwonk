@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name='impact-site-verification' value='9ea7fb85-f205-46b1-84f0-59a25acb3436'>  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CalcWonk — Real Numbers for Real Decisions</title>
 <meta name="description" content="Financial calculators built for business owners and individuals who want the full picture — not the ballpark.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0d0d;
-    --surface: #161616;
-    --surface2: #1f1f1f;
-    --border: #2a2a2a;
-    --gold: #c9a84c;
-    --gold-dim: #8a6f2e;
-    --gold-glow: rgba(201,168,76,0.10);
-    --text: #e8e4dc;
-    --muted: #6b6b6b;
-    --muted2: #444;
-    --green: #4caf82;
+    --white: #ffffff;
+    --bg: #f8f9fa;
+    --teal: #0d9488;
+    --teal-light: #ccfbf1;
+    --teal-mid: #99f6e4;
+    --teal-dark: #0f766e;
+    --orange: #f97316;
+    --orange-light: #fff7ed;
+    --orange-dark: #ea6c0a;
+    --navy: #1e293b;
+    --slate: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+    --border-dark: #cbd5e1;
+    --text: #1e293b;
   }
  
   * { box-sizing: border-box; margin: 0; padding: 0; }
- 
   html { scroll-behavior: smooth; }
  
   body {
-    font-family: 'IBM Plex Sans', sans-serif;
-    background: var(--bg);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
   }
  
-  /* NOISE */
+  /* GRAPH PAPER TEXTURE */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-color: #ffffff;
+    background-color: #ffffff;
+    background-image:
+      linear-gradient(rgba(13,148,136,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(13,148,136,0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mix-blend-mode: multiply;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.35;
+  }
+ 
+  /* HERO EXPLICIT WHITE */
+  .hero {
+    background: #ffffff;
   }
  
   /* NAV */
@@ -50,169 +62,318 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(13,13,13,0.92);
+    background: rgba(255,255,255,0.92);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--border);
     padding: 0 2rem;
-    height: 60px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
  
   .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     text-decoration: none;
   }
  
-  .logo span { color: var(--gold); font-style: italic; }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+ 
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+  }
+ 
+  .logo-text span { color: var(--teal); }
  
   .nav-links {
     display: flex;
-    gap: 1.5rem;
+    gap: 0.5rem;
     align-items: center;
   }
  
   .nav-links a {
-    font-size: 0.82rem;
-    color: var(--muted);
+    font-size: 0.85rem;
+    color: var(--slate);
     text-decoration: none;
-    font-family: 'IBM Plex Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    transition: color 0.15s;
+    font-weight: 500;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.15s;
   }
  
-  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover { background: var(--teal-light); color: var(--teal-dark); }
+ 
+  .nav-cta {
+    background: var(--teal) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 0.45rem 1rem !important;
+  }
+ 
+  .nav-cta:hover { background: var(--teal-dark) !important; }
  
   /* HERO */
   .hero {
     position: relative;
     z-index: 1;
-    text-align: center;
-    padding: 6rem 2rem 5rem;
-    overflow: hidden;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    background: #ffffff;
   }
  
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 65%);
-    pointer-events: none;
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+    .hero-visual { display: none; }
   }
  
   .hero-eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.25em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
-    color: var(--gold);
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
     margin-bottom: 1.25rem;
     opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.1s;
+    animation: fadeUp 0.6s ease forwards 0.1s;
   }
  
   .hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
     font-weight: 900;
-    line-height: 1.08;
+    line-height: 1.1;
     letter-spacing: -0.03em;
+    color: var(--navy);
     margin-bottom: 1.25rem;
     opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.2s;
+    animation: fadeUp 0.6s ease forwards 0.2s;
   }
  
   .hero h1 em {
     font-style: italic;
-    color: var(--gold);
+    color: var(--teal);
+    position: relative;
   }
  
+  .hero h1 .orange { color: var(--orange); font-style: normal; }
+ 
   .hero-sub {
-    font-size: 1.05rem;
-    color: var(--muted);
-    max-width: 520px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.65;
-    font-weight: 300;
+    font-size: 1rem;
+    color: var(--slate);
+    line-height: 1.7;
+    font-weight: 400;
+    margin-bottom: 2rem;
     opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.3s;
+    animation: fadeUp 0.6s ease forwards 0.3s;
   }
  
   .hero-cta {
     display: flex;
     gap: 0.75rem;
-    justify-content: center;
     flex-wrap: wrap;
     opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.4s;
+    animation: fadeUp 0.6s ease forwards 0.4s;
   }
  
   .btn {
-    padding: 0.7rem 1.5rem;
-    border-radius: 7px;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
     cursor: pointer;
     border: none;
     transition: all 0.15s;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
   }
  
-  .btn-gold { background: var(--gold); color: #000; }
-  .btn-gold:hover { background: #d4b05a; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,168,76,0.25); }
+  .btn-teal { background: var(--teal); color: white; }
+  .btn-teal:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(13,148,136,0.25); }
  
-  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-  .btn-outline:hover { border-color: var(--gold-dim); color: var(--gold); }
+  .btn-orange { background: var(--orange); color: white; }
+  .btn-orange:hover { background: var(--orange-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(249,115,22,0.25); }
  
-  /* STATS BAR */
+  .btn-outline { background: white; color: var(--navy); border: 2px solid var(--border-dark); }
+  .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+ 
+  /* HERO VISUAL — mini fake calculator card */
+  .hero-visual {
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+ 
+  .hero-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    position: relative;
+  }
+ 
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: -8px; right: -8px; bottom: -8px;
+    border: 2px dashed var(--teal-mid);
+    border-radius: 20px;
+    z-index: -1;
+  }
+ 
+  .hero-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+ 
+  .hero-card-title span {
+    background: var(--teal-light);
+    color: var(--teal);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+ 
+  .hero-metric {
+    margin-bottom: 1rem;
+  }
+ 
+  .hero-metric-label {
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+ 
+  .hero-metric-bar {
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.2rem;
+  }
+ 
+  .hero-metric-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+ 
+  .hero-metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+ 
+  .hero-total {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 2px dashed var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+ 
+  .hero-total-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--slate);
+  }
+ 
+  .hero-total-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--teal);
+  }
+ 
+  .hero-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--orange);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+ 
+  /* STATS */
   .stats-bar {
     position: relative;
     z-index: 1;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
+    background: var(--navy);
+    padding: 1.5rem 2rem;
     display: flex;
     justify-content: center;
     gap: 0;
+    flex-wrap: wrap;
     opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.5s;
+    animation: fadeUp 0.6s ease forwards 0.6s;
   }
  
   .stat {
-    padding: 1.5rem 3rem;
+    padding: 0.75rem 2.5rem;
     text-align: center;
-    border-right: 1px solid var(--border);
+    border-right: 1px solid rgba(255,255,255,0.1);
   }
  
   .stat:last-child { border-right: none; }
  
   .stat-num {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--gold);
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--teal-mid);
     letter-spacing: -0.02em;
   }
  
   .stat-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin-top: 0.2rem;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+    margin-top: 0.1rem;
   }
  
   /* TOOLS SECTION */
@@ -225,46 +386,77 @@
   }
  
   .section-header {
-    text-align: center;
-    margin-bottom: 3rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
  
+  .section-header-left {}
+ 
   .section-eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
   }
  
   .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 700;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 900;
     letter-spacing: -0.02em;
+    color: var(--navy);
     line-height: 1.15;
   }
  
   .section-sub {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     color: var(--muted);
-    margin-top: 0.75rem;
-    font-weight: 300;
+    margin-top: 0.4rem;
   }
+ 
+  /* CATEGORY TABS */
+  .category-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+ 
+  .cat-tab {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    border: 2px solid var(--border);
+    background: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--slate);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+ 
+  .cat-tab:hover { border-color: var(--teal); color: var(--teal); }
+  .cat-tab.active { background: var(--teal); color: white; border-color: var(--teal); }
+  .cat-tab.active.orange { background: var(--orange); border-color: var(--orange); }
  
   /* TOOLS GRID */
   .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 1.25rem;
   }
  
   .tool-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.75rem;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
     text-decoration: none;
     color: var(--text);
     transition: all 0.2s;
@@ -275,102 +467,109 @@
     gap: 0.75rem;
   }
  
-  .tool-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
- 
   .tool-card:hover {
-    border-color: var(--gold-dim);
-    background: var(--surface2);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border-color: var(--teal);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(13,148,136,0.12);
   }
- 
-  .tool-card:hover::before { opacity: 1; }
  
   .tool-card.coming-soon {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: default;
     pointer-events: none;
   }
  
+  .tool-card.orange-card:hover {
+    border-color: var(--orange);
+    box-shadow: 0 12px 32px rgba(249,115,22,0.12);
+  }
+ 
+  .tool-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+ 
   .tool-icon {
-    width: 40px; height: 40px;
-    background: var(--gold-glow);
-    border: 1px solid var(--gold-dim);
-    border-radius: 8px;
+    width: 44px; height: 44px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     flex-shrink: 0;
   }
  
-  .tool-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  .icon-teal { background: var(--teal-light); }
+  .icon-orange { background: var(--orange-light); }
  
   .tool-badge {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.62rem;
+    font-size: 0.65rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.2rem 0.55rem;
-    border-radius: 4px;
-    background: var(--gold-glow);
-    color: var(--gold);
-    border: 1px solid var(--gold-dim);
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    flex-shrink: 0;
   }
  
-  .tool-badge.soon {
-    background: transparent;
-    color: var(--muted);
-    border-color: var(--muted2);
-  }
+  .badge-live { background: var(--teal-light); color: var(--teal-dark); }
+  .badge-soon { background: #f1f5f9; color: var(--muted); }
  
   .tool-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
+    color: var(--navy);
     line-height: 1.3;
     letter-spacing: -0.01em;
   }
  
   .tool-desc {
-    font-size: 0.83rem;
-    color: var(--muted);
-    line-height: 1.55;
-    font-weight: 300;
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.6;
     flex: 1;
   }
  
-  .tool-link {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--gold);
+  .tool-footer {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
     margin-top: 0.25rem;
   }
  
-  .tool-link::after { content: '→'; transition: transform 0.15s; }
-  .tool-card:hover .tool-link::after { transform: translateX(4px); }
+  .tool-category {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+ 
+  .tool-link {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: gap 0.15s;
+  }
+ 
+  .tool-card:hover .tool-link { gap: 0.5rem; }
+  .orange-card .tool-link { color: var(--orange); }
  
   /* WHY SECTION */
   .why-section {
     position: relative;
     z-index: 1;
-    border-top: 1px solid var(--border);
-    background: var(--surface);
+    background: var(--bg);
+    border-top: 2px solid var(--border);
+    border-bottom: 2px solid var(--border);
     padding: 5rem 2rem;
   }
  
@@ -379,103 +578,136 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 5rem;
     align-items: center;
   }
  
   @media (max-width: 768px) {
-    .why-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .stat { padding: 1.25rem 1.5rem; }
-    .stats-bar { flex-wrap: wrap; }
+    .why-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   }
  
   .why-text h2 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    font-weight: 700;
+    font-weight: 900;
     letter-spacing: -0.02em;
+    color: var(--navy);
     line-height: 1.2;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
   }
  
-  .why-text h2 em { font-style: italic; color: var(--gold); }
+  .why-text h2 em { font-style: italic; color: var(--teal); }
  
   .why-text p {
     font-size: 0.92rem;
-    color: var(--muted);
-    line-height: 1.7;
-    font-weight: 300;
+    color: var(--slate);
+    line-height: 1.75;
     margin-bottom: 1rem;
+  }
+ 
+  .wonk-quote {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border: 2px solid var(--border);
+    border-left: 4px solid var(--orange);
+    border-radius: 0 10px 10px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.6;
   }
  
   .why-points {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
   }
  
   .why-point {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
     display: flex;
     gap: 1rem;
     align-items: flex-start;
+    transition: border-color 0.15s;
   }
  
+  .why-point:hover { border-color: var(--teal); }
+ 
   .why-point-icon {
-    width: 32px; height: 32px;
-    background: var(--gold-glow);
-    border: 1px solid var(--gold-dim);
-    border-radius: 6px;
+    width: 36px; height: 36px;
+    background: var(--teal-light);
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
+    font-size: 1rem;
     flex-shrink: 0;
-    margin-top: 0.1rem;
   }
  
   .why-point-text strong {
     display: block;
     font-size: 0.88rem;
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--navy);
     margin-bottom: 0.2rem;
   }
  
   .why-point-text span {
     font-size: 0.8rem;
-    color: var(--muted);
+    color: var(--slate);
     line-height: 1.5;
   }
  
-  /* NEWSLETTER / CTA BAND */
+  /* CTA BAND */
   .cta-band {
     position: relative;
     z-index: 1;
-    border-top: 1px solid var(--border);
-    padding: 4rem 2rem;
+    padding: 5rem 2rem;
     text-align: center;
-    background: linear-gradient(180deg, transparent, rgba(201,168,76,0.04));
+    background: white;
+  }
+ 
+  .cta-band-inner {
+    max-width: 600px;
+    margin: 0 auto;
   }
  
   .cta-band h2 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    font-weight: 700;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 900;
     letter-spacing: -0.02em;
+    color: var(--navy);
     margin-bottom: 0.75rem;
+    line-height: 1.2;
   }
  
+  .cta-band h2 em { font-style: italic; color: var(--orange); }
+ 
   .cta-band p {
-    font-size: 0.9rem;
-    color: var(--muted);
-    margin-bottom: 1.75rem;
-    font-weight: 300;
+    font-size: 0.92rem;
+    color: var(--slate);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+ 
+  .cta-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
   }
  
   /* FOOTER */
   footer {
     position: relative;
     z-index: 1;
-    border-top: 1px solid var(--border);
+    background: var(--navy);
     padding: 2rem;
     display: flex;
     align-items: center;
@@ -486,12 +718,15 @@
  
   .footer-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 900;
-    color: var(--text);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
  
-  .footer-logo span { color: var(--gold); font-style: italic; }
+  .footer-logo span { color: var(--teal-mid); }
  
   .footer-links {
     display: flex;
@@ -499,24 +734,24 @@
   }
  
   .footer-links a {
-    font-size: 0.75rem;
-    color: var(--muted);
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
     text-decoration: none;
-    font-family: 'IBM Plex Mono', monospace;
     transition: color 0.15s;
+    font-weight: 500;
   }
  
-  .footer-links a:hover { color: var(--gold); }
+  .footer-links a:hover { color: var(--teal-mid); }
  
   .footer-disclaimer {
-    font-size: 0.72rem;
-    color: var(--muted2);
-    font-family: 'IBM Plex Mono', monospace;
     width: 100%;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.25);
     text-align: center;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(255,255,255,0.08);
     padding-top: 1rem;
     margin-top: 0.5rem;
+    line-height: 1.6;
   }
  
   @keyframes fadeUp {
@@ -530,36 +765,74 @@
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
  
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
  
 <!-- NAV -->
 <nav>
-  <a href="/" class="logo">Calc<span>Wonk</span></a>
+  <a href="/" class="logo">
+    <div class="logo-icon">🧮</div>
+    <div class="logo-text">Calc<span>Wonk</span></div>
+  </a>
   <div class="nav-links">
     <a href="#tools">Tools</a>
     <a href="#why">About</a>
-    <a href="#tools" class="btn btn-gold" style="padding:0.4rem 1rem;font-size:0.78rem;">Get Started</a>
+    <a href="#tools" class="nav-cta">Get Started →</a>
   </div>
 </nav>
  
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-eyebrow">Small Business & Personal Finance Tools</div>
-  <h1>Real Numbers for<br><em>Real Decisions</em></h1>
-  <p class="hero-sub">Financial calculators built for business owners and individuals who want the full picture — not the ballpark. Know your numbers before you commit.</p>
-  <div class="hero-cta">
-    <a href="#tools" class="btn btn-gold">Explore the Tools</a>
-    <a href="/true-cost-of-an-employee-calculator/" class="btn btn-outline">True Cost of an Employee →</a>
+  <div class="hero-left">
+    <div class="hero-eyebrow">🤓 For people who actually like numbers</div>
+    <h1>Stop guessing.<br>Start <em>calculating.</em></h1>
+    <p class="hero-sub">Free financial calculators for small business owners and individuals who want real answers — not ballpark estimates. Because the right number changes everything.</p>
+    <div class="hero-cta">
+      <a href="#tools" class="btn btn-teal">Explore the Tools →</a>
+      <a href="/true-cost-of-an-employee-calculator/" class="btn btn-outline">True Cost of Hiring ↗</a>
+    </div>
+  </div>
+ 
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-badge">✓ Free to use</div>
+      <div class="hero-card-title">
+        True Cost of an Employee
+        <span>LIVE</span>
+      </div>
+ 
+      <div class="hero-metric">
+        <div class="hero-metric-label">Base Salary</div>
+        <div class="hero-metric-bar"><div class="hero-metric-fill" style="width:72%;background:#0d9488"></div></div>
+        <div class="hero-metric-value">$65,000</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-label">Payroll Taxes</div>
+        <div class="hero-metric-bar"><div class="hero-metric-fill" style="width:10%;background:#99f6e4"></div></div>
+        <div class="hero-metric-value">$5,850</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-label">Benefits</div>
+        <div class="hero-metric-bar"><div class="hero-metric-fill" style="width:13%;background:#f97316"></div></div>
+        <div class="hero-metric-value">$11,950</div>
+      </div>
+      <div class="hero-metric">
+        <div class="hero-metric-label">Overhead</div>
+        <div class="hero-metric-bar"><div class="hero-metric-fill" style="width:5%;background:#fbd38d"></div></div>
+        <div class="hero-metric-value">$9,370</div>
+      </div>
+ 
+      <div class="hero-total">
+        <div class="hero-total-label">True Annual Cost</div>
+        <div class="hero-total-value">$92,170</div>
+      </div>
+    </div>
   </div>
 </section>
  
-<!-- STATS BAR -->
+<!-- STATS -->
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-num">25–40%</div>
@@ -567,7 +840,7 @@
   </div>
   <div class="stat">
     <div class="stat-num">3x</div>
-    <div class="stat-label">Revenue an employee should generate</div>
+    <div class="stat-label">Value a hire should generate</div>
   </div>
   <div class="stat">
     <div class="stat-num">$0</div>
@@ -575,118 +848,145 @@
   </div>
   <div class="stat">
     <div class="stat-num">100%</div>
-    <div class="stat-label">Browser-based — no signup required</div>
+    <div class="stat-label">Browser-based, no signup needed</div>
   </div>
 </div>
  
 <!-- TOOLS -->
 <section class="tools-section" id="tools">
   <div class="section-header fade-in">
-    <div class="section-eyebrow">The Toolkit</div>
-    <h2 class="section-title">Stop Guessing. Start Calculating.</h2>
-    <p class="section-sub">Each tool is built around a real financial decision — with the depth to actually be useful.</p>
+    <div class="section-header-left">
+      <div class="section-eyebrow">The Toolkit</div>
+      <h2 class="section-title">Every number you need<br>to make a smarter decision</h2>
+      <p class="section-sub">Built for real decisions, not hypotheticals.</p>
+    </div>
+  </div>
+ 
+  <div class="category-tabs fade-in">
+    <button class="cat-tab active">All Tools</button>
+    <button class="cat-tab">Small Business</button>
+    <button class="cat-tab orange-card">Personal Finance</button>
   </div>
  
   <div class="tools-grid">
  
     <a href="/true-cost-of-an-employee-calculator/" class="tool-card fade-in">
-      <div class="tool-meta">
-        <div class="tool-icon">💵</div>
-        <span class="tool-badge">Live</span>
+      <div class="tool-top">
+        <div class="tool-icon icon-teal">💵</div>
+        <span class="tool-badge badge-live">Live</span>
       </div>
       <div class="tool-name">True Cost of an Employee</div>
-      <div class="tool-desc">Salary is just the beginning. Calculate the real all-in cost of hiring — taxes, benefits, overhead, and more — before you make the offer.</div>
-      <div class="tool-link">Calculate now</div>
+      <div class="tool-desc">Salary is just the beginning. Get the real all-in number — taxes, benefits, overhead — before you make the offer.</div>
+      <div class="tool-footer">
+        <span class="tool-category">Small Business</span>
+        <span class="tool-link">Calculate now →</span>
+      </div>
     </a>
  
     <div class="tool-card coming-soon fade-in">
-      <div class="tool-meta">
-        <div class="tool-icon">📋</div>
-        <span class="tool-badge soon">Coming Soon</span>
+      <div class="tool-top">
+        <div class="tool-icon icon-teal">📋</div>
+        <span class="tool-badge badge-soon">Coming Soon</span>
       </div>
       <div class="tool-name">Contractor vs. Employee Calculator</div>
-      <div class="tool-desc">Is it actually cheaper to hire a 1099 contractor? Compare the true cost of both arrangements side by side — including tax implications and risk.</div>
-      <div class="tool-link">Coming soon</div>
+      <div class="tool-desc">Is a 1099 contractor actually cheaper? Compare the true cost of both arrangements — including taxes, benefits, and legal risk.</div>
+      <div class="tool-footer">
+        <span class="tool-category">Small Business</span>
+        <span class="tool-link">Coming soon</span>
+      </div>
     </div>
  
     <div class="tool-card coming-soon fade-in">
-      <div class="tool-meta">
-        <div class="tool-icon">📉</div>
-        <span class="tool-badge soon">Coming Soon</span>
+      <div class="tool-top">
+        <div class="tool-icon icon-teal">📉</div>
+        <span class="tool-badge badge-soon">Coming Soon</span>
       </div>
       <div class="tool-name">Cost of Employee Turnover</div>
-      <div class="tool-desc">Losing an employee costs more than you think. Calculate the true cost of turnover — recruiting, training, lost productivity, and institutional knowledge.</div>
-      <div class="tool-link">Coming soon</div>
+      <div class="tool-desc">Losing an employee costs more than you think. Calculate recruiting, training, and lost productivity — all in one number.</div>
+      <div class="tool-footer">
+        <span class="tool-category">Small Business</span>
+        <span class="tool-link">Coming soon</span>
+      </div>
     </div>
  
     <div class="tool-card coming-soon fade-in">
-      <div class="tool-meta">
-        <div class="tool-icon">💰</div>
-        <span class="tool-badge soon">Coming Soon</span>
+      <div class="tool-top">
+        <div class="tool-icon icon-teal">📊</div>
+        <span class="tool-badge badge-soon">Coming Soon</span>
       </div>
-      <div class="tool-name">Total Compensation Statement Builder</div>
-      <div class="tool-desc">Show employees what they're really earning — salary plus benefits, retirement, PTO, and perks — with a shareable total compensation breakdown.</div>
-      <div class="tool-link">Coming soon</div>
+      <div class="tool-name">Break-Even Calculator</div>
+      <div class="tool-desc">How much do you need to sell to cover your costs? Find your break-even point in units and dollars — by product or business unit.</div>
+      <div class="tool-footer">
+        <span class="tool-category">Small Business</span>
+        <span class="tool-link">Coming soon</span>
+      </div>
     </div>
  
-    <div class="tool-card coming-soon fade-in">
-      <div class="tool-meta">
-        <div class="tool-icon">📊</div>
-        <span class="tool-badge soon">Coming Soon</span>
+    <div class="tool-card coming-soon orange-card fade-in">
+      <div class="tool-top">
+        <div class="tool-icon icon-orange">📈</div>
+        <span class="tool-badge badge-soon">Coming Soon</span>
       </div>
-      <div class="tool-name">Small Business Break-Even Calculator</div>
-      <div class="tool-desc">How much do you need to sell to cover your costs? Find your break-even point by product, service, or business unit — in units and in dollars.</div>
-      <div class="tool-link">Coming soon</div>
+      <div class="tool-name">Roth IRA vs. Traditional IRA</div>
+      <div class="tool-desc">Which retirement account actually wins for you? Compare after-tax outcomes based on your income, age, and expected tax rate in retirement.</div>
+      <div class="tool-footer">
+        <span class="tool-category">Personal Finance</span>
+        <span class="tool-link" style="color:var(--orange)">Coming soon</span>
+      </div>
     </div>
  
-    <div class="tool-card coming-soon fade-in">
-      <div class="tool-meta">
-        <div class="tool-icon">🏦</div>
-        <span class="tool-badge soon">Coming Soon</span>
+    <div class="tool-card coming-soon orange-card fade-in">
+      <div class="tool-top">
+        <div class="tool-icon icon-orange">🏠</div>
+        <span class="tool-badge badge-soon">Coming Soon</span>
       </div>
-      <div class="tool-name">Business Loan True Cost Calculator</div>
-      <div class="tool-desc">APR doesn't tell the whole story. Calculate the real cost of a business loan — total interest, effective rate, and monthly cash flow impact.</div>
-      <div class="tool-link">Coming soon</div>
+      <div class="tool-name">Rent vs. Buy Calculator</div>
+      <div class="tool-desc">The real comparison goes beyond the mortgage payment. Factor in opportunity cost, maintenance, taxes, and time horizon.</div>
+      <div class="tool-footer">
+        <span class="tool-category">Personal Finance</span>
+        <span class="tool-link" style="color:var(--orange)">Coming soon</span>
+      </div>
     </div>
  
   </div>
 </section>
  
-<!-- WHY SECTION -->
+<!-- WHY -->
 <section class="why-section" id="why">
   <div class="why-inner">
     <div class="why-text fade-in">
-      <h2>Built for people who need to <em>actually decide</em></h2>
-      <p>Most financial calculators give you a number and leave you to figure out what it means. CalcWonk tools are built differently — every result comes with context, benchmarks, and a clear answer to the question you're actually trying to answer.</p>
-      <p>No signup. No upsells. No ads obscuring the result. Just the numbers you need, explained clearly.</p>
+      <h2>Built for the <em>inner wonk</em> in all of us</h2>
+      <p>Most financial calculators give you a number and leave you to figure out what it means. CalcWonk tools are built differently — every result comes with context, benchmarks, and a plain-English answer to the question you're actually trying to answer.</p>
+      <p>No signup. No upsells. No ads cluttering up the results. Just honest numbers, explained clearly.</p>
+      <div class="wonk-quote">"A wonk is someone who loves the details. We built CalcWonk for the business owner who actually wants to understand the math — not just see a number."</div>
     </div>
     <div class="why-points fade-in">
       <div class="why-point">
         <div class="why-point-icon">🎯</div>
         <div class="why-point-text">
-          <strong>Decision-focused</strong>
-          <span>Every tool is built around a specific financial decision — not a generic formula.</span>
+          <strong>Decision-focused, not formula-focused</strong>
+          <span>Every tool is built around a specific financial decision — not a generic formula that leaves you guessing.</span>
         </div>
       </div>
       <div class="why-point">
         <div class="why-point-icon">⚡</div>
         <div class="why-point-text">
-          <strong>Instant results</strong>
-          <span>Numbers update in real time as you type. No forms, no waiting, no email required.</span>
+          <strong>Instant, real-time results</strong>
+          <span>Numbers update as you type. No forms, no waiting, no email required. Just answers.</span>
         </div>
       </div>
       <div class="why-point">
         <div class="why-point-icon">🔒</div>
         <div class="why-point-text">
           <strong>Private by design</strong>
-          <span>Everything runs in your browser. Your numbers stay on your device — never uploaded.</span>
+          <span>Everything runs in your browser. Your numbers stay on your device — never uploaded anywhere.</span>
         </div>
       </div>
       <div class="why-point">
         <div class="why-point-icon">📖</div>
         <div class="why-point-text">
-          <strong>Explained, not just calculated</strong>
-          <span>Every result includes context — what the number means and what to do with it.</span>
+          <strong>Context, not just calculations</strong>
+          <span>Every result includes benchmarks and plain-English insight — what the number means and what to do with it.</span>
         </div>
       </div>
     </div>
@@ -695,29 +995,43 @@
  
 <!-- CTA BAND -->
 <section class="cta-band fade-in">
-  <h2>Start with the tool you need right now</h2>
-  <p>Free to use. No account required. Results in under a minute.</p>
-  <a href="/true-cost-of-an-employee-calculator/" class="btn btn-gold">True Cost of an Employee →</a>
+  <div class="cta-band-inner">
+    <h2>Ready to run <em>your</em> numbers?</h2>
+    <p>Free to use. No account required. Results in under a minute. Your inner wonk will thank you.</p>
+    <div class="cta-buttons">
+      <a href="/true-cost-of-an-employee-calculator/" class="btn btn-teal">True Cost of an Employee →</a>
+      <a href="#tools" class="btn btn-orange">See All Tools →</a>
+    </div>
+  </div>
 </section>
  
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Calc<span>Wonk</span></div>
+  <div class="footer-logo">
+    🧮 Calc<span>Wonk</span>
+  </div>
   <div class="footer-links">
     <a href="#tools">Tools</a>
     <a href="#why">About</a>
-    <a href="/cdn-cgi/l/email-protection#b9d1dcd5d5d6f9dad8d5daced6d7d297dad6d4">Contact</a>
+    <a href="mailto:hello@calcwonk.com">Contact</a>
   </div>
   <div class="footer-disclaimer">
-    CalcWonk tools are for informational purposes only and do not constitute financial, legal, or tax advice. Consult a qualified professional for decisions specific to your situation.
+    CalcWonk tools are for informational purposes only and do not constitute financial, legal, or tax advice. Always consult a qualified professional for decisions specific to your situation. · © 2025 CalcWonk
   </div>
 </footer>
  
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Scroll-triggered fade-ins
+<script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        observer.unobserve(entry.target)
-
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+ 
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+ 
+</body>
+</html>
