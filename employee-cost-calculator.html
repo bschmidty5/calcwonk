@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>True Cost of an Employee Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1f1f1f;
+    --border: #2a2a2a;
+    --gold: #c9a84c;
+    --gold-dim: #8a6f2e;
+    --gold-glow: rgba(201,168,76,0.12);
+    --text: #e8e4dc;
+    --muted: #6b6b6b;
+    --green: #4caf82;
+    --red: #cf6679;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(201,168,76,0.05) 0%, transparent 100%);
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  h1 span { color: var(--gold); font-style: italic; }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.3s;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .container { grid-template-columns: 1fr; }
+  }
+
+  /* PANELS */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .panel:nth-child(1) { animation-delay: 0.4s; }
+  .panel:nth-child(2) { animation-delay: 0.5s; }
+
+  .panel-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--surface2);
+  }
+
+  .panel-icon {
+    width: 28px; height: 28px;
+    background: var(--gold-glow);
+    border: 1px solid var(--gold-dim);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+  }
+
+  .panel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .panel-body { padding: 1.5rem; }
+
+  /* FORM GROUPS */
+  .field-group {
+    margin-bottom: 1.4rem;
+  }
+
+  .field-group:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 0.78rem;
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.45rem;
+  }
+
+  .input-wrap {
+    position: relative;
+  }
+
+  .input-prefix {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+
+  .input-suffix {
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    pointer-events: none;
+  }
+
+  input[type="number"], select {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 0.65rem 2.5rem 0.65rem 2rem;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+  }
+
+  input[type="number"]:focus, select:focus {
+    outline: none;
+    border-color: var(--gold-dim);
+    box-shadow: 0 0 0 3px var(--gold-glow);
+  }
+
+  select { padding-left: 0.85rem; cursor: pointer; }
+
+  .field-hint {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    line-height: 1.4;
+  }
+
+  /* SECTION DIVIDER */
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold-dim);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .section-label:first-child { margin-top: 0; }
+
+  /* RESULTS */
+  .results-panel {
+    grid-column: 1 / -1;
+    animation-delay: 0.6s;
+  }
+
+  @media (max-width: 768px) {
+    .results-panel { grid-column: 1; }
+  }
+
+  /* BIG NUMBER */
+  .total-display {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background: linear-gradient(135deg, var(--surface2) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .total-display::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .total-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .total-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    transition: all 0.3s ease;
+  }
+
+  .total-multiplier {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .total-multiplier strong { color: var(--red); }
+
+  /* BREAKDOWN GRID */
+  .breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+  }
+
+  .breakdown-item {
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .breakdown-item:hover { background: var(--surface2); }
+
+  .breakdown-item:last-child { border-right: none; }
+
+  .breakdown-category {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .breakdown-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .breakdown-pct {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* BAR CHART */
+  .bar-section {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .bar-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .bar-label {
+    font-size: 0.78rem;
+    color: var(--text);
+    width: 160px;
+    flex-shrink: 0;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .bar-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text);
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* AFFILIATE CTA */
+  .cta-section {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border);
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-text strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .cta-text span {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 0.55rem 1.2rem;
+    border-radius: 7px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: #000;
+  }
+  .btn-gold:hover { background: #d4b05a; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+  /* INSIGHT BOX */
+  .insight {
+    margin: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--gold-glow);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    font-size: 0.83rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .insight strong { color: var(--gold); }
+
+  /* TOGGLE */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+  }
+
+  .toggle-label {
+    font-size: 0.78rem;
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .toggle {
+    position: relative;
+    width: 40px; height: 22px;
+    cursor: pointer;
+  }
+
+  .toggle input { opacity: 0; width: 0; height: 0; }
+
+  .toggle-track {
+    position: absolute;
+    inset: 0;
+    background: var(--border);
+    border-radius: 11px;
+    transition: background 0.2s;
+  }
+
+  .toggle input:checked + .toggle-track { background: var(--gold-dim); }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 16px; height: 16px;
+    background: var(--muted);
+    border-radius: 50%;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .toggle input:checked ~ .toggle-thumb {
+    transform: translateX(18px);
+    background: var(--gold);
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Small Business Finance Tools</div>
+  <h1>The <span>True Cost</span> of an Employee</h1>
+  <p class="subtitle">Salary is just the beginning. Calculate the real all-in cost of hiring — including taxes, benefits, and overhead — before you make the offer.</p>
+</header>
+
+<div class="container">
+
+  <!-- INPUT PANEL 1: COMPENSATION -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-icon">💵</div>
+      <div class="panel-title">Compensation</div>
+    </div>
+    <div class="panel-body">
+      <div class="section-label">Base Pay</div>
+
+      <div class="field-group">
+        <label>Annual Salary</label>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="salary" value="65000" min="0" oninput="calculate()">
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Pay Type</label>
+        <select id="payType" onchange="calculate()">
+          <option value="salary">Salaried (exempt)</option>
+          <option value="hourly">Hourly (non-exempt)</option>
+        </select>
+      </div>
+
+      <div class="section-label">Benefits</div>
+
+      <div class="toggle-row">
+        <span class="toggle-label">Health Insurance</span>
+        <label class="toggle">
+          <input type="checkbox" id="healthToggle" checked onchange="calculate()">
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+
+      <div class="field-group" id="healthField">
+        <label>Employer Monthly Premium</label>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="health" value="500" min="0" oninput="calculate()">
+          <span class="input-suffix">/mo</span>
+        </div>
+        <div class="field-hint">Average employer contribution is $500–$700/mo for single coverage</div>
+      </div>
+
+      <div class="toggle-row">
+        <span class="toggle-label">401(k) Match</span>
+        <label class="toggle">
+          <input type="checkbox" id="retireToggle" checked onchange="calculate()">
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+
+      <div class="field-group" id="retireField">
+        <label>Employer Match %</label>
+        <div class="input-wrap">
+          <input type="number" id="retireMatch" value="3" min="0" max="100" style="padding-left:0.85rem" oninput="calculate()">
+          <span class="input-suffix">%</span>
+        </div>
+        <div class="field-hint">Matched on employee contributions up to this % of salary</div>
+      </div>
+
+      <div class="toggle-row">
+        <span class="toggle-label">Paid Time Off</span>
+        <label class="toggle">
+          <input type="checkbox" id="ptoToggle" checked onchange="calculate()">
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+
+      <div class="field-group" id="ptoField">
+        <label>PTO Days Per Year</label>
+        <div class="input-wrap">
+          <input type="number" id="ptoDays" value="15" min="0" max="365" style="padding-left:0.85rem" oninput="calculate()">
+          <span class="input-suffix">days</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INPUT PANEL 2: TAXES & OVERHEAD -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-icon">🏛</div>
+      <div class="panel-title">Taxes & Overhead</div>
+    </div>
+    <div class="panel-body">
+      <div class="section-label">Employer Payroll Taxes</div>
+
+      <div class="field-group">
+        <label>Social Security (employer share)</label>
+        <div class="input-wrap">
+          <input type="number" id="ss" value="6.2" min="0" max="20" style="padding-left:0.85rem" oninput="calculate()">
+          <span class="input-suffix">%</span>
+        </div>
+        <div class="field-hint">Fixed at 6.2% on first $168,600 of wages (2024)</div>
+      </div>
+
+      <div class="field-group">
+        <label>Medicare (employer share)</label>
+        <div class="input-wrap">
+          <input type="number" id="medicare" value="1.45" min="0" max="10" style="padding-left:0.85rem" oninput="calculate()">
+          <span class="input-suffix">%</span>
+        </div>
+        <div class="field-hint">Fixed at 1.45% on all wages</div>
+      </div>
+
+      <div class="field-group">
+        <label>FUTA (Federal Unemployment)</label>
+        <div class="input-wrap">
+          <input type="number" id="futa" value="420" min="0" oninput="calculate()">
+          <span class="input-suffix">$/yr</span>
+        </div>
+        <div class="field-hint">Typically $420/year (6% on first $7,000)</div>
+      </div>
+
+      <div class="field-group">
+        <label>State Unemployment (SUTA)</label>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="suta" value="350" min="0" oninput="calculate()">
+          <span class="input-suffix">/yr</span>
+        </div>
+        <div class="field-hint">Varies by state; $200–$600 is typical for new employers</div>
+      </div>
+
+      <div class="section-label">Overhead & Other</div>
+
+      <div class="field-group">
+        <label>Workers' Compensation</label>
+        <div class="input-wrap">
+          <input type="number" id="workcomp" value="1.5" min="0" max="20" style="padding-left:0.85rem" oninput="calculate()">
+          <span class="input-suffix">% of salary</span>
+        </div>
+        <div class="field-hint">Varies widely by industry; office workers ~1%, trades ~5–10%</div>
+      </div>
+
+      <div class="field-group">
+        <label>Equipment & Software</label>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="equipment" value="2000" min="0" oninput="calculate()">
+          <span class="input-suffix">/yr</span>
+        </div>
+        <div class="field-hint">Laptop, software licenses, tools, phone allowance</div>
+      </div>
+
+      <div class="field-group">
+        <label>Office Space / Remote Stipend</label>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="office" value="3600" min="0" oninput="calculate()">
+          <span class="input-suffix">/yr</span>
+        </div>
+        <div class="field-hint">Per-employee office cost or remote work stipend</div>
+      </div>
+
+      <div class="field-group">
+        <label>Recruiting / Onboarding Cost</label>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="recruiting" value="4000" min="0" oninput="calculate()">
+          <span class="input-suffix">one-time</span>
+        </div>
+        <div class="field-hint">Job ads, interviews, background checks, training time</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RESULTS PANEL -->
+  <div class="panel results-panel">
+    <div class="total-display">
+      <div class="total-label">True Annual Cost of This Employee</div>
+      <div class="total-amount" id="totalAmount">$0</div>
+      <div class="total-multiplier">That's <strong id="multiplier">0%</strong> more than the base salary</div>
+    </div>
+
+    <div class="breakdown-grid" id="breakdownGrid"></div>
+
+    <div class="insight" id="insightBox"></div>
+
+    <div class="bar-section">
+      <div class="bar-title">Cost Breakdown by Category</div>
+      <div id="barChart"></div>
+    </div>
+
+    <div class="cta-section">
+      <div class="cta-text">
+        <strong>Ready to hire? Compare payroll software.</strong>
+        <span>The right payroll tool saves hours every month and keeps you compliant.</span>
+      </div>
+      <div class="cta-buttons">
+        <a href="#" class="btn btn-gold">Compare Gusto vs. Rippling →</a>
+        <a href="#" class="btn btn-outline">See all payroll tools</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Built with Claude · For informational purposes only · Consult a CPA or HR professional for advice specific to your situation
+</footer>
+
+<script>
+const fmt = n => '$' + Math.round(n).toLocaleString();
+const fmtK = n => n >= 1000 ? '$' + (n/1000).toFixed(1) + 'k' : fmt(n);
+
+const COLORS = [
+  '#c9a84c', '#8a6f2e', '#4caf82', '#cf6679', '#5b8db8', '#a67c52', '#7c6fa0'
+];
+
+function calculate() {
+  const salary      = parseFloat(document.getElementById('salary').value) || 0;
+  const ss          = parseFloat(document.getElementById('ss').value) || 0;
+  const medicare    = parseFloat(document.getElementById('medicare').value) || 0;
+  const futa        = parseFloat(document.getElementById('futa').value) || 0;
+  const suta        = parseFloat(document.getElementById('suta').value) || 0;
+  const workcomp    = parseFloat(document.getElementById('workcomp').value) || 0;
+  const equipment   = parseFloat(document.getElementById('equipment').value) || 0;
+  const office      = parseFloat(document.getElementById('office').value) || 0;
+  const recruiting  = parseFloat(document.getElementById('recruiting').value) || 0;
+
+  const healthOn  = document.getElementById('healthToggle').checked;
+  const retireOn  = document.getElementById('retireToggle').checked;
+  const ptoOn     = document.getElementById('ptoToggle').checked;
+
+  const healthMonthly = healthOn ? (parseFloat(document.getElementById('health').value) || 0) : 0;
+  const retirePct     = retireOn ? (parseFloat(document.getElementById('retireMatch').value) || 0) : 0;
+  const ptoDays       = ptoOn    ? (parseFloat(document.getElementById('ptoDays').value) || 0) : 0;
+
+  // Toggle visibility
+  document.getElementById('healthField').style.display  = healthOn ? '' : 'none';
+  document.getElementById('retireField').style.display  = retireOn ? '' : 'none';
+  document.getElementById('ptoField').style.display     = ptoOn    ? '' : 'none';
+
+  // Calculations
+  const ssAmt       = salary * (ss / 100);
+  const medicareAmt = salary * (medicare / 100);
+  const workcompAmt = salary * (workcomp / 100);
+  const healthAmt   = healthMonthly * 12;
+  const retireAmt   = salary * (retirePct / 100);
+  const dailyRate   = salary / 260;
+  const ptoAmt      = dailyRate * ptoDays; // cost of paid days not worked
+  const taxTotal    = ssAmt + medicareAmt + futa + suta;
+  const benefitsTotal = healthAmt + retireAmt + ptoAmt;
+  const overheadTotal = workcompAmt + equipment + office + recruiting;
+
+  const grandTotal = salary + taxTotal + benefitsTotal + overheadTotal;
+  const multiplier = salary > 0 ? ((grandTotal - salary) / salary * 100) : 0;
+
+  // Update totals
+  animateNumber('totalAmount', grandTotal);
+  document.getElementById('multiplier').textContent = Math.round(multiplier) + '% more';
+
+  // Breakdown cards
+  const items = [
+    { label: 'Base Salary',   amount: salary,        color: COLORS[0] },
+    { label: 'Payroll Taxes', amount: taxTotal,       color: COLORS[1] },
+    { label: 'Benefits',      amount: benefitsTotal,  color: COLORS[2] },
+    { label: 'Overhead',      amount: overheadTotal,  color: COLORS[3] },
+  ];
+
+  document.getElementById('breakdownGrid').innerHTML = items.map(i => `
+    <div class="breakdown-item">
+      <div class="breakdown-category">${i.label}</div>
+      <div class="breakdown-amount" style="color:${i.color}">${fmtK(i.amount)}</div>
+      <div class="breakdown-pct">${grandTotal > 0 ? Math.round(i.amount/grandTotal*100) : 0}% of total</div>
+    </div>
+  `).join('');
+
+  // Bar chart (detailed)
+  const bars = [
+    { label: 'Base Salary',          amount: salary,     color: COLORS[0] },
+    { label: 'Social Security',       amount: ssAmt,      color: COLORS[1] },
+    { label: 'Medicare',              amount: medicareAmt,color: COLORS[1] },
+    { label: 'Unemployment (FUTA/SUTA)', amount: futa+suta, color: COLORS[1] },
+    { label: 'Health Insurance',      amount: healthAmt,  color: COLORS[2] },
+    { label: '401(k) Match',          amount: retireAmt,  color: COLORS[2] },
+    { label: 'PTO Cost',              amount: ptoAmt,     color: COLORS[2] },
+    { label: "Workers' Comp",         amount: workcompAmt,color: COLORS[3] },
+    { label: 'Equipment & Software',  amount: equipment,  color: COLORS[4] },
+    { label: 'Office / Remote',       amount: office,     color: COLORS[5] },
+    { label: 'Recruiting & Onboard',  amount: recruiting, color: COLORS[6] },
+  ].filter(b => b.amount > 0);
+
+  const maxAmt = Math.max(...bars.map(b => b.amount));
+
+  document.getElementById('barChart').innerHTML = bars.map(b => `
+    <div class="bar-row">
+      <div class="bar-label">${b.label}</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${maxAmt>0?(b.amount/maxAmt*100):0}%;background:${b.color}"></div>
+      </div>
+      <div class="bar-value">${fmtK(b.amount)}</div>
+    </div>
+  `).join('');
+
+  // Insight
+  const hourlyEq = grandTotal / 2080;
+  const monthlyEq = grandTotal / 12;
+  document.getElementById('insightBox').innerHTML = `
+    <strong>💡 What this means:</strong> This employee's all-in cost is
+    <strong>${fmt(grandTotal)}/year</strong> — roughly
+    <strong>${fmt(monthlyEq)}/month</strong> or
+    <strong>$${hourlyEq.toFixed(2)}/hour</strong> of actual work time.
+    To break even, this employee needs to generate at least
+    <strong>${fmt(grandTotal * 1.2)}/year</strong> in value
+    (assuming a 20% productivity margin).
+  `;
+}
+
+let animFrame;
+function animateNumber(id, target) {
+  const el = document.getElementById(id);
+  const start = parseFloat(el.dataset.current || 0);
+  el.dataset.current = target;
+  const duration = 400;
+  const startTime = performance.now();
+  cancelAnimationFrame(animFrame);
+  function update(now) {
+    const t = Math.min((now - startTime) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    const val = start + (target - start) * ease;
+    el.textContent = fmt(val);
+    if (t < 1) animFrame = requestAnimationFrame(update);
+  }
+  animFrame = requestAnimationFrame(update);
+}
+
+// Init
+calculate();
+</script>
+</body>
+</html>

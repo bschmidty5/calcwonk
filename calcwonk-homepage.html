@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalcWonk — Real Numbers for Real Decisions</title>
+<meta name="description" content="Financial calculators built for business owners and individuals who want the full picture — not the ballpark.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1f1f1f;
+    --border: #2a2a2a;
+    --gold: #c9a84c;
+    --gold-dim: #8a6f2e;
+    --gold-glow: rgba(201,168,76,0.10);
+    --text: #e8e4dc;
+    --muted: #6b6b6b;
+    --muted2: #444;
+    --green: #4caf82;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--gold); font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 6rem 2rem 5rem;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.1s;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.65;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.3s;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+
+  .btn {
+    padding: 0.7rem 1.5rem;
+    border-radius: 7px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-gold { background: var(--gold); color: #000; }
+  .btn-gold:hover { background: #d4b05a; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,168,76,0.25); }
+
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+  /* STATS BAR */
+  .stats-bar {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.5s;
+  }
+
+  .stat {
+    padding: 1.5rem 3rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* TOOLS SECTION */
+  .tools-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-top: 0.75rem;
+    font-weight: 300;
+  }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .tool-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .tool-card:hover {
+    border-color: var(--gold-dim);
+    background: var(--surface2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .tool-card:hover::before { opacity: 1; }
+
+  .tool-card.coming-soon {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .tool-icon {
+    width: 40px; height: 40px;
+    background: var(--gold-glow);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .tool-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .tool-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    background: var(--gold-glow);
+    color: var(--gold);
+    border: 1px solid var(--gold-dim);
+  }
+
+  .tool-badge.soon {
+    background: transparent;
+    color: var(--muted);
+    border-color: var(--muted2);
+  }
+
+  .tool-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .tool-desc {
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.55;
+    font-weight: 300;
+    flex: 1;
+  }
+
+  .tool-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+  }
+
+  .tool-link::after { content: '→'; transition: transform 0.15s; }
+  .tool-card:hover .tool-link::after { transform: translateX(4px); }
+
+  /* WHY SECTION */
+  .why-section {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    padding: 5rem 2rem;
+  }
+
+  .why-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .why-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .stat { padding: 1.25rem 1.5rem; }
+    .stats-bar { flex-wrap: wrap; }
+  }
+
+  .why-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+  }
+
+  .why-text h2 em { font-style: italic; color: var(--gold); }
+
+  .why-text p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .why-points {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .why-point {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .why-point-icon {
+    width: 32px; height: 32px;
+    background: var(--gold-glow);
+    border: 1px solid var(--gold-dim);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .why-point-text strong {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .why-point-text span {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* NEWSLETTER / CTA BAND */
+  .cta-band {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 4rem 2rem;
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(201,168,76,0.04));
+  }
+
+  .cta-band h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-band p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+    font-weight: 300;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--text);
+  }
+
+  .footer-logo span { color: var(--gold); font-style: italic; }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-disclaimer {
+    font-size: 0.72rem;
+    color: var(--muted2);
+    font-family: 'IBM Plex Mono', monospace;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">Calc<span>Wonk</span></a>
+  <div class="nav-links">
+    <a href="#tools">Tools</a>
+    <a href="#why">About</a>
+    <a href="#tools" class="btn btn-gold" style="padding:0.4rem 1rem;font-size:0.78rem;">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Small Business & Personal Finance Tools</div>
+  <h1>Real Numbers for<br><em>Real Decisions</em></h1>
+  <p class="hero-sub">Financial calculators built for business owners and individuals who want the full picture — not the ballpark. Know your numbers before you commit.</p>
+  <div class="hero-cta">
+    <a href="#tools" class="btn btn-gold">Explore the Tools</a>
+    <a href="/true-cost-of-an-employee-calculator" class="btn btn-outline">True Cost of an Employee →</a>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">25–40%</div>
+    <div class="stat-label">More than salary — true employee cost</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3x</div>
+    <div class="stat-label">Revenue an employee should generate</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">$0</div>
+    <div class="stat-label">Cost to use any CalcWonk tool</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Browser-based — no signup required</div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="section-header fade-in">
+    <div class="section-eyebrow">The Toolkit</div>
+    <h2 class="section-title">Stop Guessing. Start Calculating.</h2>
+    <p class="section-sub">Each tool is built around a real financial decision — with the depth to actually be useful.</p>
+  </div>
+
+  <div class="tools-grid">
+
+    <a href="/true-cost-of-an-employee-calculator" class="tool-card fade-in">
+      <div class="tool-meta">
+        <div class="tool-icon">💵</div>
+        <span class="tool-badge">Live</span>
+      </div>
+      <div class="tool-name">True Cost of an Employee</div>
+      <div class="tool-desc">Salary is just the beginning. Calculate the real all-in cost of hiring — taxes, benefits, overhead, and more — before you make the offer.</div>
+      <div class="tool-link">Calculate now</div>
+    </a>
+
+    <div class="tool-card coming-soon fade-in">
+      <div class="tool-meta">
+        <div class="tool-icon">📋</div>
+        <span class="tool-badge soon">Coming Soon</span>
+      </div>
+      <div class="tool-name">Contractor vs. Employee Calculator</div>
+      <div class="tool-desc">Is it actually cheaper to hire a 1099 contractor? Compare the true cost of both arrangements side by side — including tax implications and risk.</div>
+      <div class="tool-link">Coming soon</div>
+    </div>
+
+    <div class="tool-card coming-soon fade-in">
+      <div class="tool-meta">
+        <div class="tool-icon">📉</div>
+        <span class="tool-badge soon">Coming Soon</span>
+      </div>
+      <div class="tool-name">Cost of Employee Turnover</div>
+      <div class="tool-desc">Losing an employee costs more than you think. Calculate the true cost of turnover — recruiting, training, lost productivity, and institutional knowledge.</div>
+      <div class="tool-link">Coming soon</div>
+    </div>
+
+    <div class="tool-card coming-soon fade-in">
+      <div class="tool-meta">
+        <div class="tool-icon">💰</div>
+        <span class="tool-badge soon">Coming Soon</span>
+      </div>
+      <div class="tool-name">Total Compensation Statement Builder</div>
+      <div class="tool-desc">Show employees what they're really earning — salary plus benefits, retirement, PTO, and perks — with a shareable total compensation breakdown.</div>
+      <div class="tool-link">Coming soon</div>
+    </div>
+
+    <div class="tool-card coming-soon fade-in">
+      <div class="tool-meta">
+        <div class="tool-icon">📊</div>
+        <span class="tool-badge soon">Coming Soon</span>
+      </div>
+      <div class="tool-name">Small Business Break-Even Calculator</div>
+      <div class="tool-desc">How much do you need to sell to cover your costs? Find your break-even point by product, service, or business unit — in units and in dollars.</div>
+      <div class="tool-link">Coming soon</div>
+    </div>
+
+    <div class="tool-card coming-soon fade-in">
+      <div class="tool-meta">
+        <div class="tool-icon">🏦</div>
+        <span class="tool-badge soon">Coming Soon</span>
+      </div>
+      <div class="tool-name">Business Loan True Cost Calculator</div>
+      <div class="tool-desc">APR doesn't tell the whole story. Calculate the real cost of a business loan — total interest, effective rate, and monthly cash flow impact.</div>
+      <div class="tool-link">Coming soon</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY SECTION -->
+<section class="why-section" id="why">
+  <div class="why-inner">
+    <div class="why-text fade-in">
+      <h2>Built for people who need to <em>actually decide</em></h2>
+      <p>Most financial calculators give you a number and leave you to figure out what it means. CalcWonk tools are built differently — every result comes with context, benchmarks, and a clear answer to the question you're actually trying to answer.</p>
+      <p>No signup. No upsells. No ads obscuring the result. Just the numbers you need, explained clearly.</p>
+    </div>
+    <div class="why-points fade-in">
+      <div class="why-point">
+        <div class="why-point-icon">🎯</div>
+        <div class="why-point-text">
+          <strong>Decision-focused</strong>
+          <span>Every tool is built around a specific financial decision — not a generic formula.</span>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">⚡</div>
+        <div class="why-point-text">
+          <strong>Instant results</strong>
+          <span>Numbers update in real time as you type. No forms, no waiting, no email required.</span>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">🔒</div>
+        <div class="why-point-text">
+          <strong>Private by design</strong>
+          <span>Everything runs in your browser. Your numbers stay on your device — never uploaded.</span>
+        </div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">📖</div>
+        <div class="why-point-text">
+          <strong>Explained, not just calculated</strong>
+          <span>Every result includes context — what the number means and what to do with it.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band fade-in">
+  <h2>Start with the tool you need right now</h2>
+  <p>Free to use. No account required. Results in under a minute.</p>
+  <a href="/true-cost-of-an-employee-calculator" class="btn btn-gold">True Cost of an Employee →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Calc<span>Wonk</span></div>
+  <div class="footer-links">
+    <a href="#tools">Tools</a>
+    <a href="#why">About</a>
+    <a href="mailto:hello@calcwonk.com">Contact</a>
+  </div>
+  <div class="footer-disclaimer">
+    CalcWonk tools are for informational purposes only and do not constitute financial, legal, or tax advice. Consult a qualified professional for decisions specific to your situation.
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered fade-ins
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
