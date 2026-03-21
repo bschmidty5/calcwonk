@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profit Margin Calculator — Gross, Operating & Net Margin | CalcWonk</title>
+  <meta name="description" content="Calculate your gross, operating, and net profit margins instantly. Understand what each margin means, how yours compares to industry benchmarks, and what to do about it." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #ccfbf1;
+      --teal-xlight: #f0fdfa;
+      --orange: #f97316;
+      --orange-light: #fff7ed;
+      --orange-border: #fed7aa;
+      --navy: #1e293b;
+      --gray: #64748b;
+      --gray-light: #f8fafc;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --green: #16a34a;
+      --green-light: #dcfce7;
+      --green-border: #bbf7d0;
+      --red: #dc2626;
+      --red-light: #fee2e2;
+      --amber: #d97706;
+      --amber-light: #fef3c7;
+    }
+ 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+ 
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+ 
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      text-decoration: none;
+    }
+ 
+    .nav-logo span { color: var(--teal); }
+ 
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+ 
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+ 
+    .nav-links a:hover { color: var(--teal); }
+ 
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--white) 60%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+ 
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+ 
+    .breadcrumb a { color: var(--teal); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+ 
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+ 
+    .page-hero p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+ 
+    /* ── LAYOUT ── */
+    .page-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+ 
+    /* ── CALC CARD ── */
+    .calc-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+ 
+    .calc-header {
+      background: var(--teal);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+ 
+    .calc-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--white);
+    }
+ 
+    .calc-body { padding: 2rem 1.75rem; }
+ 
+    /* ── MODE TOGGLE ── */
+    .mode-toggle {
+      display: flex;
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.25rem;
+      margin-bottom: 1.75rem;
+      gap: 0.25rem;
+    }
+ 
+    .mode-btn {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border: none;
+      background: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s;
+      text-align: center;
+    }
+ 
+    .mode-btn.active {
+      background: var(--white);
+      color: var(--teal-dark);
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+ 
+    /* ── INPUT SECTIONS ── */
+    .input-section { margin-bottom: 1.75rem; }
+ 
+    .input-panel { display: none; }
+    .input-panel.active { display: block; }
+ 
+    .input-section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--teal-light);
+    }
+ 
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+ 
+    @media (max-width: 580px) { .input-grid { grid-template-columns: 1fr; } }
+ 
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+ 
+    .input-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--navy);
+    }
+ 
+    .hint { font-size: 0.75rem; color: var(--gray); }
+ 
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+ 
+    .input-prefix, .input-suffix {
+      position: absolute;
+      font-size: 0.9rem;
+      color: var(--gray);
+      font-weight: 500;
+      pointer-events: none;
+    }
+ 
+    .input-prefix { left: 0.75rem; }
+    .input-suffix { right: 0.75rem; }
+ 
+    .input-wrapper input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -moz-appearance: textfield;
+    }
+ 
+    .input-wrapper input::-webkit-outer-spin-button,
+    .input-wrapper input::-webkit-inner-spin-button { -webkit-appearance: none; }
+ 
+    .input-wrapper input:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+    }
+ 
+    .has-prefix input { padding-left: 1.75rem; }
+    .has-suffix input { padding-right: 2.5rem; }
+ 
+    /* ── MARGIN CARDS ── */
+    .margin-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+ 
+    @media (max-width: 580px) { .margin-cards { grid-template-columns: 1fr; } }
+ 
+    .margin-card {
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+ 
+    .margin-card.gross { background: #f0fdfa; border-color: var(--teal-light); }
+    .margin-card.operating { background: #fff7ed; border-color: #fed7aa; }
+    .margin-card.net { background: var(--navy); }
+ 
+    .margin-card-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.5rem;
+    }
+ 
+    .margin-card.gross .margin-card-label { color: var(--teal-dark); }
+    .margin-card.operating .margin-card-label { color: #92400e; }
+    .margin-card.net .margin-card-label { color: #94a3b8; }
+ 
+    .margin-card-pct {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+ 
+    .margin-card.gross .margin-card-pct { color: var(--teal-dark); }
+    .margin-card.operating .margin-card-pct { color: var(--orange); }
+    .margin-card.net .margin-card-pct { color: var(--white); }
+ 
+    .margin-card-amount {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+ 
+    .margin-card.gross .margin-card-amount { color: var(--teal); }
+    .margin-card.operating .margin-card-amount { color: var(--orange); }
+    .margin-card.net .margin-card-amount { color: var(--teal-light); }
+ 
+    .margin-card-sub {
+      font-size: 0.72rem;
+      margin-top: 0.2rem;
+    }
+ 
+    .margin-card.gross .margin-card-sub { color: var(--gray); }
+    .margin-card.operating .margin-card-sub { color: #92400e; }
+    .margin-card.net .margin-card-sub { color: #64748b; }
+ 
+    /* ── HEALTH BADGE ── */
+    .health-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+ 
+    .health-strong { background: var(--green-light); color: var(--green); }
+    .health-ok { background: var(--amber-light); color: var(--amber); }
+    .health-weak { background: var(--red-light); color: var(--red); }
+ 
+    /* ── WATERFALL CHART ── */
+    .chart-container {
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+ 
+    .chart-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+ 
+    /* ── BENCHMARK SECTION ── */
+    .benchmark-section {
+      background: var(--orange-light);
+      border: 1px solid var(--orange-border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+ 
+    .benchmark-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #7c2d12;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+    }
+ 
+    .benchmark-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+ 
+    @media (max-width: 580px) { .benchmark-grid { grid-template-columns: 1fr 1fr; } }
+ 
+    .benchmark-box {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid var(--orange-border);
+    }
+ 
+    .benchmark-industry {
+      font-size: 0.72rem;
+      color: var(--gray);
+      margin-bottom: 0.3rem;
+    }
+ 
+    .benchmark-range {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--orange);
+      font-weight: 700;
+    }
+ 
+    .benchmark-type { font-size: 0.68rem; color: var(--gray); margin-top: 0.15rem; }
+ 
+    /* ── INSIGHT ── */
+    .insight-box {
+      background: var(--teal-xlight);
+      border: 1px solid var(--teal-light);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+ 
+    .insight-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 0.1rem; }
+ 
+    .insight-text {
+      font-size: 0.875rem;
+      color: #134e4a;
+      line-height: 1.6;
+    }
+ 
+    .insight-text strong { color: var(--teal-dark); }
+ 
+    /* ── SUMMARY TABLE ── */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+ 
+    .summary-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      padding: 0.5rem 0.75rem;
+      border-bottom: 2px solid var(--border);
+    }
+ 
+    .summary-table th:not(:first-child) { text-align: right; }
+ 
+    .summary-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--navy);
+    }
+ 
+    .summary-table td:not(:first-child) { text-align: right; font-weight: 500; }
+ 
+    .summary-table tr.section-header td {
+      background: var(--gray-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      padding: 0.4rem 0.75rem;
+    }
+ 
+    .summary-table tr.highlight-row td {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+ 
+    .summary-table tr.gross-row td { background: var(--teal-xlight); color: var(--teal-dark); }
+    .summary-table tr.operating-row td { background: #fff7ed; color: #92400e; }
+    .summary-table tr.net-row td { background: var(--navy); color: var(--white); }
+ 
+    /* ── RELATED TOOLS ── */
+    .related-tools {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+ 
+    @media (max-width: 540px) { .related-tools { grid-template-columns: 1fr; } }
+ 
+    .related-tool {
+      background: var(--teal-xlight);
+      border: 1.5px solid var(--teal-light);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: box-shadow 0.2s;
+    }
+ 
+    .related-tool:hover { box-shadow: 0 4px 12px rgba(13,148,136,0.12); }
+ 
+    .related-tool-text h4 {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--navy);
+      margin-bottom: 0.15rem;
+    }
+ 
+    .related-tool-text p { font-size: 0.78rem; color: var(--gray); margin: 0; }
+    .related-tool-arrow { font-size: 1rem; color: var(--teal); flex-shrink: 0; }
+ 
+    /* ── AFFILIATE ── */
+    .affiliate-section {
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+ 
+    .affiliate-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+ 
+    .affiliate-section > p {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+ 
+    .affiliate-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+ 
+    @media (max-width: 540px) { .affiliate-cards { grid-template-columns: 1fr; } }
+ 
+    .affiliate-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+ 
+    .affiliate-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 4px 12px rgba(13,148,136,0.1);
+    }
+ 
+    .affiliate-card-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); }
+    .affiliate-card-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.4; flex: 1; }
+ 
+    .affiliate-card-cta {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      margin-top: 0.25rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+ 
+    .affiliate-card:hover .affiliate-card-cta { background: var(--teal-dark); }
+ 
+    .affiliate-disclosure {
+      font-size: 0.75rem;
+      color: var(--gray);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+ 
+    .affiliate-disclosure a { color: var(--teal); text-decoration: none; }
+    .affiliate-disclosure a:hover { text-decoration: underline; }
+ 
+    /* ── CONTENT ── */
+    .content-section { margin-bottom: 2.5rem; }
+ 
+    .content-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--teal-light);
+    }
+ 
+    .content-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin: 1.25rem 0 0.5rem;
+    }
+ 
+    .content-section p {
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.75;
+      margin-bottom: 0.75rem;
+    }
+ 
+    /* ── FAQ ── */
+    .faq-list {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+ 
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+ 
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 1rem 1.25rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: background 0.15s;
+    }
+ 
+    .faq-question:hover { background: var(--gray-light); }
+    .faq-question.open { background: var(--teal-xlight); color: var(--teal-dark); }
+ 
+    .faq-chevron { font-size: 0.75rem; transition: transform 0.2s; color: var(--gray); flex-shrink: 0; }
+    .faq-question.open .faq-chevron { transform: rotate(180deg); color: var(--teal); }
+ 
+    .faq-answer {
+      display: none;
+      padding: 0 1.25rem 1rem;
+      font-size: 0.875rem;
+      color: #334155;
+      line-height: 1.7;
+      background: var(--teal-xlight);
+    }
+ 
+    .faq-answer.open { display: block; }
+ 
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: #94a3b8;
+      padding: 2.5rem 2rem;
+    }
+ 
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+ 
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+ 
+    .footer-logo span { color: var(--teal-light); }
+ 
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+ 
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+ 
+    .footer-links a:hover { color: var(--teal-light); }
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 600px; line-height: 1.5; }
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Tools</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
+  </ul>
+</nav>
+ 
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="breadcrumb">
+    <a href="/">CalcWonk</a> › Small Business › Profit Margin Calculator
+  </div>
+  <h1>Profit Margin Calculator</h1>
+  <p>Calculate your gross, operating, and net profit margins — and see how your numbers stack up against industry benchmarks. Know where your money is going before your accountant tells you.</p>
+</div>
+ 
+<!-- MAIN -->
+<div class="page-container">
+ 
+  <!-- CALCULATOR -->
+  <div class="calc-card">
+    <div class="calc-header">
+      <span>💰</span>
+      <h2>Enter Your Numbers</h2>
+    </div>
+    <div class="calc-body">
+ 
+      <!-- MODE TOGGLE -->
+      <div class="mode-toggle">
+        <button class="mode-btn active" onclick="setMode('detailed', this)">Detailed (Income Statement)</button>
+        <button class="mode-btn" onclick="setMode('simple', this)">Simple (Revenue & Costs)</button>
+      </div>
+ 
+      <!-- DETAILED MODE -->
+      <div id="panel-detailed" class="input-panel active">
+        <div class="input-section">
+          <div class="input-section-title">Revenue</div>
+          <div class="input-grid">
+            <div class="input-group">
+              <label for="revenue">Total Revenue</label>
+              <span class="hint">Gross sales before any deductions</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="revenue" value="500000" min="0" step="1000" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="returns">Returns & Discounts</label>
+              <span class="hint">Refunds, allowances, discounts given</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="returns" value="10000" min="0" step="500" />
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="input-section">
+          <div class="input-section-title">Cost of Goods Sold (COGS)</div>
+          <div class="input-grid">
+            <div class="input-group">
+              <label for="cogs">Cost of Goods Sold</label>
+              <span class="hint">Direct costs to produce goods/services</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="cogs" value="200000" min="0" step="1000" />
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="input-section">
+          <div class="input-section-title">Operating Expenses</div>
+          <div class="input-grid">
+            <div class="input-group">
+              <label for="salariesOp">Salaries & Wages</label>
+              <span class="hint">Staff not included in COGS</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="salariesOp" value="100000" min="0" step="1000" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="rentOp">Rent & Utilities</label>
+              <span class="hint">Office, warehouse, utilities</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="rentOp" value="24000" min="0" step="500" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="marketingOp">Marketing & Sales</label>
+              <span class="hint">Advertising, promotions, sales team</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="marketingOp" value="20000" min="0" step="500" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="depreciation">Depreciation & Amortization</label>
+              <span class="hint">Asset depreciation for the period</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="depreciation" value="5000" min="0" step="500" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="otherOpEx">Other Operating Expenses</label>
+              <span class="hint">Software, insurance, professional fees</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="otherOpEx" value="15000" min="0" step="500" />
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="input-section">
+          <div class="input-section-title">Below the Line</div>
+          <div class="input-grid">
+            <div class="input-group">
+              <label for="interest">Interest Expense</label>
+              <span class="hint">Loan interest payments</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="interest" value="5000" min="0" step="500" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="taxes">Income Tax</label>
+              <span class="hint">Estimated tax for the period</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="taxes" value="20000" min="0" step="500" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- SIMPLE MODE -->
+      <div id="panel-simple" class="input-panel">
+        <div class="input-section">
+          <div class="input-section-title">Simple Inputs</div>
+          <div class="input-grid">
+            <div class="input-group">
+              <label for="simpleRevenue">Total Revenue</label>
+              <span class="hint">Total sales for the period</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="simpleRevenue" value="500000" min="0" step="1000" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="simpleCogs">Cost of Goods Sold</label>
+              <span class="hint">Direct costs to deliver your product/service</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="simpleCogs" value="200000" min="0" step="1000" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="simpleOpEx">Total Operating Expenses</label>
+              <span class="hint">All other business operating costs</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="simpleOpEx" value="164000" min="0" step="1000" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="simpleTaxInterest">Tax & Interest</label>
+              <span class="hint">Income tax plus loan interest</span>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="simpleTaxInterest" value="25000" min="0" step="500" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- PERIOD SELECTOR -->
+      <div class="input-section">
+        <div class="input-section-title">Reporting Period</div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label for="period">Period</label>
+            <div class="input-wrapper">
+              <select id="period" style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--navy);background:var(--white);">
+                <option value="annual">Annual</option>
+                <option value="quarterly" selected>Quarterly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="industry">Industry (for benchmarks)</label>
+            <div class="input-wrapper">
+              <select id="industry" style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--navy);background:var(--white);">
+                <option value="retail">Retail</option>
+                <option value="restaurant">Restaurant / Food Service</option>
+                <option value="saas" selected>Software / SaaS</option>
+                <option value="consulting">Consulting / Services</option>
+                <option value="manufacturing">Manufacturing</option>
+                <option value="healthcare">Healthcare</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- MARGIN CARDS -->
+      <div class="margin-cards">
+        <div class="margin-card gross">
+          <div class="margin-card-label">Gross Margin</div>
+          <div class="margin-card-pct" id="grossPct">0%</div>
+          <div class="margin-card-amount" id="grossAmt">$0</div>
+          <div class="margin-card-sub">Revenue minus COGS</div>
+          <div id="grossHealth"></div>
+        </div>
+        <div class="margin-card operating">
+          <div class="margin-card-label">Operating Margin</div>
+          <div class="margin-card-pct" id="operatingPct">0%</div>
+          <div class="margin-card-amount" id="operatingAmt">$0</div>
+          <div class="margin-card-sub">After operating expenses</div>
+          <div id="operatingHealth"></div>
+        </div>
+        <div class="margin-card net">
+          <div class="margin-card-label">Net Profit Margin</div>
+          <div class="margin-card-pct" id="netPct">0%</div>
+          <div class="margin-card-amount" id="netAmt">$0</div>
+          <div class="margin-card-sub">Bottom line</div>
+          <div id="netHealth"></div>
+        </div>
+      </div>
+ 
+      <!-- BENCHMARK SECTION -->
+      <div class="benchmark-section" id="benchmarkSection">
+        <div class="benchmark-title">📊 Industry Benchmarks — <span id="industryLabel">Software / SaaS</span> Net Margin</div>
+        <div class="benchmark-grid" id="benchmarkGrid"></div>
+      </div>
+ 
+      <!-- INSIGHT -->
+      <div class="insight-box">
+        <div class="insight-icon">💡</div>
+        <div class="insight-text" id="insightText">Enter your numbers above to see your personalized insight.</div>
+      </div>
+ 
+      <!-- SUMMARY TABLE -->
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Line Item</th>
+            <th>Amount</th>
+            <th>% of Revenue</th>
+          </tr>
+        </thead>
+        <tbody id="summaryBody"></tbody>
+      </table>
+ 
+    </div>
+  </div>
+ 
+  <!-- RELATED TOOLS -->
+  <div class="related-tools">
+    <a href="/break-even-calculator/" class="related-tool">
+      <div class="related-tool-text">
+        <h4>📊 Break-Even Calculator</h4>
+        <p>How many units do you need to sell before margins become profits?</p>
+      </div>
+      <div class="related-tool-arrow">→</div>
+    </a>
+    <a href="/true-cost-of-an-employee-calculator/" class="related-tool">
+      <div class="related-tool-text">
+        <h4>👤 True Cost of an Employee</h4>
+        <p>Your biggest operating expense — broken down completely.</p>
+      </div>
+      <div class="related-tool-arrow">→</div>
+    </a>
+  </div>
+ 
+  <!-- AFFILIATE -->
+  <div class="affiliate-section">
+    <h3>Track Your Margins Automatically With Accounting Software</h3>
+    <p>Running these numbers manually is a start. Accounting software that connects to your bank and invoicing does it automatically — every month, without the spreadsheet.</p>
+    <div class="affiliate-cards">
+      <a href="#" class="affiliate-card">
+        <div class="affiliate-card-name">QuickBooks</div>
+        <div class="affiliate-card-desc">Generates profit and loss statements automatically. See your gross, operating, and net margins updated in real time as transactions come in.</div>
+        <span class="affiliate-card-cta">Try QuickBooks →</span>
+      </a>
+      <a href="#" class="affiliate-card">
+        <div class="affiliate-card-name">FreshBooks</div>
+        <div class="affiliate-card-desc">Built for service businesses and freelancers. Clean P&L reports, expense tracking, and invoicing in one place — easier to use than QuickBooks for non-accountants.</div>
+        <span class="affiliate-card-cta">Try FreshBooks →</span>
+      </a>
+    </div>
+    <div class="affiliate-disclosure">
+      <span>ℹ️</span>
+      <span>CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal/">See our Affiliate Disclosure</a>.</span>
+    </div>
+  </div>
+ 
+  <!-- CONTENT -->
+  <div class="content-section">
+    <h2>Gross, Operating, and Net Margin — What Each One Tells You</h2>
+    <p>Profit margin isn't one number — it's three, each revealing something different about your business. Knowing all three tells you where your money is going and which levers actually move the needle.</p>
+ 
+    <h3>Gross Margin: Are Your Products Profitable?</h3>
+    <p>Gross margin measures how much revenue you keep after paying the direct costs of producing your goods or services. If your gross margin is 60%, you're keeping $0.60 of every dollar of revenue after covering production costs. The remaining $0.60 has to cover everything else — salaries, rent, marketing, taxes — and still leave something for profit.</p>
+    <p>Low gross margin is often the root cause of profitability problems that look like cost issues. A retail business with a 20% gross margin has a much harder road to net profitability than a software company with an 80% gross margin, regardless of how well they control operating expenses.</p>
+ 
+    <h3>Operating Margin: Is Your Business Model Working?</h3>
+    <p>Operating margin takes gross profit and subtracts all operating expenses — salaries, rent, marketing, depreciation, and everything else it takes to run the business. It's the best measure of how efficiently your core business model operates, before the effects of financing (interest) and taxes distort the picture.</p>
+    <p>Improving operating margin usually means either growing revenue faster than you grow expenses, or identifying operating costs that aren't generating proportionate value. A business with growing gross margin but shrinking operating margin is typically a business where overhead is growing faster than revenue.</p>
+ 
+    <h3>Net Margin: What You Actually Keep</h3>
+    <p>Net margin is the bottom line — what percentage of revenue survives after every cost, expense, interest payment, and tax obligation is settled. It's the number that determines whether a business is viable in the long run. Positive net margin means the business is generating real profit. Negative net margin means it's burning cash to operate, regardless of how impressive the revenue figure looks.</p>
+  </div>
+ 
+  <!-- FAQ -->
+  <div class="content-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is a good profit margin for a small business?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          It depends heavily on industry. Retail businesses typically operate on net margins of 2–5%. Restaurants often run 3–9%. Service businesses and consultancies tend to have higher margins, often 15–25%. Software companies can achieve net margins of 20–40% at scale. The benchmarks in this calculator give you a rough sense of where your industry typically lands. More important than hitting a specific number is understanding whether your margins are improving or declining over time.
+        </div>
+      </div>
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is the difference between gross profit and gross margin?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          Gross profit is a dollar amount — your revenue minus your cost of goods sold. Gross margin is a percentage — your gross profit divided by your revenue. If revenue is $500,000 and COGS is $200,000, gross profit is $300,000 and gross margin is 60%. Both numbers are useful: gross profit tells you the absolute dollar amount available to cover expenses, while gross margin lets you compare efficiency across time periods or against competitors regardless of size.
+        </div>
+      </div>
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I improve my profit margin?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          There are four main levers: raise prices (most impactful on gross margin if volume holds), reduce COGS by negotiating with suppliers or finding efficiencies in production, reduce operating expenses by auditing overhead and cutting low-value costs, or grow revenue faster than costs. In practice, small pricing increases often have a more dramatic effect on net margin than equivalent cost cuts — a 5% price increase on a 10% net margin business almost doubles net profit if volume is maintained.
+        </div>
+      </div>
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What does a negative gross margin mean?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          A negative gross margin means you're selling products or services for less than they cost to produce — you lose money on every sale before accounting for any overhead. This is almost always unsustainable and signals an urgent need to either raise prices, reduce direct costs, or discontinue the product/service. Some early-stage businesses accept negative gross margins temporarily while building scale, but it requires clear evidence that margins will improve as volume increases.
+        </div>
+      </div>
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is EBITDA and how does it relate to operating margin?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          EBITDA stands for Earnings Before Interest, Taxes, Depreciation, and Amortization. It's similar to operating income but adds back depreciation and amortization — non-cash expenses that reduce operating income without affecting cash flow. EBITDA is widely used in business valuation because it gives a cleaner picture of cash-generating ability. A business with a strong operating margin but high depreciation will show a higher EBITDA margin than operating margin. For most small businesses, operating margin and EBITDA margin are close enough that the distinction rarely matters.
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+ 
+  <p style="font-size:0.8rem;color:var(--gray);text-align:center;margin-top:-1rem">
+    CalcWonk tools are built for business owners who want real numbers, not ballpark guesses. Bookmark this page and run your margins every quarter.
+  </p>
+ 
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
+      <a href="mailto:calcwonk@gmail.com">Contact</a>
+    </div>
+    <p class="footer-disclaimer">
+      CalcWonk participates in affiliate programs and may earn a commission if you sign up through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice.
+    </p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+  </div>
+</footer>
+ 
+<script>
+  // ── BENCHMARKS ──
+  const BENCHMARKS = {
+    retail:        { label: 'Retail',               gross: '25–45%', operating: '3–8%',   net: '2–5%',   ebitda: '5–10%' },
+    restaurant:    { label: 'Restaurant',           gross: '60–70%', operating: '5–12%',  net: '3–9%',   ebitda: '8–15%' },
+    saas:          { label: 'Software / SaaS',      gross: '65–85%', operating: '10–25%', net: '10–20%', ebitda: '15–30%' },
+    consulting:    { label: 'Consulting / Services', gross: '50–70%', operating: '15–25%', net: '10–20%', ebitda: '15–25%' },
+    manufacturing: { label: 'Manufacturing',        gross: '25–40%', operating: '8–15%',  net: '5–10%',  ebitda: '10–18%' },
+    healthcare:    { label: 'Healthcare',           gross: '40–60%', operating: '10–20%', net: '5–15%',  ebitda: '12–22%' },
+  };
+ 
+  let currentMode = 'detailed';
+ 
+  function setMode(mode, btn) {
+    currentMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.input-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + mode).classList.add('active');
+    calculate();
+  }
+ 
+  function fmt(n) {
+    const abs = Math.abs(Math.round(n));
+    const str = '$' + abs.toLocaleString();
+    return n < 0 ? '-' + str : str;
+  }
+ 
+  function pct(n) {
+    return (Math.round(n * 10) / 10).toFixed(1) + '%';
+  }
+ 
+  function healthBadge(margin, thresholds) {
+    if (margin >= thresholds.strong) return `<div class="health-badge health-strong">✓ Strong</div>`;
+    if (margin >= thresholds.ok)     return `<div class="health-badge health-ok">~ Moderate</div>`;
+    return `<div class="health-badge health-weak">↓ Needs attention</div>`;
+  }
+ 
+  function calculate() {
+    let netRevenue, cogs, totalOpEx, taxInterest;
+ 
+    if (currentMode === 'detailed') {
+      const revenue    = parseFloat(document.getElementById('revenue').value) || 0;
+      const returns    = parseFloat(document.getElementById('returns').value) || 0;
+      netRevenue       = revenue - returns;
+      cogs             = parseFloat(document.getElementById('cogs').value) || 0;
+      const salariesOp = parseFloat(document.getElementById('salariesOp').value) || 0;
+      const rentOp     = parseFloat(document.getElementById('rentOp').value) || 0;
+      const marketingOp= parseFloat(document.getElementById('marketingOp').value) || 0;
+      const depreciation=parseFloat(document.getElementById('depreciation').value) || 0;
+      const otherOpEx  = parseFloat(document.getElementById('otherOpEx').value) || 0;
+      totalOpEx        = salariesOp + rentOp + marketingOp + depreciation + otherOpEx;
+      const interest   = parseFloat(document.getElementById('interest').value) || 0;
+      const taxes      = parseFloat(document.getElementById('taxes').value) || 0;
+      taxInterest      = interest + taxes;
+    } else {
+      netRevenue  = parseFloat(document.getElementById('simpleRevenue').value) || 0;
+      cogs        = parseFloat(document.getElementById('simpleCogs').value) || 0;
+      totalOpEx   = parseFloat(document.getElementById('simpleOpEx').value) || 0;
+      taxInterest = parseFloat(document.getElementById('simpleTaxInterest').value) || 0;
+    }
+ 
+    if (netRevenue <= 0) return;
+ 
+    const grossProfit     = netRevenue - cogs;
+    const operatingProfit = grossProfit - totalOpEx;
+    const netProfit       = operatingProfit - taxInterest;
+ 
+    const grossMargin     = (grossProfit / netRevenue) * 100;
+    const operatingMargin = (operatingProfit / netRevenue) * 100;
+    const netMargin       = (netProfit / netRevenue) * 100;
+ 
+    // Update margin cards
+    document.getElementById('grossPct').textContent    = pct(grossMargin);
+    document.getElementById('grossAmt').textContent    = fmt(grossProfit);
+    document.getElementById('operatingPct').textContent= pct(operatingMargin);
+    document.getElementById('operatingAmt').textContent= fmt(operatingProfit);
+    document.getElementById('netPct').textContent      = pct(netMargin);
+    document.getElementById('netAmt').textContent      = fmt(netProfit);
+ 
+    document.getElementById('grossHealth').innerHTML =
+      healthBadge(grossMargin, { strong: 50, ok: 30 });
+    document.getElementById('operatingHealth').innerHTML =
+      healthBadge(operatingMargin, { strong: 15, ok: 5 });
+    document.getElementById('netHealth').innerHTML =
+      healthBadge(netMargin, { strong: 10, ok: 3 });
+ 
+    // Benchmarks
+    const industry = document.getElementById('industry').value;
+    const bench = BENCHMARKS[industry];
+    document.getElementById('industryLabel').textContent = bench.label;
+    document.getElementById('benchmarkGrid').innerHTML = `
+      <div class="benchmark-box">
+        <div class="benchmark-industry">Gross Margin</div>
+        <div class="benchmark-range">${bench.gross}</div>
+        <div class="benchmark-type">Typical range</div>
+      </div>
+      <div class="benchmark-box">
+        <div class="benchmark-industry">Operating Margin</div>
+        <div class="benchmark-range">${bench.operating}</div>
+        <div class="benchmark-type">Typical range</div>
+      </div>
+      <div class="benchmark-box">
+        <div class="benchmark-industry">Net Margin</div>
+        <div class="benchmark-range">${bench.net}</div>
+        <div class="benchmark-type">Typical range</div>
+      </div>
+      <div class="benchmark-box">
+        <div class="benchmark-industry">EBITDA Margin</div>
+        <div class="benchmark-range">${bench.ebitda}</div>
+        <div class="benchmark-type">Typical range</div>
+      </div>`;
+ 
+    // Insight
+    const cogsRatio = (cogs / netRevenue * 100).toFixed(1);
+    const opExRatio = (totalOpEx / netRevenue * 100).toFixed(1);
+    let insightMsg = `Your gross margin is <strong>${pct(grossMargin)}</strong>, operating margin is <strong>${pct(operatingMargin)}</strong>, and net margin is <strong>${pct(netMargin)}</strong>. `;
+ 
+    if (netMargin < 0) {
+      insightMsg += `Your business is currently operating at a loss. Your cost structure consumes <strong>${pct(Math.abs(netMargin))} more than your revenue</strong>. Focus on gross margin first — COGS represents ${cogsRatio}% of revenue.`;
+    } else if (grossMargin < 30) {
+      insightMsg += `Your gross margin is relatively thin at ${pct(grossMargin)}, meaning COGS is consuming ${cogsRatio}% of revenue. Pricing strategy and supplier negotiations may have more impact than cutting operating expenses.`;
+    } else {
+      insightMsg += `Your COGS consumes ${cogsRatio}% and operating expenses ${opExRatio}% of revenue. ${netMargin > 10 ? 'Your net margin is healthy.' : 'There may be room to improve net margin by reducing operating overhead.'}`;
+    }
+ 
+    document.getElementById('insightText').innerHTML = insightMsg;
+ 
+    // Summary table
+    const periodLabel = { annual: 'Annual', quarterly: 'Quarterly', monthly: 'Monthly' }[document.getElementById('period').value];
+ 
+    document.getElementById('summaryBody').innerHTML = `
+      <tr class="section-header"><td colspan="3">Revenue</td></tr>
+      <tr><td>Net Revenue</td><td>${fmt(netRevenue)}</td><td>100.0%</td></tr>
+      <tr class="section-header"><td colspan="3">Cost of Goods Sold</td></tr>
+      <tr><td>COGS</td><td>${fmt(cogs)}</td><td>${pct(cogs/netRevenue*100)}</td></tr>
+      <tr class="highlight-row gross-row">
+        <td>Gross Profit</td>
+        <td>${fmt(grossProfit)}</td>
+        <td>${pct(grossMargin)}</td>
+      </tr>
+      <tr class="section-header"><td colspan="3">Operating Expenses</td></tr>
+      <tr><td>Total Operating Expenses</td><td>${fmt(totalOpEx)}</td><td>${pct(totalOpEx/netRevenue*100)}</td></tr>
+      <tr class="highlight-row operating-row">
+        <td>Operating Profit (EBIT)</td>
+        <td>${fmt(operatingProfit)}</td>
+        <td>${pct(operatingMargin)}</td>
+      </tr>
+      <tr class="section-header"><td colspan="3">Below the Line</td></tr>
+      <tr><td>Interest & Taxes</td><td>${fmt(taxInterest)}</td><td>${pct(taxInterest/netRevenue*100)}</td></tr>
+      <tr class="highlight-row net-row">
+        <td>Net Profit (${periodLabel})</td>
+        <td>${fmt(netProfit)}</td>
+        <td>${pct(netMargin)}</td>
+      </tr>`;
+  }
+ 
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.classList.remove('open');
+      q.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+ 
+  document.querySelectorAll('input[type="number"], select').forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+ 
+  calculate();
+</script>
+ 
+</body>
+</html>
