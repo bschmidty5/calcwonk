@@ -1,1037 +1,699 @@
+Index · HTML
+Copy
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CalcWonk — Real Numbers for Real Decisions</title>
-<meta name="description" content="Financial calculators built for business owners and individuals who want the full picture — not the ballpark.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --white: #ffffff;
-    --bg: #f8f9fa;
-    --teal: #0d9488;
-    --teal-light: #ccfbf1;
-    --teal-mid: #99f6e4;
-    --teal-dark: #0f766e;
-    --orange: #f97316;
-    --orange-light: #fff7ed;
-    --orange-dark: #ea6c0a;
-    --navy: #1e293b;
-    --slate: #475569;
-    --muted: #94a3b8;
-    --border: #e2e8f0;
-    --border-dark: #cbd5e1;
-    --text: #1e293b;
-  }
- 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
- 
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--white);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
- 
-  /* GRAPH PAPER TEXTURE */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-color: #ffffff;
-    background-color: #ffffff;
-    background-image:
-      linear-gradient(rgba(13,148,136,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(13,148,136,0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
-    mix-blend-mode: multiply;
-    pointer-events: none;
-    z-index: 0;
-  }
- 
-  /* HERO EXPLICIT WHITE */
-  .hero {
-    background: #ffffff;
-  }
- 
-  /* NAV */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 2px solid var(--border);
-    padding: 0 2rem;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
- 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-  }
- 
-  .logo-icon {
-    width: 36px; height: 36px;
-    background: var(--teal);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-  }
- 
-  .logo-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 900;
-    color: var(--navy);
-    letter-spacing: -0.02em;
-  }
- 
-  .logo-text span { color: var(--teal); }
- 
-  .nav-links {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
- 
-  .nav-links a {
-    font-size: 0.85rem;
-    color: var(--slate);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.4rem 0.75rem;
-    border-radius: 6px;
-    transition: all 0.15s;
-  }
- 
-  .nav-links a:hover { background: var(--teal-light); color: var(--teal-dark); }
- 
-  .nav-cta {
-    background: var(--teal) !important;
-    color: white !important;
-    font-weight: 600 !important;
-    padding: 0.45rem 1rem !important;
-  }
- 
-  .nav-cta:hover { background: var(--teal-dark) !important; }
- 
-  /* HERO */
-  .hero {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 5rem 2rem 4rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    background: #ffffff;
-  }
- 
-  @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
-    .hero-visual { display: none; }
-  }
- 
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: var(--teal-light);
-    color: var(--teal-dark);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.35rem 0.75rem;
-    border-radius: 20px;
-    margin-bottom: 1.25rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.1s;
-  }
- 
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    color: var(--navy);
-    margin-bottom: 1.25rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.2s;
-  }
- 
-  .hero h1 em {
-    font-style: italic;
-    color: var(--teal);
-    position: relative;
-  }
- 
-  .hero h1 .orange { color: var(--orange); font-style: normal; }
- 
-  .hero-sub {
-    font-size: 1rem;
-    color: var(--slate);
-    line-height: 1.7;
-    font-weight: 400;
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.3s;
-  }
- 
-  .hero-cta {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.4s;
-  }
- 
-  .btn {
-    padding: 0.7rem 1.4rem;
-    border-radius: 8px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-    transition: all 0.15s;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
- 
-  .btn-teal { background: var(--teal); color: white; }
-  .btn-teal:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(13,148,136,0.25); }
- 
-  .btn-orange { background: var(--orange); color: white; }
-  .btn-orange:hover { background: var(--orange-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(249,115,22,0.25); }
- 
-  .btn-outline { background: white; color: var(--navy); border: 2px solid var(--border-dark); }
-  .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
- 
-  /* HERO VISUAL — mini fake calculator card */
-  .hero-visual {
-    position: relative;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.5s;
-  }
- 
-  .hero-card {
-    background: white;
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    padding: 1.75rem;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
-    position: relative;
-  }
- 
-  .hero-card::before {
-    content: '';
-    position: absolute;
-    top: -8px; left: -8px; right: -8px; bottom: -8px;
-    border: 2px dashed var(--teal-mid);
-    border-radius: 20px;
-    z-index: -1;
-  }
- 
-  .hero-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
- 
-  .hero-card-title span {
-    background: var(--teal-light);
-    color: var(--teal);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 500;
-  }
- 
-  .hero-metric {
-    margin-bottom: 1rem;
-  }
- 
-  .hero-metric-label {
-    font-size: 0.72rem;
-    font-family: 'JetBrains Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    margin-bottom: 0.25rem;
-  }
- 
-  .hero-metric-bar {
-    height: 8px;
-    background: var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 0.2rem;
-  }
- 
-  .hero-metric-fill {
-    height: 100%;
-    border-radius: 4px;
-  }
- 
-  .hero-metric-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--navy);
-  }
- 
-  .hero-total {
-    margin-top: 1.25rem;
-    padding-top: 1.25rem;
-    border-top: 2px dashed var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
- 
-  .hero-total-label {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--slate);
-  }
- 
-  .hero-total-value {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: var(--teal);
-  }
- 
-  .hero-badge {
-    position: absolute;
-    top: -12px;
-    right: 20px;
-    background: var(--orange);
-    color: white;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.3rem 0.75rem;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
- 
-  /* STATS */
-  .stats-bar {
-    position: relative;
-    z-index: 1;
-    background: var(--navy);
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.6s;
-  }
- 
-  .stat {
-    padding: 0.75rem 2.5rem;
-    text-align: center;
-    border-right: 1px solid rgba(255,255,255,0.1);
-  }
- 
-  .stat:last-child { border-right: none; }
- 
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--teal-mid);
-    letter-spacing: -0.02em;
-  }
- 
-  .stat-label {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.5);
-    font-weight: 400;
-    margin-top: 0.1rem;
-  }
- 
-  /* TOOLS SECTION */
-  .tools-section {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 5rem 2rem;
-  }
- 
-  .section-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 2.5rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
- 
-  .section-header-left {}
- 
-  .section-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--teal);
-    margin-bottom: 0.5rem;
-  }
- 
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    color: var(--navy);
-    line-height: 1.15;
-  }
- 
-  .section-sub {
-    font-size: 0.88rem;
-    color: var(--muted);
-    margin-top: 0.4rem;
-  }
- 
-  /* CATEGORY TABS */
-  .category-tabs {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
- 
-  .cat-tab {
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    border: 2px solid var(--border);
-    background: white;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    color: var(--slate);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
- 
-  .cat-tab:hover { border-color: var(--teal); color: var(--teal); }
-  .cat-tab.active { background: var(--teal); color: white; border-color: var(--teal); }
-  .cat-tab.active.orange { background: var(--orange); border-color: var(--orange); }
- 
-  /* TOOLS GRID */
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.25rem;
-  }
- 
-  .tool-card {
-    background: white;
-    border: 2px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
-    text-decoration: none;
-    color: var(--text);
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
- 
-  .tool-card:hover {
-    border-color: var(--teal);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(13,148,136,0.12);
-  }
- 
-  .tool-card.coming-soon {
-    opacity: 0.6;
-    cursor: default;
-    pointer-events: none;
-  }
- 
-  .tool-card.orange-card:hover {
-    border-color: var(--orange);
-    box-shadow: 0 12px 32px rgba(249,115,22,0.12);
-  }
- 
-  .tool-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
- 
-  .tool-icon {
-    width: 44px; height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
- 
-  .icon-teal { background: var(--teal-light); }
-  .icon-orange { background: var(--orange-light); }
- 
-  .tool-badge {
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.2rem 0.6rem;
-    border-radius: 20px;
-    flex-shrink: 0;
-  }
- 
-  .badge-live { background: var(--teal-light); color: var(--teal-dark); }
-  .badge-soon { background: #f1f5f9; color: var(--muted); }
- 
-  .tool-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-  }
- 
-  .tool-desc {
-    font-size: 0.82rem;
-    color: var(--slate);
-    line-height: 1.6;
-    flex: 1;
-  }
- 
-  .tool-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--border);
-    margin-top: 0.25rem;
-  }
- 
-  .tool-category {
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-  }
- 
-  .tool-link {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--teal);
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    transition: gap 0.15s;
-  }
- 
-  .tool-card:hover .tool-link { gap: 0.5rem; }
-  .orange-card .tool-link { color: var(--orange); }
- 
-  /* WHY SECTION */
-  .why-section {
-    position: relative;
-    z-index: 1;
-    background: var(--bg);
-    border-top: 2px solid var(--border);
-    border-bottom: 2px solid var(--border);
-    padding: 5rem 2rem;
-  }
- 
-  .why-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
- 
-  @media (max-width: 768px) {
-    .why-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-  }
- 
-  .why-text h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    color: var(--navy);
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
- 
-  .why-text h2 em { font-style: italic; color: var(--teal); }
- 
-  .why-text p {
-    font-size: 0.92rem;
-    color: var(--slate);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-  }
- 
-  .wonk-quote {
-    margin-top: 1.5rem;
-    padding: 1.25rem 1.5rem;
-    background: white;
-    border: 2px solid var(--border);
-    border-left: 4px solid var(--orange);
-    border-radius: 0 10px 10px 0;
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-style: italic;
-    color: var(--navy);
-    line-height: 1.6;
-  }
- 
-  .why-points {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
- 
-  .why-point {
-    background: white;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    transition: border-color 0.15s;
-  }
- 
-  .why-point:hover { border-color: var(--teal); }
- 
-  .why-point-icon {
-    width: 36px; height: 36px;
-    background: var(--teal-light);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-  }
- 
-  .why-point-text strong {
-    display: block;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 0.2rem;
-  }
- 
-  .why-point-text span {
-    font-size: 0.8rem;
-    color: var(--slate);
-    line-height: 1.5;
-  }
- 
-  /* CTA BAND */
-  .cta-band {
-    position: relative;
-    z-index: 1;
-    padding: 5rem 2rem;
-    text-align: center;
-    background: white;
-  }
- 
-  .cta-band-inner {
-    max-width: 600px;
-    margin: 0 auto;
-  }
- 
-  .cta-band h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    color: var(--navy);
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
-  }
- 
-  .cta-band h2 em { font-style: italic; color: var(--orange); }
- 
-  .cta-band p {
-    font-size: 0.92rem;
-    color: var(--slate);
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
- 
-  .cta-buttons {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
- 
-  /* FOOTER */
-  footer {
-    position: relative;
-    z-index: 1;
-    background: var(--navy);
-    padding: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
- 
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 900;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
- 
-  .footer-logo span { color: var(--teal-mid); }
- 
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-  }
- 
-  .footer-links a {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.4);
-    text-decoration: none;
-    transition: color 0.15s;
-    font-weight: 500;
-  }
- 
-  .footer-links a:hover { color: var(--teal-mid); }
- 
-  .footer-disclaimer {
-    width: 100%;
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.25);
-    text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding-top: 1rem;
-    margin-top: 0.5rem;
-    line-height: 1.6;
-  }
- 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
- 
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
- 
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalcWonk — Real Numbers for Real Decisions</title>
+  <meta name="description" content="Financial calculators built for business owners and individuals who want the full picture — not the ballpark." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #ccfbf1;
+      --teal-xlight: #f0fdfa;
+      --orange: #f97316;
+      --orange-light: #fff7ed;
+      --navy: #1e293b;
+      --gray: #64748b;
+      --gray-light: #f8fafc;
+      --border: #e2e8f0;
+      --white: #ffffff;
+    }
+ 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+ 
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+ 
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      text-decoration: none;
+    }
+ 
+    .nav-logo span { color: var(--teal); }
+ 
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+ 
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+ 
+    .nav-links a:hover { color: var(--teal); }
+ 
+    /* ── HERO ── */
+    .hero {
+      background: var(--white);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+ 
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+ 
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+ 
+    .hero h1 em {
+      font-style: italic;
+      color: var(--teal);
+    }
+ 
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 540px;
+      margin: 0 auto 2rem;
+    }
+ 
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.8rem 1.75rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.1s;
+    }
+ 
+    .hero-cta:hover {
+      background: var(--teal-dark);
+      transform: translateY(-1px);
+    }
+ 
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy);
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+ 
+    .stat {
+      text-align: center;
+      color: var(--white);
+    }
+ 
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--teal-light);
+      display: block;
+    }
+ 
+    .stat-label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 0.15rem;
+    }
+ 
+    /* ── TOOLS SECTION ── */
+    .tools-section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+ 
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+ 
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+ 
+    .section-header p {
+      color: var(--gray);
+      font-size: 1rem;
+    }
+ 
+    .category-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 2.5rem 0 1rem;
+    }
+ 
+    .category-label h3 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+ 
+    .category-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+ 
+    /* ── TOOL CARDS ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+ 
+    .tool-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+ 
+    .tool-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+      transform: translateY(-2px);
+      border-color: var(--teal);
+    }
+ 
+    .tool-card.coming-soon {
+      opacity: 0.6;
+      cursor: default;
+      pointer-events: none;
+    }
+ 
+    .tool-card.coming-soon:hover {
+      box-shadow: none;
+      transform: none;
+      border-color: var(--border);
+    }
+ 
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+ 
+    .card-icon.teal { background: var(--teal-light); }
+    .card-icon.orange { background: #ffedd5; }
+ 
+    .card-body { flex: 1; }
+ 
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+ 
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+ 
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+ 
+    .card-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+ 
+    .badge-live {
+      background: var(--teal-light);
+      color: var(--teal-dark);
+    }
+ 
+    .badge-soon {
+      background: var(--gray-light);
+      color: var(--gray);
+    }
+ 
+    .card-arrow {
+      font-size: 1rem;
+      color: var(--teal);
+      transition: transform 0.2s;
+    }
+ 
+    .tool-card:hover .card-arrow { transform: translateX(3px); }
+ 
+    /* ── WHY SECTION ── */
+    .why-section {
+      background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--orange-light) 100%);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+ 
+    .why-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+ 
+    .why-section > p {
+      color: var(--gray);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      font-size: 1rem;
+    }
+ 
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+ 
+    .why-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      text-align: left;
+    }
+ 
+    .why-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+ 
+    .why-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+ 
+    .why-card p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+ 
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--teal);
+      color: var(--white);
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+ 
+    .cta-band h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+ 
+    .cta-band p {
+      opacity: 0.85;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+ 
+    .cta-band a {
+      display: inline-block;
+      background: var(--white);
+      color: var(--teal-dark);
+      text-decoration: none;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.1s;
+    }
+ 
+    .cta-band a:hover { transform: translateY(-2px); }
+ 
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: #94a3b8;
+      padding: 2.5rem 2rem;
+    }
+ 
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+ 
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+ 
+    .footer-logo span { color: var(--teal-light); }
+ 
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+ 
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+ 
+    .footer-links a:hover { color: var(--teal-light); }
+ 
+    .footer-disclaimer {
+      font-size: 0.78rem;
+      color: #64748b;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+ 
+    .footer-copy {
+      font-size: 0.8rem;
+      color: #475569;
+    }
+ 
+    @media (max-width: 600px) {
+      .stats-bar { gap: 1.5rem; }
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
 <body>
  
 <!-- NAV -->
 <nav>
-  <a href="/" class="logo">
-    <div class="logo-icon">🧮</div>
-    <div class="logo-text">Calc<span>Wonk</span></div>
-  </a>
-  <div class="nav-links">
-    <a href="#tools">Tools</a>
-    <a href="#why">About</a>
-    <a href="#tools" class="nav-cta">Get Started →</a>
-  </div>
+  <a href="/calcwonk/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="/calcwonk/legal">Disclosures</a></li>
+  </ul>
 </nav>
  
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">🤓 For people who actually like numbers</div>
-    <h1>Stop guessing.<br>Start <em>calculating.</em></h1>
-    <p class="hero-sub">Free financial calculators for small business owners and individuals who want real answers — not ballpark estimates. Because the right number changes everything.</p>
-    <div class="hero-cta">
-      <a href="#tools" class="btn btn-teal">Explore the Tools →</a>
-      <a href="/true-cost-of-an-employee-calculator/" class="btn btn-outline">True Cost of Hiring ↗</a>
-    </div>
-  </div>
+<div class="hero">
+  <span class="hero-eyebrow">For people who actually like numbers</span>
+  <h1>Real Numbers for <em>Real</em> Decisions</h1>
+  <p>Financial calculators built for business owners and individuals who want the full picture — not the ballpark.</p>
+  <a href="#tools" class="hero-cta">Browse the tools →</a>
+</div>
  
-  <div class="hero-visual">
-    <div class="hero-card">
-      <div class="hero-badge">✓ Free to use</div>
-      <div class="hero-card-title">
-        True Cost of an Employee
-        <span>LIVE</span>
-      </div>
- 
-      <div class="hero-metric">
-        <div class="hero-metric-label">Base Salary</div>
-        <div class="hero-metric-bar"><div class="hero-metric-fill" style="width:72%;background:#0d9488"></div></div>
-        <div class="hero-metric-value">$65,000</div>
-      </div>
-      <div class="hero-metric">
-        <div class="hero-metric-label">Payroll Taxes</div>
-        <div class="hero-metric-bar"><div class="hero-metric-fill" style="width:10%;background:#99f6e4"></div></div>
-        <div class="hero-metric-value">$5,850</div>
-      </div>
-      <div class="hero-metric">
-        <div class="hero-metric-label">Benefits</div>
-        <div class="hero-metric-bar"><div class="hero-metric-fill" style="width:13%;background:#f97316"></div></div>
-        <div class="hero-metric-value">$11,950</div>
-      </div>
-      <div class="hero-metric">
-        <div class="hero-metric-label">Overhead</div>
-        <div class="hero-metric-bar"><div class="hero-metric-fill" style="width:5%;background:#fbd38d"></div></div>
-        <div class="hero-metric-value">$9,370</div>
-      </div>
- 
-      <div class="hero-total">
-        <div class="hero-total-label">True Annual Cost</div>
-        <div class="hero-total-value">$92,170</div>
-      </div>
-    </div>
-  </div>
-</section>
- 
-<!-- STATS -->
+<!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stat">
-    <div class="stat-num">25–40%</div>
-    <div class="stat-label">More than salary — true employee cost</div>
+    <span class="stat-number">6</span>
+    <span class="stat-label">Free calculators</span>
   </div>
   <div class="stat">
-    <div class="stat-num">3x</div>
-    <div class="stat-label">Value a hire should generate</div>
+    <span class="stat-number">0</span>
+    <span class="stat-label">Sign-ups required</span>
   </div>
   <div class="stat">
-    <div class="stat-num">$0</div>
-    <div class="stat-label">Cost to use any CalcWonk tool</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">100%</div>
-    <div class="stat-label">Browser-based, no signup needed</div>
+    <span class="stat-number">100%</span>
+    <span class="stat-label">Runs in your browser</span>
   </div>
 </div>
  
-<!-- TOOLS -->
-<section class="tools-section" id="tools">
-  <div class="section-header fade-in">
-    <div class="section-header-left">
-      <div class="section-eyebrow">The Toolkit</div>
-      <h2 class="section-title">Every number you need<br>to make a smarter decision</h2>
-      <p class="section-sub">Built for real decisions, not hypotheticals.</p>
-    </div>
+<!-- TOOLS SECTION -->
+<div class="tools-section" id="tools">
+  <div class="section-header">
+    <h2>The Tools</h2>
+    <p>Each calculator is built around a real decision — not just a formula.</p>
   </div>
  
-  <div class="category-tabs fade-in">
-    <button class="cat-tab active">All Tools</button>
-    <button class="cat-tab">Small Business</button>
-    <button class="cat-tab orange-card">Personal Finance</button>
+  <!-- Small Business -->
+  <div class="category-label">
+    <h3>Small Business</h3>
+    <div class="category-line"></div>
   </div>
  
   <div class="tools-grid">
  
-    <a href="/true-cost-of-an-employee-calculator/" class="tool-card fade-in">
-      <div class="tool-top">
-        <div class="tool-icon icon-teal">💵</div>
-        <span class="tool-badge badge-live">Live</span>
+    <a href="/calcwonk/true-cost-of-an-employee-calculator/" class="tool-card">
+      <div class="card-icon teal">👤</div>
+      <div class="card-body">
+        <div class="card-title">True Cost of an Employee</div>
+        <div class="card-desc">Salary is just the start. See the real all-in cost including taxes, benefits, and overhead.</div>
       </div>
-      <div class="tool-name">True Cost of an Employee</div>
-      <div class="tool-desc">Salary is just the beginning. Get the real all-in number — taxes, benefits, overhead — before you make the offer.</div>
-      <div class="tool-footer">
-        <span class="tool-category">Small Business</span>
-        <span class="tool-link">Calculate now →</span>
+      <div class="card-footer">
+        <span class="card-badge badge-live">Live</span>
+        <span class="card-arrow">→</span>
       </div>
     </a>
  
-    <div class="tool-card coming-soon fade-in">
-      <div class="tool-top">
-        <div class="tool-icon icon-teal">📋</div>
-        <span class="tool-badge badge-soon">Coming Soon</span>
+    <div class="tool-card coming-soon">
+      <div class="card-icon teal">⚖️</div>
+      <div class="card-body">
+        <div class="card-title">Contractor vs. Employee</div>
+        <div class="card-desc">1099 or W-2? Run the true cost comparison before you decide.</div>
       </div>
-      <div class="tool-name">Contractor vs. Employee Calculator</div>
-      <div class="tool-desc">Is a 1099 contractor actually cheaper? Compare the true cost of both arrangements — including taxes, benefits, and legal risk.</div>
-      <div class="tool-footer">
-        <span class="tool-category">Small Business</span>
-        <span class="tool-link">Coming soon</span>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
       </div>
     </div>
  
-    <div class="tool-card coming-soon fade-in">
-      <div class="tool-top">
-        <div class="tool-icon icon-teal">📉</div>
-        <span class="tool-badge badge-soon">Coming Soon</span>
+    <div class="tool-card coming-soon">
+      <div class="card-icon teal">📉</div>
+      <div class="card-body">
+        <div class="card-title">Cost of Employee Turnover</div>
+        <div class="card-desc">What does it really cost when someone leaves? The number is bigger than you think.</div>
       </div>
-      <div class="tool-name">Cost of Employee Turnover</div>
-      <div class="tool-desc">Losing an employee costs more than you think. Calculate recruiting, training, and lost productivity — all in one number.</div>
-      <div class="tool-footer">
-        <span class="tool-category">Small Business</span>
-        <span class="tool-link">Coming soon</span>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
       </div>
     </div>
  
-    <div class="tool-card coming-soon fade-in">
-      <div class="tool-top">
-        <div class="tool-icon icon-teal">📊</div>
-        <span class="tool-badge badge-soon">Coming Soon</span>
+    <div class="tool-card coming-soon">
+      <div class="card-icon teal">📊</div>
+      <div class="card-body">
+        <div class="card-title">Break-Even Calculator</div>
+        <div class="card-desc">How much do you need to sell to cover your costs? Find your number.</div>
       </div>
-      <div class="tool-name">Break-Even Calculator</div>
-      <div class="tool-desc">How much do you need to sell to cover your costs? Find your break-even point in units and dollars — by product or business unit.</div>
-      <div class="tool-footer">
-        <span class="tool-category">Small Business</span>
-        <span class="tool-link">Coming soon</span>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
       </div>
     </div>
  
-    <div class="tool-card coming-soon orange-card fade-in">
-      <div class="tool-top">
-        <div class="tool-icon icon-orange">📈</div>
-        <span class="tool-badge badge-soon">Coming Soon</span>
+    <div class="tool-card coming-soon">
+      <div class="card-icon teal">💰</div>
+      <div class="card-body">
+        <div class="card-title">Profit Margin Calculator</div>
+        <div class="card-desc">Gross, operating, net — know your margins before your accountant does.</div>
       </div>
-      <div class="tool-name">Roth IRA vs. Traditional IRA</div>
-      <div class="tool-desc">Which retirement account actually wins for you? Compare after-tax outcomes based on your income, age, and expected tax rate in retirement.</div>
-      <div class="tool-footer">
-        <span class="tool-category">Personal Finance</span>
-        <span class="tool-link" style="color:var(--orange)">Coming soon</span>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
       </div>
     </div>
  
-    <div class="tool-card coming-soon orange-card fade-in">
-      <div class="tool-top">
-        <div class="tool-icon icon-orange">🏠</div>
-        <span class="tool-badge badge-soon">Coming Soon</span>
+    <div class="tool-card coming-soon">
+      <div class="card-icon teal">🏦</div>
+      <div class="card-body">
+        <div class="card-title">Business Loan True Cost</div>
+        <div class="card-desc">APR doesn't tell the whole story. See what that loan actually costs you.</div>
       </div>
-      <div class="tool-name">Rent vs. Buy Calculator</div>
-      <div class="tool-desc">The real comparison goes beyond the mortgage payment. Factor in opportunity cost, maintenance, taxes, and time horizon.</div>
-      <div class="tool-footer">
-        <span class="tool-category">Personal Finance</span>
-        <span class="tool-link" style="color:var(--orange)">Coming soon</span>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
       </div>
     </div>
  
   </div>
-</section>
  
-<!-- WHY -->
-<section class="why-section" id="why">
-  <div class="why-inner">
-    <div class="why-text fade-in">
-      <h2>Built for the <em>inner wonk</em> in all of us</h2>
-      <p>Most financial calculators give you a number and leave you to figure out what it means. CalcWonk tools are built differently — every result comes with context, benchmarks, and a plain-English answer to the question you're actually trying to answer.</p>
-      <p>No signup. No upsells. No ads cluttering up the results. Just honest numbers, explained clearly.</p>
-      <div class="wonk-quote">"A wonk is someone who loves the details. We built CalcWonk for the business owner who actually wants to understand the math — not just see a number."</div>
+  <!-- Personal Finance -->
+  <div class="category-label">
+    <h3>Personal Finance</h3>
+    <div class="category-line"></div>
+  </div>
+ 
+  <div class="tools-grid">
+ 
+    <div class="tool-card coming-soon">
+      <div class="card-icon orange">📈</div>
+      <div class="card-body">
+        <div class="card-title">Roth vs. Traditional IRA</div>
+        <div class="card-desc">Tax now or tax later? Model both scenarios over your actual timeline.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
+      </div>
     </div>
-    <div class="why-points fade-in">
-      <div class="why-point">
-        <div class="why-point-icon">🎯</div>
-        <div class="why-point-text">
-          <strong>Decision-focused, not formula-focused</strong>
-          <span>Every tool is built around a specific financial decision — not a generic formula that leaves you guessing.</span>
-        </div>
+ 
+    <div class="tool-card coming-soon">
+      <div class="card-icon orange">🏠</div>
+      <div class="card-body">
+        <div class="card-title">Rent vs. Buy Calculator</div>
+        <div class="card-desc">The real comparison, including opportunity cost, maintenance, and equity.</div>
       </div>
-      <div class="why-point">
-        <div class="why-point-icon">⚡</div>
-        <div class="why-point-text">
-          <strong>Instant, real-time results</strong>
-          <span>Numbers update as you type. No forms, no waiting, no email required. Just answers.</span>
-        </div>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
       </div>
-      <div class="why-point">
-        <div class="why-point-icon">🔒</div>
-        <div class="why-point-text">
-          <strong>Private by design</strong>
-          <span>Everything runs in your browser. Your numbers stay on your device — never uploaded anywhere.</span>
-        </div>
+    </div>
+ 
+    <div class="tool-card coming-soon">
+      <div class="card-icon orange">⏳</div>
+      <div class="card-body">
+        <div class="card-title">Compound Interest Calculator</div>
+        <div class="card-desc">See what your money becomes over time — and what waiting costs you.</div>
       </div>
-      <div class="why-point">
-        <div class="why-point-icon">📖</div>
-        <div class="why-point-text">
-          <strong>Context, not just calculations</strong>
-          <span>Every result includes benchmarks and plain-English insight — what the number means and what to do with it.</span>
-        </div>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
       </div>
+    </div>
+ 
+    <div class="tool-card coming-soon">
+      <div class="card-icon orange">🧾</div>
+      <div class="card-body">
+        <div class="card-title">Investment Fee Impact</div>
+        <div class="card-desc">A 1% fee sounds small. See how much it costs over 30 years.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
+      </div>
+    </div>
+ 
+    <div class="tool-card coming-soon">
+      <div class="card-icon orange">🏡</div>
+      <div class="card-body">
+        <div class="card-title">Mortgage Affordability</div>
+        <div class="card-desc">What can you actually afford? Beyond the bank's pre-approval number.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-badge badge-soon">Coming Soon</span>
+      </div>
+    </div>
+ 
+  </div>
+</div>
+ 
+<!-- WHY SECTION -->
+<div class="why-section" id="why">
+  <h2>Why CalcWonk?</h2>
+  <p>Most calculators give you a number. We give you the full picture — context, benchmarks, and plain-English insight so you know what to do next.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🎯</div>
+      <h3>Built around decisions</h3>
+      <p>Every tool is designed around a real choice you're facing — not just a formula to fill in.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔒</div>
+      <h3>Your data stays yours</h3>
+      <p>Everything runs in your browser. We never see the numbers you enter.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💡</div>
+      <h3>Insight, not just output</h3>
+      <p>Results come with context — benchmarks, rules of thumb, and what the number actually means.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🆓</div>
+      <h3>Always free</h3>
+      <p>No paywalls, no sign-ups, no tricks. We earn through affiliate recommendations when they're relevant.</p>
     </div>
   </div>
-</section>
+</div>
  
 <!-- CTA BAND -->
-<section class="cta-band fade-in">
-  <div class="cta-band-inner">
-    <h2>Ready to run <em>your</em> numbers?</h2>
-    <p>Free to use. No account required. Results in under a minute. Your inner wonk will thank you.</p>
-    <div class="cta-buttons">
-      <a href="/true-cost-of-an-employee-calculator/" class="btn btn-teal">True Cost of an Employee →</a>
-      <a href="#tools" class="btn btn-orange">See All Tools →</a>
-    </div>
-  </div>
-</section>
+<div class="cta-band">
+  <h2>Start with the numbers.</h2>
+  <p>Try the True Cost of an Employee Calculator — our most popular tool.</p>
+  <a href="/calcwonk/true-cost-of-an-employee-calculator/">Calculate now →</a>
+</div>
  
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">
-    🧮 Calc<span>Wonk</span>
-  </div>
-  <div class="footer-links">
-    <a href="#tools">Tools</a>
-    <a href="#why">About</a>
-    <a href="mailto:calcwonk@gmail.com">Contact</a>
-  </div>
-  <div class="footer-disclaimer">
-    CalcWonk tools are for informational purposes only and do not constitute financial, legal, or tax advice. Always consult a qualified professional for decisions specific to your situation. · © 2025 CalcWonk
+  <div class="footer-inner">
+    <a href="/calcwonk/" class="footer-logo">Calc<span>Wonk</span></a>
+ 
+    <div class="footer-links">
+      <a href="/calcwonk/">Home</a>
+      <a href="#tools">Tools</a>
+      <a href="/calcwonk/legal">Privacy Policy</a>
+      <a href="/calcwonk/legal">Terms of Service</a>
+      <a href="/calcwonk/legal">Affiliate Disclosure</a>
+      <a href="mailto:hello@calcwonk.com">Contact</a>
+    </div>
+ 
+    <p class="footer-disclaimer">
+      CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice.
+    </p>
+ 
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
   </div>
 </footer>
- 
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
- 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
  
 </body>
 </html>
