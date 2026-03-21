@@ -1,139 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Legal & Policies — CalcWonk</title>
-  <meta name="description" content="CalcWonk's Privacy Policy, Terms of Service, and Affiliate Disclosure.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal & Disclosures — CalcWonk</title>
+  <meta name="description" content="CalcWonk's Privacy Policy, Terms of Service, and Affiliate Disclosure. We believe in full transparency about how we operate." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --teal: #0d9488; --teal-light: #ccfbf1; --orange: #f97316;
-      --navy: #1e293b; --gray: #64748b; --gray-light: #f8fafc;
-      --border: #e2e8f0; --white: #ffffff;
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #ccfbf1;
+      --teal-xlight: #f0fdfa;
+      --orange: #f97316;
+      --orange-light: #fff7ed;
+      --orange-border: #fed7aa;
+      --navy: #1e293b;
+      --gray: #64748b;
+      --gray-light: #f8fafc;
+      --border: #e2e8f0;
+      --white: #ffffff;
     }
+ 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--navy); line-height: 1.7; }
-    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2rem; position: sticky; top: 0; z-index: 100; }
-    .nav-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); text-decoration: none; }
-    .logo span { color: var(--teal); font-style: italic; }
-    nav a.home-link { font-size: 0.875rem; color: var(--teal); text-decoration: none; font-weight: 600; }
-    .hero { background: var(--gray-light); border-bottom: 1px solid var(--border); padding: 3rem 2rem 2.5rem; text-align: center; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--navy); margin-bottom: 0.5rem; }
-    .hero p { color: var(--gray); font-size: 1rem; max-width: 500px; margin: 0 auto; }
-    .toc { max-width: 860px; margin: 2.5rem auto 0; padding: 0 2rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
-    .toc a { background: var(--teal-light); color: var(--teal); font-weight: 600; font-size: 0.85rem; padding: 0.4rem 1rem; border-radius: 999px; text-decoration: none; }
-    main { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-    .policy-section { margin-bottom: 4rem; padding-bottom: 4rem; border-bottom: 1px solid var(--border); }
-    .policy-section:last-child { border-bottom: none; margin-bottom: 0; }
-    .section-tag { display: inline-block; background: var(--orange); color: white; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 1rem; }
-    .section-tag.teal { background: var(--teal); }
-    .section-tag.navy { background: var(--navy); }
-    .policy-section h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 0.4rem; }
-    .effective-date { font-size: 0.825rem; color: var(--gray); margin-bottom: 1.75rem; }
-    .policy-section h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 1.75rem 0 0.5rem; }
-    .policy-section p { color: #334155; font-size: 0.95rem; margin-bottom: 1rem; }
-    .policy-section ul { margin: 0.5rem 0 1rem 1.25rem; color: #334155; font-size: 0.95rem; }
-    .policy-section ul li { margin-bottom: 0.4rem; }
-    .highlight-box { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.95rem; color: var(--navy); }
-    .highlight-box strong { color: var(--teal); }
-    .contact-box { background: var(--gray-light); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 1.5rem; font-size: 0.9rem; color: var(--gray); }
-    .contact-box a { color: var(--teal); text-decoration: none; font-weight: 600; }
-    footer { background: var(--navy); color: #94a3b8; text-align: center; padding: 2rem; font-size: 0.85rem; }
-    footer a { color: var(--teal); text-decoration: none; }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      line-height: 1.7;
+    }
+ 
+    /* NAV */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+ 
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      text-decoration: none;
+    }
+ 
+    .nav-logo span { color: var(--teal); }
+ 
+    nav a.back {
+      font-size: 0.875rem;
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+ 
+    nav a.back:hover { text-decoration: underline; }
+ 
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--orange-light) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+ 
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+ 
+    .hero p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+ 
+    .last-updated {
+      display: inline-block;
+      margin-top: 1rem;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+    }
+ 
+    /* LAYOUT */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+ 
+    /* TAB NAV */
+    .tab-nav {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+ 
+    .tab-btn {
+      padding: 0.6rem 1.25rem;
+      border: none;
+      background: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--gray);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+      border-radius: 4px 4px 0 0;
+    }
+ 
+    .tab-btn:hover { color: var(--teal); }
+ 
+    .tab-btn.active {
+      color: var(--teal);
+      border-bottom-color: var(--teal);
+      background: var(--teal-light);
+    }
+ 
+    /* CONTENT SECTIONS */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+ 
+    .section-intro {
+      background: var(--gray-light);
+      border-left: 4px solid var(--teal);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+ 
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin: 2rem 0 0.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+ 
+    h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+ 
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin: 1.25rem 0 0.5rem;
+    }
+ 
+    p { margin-bottom: 1rem; color: var(--navy); font-size: 0.95rem; }
+ 
+    ul {
+      margin: 0.5rem 0 1rem 1.25rem;
+      color: var(--navy);
+      font-size: 0.95rem;
+    }
+ 
+    ul li { margin-bottom: 0.4rem; }
+ 
+    a { color: var(--teal); }
+    a:hover { color: var(--orange); }
+ 
+    /* CONTACT BOX */
+    .contact-box {
+      background: linear-gradient(135deg, var(--teal-xlight), var(--orange-light));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+ 
+    .contact-box h3 { margin-top: 0; font-size: 1.1rem; }
+    .contact-box p { color: var(--gray); font-size: 0.9rem; }
+ 
+    .contact-box a.btn {
+      display: inline-block;
+      margin-top: 0.75rem;
+      background: var(--teal);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+ 
+    .contact-box a.btn:hover { background: var(--teal-dark); color: white; }
+ 
+    /* DISCLOSURE BADGE */
+    .disclosure-badge {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--orange-light);
+      border: 1px solid var(--orange-border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+ 
+    .disclosure-badge .icon { font-size: 1.75rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .disclosure-badge p { margin: 0; font-size: 0.95rem; color: #7c2d12; }
+    .disclosure-badge strong { color: #9a3412; }
+ 
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      color: #94a3b8;
+      padding: 2.5rem 2rem;
+    }
+ 
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+ 
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+ 
+    .footer-logo span { color: var(--teal-light); }
+ 
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+ 
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+ 
+    .footer-links a:hover { color: var(--teal-light); }
+ 
+    .footer-disclaimer {
+      font-size: 0.78rem;
+      color: #64748b;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+ 
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+ 
+    @media (max-width: 600px) {
+      .tab-btn { font-size: 0.85rem; padding: 0.5rem 0.9rem; }
+    }
   </style>
 </head>
 <body>
+ 
+<!-- NAV -->
 <nav>
-  <div class="nav-inner">
-    <a href="/" class="logo">Calc<span>Wonk</span></a>
-    <a href="/" class="home-link">← Back to calculators</a>
-  </div>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <a href="/" class="back">← Back to calculators</a>
 </nav>
+ 
+<!-- HERO -->
 <div class="hero">
-  <h1>Legal &amp; Policies</h1>
-  <p>Plain-English policies for how CalcWonk works, what we collect, and how we earn revenue.</p>
+  <h1>Legal &amp; Disclosures</h1>
+  <p>We believe in full transparency about how CalcWonk works, how we make money, and how we handle your data.</p>
+  <span class="last-updated">Last updated: March 2026</span>
 </div>
-<div class="toc">
-  <a href="#affiliate-disclosure">Affiliate Disclosure</a>
-  <a href="#privacy-policy">Privacy Policy</a>
-  <a href="#terms-of-service">Terms of Service</a>
-</div>
-<main>
-
-  <div class="policy-section" id="affiliate-disclosure">
-    <span class="section-tag">Required by the FTC</span>
+ 
+<!-- MAIN CONTENT -->
+<div class="container">
+ 
+  <!-- TAB NAV -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('affiliate', this)">Affiliate Disclosure</button>
+    <button class="tab-btn" onclick="showTab('privacy', this)">Privacy Policy</button>
+    <button class="tab-btn" onclick="showTab('terms', this)">Terms of Service</button>
+  </div>
+ 
+  <!-- ==================== AFFILIATE DISCLOSURE ==================== -->
+  <div id="affiliate" class="tab-content active">
+ 
+    <div class="disclosure-badge">
+      <div class="icon">💡</div>
+      <p><strong>The short version:</strong> Some links on CalcWonk are affiliate links. If you click one and sign up for a product, we may earn a commission — at no extra cost to you. We only recommend products we genuinely think are useful.</p>
+    </div>
+ 
     <h2>Affiliate Disclosure</h2>
-    <p class="effective-date">Effective date: June 1, 2025</p>
-    <div class="highlight-box"><strong>The short version:</strong> Some links on CalcWonk are affiliate links. If you click one and make a purchase or sign up, we may earn a commission — at no extra cost to you. We only recommend products we believe are genuinely useful.</div>
-    <h3>What this means</h3>
-    <p>CalcWonk participates in affiliate marketing programs, including programs offered by payroll software providers, HR platforms, financial services companies, and other business and personal finance tools.</p>
-    <p>When you click on certain links and complete a purchase, signup, or other qualifying action, CalcWonk may receive a referral commission from the company. This commission comes from the company — not from you — and does not affect the price you pay.</p>
-    <h3>Our editorial standards</h3>
-    <p>Affiliate relationships do not influence which products we recommend or how we describe them. Our calculators and content are designed to give you accurate, useful information regardless of whether an affiliate relationship exists. We do not accept payment to feature specific products in our calculator results or editorial content.</p>
-    <h3>How to identify affiliate links</h3>
-    <p>Affiliate links are typically found in recommendation sections below our calculators and in blog content where we compare or recommend specific tools. We label these clearly.</p>
-    <div class="contact-box">Questions about our affiliate relationships? Contact us at <a href="/cdn-cgi/l/email-protection#3d55585151527d5e5c515e4a525356135e5250"><span class="__cf_email__" data-cfemail="325a575e5e5d7251535e51455d5c591c515d5f">[email&#160;protected]</span></a>.</div>
+    <p>CalcWonk participates in affiliate marketing programs, which means we may earn a commission when you click certain links and complete a purchase or sign-up. This is one of the primary ways we fund the development and maintenance of our free calculator tools.</p>
+ 
+    <h3>What This Means For You</h3>
+    <p>When you see a recommendation for a product or service on CalcWonk — such as payroll software, accounting tools, or financial services — that link may be an affiliate link. If you click it and sign up, the company pays us a referral fee. You pay the same price you would have paid anyway; the commission comes from the company, not from you.</p>
+ 
+    <h3>Our Editorial Standards</h3>
+    <p>Affiliate relationships do not influence our calculator results, our editorial opinions, or the tools we choose to build. We recommend products based on their usefulness to our audience of small business owners and individuals making financial decisions. We do not accept payment to feature or promote specific products.</p>
+ 
+    <h3>Which Products We May Earn Commissions From</h3>
+    <p>CalcWonk may have affiliate relationships with companies including, but not limited to:</p>
+    <ul>
+      <li>Payroll and HR software (such as Gusto, Rippling, and similar)</li>
+      <li>Accounting and bookkeeping software (such as QuickBooks and FreshBooks)</li>
+      <li>Financial services and investment platforms</li>
+      <li>Business banking and lending platforms</li>
+      <li>Insurance providers</li>
+    </ul>
+    <p>Not every link on CalcWonk is an affiliate link. Links to government resources, educational content, and non-commercial tools are not affiliate links.</p>
+ 
+    <h3>FTC Compliance</h3>
+    <p>This disclosure is made in accordance with the Federal Trade Commission's guidelines on endorsements and testimonials (16 CFR Part 255). We are committed to transparency and believe you have a right to know when we have a financial relationship with a company we mention.</p>
+ 
+    <div class="contact-box">
+      <h3>Questions about our affiliate relationships?</h3>
+      <p>We're happy to answer any questions about how we work.</p>
+      <a href="mailto:calcwonk@gmail.com" class="btn">calcwonk@gmail.com</a>
+    </div>
   </div>
-
-  <div class="policy-section" id="privacy-policy">
-    <span class="section-tag teal">Privacy</span>
+ 
+  <!-- ==================== PRIVACY POLICY ==================== -->
+  <div id="privacy" class="tab-content">
+ 
+    <div class="section-intro">
+      CalcWonk is a calculator tools site. We collect minimal data and do not sell your personal information. Here's exactly what we collect and why.
+    </div>
+ 
     <h2>Privacy Policy</h2>
-    <p class="effective-date">Effective date: June 1, 2025</p>
-    <p>CalcWonk ("we," "us," or "our") operates calcwonk.com. This Privacy Policy explains what information we collect, how we use it, and your choices.</p>
-    <h3>Information we collect</h3>
+    <p>This Privacy Policy describes how CalcWonk ("we," "us," or "our") collects, uses, and shares information when you visit calcwonk.com (the "Site").</p>
+ 
+    <h2>Information We Collect</h2>
+ 
+    <h3>Information You Provide</h3>
+    <p>CalcWonk's calculators run entirely in your browser. The numbers you enter into our calculators are not transmitted to our servers and are not stored or collected by us. If you contact us via email, we receive the information included in your message.</p>
+ 
+    <h3>Automatically Collected Information</h3>
+    <p>When you visit our Site, we automatically collect certain information through analytics tools, including:</p>
     <ul>
-      <li><strong>Information you provide:</strong> If you contact us, we collect the information you voluntarily share (name, email address).</li>
-      <li><strong>Information collected automatically:</strong> We collect device and usage data including IP address, browser type, pages visited, and referring URLs via Google Analytics.</li>
+      <li>Pages visited and time spent on each page</li>
+      <li>General geographic location (country and region level — we do not collect your precise location)</li>
+      <li>Browser type and device type</li>
+      <li>Referring website (how you found us)</li>
+      <li>Search terms used to find our Site (where available)</li>
     </ul>
-    <h3>How your calculator inputs are handled</h3>
-    <p>All calculations run entirely in your browser. Numbers you enter are not transmitted to our servers, not stored, and not shared with any third party. When you close the page, your inputs are gone.</p>
-    <h3>How we use your information</h3>
+    <p>This information is collected in aggregate and is used to understand how visitors use our Site so we can improve it. We use Google Analytics for this purpose. Google Analytics data is governed by Google's Privacy Policy.</p>
+ 
+    <h3>Cookies</h3>
+    <p>We use cookies to support analytics. You can disable cookies in your browser settings, though this may affect your experience on some parts of the Site. We do not use cookies for advertising or tracking purposes beyond analytics.</p>
+ 
+    <h2>How We Use Your Information</h2>
     <ul>
-      <li>To understand how visitors use the site and improve our tools</li>
-      <li>To respond to inquiries you send us</li>
-      <li>To monitor and improve site performance and security</li>
+      <li>To understand how visitors use our tools so we can improve them</li>
+      <li>To diagnose technical issues with the Site</li>
+      <li>To respond to your questions if you contact us</li>
     </ul>
-    <h3>Cookies and tracking</h3>
-    <p>CalcWonk uses cookies to support analytics and affiliate link tracking. You can control cookies through your browser settings. You may opt out of Google Analytics by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" style="color:var(--teal)">Google Analytics Opt-out Browser Add-on</a>.</p>
-    <h3>Affiliate link tracking</h3>
-    <p>When you click an affiliate link, the affiliate network (such as Impact.com) may place a cookie on your browser to track qualifying purchases or signups. This is subject to their privacy policies.</p>
-    <h3>Your rights</h3>
-    <p>Depending on your location, you may have rights to access, correct, or delete personal data we hold. Contact us at <a href="/cdn-cgi/l/email-protection#1179747d7d7e5172707d72667e7f7a3f727e7c" style="color:var(--teal)"><span class="__cf_email__" data-cfemail="c0a8a5acacaf80a3a1aca3b7afaeabeea3afad">[email&#160;protected]</span></a> to make a request.</p>
-    <h3>Children's privacy</h3>
-    <p>CalcWonk is not directed at children under 13. We do not knowingly collect personal information from children.</p>
-    <h3>Changes to this policy</h3>
-    <p>We may update this Privacy Policy from time to time. Changes will be posted here with an updated effective date.</p>
-    <div class="contact-box">Questions about this Privacy Policy? Email us at <a href="/cdn-cgi/l/email-protection#563e333a3a391635373a352139383d7835393b"><span class="__cf_email__" data-cfemail="90f8f5fcfcffd0f3f1fcf3e7fffefbbef3fffd">[email&#160;protected]</span></a>.</div>
+    <p>We do not use your information for advertising purposes, and we do not sell your information to third parties.</p>
+ 
+    <h2>Third-Party Links</h2>
+    <p>Our Site contains links to third-party websites, including affiliate partners. When you click these links, you leave CalcWonk and are subject to the privacy policies of those sites. We are not responsible for the privacy practices of third-party sites.</p>
+ 
+    <h2>Data Retention</h2>
+    <p>We retain analytics data for up to 26 months, after which it is automatically deleted. If you contact us by email, we retain your message for as long as reasonably necessary to respond to your inquiry.</p>
+ 
+    <h2>Your Rights</h2>
+    <p>Depending on your location, you may have certain rights regarding your personal data, including the right to access, correct, or delete information we hold about you. To exercise these rights, please contact us at <a href="mailto:calcwonk@gmail.com">calcwonk@gmail.com</a>. Because we collect minimal personal data, most requests can be handled quickly.</p>
+    <p>If you are a resident of California, the EU, or another jurisdiction with specific privacy rights, those rights apply to the extent data we hold falls within their scope.</p>
+ 
+    <h2>Children's Privacy</h2>
+    <p>CalcWonk is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided personal information to us, please contact us and we will delete it promptly.</p>
+ 
+    <h2>Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. We will indicate the date of the most recent update at the top of this page. Continued use of the Site after changes are posted constitutes your acceptance of the revised policy.</p>
+ 
+    <div class="contact-box">
+      <h3>Privacy questions?</h3>
+      <p>Contact us at any time and we'll respond promptly.</p>
+      <a href="mailto:calcwonk@gmail.com" class="btn">calcwonk@gmail.com</a>
+    </div>
   </div>
-
-  <div class="policy-section" id="terms-of-service">
-    <span class="section-tag navy">Terms of Service</span>
+ 
+  <!-- ==================== TERMS OF SERVICE ==================== -->
+  <div id="terms" class="tab-content">
+ 
+    <div class="section-intro">
+      These terms govern your use of CalcWonk. The short version: use our tools for lawful purposes, understand that calculator results are for informational use only, and be excellent to each other.
+    </div>
+ 
     <h2>Terms of Service</h2>
-    <p class="effective-date">Effective date: June 1, 2025</p>
-    <p>By accessing or using CalcWonk at calcwonk.com, you agree to these Terms of Service. If you do not agree, please do not use the site.</p>
-    <h3>Use of the site</h3>
-    <p>You may use CalcWonk for personal and commercial informational purposes. You may not:</p>
+    <p>These Terms of Service ("Terms") govern your access to and use of calcwonk.com (the "Site") operated by CalcWonk ("we," "us," or "our"). By using the Site, you agree to these Terms.</p>
+ 
+    <h2>Use of the Site</h2>
+    <p>You may use CalcWonk for lawful personal and business purposes. You agree not to:</p>
     <ul>
-      <li>Reproduce or republish CalcWonk's content or tools without written permission</li>
-      <li>Use automated tools to scrape or extract data from the site</li>
-      <li>Use the site in any way that violates applicable laws or regulations</li>
-      <li>Attempt to interfere with or disrupt the site's operation</li>
+      <li>Use the Site in any way that violates applicable laws or regulations</li>
+      <li>Attempt to gain unauthorized access to any part of the Site</li>
+      <li>Scrape, crawl, or systematically download content from the Site without our written permission</li>
+      <li>Use the Site to distribute spam or malicious content</li>
+      <li>Interfere with or disrupt the Site's operation or servers</li>
     </ul>
-    <h3>Not financial or legal advice</h3>
-    <div class="highlight-box"><strong>Important:</strong> CalcWonk's calculators and content are for informational purposes only. Nothing on this site constitutes financial, tax, legal, or professional advice. Results are estimates — always consult a qualified professional before making financial or business decisions.</div>
-    <h3>Accuracy of information</h3>
-    <p>We make reasonable efforts to keep our calculators accurate, but tax rates and regulations change. CalcWonk makes no warranties regarding the accuracy or completeness of any content or calculator result.</p>
-    <h3>Intellectual property</h3>
-    <p>All content on CalcWonk — including calculator code, copy, and design — is owned by CalcWonk or its licensors. You may not copy or reproduce site content without permission.</p>
-    <h3>Disclaimer of warranties</h3>
-    <p>CalcWonk is provided "as is" without warranties of any kind. We do not warrant that the site will be uninterrupted or error-free.</p>
-    <h3>Limitation of liability</h3>
-    <p>To the fullest extent permitted by law, CalcWonk and its operators shall not be liable for any indirect, incidental, or consequential damages arising from your use of the site.</p>
-    <h3>Governing law</h3>
-    <p>These Terms are governed by the laws of the United States, without regard to conflict of law principles.</p>
-    <h3>Changes to these terms</h3>
-    <p>We may modify these Terms at any time. Changes will be posted here with an updated effective date. Continued use of the site constitutes acceptance.</p>
-    <div class="contact-box">Questions about these Terms? Contact us at <a href="/cdn-cgi/l/email-protection#acc4c9c0c0c3eccfcdc0cfdbc3c2c782cfc3c1"><span class="__cf_email__" data-cfemail="3f575a5353507f5c5e535c48
+ 
+    <h2>Calculator Results — Important Disclaimer</h2>
+    <p>CalcWonk's tools are provided for <strong>informational and educational purposes only</strong>. Calculator results are estimates based on general formulas and the inputs you provide. They do not constitute financial, legal, tax, accounting, or professional advice of any kind.</p>
+    <p>Results may not reflect your specific circumstances, applicable laws in your jurisdiction, or current regulatory requirements. Before making financial, hiring, or business decisions, you should consult a qualified professional — such as a CPA, attorney, financial advisor, or HR professional — who can evaluate your specific situation.</p>
+    <p>We make reasonable efforts to ensure our calculators use accurate formulas and current rates, but we do not guarantee the accuracy, completeness, or timeliness of any results.</p>
+ 
+    <h2>Intellectual Property</h2>
+    <p>The content, design, and tools on CalcWonk are owned by us and protected by applicable intellectual property laws. You may use our calculators for personal and business purposes, share links to our pages, and quote brief excerpts with attribution. You may not reproduce, republish, or commercially exploit our content or tools without written permission.</p>
+ 
+    <h2>Affiliate Links and Third-Party Content</h2>
+    <p>CalcWonk contains affiliate links and references to third-party products and services. We are not responsible for the content, accuracy, or practices of third-party websites. The inclusion of a link does not imply our endorsement of that site's content or services beyond what is expressly stated.</p>
+ 
+    <h2>Disclaimer of Warranties</h2>
+    <p>The Site is provided "as is" and "as available" without warranties of any kind, express or implied. We do not warrant that the Site will be uninterrupted, error-free, or free of viruses or other harmful components. Your use of the Site is at your own risk.</p>
+ 
+    <h2>Limitation of Liability</h2>
+    <p>To the fullest extent permitted by law, CalcWonk shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the Site or its calculator results. Our total liability to you for any claim arising from use of the Site shall not exceed $100.</p>
+ 
+    <h2>Governing Law</h2>
+    <p>These Terms are governed by the laws of the United States and the state in which CalcWonk operates, without regard to conflict of law principles.</p>
+ 
+    <h2>Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. Continued use of the Site after changes are posted constitutes acceptance of the revised Terms. We will update the "Last updated" date at the top of the Legal &amp; Disclosures page when changes are made.</p>
+ 
+    <h2>Contact</h2>
+    <p>Questions about these Terms? Contact us at <a href="mailto:calcwonk@gmail.com">calcwonk@gmail.com</a>.</p>
+ 
+    <div class="contact-box">
+      <h3>Have a question about our terms?</h3>
+      <p>We're a small operation and we respond to every message.</p>
+      <a href="mailto:calcwonk@gmail.com" class="btn">calcwonk@gmail.com</a>
+    </div>
+  </div>
+ 
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/legal">Privacy Policy</a>
+      <a href="/legal">Terms of Service</a>
+      <a href="/legal">Affiliate Disclosure</a>
+      <a href="mailto:calcwonk@gmail.com">Contact</a>
+    </div>
+    <p class="footer-disclaimer">
+      CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice.
+    </p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+  </div>
+</footer>
+ 
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+ 
+</body>
+</html>
