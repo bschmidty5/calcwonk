@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CalcWonk — Real Numbers for Real Decisions</title>
   <meta name="description" content="Free financial calculators for small business owners and individuals. True cost of hiring, break-even analysis, profit margins, loan costs, and more — built for real decisions." />
   <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
-  <meta name='impact-site-verification' value='259b053f-7a01-4758-8764-81d30ab2165f'>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -22,16 +29,16 @@
       --border: #e2e8f0;
       --white: #ffffff;
     }
- 
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--white);
       color: var(--navy);
       line-height: 1.6;
     }
- 
+
     /* ── NAV ── */
     nav {
       background: var(--white);
@@ -46,22 +53,22 @@
       z-index: 100;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
- 
+
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       color: var(--navy);
       text-decoration: none;
     }
- 
+
     .nav-logo span { color: var(--teal); }
- 
+
     .nav-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
     }
- 
+
     .nav-links a {
       font-size: 0.9rem;
       font-weight: 500;
@@ -69,9 +76,9 @@
       text-decoration: none;
       transition: color 0.2s;
     }
- 
+
     .nav-links a:hover { color: var(--teal); }
- 
+
     /* ── HERO ── */
     .hero {
       background: var(--white);
@@ -80,7 +87,7 @@
       max-width: 800px;
       margin: 0 auto;
     }
- 
+
     .hero-eyebrow {
       display: inline-block;
       background: var(--teal-light);
@@ -93,7 +100,7 @@
       border-radius: 999px;
       margin-bottom: 1.25rem;
     }
- 
+
     .hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2rem, 5vw, 3.5rem);
@@ -101,19 +108,19 @@
       line-height: 1.2;
       margin-bottom: 1rem;
     }
- 
+
     .hero h1 em {
       font-style: italic;
       color: var(--teal);
     }
- 
+
     .hero p {
       font-size: 1.1rem;
       color: var(--gray);
       max-width: 540px;
       margin: 0 auto 2rem;
     }
- 
+
     .hero-cta {
       display: inline-flex;
       align-items: center;
@@ -127,12 +134,12 @@
       font-size: 0.95rem;
       transition: background 0.2s, transform 0.1s;
     }
- 
+
     .hero-cta:hover {
       background: var(--teal-dark);
       transform: translateY(-1px);
     }
- 
+
     /* ── STATS BAR ── */
     .stats-bar {
       background: var(--navy);
@@ -142,46 +149,46 @@
       gap: 3rem;
       flex-wrap: wrap;
     }
- 
+
     .stat { text-align: center; color: var(--white); }
- 
+
     .stat-number {
       font-family: 'Playfair Display', serif;
       font-size: 1.6rem;
       color: var(--teal-light);
       display: block;
     }
- 
+
     .stat-label { font-size: 0.8rem; color: #94a3b8; margin-top: 0.15rem; }
- 
+
     /* ── TOOLS SECTION ── */
     .tools-section {
       padding: 4rem 2rem;
       max-width: 1100px;
       margin: 0 auto;
     }
- 
+
     .section-header {
       text-align: center;
       margin-bottom: 2.5rem;
     }
- 
+
     .section-header h2 {
       font-family: 'Playfair Display', serif;
       font-size: 2rem;
       color: var(--navy);
       margin-bottom: 0.5rem;
     }
- 
+
     .section-header p { color: var(--gray); font-size: 1rem; }
- 
+
     .category-label {
       display: flex;
       align-items: center;
       gap: 0.75rem;
       margin: 2.5rem 0 1rem;
     }
- 
+
     .category-label h3 {
       font-size: 0.8rem;
       font-weight: 600;
@@ -190,20 +197,20 @@
       color: var(--gray);
       white-space: nowrap;
     }
- 
+
     .category-line {
       flex: 1;
       height: 1px;
       background: var(--border);
     }
- 
+
     /* ── TOOL CARDS ── */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
- 
+
     .tool-card {
       background: var(--white);
       border: 1px solid var(--border);
@@ -216,25 +223,25 @@
       flex-direction: column;
       gap: 0.75rem;
     }
- 
+
     .tool-card:hover {
       box-shadow: 0 8px 24px rgba(0,0,0,0.09);
       transform: translateY(-2px);
       border-color: var(--teal);
     }
- 
+
     .tool-card.coming-soon {
       opacity: 0.6;
       cursor: default;
       pointer-events: none;
     }
- 
+
     .tool-card.coming-soon:hover {
       box-shadow: none;
       transform: none;
       border-color: var(--border);
     }
- 
+
     .card-icon {
       width: 44px;
       height: 44px;
@@ -245,31 +252,31 @@
       font-size: 1.25rem;
       flex-shrink: 0;
     }
- 
+
     .card-icon.teal { background: var(--teal-light); }
     .card-icon.orange { background: #ffedd5; }
- 
+
     .card-body { flex: 1; }
- 
+
     .card-title {
       font-weight: 600;
       font-size: 1rem;
       color: var(--navy);
       margin-bottom: 0.3rem;
     }
- 
+
     .card-desc {
       font-size: 0.875rem;
       color: var(--gray);
       line-height: 1.5;
     }
- 
+
     .card-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
- 
+
     .card-badge {
       font-size: 0.72rem;
       font-weight: 600;
@@ -277,39 +284,39 @@
       border-radius: 999px;
       letter-spacing: 0.04em;
     }
- 
+
     .badge-live { background: var(--teal-light); color: var(--teal-dark); }
     .badge-soon { background: var(--gray-light); color: var(--gray); }
- 
+
     .card-arrow {
       font-size: 1rem;
       color: var(--teal);
       transition: transform 0.2s;
     }
- 
+
     .tool-card:hover .card-arrow { transform: translateX(3px); }
- 
+
     /* ── WHY SECTION ── */
     .why-section {
       background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--orange-light) 100%);
       padding: 4rem 2rem;
       text-align: center;
     }
- 
+
     .why-section h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.9rem;
       color: var(--navy);
       margin-bottom: 0.75rem;
     }
- 
+
     .why-section > p {
       color: var(--gray);
       max-width: 560px;
       margin: 0 auto 2.5rem;
       font-size: 1rem;
     }
- 
+
     .why-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -317,7 +324,7 @@
       max-width: 900px;
       margin: 0 auto;
     }
- 
+
     .why-card {
       background: var(--white);
       border-radius: 12px;
@@ -325,18 +332,18 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       text-align: left;
     }
- 
+
     .why-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
- 
+
     .why-card h3 {
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--navy);
       margin-bottom: 0.4rem;
     }
- 
+
     .why-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.5; }
- 
+
     /* ── CTA BAND ── */
     .cta-band {
       background: var(--teal);
@@ -344,15 +351,15 @@
       text-align: center;
       padding: 3rem 2rem;
     }
- 
+
     .cta-band h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
       margin-bottom: 0.5rem;
     }
- 
+
     .cta-band p { opacity: 0.85; margin-bottom: 1.5rem; font-size: 0.95rem; }
- 
+
     .cta-band a {
       display: inline-block;
       background: var(--white);
@@ -364,16 +371,16 @@
       font-size: 0.95rem;
       transition: transform 0.1s;
     }
- 
+
     .cta-band a:hover { transform: translateY(-2px); }
- 
+
     /* ── FOOTER ── */
     footer {
       background: var(--navy);
       color: #94a3b8;
       padding: 2.5rem 2rem;
     }
- 
+
     .footer-inner {
       max-width: 1100px;
       margin: 0 auto;
@@ -383,41 +390,41 @@
       gap: 1rem;
       text-align: center;
     }
- 
+
     .footer-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--white);
       text-decoration: none;
     }
- 
+
     .footer-logo span { color: var(--teal-light); }
- 
+
     .footer-links {
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
     }
- 
+
     .footer-links a {
       color: #94a3b8;
       text-decoration: none;
       font-size: 0.85rem;
       transition: color 0.2s;
     }
- 
+
     .footer-links a:hover { color: var(--teal-light); }
- 
+
     .footer-disclaimer {
       font-size: 0.78rem;
       color: #64748b;
       max-width: 600px;
       line-height: 1.5;
     }
- 
+
     .footer-copy { font-size: 0.8rem; color: #475569; }
- 
+
     @media (max-width: 600px) {
       .stats-bar { gap: 1.5rem; }
       .nav-links { display: none; }
@@ -425,7 +432,7 @@
   </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
@@ -437,7 +444,7 @@
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
- 
+
 <!-- HERO -->
 <div class="hero">
   <span class="hero-eyebrow">For people who actually like numbers</span>
@@ -445,7 +452,7 @@
   <p>Financial calculators built for small business owners and individuals who want the full picture — not the ballpark.</p>
   <a href="#tools" class="hero-cta">Browse the tools →</a>
 </div>
- 
+
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stat">
@@ -461,22 +468,22 @@
     <span class="stat-label">Runs in your browser</span>
   </div>
 </div>
- 
+
 <!-- TOOLS SECTION -->
 <div class="tools-section" id="tools">
   <div class="section-header">
     <h2>The Tools</h2>
     <p>Each calculator is built around a real decision — not just a formula.</p>
   </div>
- 
+
   <!-- Small Business -->
   <div class="category-label">
     <h3>Small Business</h3>
     <div class="category-line"></div>
   </div>
- 
+
   <div class="tools-grid">
- 
+
     <a href="/true-cost-of-an-employee-calculator/" class="tool-card">
       <div class="card-icon teal">👤</div>
       <div class="card-body">
@@ -488,7 +495,7 @@
         <span class="card-arrow">→</span>
       </div>
     </a>
- 
+
     <a href="/contractor-vs-employee/" class="tool-card">
       <div class="card-icon teal">⚖️</div>
       <div class="card-body">
@@ -500,7 +507,7 @@
         <span class="card-arrow">→</span>
       </div>
     </a>
- 
+
     <a href="/cost-of-employee-turnover/" class="tool-card">
       <div class="card-icon teal">📉</div>
       <div class="card-body">
@@ -512,7 +519,7 @@
         <span class="card-arrow">→</span>
       </div>
     </a>
- 
+
     <a href="/break-even-calculator/" class="tool-card">
       <div class="card-icon teal">📊</div>
       <div class="card-body">
@@ -524,7 +531,7 @@
         <span class="card-arrow">→</span>
       </div>
     </a>
- 
+
     <a href="/profit-margin-calculator/" class="tool-card">
       <div class="card-icon teal">💰</div>
       <div class="card-body">
@@ -536,7 +543,7 @@
         <span class="card-arrow">→</span>
       </div>
     </a>
- 
+
     <a href="/business-loan-true-cost/" class="tool-card">
       <div class="card-icon teal">🏦</div>
       <div class="card-body">
@@ -548,17 +555,17 @@
         <span class="card-arrow">→</span>
       </div>
     </a>
- 
+
   </div>
- 
+
   <!-- Personal Finance -->
   <div class="category-label">
     <h3>Personal Finance</h3>
     <div class="category-line"></div>
   </div>
- 
+
   <div class="tools-grid">
- 
+
     <a href="/roth-vs-traditional-ira-calculator/" class="tool-card">
       <div class="card-icon orange">📈</div>
       <div class="card-body">
@@ -570,7 +577,7 @@
         <span class="card-arrow">→</span>
       </div>
     </a>
- 
+
     <div class="tool-card coming-soon">
       <div class="card-icon orange">🏠</div>
       <div class="card-body">
@@ -581,7 +588,7 @@
         <span class="card-badge badge-soon">Coming Soon</span>
       </div>
     </div>
- 
+
     <div class="tool-card coming-soon">
       <div class="card-icon orange">⏳</div>
       <div class="card-body">
@@ -592,7 +599,7 @@
         <span class="card-badge badge-soon">Coming Soon</span>
       </div>
     </div>
- 
+
     <div class="tool-card coming-soon">
       <div class="card-icon orange">🧾</div>
       <div class="card-body">
@@ -603,7 +610,7 @@
         <span class="card-badge badge-soon">Coming Soon</span>
       </div>
     </div>
- 
+
     <div class="tool-card coming-soon">
       <div class="card-icon orange">🏡</div>
       <div class="card-body">
@@ -614,10 +621,10 @@
         <span class="card-badge badge-soon">Coming Soon</span>
       </div>
     </div>
- 
+
   </div>
 </div>
- 
+
 <!-- WHY SECTION -->
 <div class="why-section" id="why">
   <h2>Why CalcWonk?</h2>
@@ -645,7 +652,7 @@
     </div>
   </div>
 </div>
- 
+
 <!-- BUILT BY -->
 <div style="background:#ffffff;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:3rem 2rem;">
   <div style="max-width:700px;margin:0 auto;display:flex;gap:2rem;align-items:center;flex-wrap:wrap;">
@@ -657,14 +664,14 @@
     </div>
   </div>
 </div>
- 
+
 <!-- CTA BAND -->
 <div class="cta-band">
   <h2>Start with the numbers.</h2>
   <p>Six free calculators built for business owners who want real answers.</p>
   <a href="/true-cost-of-an-employee-calculator/">Try our most popular tool →</a>
 </div>
- 
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
