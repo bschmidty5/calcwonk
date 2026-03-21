@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Break-Even Calculator — Find Your Break-Even Point | CalcWonk</title>
@@ -24,16 +32,16 @@
       --green-light: #dcfce7;
       --green-border: #bbf7d0;
     }
- 
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--white);
       color: var(--navy);
       line-height: 1.6;
     }
- 
+
     /* ── NAV ── */
     nav {
       background: var(--white);
@@ -48,22 +56,22 @@
       z-index: 100;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
- 
+
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       color: var(--navy);
       text-decoration: none;
     }
- 
+
     .nav-logo span { color: var(--teal); }
- 
+
     .nav-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
     }
- 
+
     .nav-links a {
       font-size: 0.9rem;
       font-weight: 500;
@@ -71,9 +79,9 @@
       text-decoration: none;
       transition: color 0.2s;
     }
- 
+
     .nav-links a:hover { color: var(--teal); }
- 
+
     /* ── PAGE HERO ── */
     .page-hero {
       background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--white) 60%);
@@ -81,20 +89,20 @@
       padding: 3rem 2rem 2.5rem;
       text-align: center;
     }
- 
+
     .breadcrumb {
       font-size: 0.8rem;
       color: var(--gray);
       margin-bottom: 1rem;
     }
- 
+
     .breadcrumb a {
       color: var(--teal);
       text-decoration: none;
     }
- 
+
     .breadcrumb a:hover { text-decoration: underline; }
- 
+
     .page-hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.6rem, 4vw, 2.4rem);
@@ -104,21 +112,21 @@
       margin-left: auto;
       margin-right: auto;
     }
- 
+
     .page-hero p {
       color: var(--gray);
       font-size: 1.05rem;
       max-width: 580px;
       margin: 0 auto;
     }
- 
+
     /* ── LAYOUT ── */
     .page-container {
       max-width: 900px;
       margin: 0 auto;
       padding: 2.5rem 1.5rem 5rem;
     }
- 
+
     /* ── CALC CARD ── */
     .calc-card {
       background: var(--white);
@@ -128,7 +136,7 @@
       overflow: hidden;
       margin-bottom: 2.5rem;
     }
- 
+
     .calc-header {
       background: var(--teal);
       padding: 1.25rem 1.75rem;
@@ -136,18 +144,18 @@
       align-items: center;
       gap: 0.75rem;
     }
- 
+
     .calc-header h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
       color: var(--white);
     }
- 
+
     .calc-body { padding: 2rem 1.75rem; }
- 
+
     /* ── INPUT SECTIONS ── */
     .input-section { margin-bottom: 1.75rem; }
- 
+
     .input-section-title {
       font-size: 0.75rem;
       font-weight: 600;
@@ -158,35 +166,35 @@
       padding-bottom: 0.5rem;
       border-bottom: 2px solid var(--teal-light);
     }
- 
+
     .input-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
- 
+
     @media (max-width: 580px) { .input-grid { grid-template-columns: 1fr; } }
- 
+
     .input-group {
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
     }
- 
+
     .input-group label {
       font-size: 0.85rem;
       font-weight: 500;
       color: var(--navy);
     }
- 
+
     .hint { font-size: 0.75rem; color: var(--gray); }
- 
+
     .input-wrapper {
       position: relative;
       display: flex;
       align-items: center;
     }
- 
+
     .input-prefix, .input-suffix {
       position: absolute;
       font-size: 0.9rem;
@@ -194,10 +202,10 @@
       font-weight: 500;
       pointer-events: none;
     }
- 
+
     .input-prefix { left: 0.75rem; }
     .input-suffix { right: 0.75rem; }
- 
+
     .input-wrapper input {
       width: 100%;
       padding: 0.6rem 0.75rem;
@@ -210,19 +218,19 @@
       transition: border-color 0.2s, box-shadow 0.2s;
       -moz-appearance: textfield;
     }
- 
+
     .input-wrapper input::-webkit-outer-spin-button,
     .input-wrapper input::-webkit-inner-spin-button { -webkit-appearance: none; }
- 
+
     .input-wrapper input:focus {
       outline: none;
       border-color: var(--teal);
       box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
     }
- 
+
     .has-prefix input { padding-left: 1.75rem; }
     .has-suffix input { padding-right: 2.5rem; }
- 
+
     /* ── RESULTS GRID ── */
     .results-grid {
       display: grid;
@@ -230,23 +238,23 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
- 
+
     @media (max-width: 580px) {
       .results-grid { grid-template-columns: 1fr 1fr; }
     }
- 
+
     .result-box {
       background: var(--navy);
       border-radius: 12px;
       padding: 1.25rem;
       text-align: center;
     }
- 
+
     .result-box.highlight {
       background: var(--teal);
       grid-column: span 1;
     }
- 
+
     .result-label {
       font-size: 0.72rem;
       color: #94a3b8;
@@ -254,26 +262,26 @@
       letter-spacing: 0.06em;
       margin-bottom: 0.4rem;
     }
- 
+
     .result-box.highlight .result-label { color: rgba(255,255,255,0.75); }
- 
+
     .result-value {
       font-family: 'Playfair Display', serif;
       font-size: 1.6rem;
       color: var(--teal-light);
       line-height: 1.1;
     }
- 
+
     .result-box.highlight .result-value { color: var(--white); font-size: 1.9rem; }
- 
+
     .result-sub {
       font-size: 0.72rem;
       color: #64748b;
       margin-top: 0.3rem;
     }
- 
+
     .result-box.highlight .result-sub { color: rgba(255,255,255,0.65); }
- 
+
     /* ── CHART ── */
     .chart-container {
       background: var(--gray-light);
@@ -282,7 +290,7 @@
       padding: 1.5rem;
       margin-bottom: 1.5rem;
     }
- 
+
     .chart-title {
       font-size: 0.8rem;
       font-weight: 600;
@@ -291,9 +299,9 @@
       letter-spacing: 0.06em;
       margin-bottom: 1rem;
     }
- 
+
     canvas { width: 100% !important; }
- 
+
     /* ── SCENARIO SECTION ── */
     .scenario-section {
       background: var(--orange-light);
@@ -302,7 +310,7 @@
       padding: 1.25rem 1.5rem;
       margin-bottom: 1.5rem;
     }
- 
+
     .scenario-title {
       font-size: 0.8rem;
       font-weight: 600;
@@ -311,37 +319,37 @@
       letter-spacing: 0.06em;
       margin-bottom: 0.75rem;
     }
- 
+
     .scenario-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0.75rem;
     }
- 
+
     @media (max-width: 580px) { .scenario-grid { grid-template-columns: 1fr; } }
- 
+
     .scenario-box {
       background: var(--white);
       border-radius: 8px;
       padding: 0.9rem 1rem;
       border: 1px solid var(--orange-border);
     }
- 
+
     .scenario-box-label {
       font-size: 0.75rem;
       color: var(--gray);
       margin-bottom: 0.3rem;
     }
- 
+
     .scenario-box-value {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--orange);
       font-weight: 700;
     }
- 
+
     .scenario-box-sub { font-size: 0.72rem; color: var(--gray); margin-top: 0.2rem; }
- 
+
     /* ── INSIGHT ── */
     .insight-box {
       background: var(--green-light);
@@ -353,17 +361,17 @@
       align-items: flex-start;
       margin-bottom: 1.5rem;
     }
- 
+
     .insight-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 0.1rem; }
- 
+
     .insight-text {
       font-size: 0.875rem;
       color: #14532d;
       line-height: 1.6;
     }
- 
+
     .insight-text strong { color: #166534; }
- 
+
     /* ── SUMMARY TABLE ── */
     .summary-table {
       width: 100%;
@@ -371,7 +379,7 @@
       font-size: 0.875rem;
       margin-bottom: 1.5rem;
     }
- 
+
     .summary-table th {
       text-align: left;
       font-size: 0.75rem;
@@ -382,21 +390,21 @@
       padding: 0.5rem 0.75rem;
       border-bottom: 2px solid var(--border);
     }
- 
+
     .summary-table td {
       padding: 0.6rem 0.75rem;
       border-bottom: 1px solid var(--border);
       color: var(--navy);
     }
- 
+
     .summary-table td:last-child { text-align: right; font-weight: 500; }
- 
+
     .summary-table tr.highlight-row td {
       background: var(--teal-xlight);
       font-weight: 700;
       color: var(--teal-dark);
     }
- 
+
     /* ── RELATED TOOLS ── */
     .related-tools {
       display: grid;
@@ -404,9 +412,9 @@
       gap: 1rem;
       margin-bottom: 2.5rem;
     }
- 
+
     @media (max-width: 640px) { .related-tools { grid-template-columns: 1fr; } }
- 
+
     .related-tool {
       background: var(--teal-xlight);
       border: 1.5px solid var(--teal-light);
@@ -419,19 +427,19 @@
       text-decoration: none;
       transition: box-shadow 0.2s;
     }
- 
+
     .related-tool:hover { box-shadow: 0 4px 12px rgba(13,148,136,0.12); }
- 
+
     .related-tool-text h4 {
       font-weight: 600;
       font-size: 0.85rem;
       color: var(--navy);
       margin-bottom: 0.15rem;
     }
- 
+
     .related-tool-text p { font-size: 0.75rem; color: var(--gray); margin: 0; }
     .related-tool-arrow { font-size: 1rem; color: var(--teal); flex-shrink: 0; }
- 
+
     /* ── AFFILIATE ── */
     .affiliate-section {
       background: var(--gray-light);
@@ -440,29 +448,29 @@
       padding: 1.5rem;
       margin-bottom: 2.5rem;
     }
- 
+
     .affiliate-section h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       color: var(--navy);
       margin-bottom: 0.3rem;
     }
- 
+
     .affiliate-section > p {
       font-size: 0.875rem;
       color: var(--gray);
       margin-bottom: 1rem;
     }
- 
+
     .affiliate-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
       margin-bottom: 1rem;
     }
- 
+
     @media (max-width: 540px) { .affiliate-cards { grid-template-columns: 1fr; } }
- 
+
     .affiliate-card {
       background: var(--white);
       border: 1.5px solid var(--border);
@@ -474,15 +482,15 @@
       text-decoration: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
- 
+
     .affiliate-card:hover {
       border-color: var(--teal);
       box-shadow: 0 4px 12px rgba(13,148,136,0.1);
     }
- 
+
     .affiliate-card-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); }
     .affiliate-card-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.4; flex: 1; }
- 
+
     .affiliate-card-cta {
       display: inline-block;
       background: var(--teal);
@@ -495,9 +503,9 @@
       text-align: center;
       transition: background 0.2s;
     }
- 
+
     .affiliate-card:hover .affiliate-card-cta { background: var(--teal-dark); }
- 
+
     .affiliate-disclosure {
       font-size: 0.75rem;
       color: var(--gray);
@@ -505,13 +513,13 @@
       align-items: flex-start;
       gap: 0.4rem;
     }
- 
+
     .affiliate-disclosure a { color: var(--teal); text-decoration: none; }
     .affiliate-disclosure a:hover { text-decoration: underline; }
- 
+
     /* ── CONTENT ── */
     .content-section { margin-bottom: 2.5rem; }
- 
+
     .content-section h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
@@ -520,31 +528,31 @@
       padding-bottom: 0.5rem;
       border-bottom: 2px solid var(--teal-light);
     }
- 
+
     .content-section h3 {
       font-size: 1rem;
       font-weight: 600;
       color: var(--navy);
       margin: 1.25rem 0 0.5rem;
     }
- 
+
     .content-section p {
       font-size: 0.95rem;
       color: #334155;
       line-height: 1.75;
       margin-bottom: 0.75rem;
     }
- 
+
     /* ── FAQ ── */
     .faq-list {
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
     }
- 
+
     .faq-item { border-bottom: 1px solid var(--border); }
     .faq-item:last-child { border-bottom: none; }
- 
+
     .faq-question {
       width: 100%;
       background: none;
@@ -562,13 +570,13 @@
       gap: 1rem;
       transition: background 0.15s;
     }
- 
+
     .faq-question:hover { background: var(--gray-light); }
     .faq-question.open { background: var(--teal-xlight); color: var(--teal-dark); }
- 
+
     .faq-chevron { font-size: 0.75rem; transition: transform 0.2s; color: var(--gray); flex-shrink: 0; }
     .faq-question.open .faq-chevron { transform: rotate(180deg); color: var(--teal); }
- 
+
     .faq-answer {
       display: none;
       padding: 0 1.25rem 1rem;
@@ -577,16 +585,16 @@
       line-height: 1.7;
       background: var(--teal-xlight);
     }
- 
+
     .faq-answer.open { display: block; }
- 
+
     /* ── FOOTER ── */
     footer {
       background: var(--navy);
       color: #94a3b8;
       padding: 2.5rem 2rem;
     }
- 
+
     .footer-inner {
       max-width: 900px;
       margin: 0 auto;
@@ -596,37 +604,37 @@
       gap: 1rem;
       text-align: center;
     }
- 
+
     .footer-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--white);
       text-decoration: none;
     }
- 
+
     .footer-logo span { color: var(--teal-light); }
- 
+
     .footer-links {
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
     }
- 
+
     .footer-links a {
       color: #94a3b8;
       text-decoration: none;
       font-size: 0.85rem;
       transition: color 0.2s;
     }
- 
+
     .footer-links a:hover { color: var(--teal-light); }
     .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 600px; line-height: 1.5; }
     .footer-copy { font-size: 0.8rem; color: #475569; }
   </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
@@ -635,7 +643,7 @@
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
- 
+
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="breadcrumb">
@@ -644,10 +652,10 @@
   <h1>Break-Even Calculator</h1>
   <p>How much do you need to sell before you start making money? Enter your fixed costs, variable costs, and price — and see your break-even point instantly.</p>
 </div>
- 
+
 <!-- MAIN -->
 <div class="page-container">
- 
+
   <!-- CALCULATOR -->
   <div class="calc-card">
     <div class="calc-header">
@@ -655,7 +663,7 @@
       <h2>Enter Your Numbers</h2>
     </div>
     <div class="calc-body">
- 
+
       <!-- FIXED COSTS -->
       <div class="input-section">
         <div class="input-section-title">Fixed Costs (Per Month)</div>
@@ -710,7 +718,7 @@
           </div>
         </div>
       </div>
- 
+
       <!-- VARIABLE COSTS & PRICING -->
       <div class="input-section">
         <div class="input-section-title">Pricing & Variable Costs (Per Unit / Sale)</div>
@@ -749,7 +757,7 @@
           </div>
         </div>
       </div>
- 
+
       <!-- RESULTS -->
       <div class="results-grid">
         <div class="result-box highlight">
@@ -783,13 +791,13 @@
           <div class="result-sub" id="safetyMarginPct">units above break-even</div>
         </div>
       </div>
- 
+
       <!-- CHART -->
       <div class="chart-container">
         <div class="chart-title">Revenue vs. Total Costs</div>
         <canvas id="breakEvenChart" height="280"></canvas>
       </div>
- 
+
       <!-- SCENARIO ANALYSIS -->
       <div class="scenario-section">
         <div class="scenario-title">📐 What-If Scenarios</div>
@@ -811,13 +819,13 @@
           </div>
         </div>
       </div>
- 
+
       <!-- INSIGHT -->
       <div class="insight-box">
         <div class="insight-icon">💡</div>
         <div class="insight-text" id="insightText">Enter your numbers above to see your personalized insight.</div>
       </div>
- 
+
       <!-- SUMMARY TABLE -->
       <table class="summary-table">
         <thead>
@@ -828,10 +836,10 @@
         </thead>
         <tbody id="summaryBody"></tbody>
       </table>
- 
+
     </div>
   </div>
- 
+
   <!-- RELATED TOOLS -->
   <div class="related-tools">
     <a href="/true-cost-of-an-employee-calculator/" class="related-tool">
@@ -856,7 +864,7 @@
       <div class="related-tool-arrow">→</div>
     </a>
   </div>
- 
+
   <!-- AFFILIATE -->
   <div class="affiliate-section">
     <h3>Track Your Numbers With the Right Accounting Software</h3>
@@ -878,30 +886,30 @@
       <span>CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal/">See our Affiliate Disclosure</a>.</span>
     </div>
   </div>
- 
+
   <!-- CONTENT -->
   <div class="content-section">
     <h2>What Is a Break-Even Point and Why Does It Matter?</h2>
     <p>Your break-even point is the exact volume of sales at which your total revenue equals your total costs — you're not making money yet, but you're not losing it either. Every sale beyond the break-even point generates pure profit. Every sale below it is a loss.</p>
     <p>It sounds simple, but most small business owners don't know their break-even number — and that makes it nearly impossible to price products correctly, set sales targets, evaluate whether a new hire makes financial sense, or decide if a business idea is viable in the first place.</p>
- 
+
     <h3>Fixed Costs vs. Variable Costs</h3>
     <p><strong>Fixed costs</strong> stay constant regardless of how much you sell. Rent, salaries, insurance, and software subscriptions are fixed — you pay them whether you sell zero units or a thousand. These are the costs you need to cover before you make a single dollar of profit.</p>
     <p><strong>Variable costs</strong> scale directly with sales. Materials, production labor, shipping, and payment processing fees are variable — they only occur when you make a sale. The difference between your selling price and your variable cost per unit is called the contribution margin, and it's what pays down your fixed costs with every sale.</p>
- 
+
     <h3>The Contribution Margin Is the Key Number</h3>
     <p>If you sell a product for $150 and it costs you $60 to produce and deliver, your contribution margin is $90 per unit — meaning every sale contributes $90 toward covering your fixed costs. If your total fixed costs are $11,500/month, you need to sell 128 units to break even ($11,500 ÷ $90 = 128).</p>
     <p>This is why pricing decisions are so consequential. A 10% price decrease doesn't just reduce revenue by 10% — it compresses your contribution margin and requires you to sell significantly more units just to stay at break-even. The what-if scenarios in this calculator show you exactly how sensitive your break-even point is to changes in price, variable costs, and fixed costs.</p>
- 
+
     <h3>Break-Even Analysis for Service Businesses</h3>
     <p>Break-even analysis works just as well for service businesses as for product businesses — you just define "units" differently. A consulting firm might measure units as billable hours. A restaurant might measure covers served. A subscription business might measure active subscribers. The math is identical; only the unit definition changes.</p>
   </div>
- 
+
   <!-- FAQ -->
   <div class="content-section">
     <h2>Frequently Asked Questions</h2>
     <div class="faq-list">
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           What is the break-even formula?
@@ -911,7 +919,7 @@
           The break-even formula is: Break-Even Units = Fixed Costs ÷ Contribution Margin Per Unit. Contribution margin per unit equals your selling price minus your variable cost per unit. For example, if your fixed costs are $10,000/month, your price is $100, and your variable cost per unit is $40, your contribution margin is $60 and your break-even point is 167 units ($10,000 ÷ $60).
         </div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           What is a good contribution margin?
@@ -921,7 +929,7 @@
           It depends heavily on your industry. Software and digital products often have contribution margins of 70–90% because variable costs are near zero. Manufacturing and retail typically run 20–50%. Service businesses vary widely depending on labor intensity. A higher contribution margin means each sale covers more of your fixed costs, so you reach break-even faster and profits accelerate more quickly beyond it.
         </div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           What is a margin of safety?
@@ -931,7 +939,7 @@
           The margin of safety is how far your current sales are above the break-even point — it tells you how much sales can fall before you start losing money. If you're selling 200 units per month and your break-even is 128 units, your margin of safety is 72 units or about 36%. A higher margin of safety means your business can absorb a demand downturn without immediately going into the red.
         </div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           How do I lower my break-even point?
@@ -941,7 +949,7 @@
           There are three levers: raise your prices (increases contribution margin), reduce variable costs (increases contribution margin), or reduce fixed costs (less to cover before profit begins). In practice, reducing fixed costs has the most immediate and reliable impact — switching contractors for employees, renegotiating leases, cutting software subscriptions, and reducing payroll through attrition or restructuring all directly lower the break-even threshold.
         </div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Can break-even analysis be used for a new business?
@@ -951,16 +959,16 @@
           Yes — and it should be. Before launching a business, break-even analysis tells you whether the business model is viable at realistic sales volumes. If your break-even point requires you to sell more units than the market can reasonably support at your price point, that's a signal to revisit pricing, cost structure, or the business model itself before investing further. It's one of the most important pre-launch calculations a founder can run.
         </div>
       </div>
- 
+
     </div>
   </div>
- 
+
   <p style="font-size:0.8rem;color:var(--gray);text-align:center;margin-top:-1rem">
     CalcWonk tools are built for business owners who want real numbers, not ballpark guesses. Bookmark this page and revisit it whenever your costs or pricing change.
   </p>
- 
+
 </div>
- 
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -970,7 +978,7 @@
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="mailto:calcwonk@gmail.com">Contact</a>
+      <a href="/cdn-cgi/l/email-protection#2241434e41554d4c4962454f434b4e0c414d4f">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice.
@@ -978,19 +986,19 @@
     <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
   </div>
 </footer>
- 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
   let breakEvenChart = null;
- 
+
   function fmt(n) {
     return '$' + Math.round(n).toLocaleString();
   }
- 
+
   function fmtUnits(n) {
     return Math.ceil(n).toLocaleString();
   }
- 
+
   function calculate() {
     // Fixed costs
     const rent         = parseFloat(document.getElementById('rent').value) || 0;
@@ -1000,60 +1008,60 @@
     const marketing    = parseFloat(document.getElementById('marketing').value) || 0;
     const otherFixed   = parseFloat(document.getElementById('otherFixed').value) || 0;
     const totalFixed   = rent + salaries + insurance + software + marketing + otherFixed;
- 
+
     // Variable & pricing
     const price        = parseFloat(document.getElementById('pricePerUnit').value) || 0;
     const varCost      = parseFloat(document.getElementById('variableCostPerUnit').value) || 0;
     const currentUnits = parseFloat(document.getElementById('currentUnits').value) || 0;
     const targetProfit = parseFloat(document.getElementById('targetProfit').value) || 0;
- 
+
     if (price <= varCost) {
       document.getElementById('insightText').innerHTML =
         '<strong>Warning:</strong> Your variable cost per unit is equal to or greater than your selling price. You cannot break even at this price — every sale loses money. Increase your price or reduce your variable costs.';
       return;
     }
- 
+
     const contributionMargin    = price - varCost;
     const contributionMarginPct = (contributionMargin / price * 100).toFixed(1);
- 
+
     // Break-even
     const breakEvenUnits   = totalFixed / contributionMargin;
     const breakEvenRevenue = breakEvenUnits * price;
- 
+
     // Current profit
     const currentRevenue = currentUnits * price;
     const currentVarCosts = currentUnits * varCost;
     const currentProfit  = currentRevenue - currentVarCosts - totalFixed;
- 
+
     // Target units
     const targetUnits = (totalFixed + targetProfit) / contributionMargin;
- 
+
     // Safety margin
     const safetyMargin    = currentUnits - breakEvenUnits;
     const safetyMarginPct = breakEvenUnits > 0
       ? ((safetyMargin / breakEvenUnits) * 100).toFixed(1)
       : 0;
- 
+
     // Scenarios
     const scenarioPriceDrop  = totalFixed / ((price * 0.9) - varCost);
     const scenarioCostRise   = totalFixed / (price - (varCost * 1.1));
     const scenarioFixedRise  = (totalFixed * 1.2) / contributionMargin;
- 
+
     // Update DOM
     document.getElementById('breakEvenUnits').textContent     = fmtUnits(breakEvenUnits);
     document.getElementById('breakEvenUnitsSub').textContent  = 'units per month';
     document.getElementById('breakEvenRevenue').textContent   = fmt(breakEvenRevenue);
     document.getElementById('contributionMargin').textContent = fmt(contributionMargin);
     document.getElementById('contributionMarginPct').textContent = contributionMarginPct + '% margin';
- 
+
     const profitEl = document.getElementById('currentProfit');
     profitEl.textContent = fmt(Math.abs(currentProfit));
     profitEl.style.color = currentProfit >= 0 ? '#34d399' : '#f87171';
     document.getElementById('currentProfitSub').textContent =
       currentProfit >= 0 ? 'profit at current sales' : 'loss at current sales';
- 
+
     document.getElementById('targetUnits').textContent = fmtUnits(targetUnits);
- 
+
     const safetyEl = document.getElementById('safetyMargin');
     safetyEl.textContent = safetyMargin >= 0
       ? '+' + fmtUnits(safetyMargin)
@@ -1063,13 +1071,13 @@
       safetyMargin >= 0
         ? safetyMarginPct + '% above break-even'
         : Math.abs(safetyMarginPct) + '% below break-even';
- 
+
     document.getElementById('scenarioPriceDrop').textContent =
       scenarioPriceDrop > 0 ? fmtUnits(scenarioPriceDrop) + ' units' : 'Not viable';
     document.getElementById('scenarioCostRise').textContent =
       scenarioCostRise > 0 && isFinite(scenarioCostRise) ? fmtUnits(scenarioCostRise) + ' units' : 'Not viable';
     document.getElementById('scenarioFixedRise').textContent = fmtUnits(scenarioFixedRise) + ' units';
- 
+
     // Insight
     document.getElementById('insightText').innerHTML =
       `Your break-even point is <strong>${fmtUnits(breakEvenUnits)} units per month</strong> generating <strong>${fmt(breakEvenRevenue)} in revenue</strong>. ` +
@@ -1077,7 +1085,7 @@
       (currentProfit >= 0
         ? `At your current sales volume you are <strong>profitable by ${fmt(currentProfit)}/month</strong> with a safety margin of ${fmtUnits(Math.max(0, safetyMargin))} units.`
         : `At your current sales volume you are <strong>losing ${fmt(Math.abs(currentProfit))}/month</strong> — you need ${fmtUnits(breakEvenUnits - currentUnits)} more units per month to break even.`);
- 
+
     // Summary table
     const rows = [
       ['Total Fixed Costs / Month', fmt(totalFixed)],
@@ -1090,7 +1098,7 @@
       ['Units to Hit Target Profit', fmtUnits(targetUnits)],
       ['Current Monthly Profit / Loss', (currentProfit >= 0 ? '+' : '') + fmt(currentProfit)],
     ];
- 
+
     document.getElementById('summaryBody').innerHTML = rows.map(([label, val], i) => {
       const isHighlight = label === 'Break-Even Units / Month' || label === 'Break-Even Revenue / Month';
       return `<tr${isHighlight ? ' class="highlight-row"' : ''}>
@@ -1098,21 +1106,21 @@
         <td>${val}</td>
       </tr>`;
     }).join('');
- 
+
     // Chart
     updateChart(totalFixed, price, varCost, breakEvenUnits, currentUnits);
   }
- 
+
   function updateChart(fixedCosts, price, varCost, breakEvenUnits, currentUnits) {
     const maxUnits = Math.max(Math.ceil(breakEvenUnits * 2), currentUnits * 1.5, 50);
     const steps = 20;
     const stepSize = maxUnits / steps;
- 
+
     const labels = [];
     const revenueData = [];
     const totalCostData = [];
     const fixedCostData = [];
- 
+
     for (let i = 0; i <= steps; i++) {
       const units = i * stepSize;
       labels.push(Math.round(units));
@@ -1120,11 +1128,11 @@
       totalCostData.push(fixedCosts + units * varCost);
       fixedCostData.push(fixedCosts);
     }
- 
+
     const ctx = document.getElementById('breakEvenChart').getContext('2d');
- 
+
     if (breakEvenChart) breakEvenChart.destroy();
- 
+
     breakEvenChart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -1225,7 +1233,7 @@
       }
     });
   }
- 
+
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = btn.classList.contains('open');
@@ -1238,13 +1246,5 @@
       answer.classList.add('open');
     }
   }
- 
-  document.querySelectorAll('input[type="number"]').forEach(el => {
-    el.addEventListener('input', calculate);
-  });
- 
-  calculate();
-</script>
- 
-</body>
-</html>
+
+  document.qu
