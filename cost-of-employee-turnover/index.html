@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cost of Employee Turnover Calculator — What Losing Staff Really Costs | CalcWonk</title>
+  <meta name="description" content="Calculate the true cost of employee turnover including recruiting, training, lost productivity, and management time. Most businesses underestimate this number significantly." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #ccfbf1;
+      --teal-xlight: #f0fdfa;
+      --orange: #f97316;
+      --orange-light: #fff7ed;
+      --orange-border: #fed7aa;
+      --navy: #1e293b;
+      --gray: #64748b;
+      --gray-light: #f8fafc;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --red: #dc2626;
+      --red-light: #fee2e2;
+      --red-border: #fecaca;
+    }
+ 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+ 
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+ 
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      text-decoration: none;
+    }
+ 
+    .nav-logo span { color: var(--teal); }
+ 
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+ 
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+ 
+    .nav-links a:hover { color: var(--teal); }
+ 
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--white) 60%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+ 
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+ 
+    .breadcrumb a {
+      color: var(--teal);
+      text-decoration: none;
+    }
+ 
+    .breadcrumb a:hover { text-decoration: underline; }
+ 
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+ 
+    .page-hero p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+ 
+    /* ── LAYOUT ── */
+    .page-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+ 
+    /* ── CALC CARD ── */
+    .calc-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+ 
+    .calc-header {
+      background: var(--teal);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+ 
+    .calc-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--white);
+    }
+ 
+    .calc-body { padding: 2rem 1.75rem; }
+ 
+    /* ── INPUT SECTIONS ── */
+    .input-section { margin-bottom: 1.75rem; }
+ 
+    .input-section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--teal-light);
+    }
+ 
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+ 
+    @media (max-width: 580px) { .input-grid { grid-template-columns: 1fr; } }
+ 
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+ 
+    .input-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--navy);
+    }
+ 
+    .hint { font-size: 0.75rem; color: var(--gray); }
+ 
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+ 
+    .input-prefix, .input-suffix {
+      position: absolute;
+      font-size: 0.9rem;
+      color: var(--gray);
+      font-weight: 500;
+      pointer-events: none;
+    }
+ 
+    .input-prefix { left: 0.75rem; }
+    .input-suffix { right: 0.75rem; }
+ 
+    .input-wrapper input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -moz-appearance: textfield;
+    }
+ 
+    .input-wrapper input::-webkit-outer-spin-button,
+    .input-wrapper input::-webkit-inner-spin-button { -webkit-appearance: none; }
+ 
+    .input-wrapper input:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+    }
+ 
+    .has-prefix input { padding-left: 1.75rem; }
+    .has-suffix input { padding-right: 2.5rem; }
+ 
+    /* ── RESULTS CARD ── */
+    .results-card {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+ 
+    .results-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+ 
+    .results-total-label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.25rem;
+    }
+ 
+    .results-total-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: #fca5a5;
+      line-height: 1;
+    }
+ 
+    .results-total-sub {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 0.3rem;
+    }
+ 
+    .results-secondary { text-align: right; }
+ 
+    .secondary-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--orange);
+    }
+ 
+    .secondary-label { font-size: 0.75rem; color: #94a3b8; }
+ 
+    /* ── BREAKDOWN BARS ── */
+    .breakdown-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+ 
+    .breakdown-item {
+      display: grid;
+      grid-template-columns: 160px 1fr 80px;
+      align-items: center;
+      gap: 0.75rem;
+    }
+ 
+    @media (max-width: 480px) {
+      .breakdown-item { grid-template-columns: 110px 1fr 70px; }
+    }
+ 
+    .breakdown-label {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+ 
+    .breakdown-bar-track {
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      height: 6px;
+      overflow: hidden;
+    }
+ 
+    .breakdown-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+ 
+    .bar-recruiting { background: #f87171; }
+    .bar-training { background: var(--orange); }
+    .bar-productivity { background: #34d399; }
+    .bar-management { background: #818cf8; }
+    .bar-cultural { background: #e879f9; }
+ 
+    .breakdown-value {
+      font-size: 0.8rem;
+      color: var(--white);
+      text-align: right;
+      font-weight: 500;
+    }
+ 
+    /* ── ANNUAL IMPACT BOX ── */
+    .annual-impact {
+      background: var(--red-light);
+      border: 1px solid var(--red-border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+ 
+    .annual-impact-icon { font-size: 2rem; flex-shrink: 0; }
+ 
+    .annual-impact-text { flex: 1; }
+ 
+    .annual-impact-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--red);
+      margin-bottom: 0.2rem;
+    }
+ 
+    .annual-impact-sub {
+      font-size: 0.85rem;
+      color: #7f1d1d;
+    }
+ 
+    .annual-impact-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: var(--red);
+      text-align: right;
+      flex-shrink: 0;
+    }
+ 
+    .annual-impact-number-label {
+      font-size: 0.72rem;
+      color: #991b1b;
+      text-align: right;
+    }
+ 
+    /* ── INSIGHT BOX ── */
+    .insight-box {
+      background: var(--orange-light);
+      border: 1px solid var(--orange-border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+ 
+    .insight-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 0.1rem; }
+ 
+    .insight-text {
+      font-size: 0.875rem;
+      color: #7c2d12;
+      line-height: 1.6;
+    }
+ 
+    .insight-text strong { color: #9a3412; }
+ 
+    /* ── SUMMARY TABLE ── */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+ 
+    .summary-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      padding: 0.5rem 0.75rem;
+      border-bottom: 2px solid var(--border);
+    }
+ 
+    .summary-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--navy);
+    }
+ 
+    .summary-table td:last-child { text-align: right; font-weight: 500; }
+ 
+    .summary-table tr:last-child td {
+      border-bottom: none;
+      font-weight: 700;
+      color: var(--red);
+      font-size: 0.95rem;
+      background: var(--red-light);
+    }
+ 
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+ 
+    /* ── RELATED TOOLS ── */
+    .related-tools {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+ 
+    @media (max-width: 540px) { .related-tools { grid-template-columns: 1fr; } }
+ 
+    .related-tool {
+      background: var(--teal-xlight);
+      border: 1.5px solid var(--teal-light);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-decoration: none;
+      transition: box-shadow 0.2s;
+    }
+ 
+    .related-tool:hover { box-shadow: 0 4px 12px rgba(13,148,136,0.12); }
+ 
+    .related-tool-text h4 {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+ 
+    .related-tool-text p { font-size: 0.78rem; color: var(--gray); margin: 0; }
+    .related-tool-arrow { font-size: 1.1rem; color: var(--teal); flex-shrink: 0; }
+ 
+    /* ── AFFILIATE ── */
+    .affiliate-section {
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+ 
+    .affiliate-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+ 
+    .affiliate-section > p {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+ 
+    .affiliate-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+ 
+    @media (max-width: 540px) { .affiliate-cards { grid-template-columns: 1fr; } }
+ 
+    .affiliate-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+ 
+    .affiliate-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 4px 12px rgba(13,148,136,0.1);
+    }
+ 
+    .affiliate-card-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); }
+    .affiliate-card-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.4; flex: 1; }
+ 
+    .affiliate-card-cta {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      margin-top: 0.25rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+ 
+    .affiliate-card:hover .affiliate-card-cta { background: var(--teal-dark); }
+ 
+    .affiliate-disclosure {
+      font-size: 0.75rem;
+      color: var(--gray);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+ 
+    .affiliate-disclosure a { color: var(--teal); text-decoration: none; }
+    .affiliate-disclosure a:hover { text-decoration: underline; }
+ 
+    /* ── CONTENT ── */
+    .content-section { margin-bottom: 2.5rem; }
+ 
+    .content-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--teal-light);
+    }
+ 
+    .content-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin: 1.25rem 0 0.5rem;
+    }
+ 
+    .content-section p {
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.75;
+      margin-bottom: 0.75rem;
+    }
+ 
+    /* ── FAQ ── */
+    .faq-list {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+ 
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+ 
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 1rem 1.25rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: background 0.15s;
+    }
+ 
+    .faq-question:hover { background: var(--gray-light); }
+    .faq-question.open { background: var(--teal-xlight); color: var(--teal-dark); }
+ 
+    .faq-chevron { font-size: 0.75rem; transition: transform 0.2s; color: var(--gray); flex-shrink: 0; }
+    .faq-question.open .faq-chevron { transform: rotate(180deg); color: var(--teal); }
+ 
+    .faq-answer {
+      display: none;
+      padding: 0 1.25rem 1rem;
+      font-size: 0.875rem;
+      color: #334155;
+      line-height: 1.7;
+      background: var(--teal-xlight);
+    }
+ 
+    .faq-answer.open { display: block; }
+ 
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: #94a3b8;
+      padding: 2.5rem 2rem;
+    }
+ 
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+ 
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+ 
+    .footer-logo span { color: var(--teal-light); }
+ 
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+ 
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+ 
+    .footer-links a:hover { color: var(--teal-light); }
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 600px; line-height: 1.5; }
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Tools</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
+  </ul>
+</nav>
+ 
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="breadcrumb">
+    <a href="/">CalcWonk</a> › Small Business › Cost of Employee Turnover
+  </div>
+  <h1>Cost of Employee Turnover Calculator</h1>
+  <p>Losing an employee costs far more than most business owners realize. Calculate the full financial impact — from recruiting costs to lost productivity — before it happens to you.</p>
+</div>
+ 
+<!-- MAIN -->
+<div class="page-container">
+ 
+  <!-- CALCULATOR -->
+  <div class="calc-card">
+    <div class="calc-header">
+      <span>📉</span>
+      <h2>Enter Your Numbers</h2>
+    </div>
+    <div class="calc-body">
+ 
+      <!-- EMPLOYEE DETAILS -->
+      <div class="input-section">
+        <div class="input-section-title">Employee Details</div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label for="salary">Annual Salary</label>
+            <span class="hint">Departing employee's base salary</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="salary" value="65000" min="0" step="1000" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="yearsOfService">Years of Service</label>
+            <span class="hint">How long the employee worked there</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="yearsOfService" value="2" min="0" max="40" step="0.5" />
+              <span class="input-suffix">yrs</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="roleComplexity">Role Complexity</label>
+            <span class="hint">How specialized or hard to fill is this role?</span>
+            <div class="input-wrapper">
+              <select id="roleComplexity" style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--navy);background:var(--white);">
+                <option value="low">Low — entry level, easy to fill</option>
+                <option value="medium" selected>Medium — some experience required</option>
+                <option value="high">High — specialized or senior role</option>
+                <option value="executive">Executive — C-suite or VP level</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="annualTurnoverCount">Employees Lost Per Year</label>
+            <span class="hint">Total turnover across your business</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="annualTurnoverCount" value="3" min="1" max="100" />
+              <span class="input-suffix">ppl</span>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- RECRUITING COSTS -->
+      <div class="input-section">
+        <div class="input-section-title">Recruiting Costs</div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label for="jobPostingCost">Job Posting & Advertising</label>
+            <span class="hint">Indeed, LinkedIn, etc.</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="jobPostingCost" value="500" min="0" step="50" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="recruiterFee">Recruiter / Agency Fee</label>
+            <span class="hint">Leave $0 if hiring directly</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="recruiterFee" value="0" min="0" step="500" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="interviewHours">Interview Time (Total Hours)</label>
+            <span class="hint">All staff time spent interviewing</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="interviewHours" value="10" min="0" step="1" />
+              <span class="input-suffix">hrs</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="backgroundCheck">Background Check & Testing</label>
+            <span class="hint">Per hire cost</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="backgroundCheck" value="150" min="0" step="25" />
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- ONBOARDING & TRAINING -->
+      <div class="input-section">
+        <div class="input-section-title">Onboarding & Training</div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label for="trainingWeeks">Time to Full Productivity</label>
+            <span class="hint">Weeks until new hire performs at full capacity</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="trainingWeeks" value="12" min="1" max="104" />
+              <span class="input-suffix">wks</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="trainingCost">Formal Training Costs</label>
+            <span class="hint">Courses, materials, certifications</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="trainingCost" value="1000" min="0" step="100" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="managerOnboardingHours">Manager Onboarding Time</label>
+            <span class="hint">Hours your manager spends onboarding the new hire</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="managerOnboardingHours" value="20" min="0" step="1" />
+              <span class="input-suffix">hrs</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="managerSalary">Manager's Annual Salary</label>
+            <span class="hint">Used to calculate manager time cost</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="managerSalary" value="90000" min="0" step="1000" />
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- RESULTS -->
+      <div class="results-card">
+        <div class="results-main">
+          <div>
+            <div class="results-total-label">Total Cost Per Departure</div>
+            <div class="results-total-value" id="totalCost">$0</div>
+            <div class="results-total-sub" id="percentOfSalary">0% of annual salary</div>
+          </div>
+          <div class="results-secondary">
+            <div class="secondary-value" id="multiplierDisplay">0x</div>
+            <div class="secondary-label">salary multiplier</div>
+          </div>
+        </div>
+        <div class="breakdown-list" id="breakdownBars"></div>
+      </div>
+ 
+      <!-- ANNUAL IMPACT -->
+      <div class="annual-impact">
+        <div class="annual-impact-icon">🔥</div>
+        <div class="annual-impact-text">
+          <div class="annual-impact-title" id="annualImpactTitle">Annual Turnover Cost</div>
+          <div class="annual-impact-sub" id="annualImpactSub">Based on your turnover count</div>
+        </div>
+        <div>
+          <div class="annual-impact-number" id="annualTotal">$0</div>
+          <div class="annual-impact-number-label">per year</div>
+        </div>
+      </div>
+ 
+      <!-- INSIGHT -->
+      <div class="insight-box">
+        <div class="insight-icon">💡</div>
+        <div class="insight-text" id="insightText">Enter your numbers above to see your personalized insight.</div>
+      </div>
+ 
+      <!-- SUMMARY TABLE -->
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Cost Category</th>
+            <th style="text-align:right">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="summaryBody">
+          <tr><td colspan="2" style="text-align:center;color:var(--gray);padding:1rem">Enter your numbers above</td></tr>
+        </tbody>
+      </table>
+ 
+    </div>
+  </div>
+ 
+  <!-- RELATED TOOLS -->
+  <div class="related-tools">
+    <a href="/true-cost-of-an-employee-calculator/" class="related-tool">
+      <div class="related-tool-text">
+        <h4>👤 True Cost of an Employee</h4>
+        <p>See what replacing this person will actually cost you.</p>
+      </div>
+      <div class="related-tool-arrow">→</div>
+    </a>
+    <a href="/contractor-vs-employee/" class="related-tool">
+      <div class="related-tool-text">
+        <h4>⚖️ Contractor vs. Employee</h4>
+        <p>Could a contractor fill this role at lower risk?</p>
+      </div>
+      <div class="related-tool-arrow">→</div>
+    </a>
+  </div>
+ 
+  <!-- AFFILIATE -->
+  <div class="affiliate-section">
+    <h3>Reduce Turnover With the Right HR Tools</h3>
+    <p>The best way to cut turnover costs is to reduce turnover itself. Better onboarding, benefits, and HR management make a measurable difference in retention.</p>
+    <div class="affiliate-cards">
+      <a href="https://gusto.com/r/brian7e7eb3a4" target="_blank" rel="noopener" class="affiliate-card">
+        <div class="affiliate-card-name">Gusto</div>
+        <div class="affiliate-card-desc">Strong onboarding flows, benefits administration, and employee self-service tools that improve retention from day one.</div>
+        <span class="affiliate-card-cta">Try Gusto →</span>
+      </a>
+      <a href="#" class="affiliate-card">
+        <div class="affiliate-card-name">Rippling</div>
+        <div class="affiliate-card-desc">Unified HR, payroll, and IT platform that reduces friction across the employee lifecycle — from offer letter to offboarding.</div>
+        <span class="affiliate-card-cta">Learn More →</span>
+      </a>
+    </div>
+    <div class="affiliate-disclosure">
+      <span>ℹ️</span>
+      <span>CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal/">See our Affiliate Disclosure</a>.</span>
+    </div>
+  </div>
+ 
+  <!-- CONTENT -->
+  <div class="content-section">
+    <h2>Why Employee Turnover Costs More Than You Think</h2>
+    <p>Most business owners mentally account for recruiting costs when someone leaves — the job posting, maybe an agency fee. But that's typically less than a third of the real cost. The majority of turnover expense is invisible: the productivity lost during the vacancy, the manager time spent interviewing and onboarding, the reduced output of a new hire still learning the role, and the institutional knowledge that walks out the door and never comes back.</p>
+    <p>Research consistently puts the cost of replacing an employee at 50–200% of their annual salary depending on seniority and role complexity. For a $65,000 employee in a mid-level role, that's $32,500–$130,000 per departure. For a senior or specialized role, the number climbs higher still.</p>
+ 
+    <h3>The Four Hidden Cost Categories</h3>
+    <p><strong>Recruiting costs</strong> are the visible part — job postings, recruiter fees, interview time, background checks. These are real but often the smallest component of total turnover cost.</p>
+    <p><strong>Productivity loss during vacancy</strong> is where the money really goes. Work doesn't stop when someone leaves — it either piles up, gets redistributed to already-stretched colleagues, or simply doesn't get done. A role vacant for six weeks at $65,000/year represents $7,500 in salary-equivalent output lost before you've hired anyone.</p>
+    <p><strong>Training and ramp-up time</strong> compounds the productivity loss. A new hire typically operates at 25% productivity in their first month, rising to full capacity over three to six months depending on role complexity. Every week of partial productivity is a real cost against your business.</p>
+    <p><strong>Manager and team time</strong> is the most overlooked category. Interviewing candidates, onboarding a new hire, answering questions, reviewing work more closely than usual — all of this pulls your highest-paid people away from higher-value activities. At $90,000/year, a manager's time costs roughly $43/hour. Twenty hours of onboarding time is nearly $900 in management cost alone.</p>
+ 
+    <h3>What Retention Is Actually Worth</h3>
+    <p>If your average turnover cost is $45,000 per employee and you lose five people a year, that's $225,000 annually — enough to fund meaningful retention investments many times over. Better benefits, more flexible working arrangements, stronger onboarding, regular compensation reviews, and improved management training all cost a fraction of what turnover costs. The math on retention almost always pencils out.</p>
+  </div>
+ 
+  <!-- FAQ -->
+  <div class="content-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is the average cost of employee turnover?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          Industry research consistently estimates employee turnover costs at 50–200% of the departing employee's annual salary. For entry-level roles it tends to be on the lower end (50–75%), for mid-level roles 100–150%, and for senior or highly specialized roles 150–200% or more. The wide range reflects how much role complexity and ramp-up time affect the total cost.
+        </div>
+      </div>
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is included in the cost of employee turnover?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          A complete turnover cost includes: recruiting expenses (job postings, recruiter fees, background checks), interview time for all staff involved, productivity loss during the vacancy period, reduced output from the new hire during ramp-up, formal training costs, manager and HR time spent onboarding, and the intangible cost of lost institutional knowledge. Most businesses only account for the first two categories, which is why the real number surprises them.
+        </div>
+      </div>
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How long does it take a new employee to reach full productivity?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          It depends heavily on role complexity. Entry-level roles with structured training typically reach full productivity in 4–8 weeks. Mid-level professional roles often take 3–6 months. Senior or highly specialized roles can take 6–12 months or longer to reach the productivity level of an experienced incumbent. This calculator uses your input to estimate the productivity cost during the ramp-up period.
+        </div>
+      </div>
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is a good employee retention rate?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          A retention rate above 90% is generally considered healthy — meaning fewer than 10% of your workforce leaves in a given year. Rates vary significantly by industry. Retail and hospitality typically see higher turnover (20–40%), while professional services and technology companies often target 85–95% retention. Calculating your actual turnover cost, as this calculator helps you do, is the first step toward building a business case for retention investments.
+        </div>
+      </div>
+ 
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How can I reduce employee turnover?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          The highest-impact retention levers are competitive compensation, strong onboarding (employees who have a poor onboarding experience are significantly more likely to leave within the first year), clear growth paths, flexible working arrangements, and the quality of direct management. Regular stay interviews — asking employees what would make them leave and what keeps them — surface retention risks before they become departures. The ROI on retention investments is almost always strongly positive when measured against your actual turnover cost.
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+ 
+  <p style="font-size:0.8rem;color:var(--gray);text-align:center;margin-top:-1rem">
+    CalcWonk tools are built for business owners who want real numbers, not ballpark guesses. Bookmark this page and share it with anyone managing a team.
+  </p>
+ 
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
+      <a href="mailto:calcwonk@gmail.com">Contact</a>
+    </div>
+    <p class="footer-disclaimer">
+      CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice.
+    </p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+  </div>
+</footer>
+ 
+<script>
+  const COMPLEXITY_MULTIPLIERS = {
+    low: 0.5,
+    medium: 1.0,
+    high: 1.5,
+    executive: 2.0
+  };
+ 
+  function fmt(n) {
+    return '$' + Math.round(n).toLocaleString();
+  }
+ 
+  function calculate() {
+    const salary               = parseFloat(document.getElementById('salary').value) || 0;
+    const yearsOfService       = parseFloat(document.getElementById('yearsOfService').value) || 1;
+    const complexity           = document.getElementById('roleComplexity').value;
+    const annualTurnoverCount  = parseFloat(document.getElementById('annualTurnoverCount').value) || 1;
+    const jobPostingCost       = parseFloat(document.getElementById('jobPostingCost').value) || 0;
+    const recruiterFee         = parseFloat(document.getElementById('recruiterFee').value) || 0;
+    const interviewHours       = parseFloat(document.getElementById('interviewHours').value) || 0;
+    const backgroundCheck      = parseFloat(document.getElementById('backgroundCheck').value) || 0;
+    const trainingWeeks        = parseFloat(document.getElementById('trainingWeeks').value) || 1;
+    const trainingCost         = parseFloat(document.getElementById('trainingCost').value) || 0;
+    const managerOnboardHours  = parseFloat(document.getElementById('managerOnboardingHours').value) || 0;
+    const managerSalary        = parseFloat(document.getElementById('managerSalary').value) || 0;
+ 
+    const complexityMult = COMPLEXITY_MULTIPLIERS[complexity];
+ 
+    // Hourly rates
+    const employeeHourly = salary / 2080;
+    const managerHourly  = managerSalary / 2080;
+ 
+    // Recruiting
+    const interviewCost  = interviewHours * managerHourly;
+    const recruitingTotal = jobPostingCost + recruiterFee + interviewCost + backgroundCheck;
+ 
+    // Productivity loss during vacancy (assume 4 weeks average vacancy)
+    const vacancyWeeks = 4;
+    const productivityLoss = (salary / 52) * vacancyWeeks;
+ 
+    // Training & ramp-up
+    // New hire at ~50% productivity during ramp-up period
+    const rampUpLoss = (salary / 52) * trainingWeeks * 0.5;
+    const managerOnboardCost = managerOnboardHours * managerHourly;
+    const trainingTotal = trainingCost + rampUpLoss + managerOnboardCost;
+ 
+    // Cultural / intangible (knowledge loss, team morale impact)
+    // Scaled by years of service and complexity
+    const culturalCost = salary * 0.05 * Math.min(yearsOfService, 5) * complexityMult;
+ 
+    const total = recruitingTotal + productivityLoss + trainingTotal + culturalCost;
+    const percentOfSalary = salary > 0 ? ((total / salary) * 100).toFixed(0) : 0;
+    const multiplier = salary > 0 ? (total / salary).toFixed(2) : 0;
+    const annualTotal = total * annualTurnoverCount;
+ 
+    // Update results
+    document.getElementById('totalCost').textContent       = fmt(total);
+    document.getElementById('percentOfSalary').textContent = percentOfSalary + '% of annual salary';
+    document.getElementById('multiplierDisplay').textContent = multiplier + 'x';
+    document.getElementById('annualTotal').textContent     = fmt(annualTotal);
+    document.getElementById('annualImpactTitle').textContent =
+      `Annual Cost of ${annualTurnoverCount} Departure${annualTurnoverCount > 1 ? 's' : ''}`;
+    document.getElementById('annualImpactSub').textContent =
+      `At ${annualTurnoverCount} employee${annualTurnoverCount > 1 ? 's' : ''} lost per year, turnover is costing your business:`;
+ 
+    // Breakdown bars
+    const bars = [
+      { label: 'Recruiting',        value: recruitingTotal,  cls: 'bar-recruiting' },
+      { label: 'Vacancy Loss',      value: productivityLoss, cls: 'bar-productivity' },
+      { label: 'Training & Ramp',   value: trainingTotal,    cls: 'bar-training' },
+      { label: 'Knowledge & Culture', value: culturalCost,   cls: 'bar-cultural' },
+    ];
+ 
+    document.getElementById('breakdownBars').innerHTML = bars.map(b => {
+      const pct = total > 0 ? (b.value / total * 100).toFixed(1) : 0;
+      return `
+        <div class="breakdown-item">
+          <span class="breakdown-label">${b.label}</span>
+          <div class="breakdown-bar-track">
+            <div class="breakdown-bar-fill ${b.cls}" style="width:${pct}%"></div>
+          </div>
+          <span class="breakdown-value">${fmt(b.value)}</span>
+        </div>`;
+    }).join('');
+ 
+    // Insight
+    const biggestCost = bars.reduce((a, b) => a.value > b.value ? a : b);
+    document.getElementById('insightText').innerHTML =
+      `Replacing this employee will cost approximately <strong>${fmt(total)} — ${percentOfSalary}% of their annual salary</strong>. ` +
+      `Your largest cost driver is <strong>${biggestCost.label.toLowerCase()} at ${fmt(biggestCost.value)}</strong>. ` +
+      `Across ${annualTurnoverCount} departure${annualTurnoverCount > 1 ? 's' : ''} per year, turnover is costing your business <strong>${fmt(annualTotal)} annually</strong> — ` +
+      `enough to fund significant retention investments many times over.`;
+ 
+    // Summary table
+    const rows = [
+      ['Job posting & advertising', jobPostingCost],
+      ['Recruiter / agency fee', recruiterFee],
+      ['Interview time cost', interviewCost],
+      ['Background check & testing', backgroundCheck],
+      ['Productivity loss during vacancy', productivityLoss],
+      ['New hire ramp-up productivity loss', rampUpLoss],
+      ['Formal training costs', trainingCost],
+      ['Manager onboarding time', managerOnboardCost],
+      ['Institutional knowledge & culture loss', culturalCost],
+      ['TOTAL COST PER DEPARTURE', total],
+    ];
+ 
+    const dotColors = {
+      'Job posting & advertising': '#f87171',
+      'Recruiter / agency fee': '#f87171',
+      'Interview time cost': '#f87171',
+      'Background check & testing': '#f87171',
+      'Productivity loss during vacancy': '#34d399',
+      'New hire ramp-up productivity loss': '#f97316',
+      'Formal training costs': '#f97316',
+      'Manager onboarding time': '#818cf8',
+      'Institutional knowledge & culture loss': '#e879f9',
+    };
+ 
+    document.getElementById('summaryBody').innerHTML = rows.map(([label, val], i) => {
+      const isTotal = i === rows.length - 1;
+      const dot = dotColors[label]
+        ? `<span class="dot" style="background:${dotColors[label]}"></span>`
+        : '';
+      return `<tr${isTotal ? ' style="background:var(--red-light)"' : ''}>
+        <td>${dot}${label}</td>
+        <td>${fmt(val)}</td>
+      </tr>`;
+    }).join('');
+  }
+ 
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.classList.remove('open');
+      q.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+ 
+  document.querySelectorAll('input[type="number"], select').forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+ 
+  calculate();
+</script>
+ 
+</body>
+</html>
