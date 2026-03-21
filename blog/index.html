@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog — Small Business & Personal Finance Guides | CalcWonk</title>
@@ -21,16 +29,16 @@
       --border: #e2e8f0;
       --white: #ffffff;
     }
- 
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--white);
       color: var(--navy);
       line-height: 1.6;
     }
- 
+
     /* ── NAV ── */
     nav {
       background: var(--white);
@@ -45,22 +53,22 @@
       z-index: 100;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
- 
+
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       color: var(--navy);
       text-decoration: none;
     }
- 
+
     .nav-logo span { color: var(--teal); }
- 
+
     .nav-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
     }
- 
+
     .nav-links a {
       font-size: 0.9rem;
       font-weight: 500;
@@ -68,9 +76,9 @@
       text-decoration: none;
       transition: color 0.2s;
     }
- 
+
     .nav-links a:hover { color: var(--teal); }
- 
+
     /* ── PAGE HERO ── */
     .page-hero {
       background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--white) 60%);
@@ -78,37 +86,37 @@
       padding: 3rem 2rem 2.5rem;
       text-align: center;
     }
- 
+
     .breadcrumb {
       font-size: 0.8rem;
       color: var(--gray);
       margin-bottom: 1rem;
     }
- 
+
     .breadcrumb a { color: var(--teal); text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
- 
+
     .page-hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.8rem, 4vw, 2.6rem);
       color: var(--navy);
       margin-bottom: 0.75rem;
     }
- 
+
     .page-hero p {
       color: var(--gray);
       font-size: 1.05rem;
       max-width: 520px;
       margin: 0 auto;
     }
- 
+
     /* ── LAYOUT ── */
     .page-container {
       max-width: 860px;
       margin: 0 auto;
       padding: 3rem 1.5rem 5rem;
     }
- 
+
     /* ── CATEGORY FILTER ── */
     .category-filter {
       display: flex;
@@ -116,7 +124,7 @@
       margin-bottom: 2rem;
       flex-wrap: wrap;
     }
- 
+
     .filter-btn {
       padding: 0.4rem 1rem;
       border: 1.5px solid var(--border);
@@ -129,17 +137,17 @@
       cursor: pointer;
       transition: all 0.2s;
     }
- 
+
     .filter-btn:hover { border-color: var(--teal); color: var(--teal); }
     .filter-btn.active { background: var(--teal); border-color: var(--teal); color: var(--white); }
- 
+
     /* ── POST CARDS ── */
     .posts-list {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
     }
- 
+
     .post-card {
       background: var(--white);
       border: 1px solid var(--border);
@@ -152,13 +160,13 @@
       gap: 1.25rem;
       transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
     }
- 
+
     .post-card:hover {
       box-shadow: 0 6px 20px rgba(0,0,0,0.08);
       border-color: var(--teal);
       transform: translateY(-2px);
     }
- 
+
     .post-card-icon {
       width: 48px;
       height: 48px;
@@ -171,11 +179,11 @@
       flex-shrink: 0;
       margin-top: 0.1rem;
     }
- 
+
     .post-card-icon.orange { background: #ffedd5; }
- 
+
     .post-card-body { flex: 1; }
- 
+
     .post-card-meta {
       display: flex;
       align-items: center;
@@ -183,7 +191,7 @@
       margin-bottom: 0.4rem;
       flex-wrap: wrap;
     }
- 
+
     .post-card-category {
       font-size: 0.7rem;
       font-weight: 700;
@@ -194,22 +202,22 @@
       padding: 0.15rem 0.6rem;
       border-radius: 999px;
     }
- 
+
     .post-card-category.orange {
       color: #92400e;
       background: #ffedd5;
     }
- 
+
     .post-card-date {
       font-size: 0.78rem;
       color: var(--gray);
     }
- 
+
     .post-card-read {
       font-size: 0.78rem;
       color: var(--gray);
     }
- 
+
     .post-card-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
@@ -217,13 +225,13 @@
       margin-bottom: 0.4rem;
       line-height: 1.35;
     }
- 
+
     .post-card-excerpt {
       font-size: 0.875rem;
       color: var(--gray);
       line-height: 1.55;
     }
- 
+
     .post-card-arrow {
       font-size: 1.1rem;
       color: var(--teal);
@@ -231,16 +239,16 @@
       margin-top: 0.25rem;
       transition: transform 0.2s;
     }
- 
+
     .post-card:hover .post-card-arrow { transform: translateX(3px); }
- 
+
     /* ── COMING SOON CARD ── */
     .post-card.coming-soon {
       opacity: 0.55;
       cursor: default;
       pointer-events: none;
     }
- 
+
     .coming-soon-badge {
       font-size: 0.7rem;
       font-weight: 700;
@@ -251,7 +259,7 @@
       padding: 0.15rem 0.6rem;
       border-radius: 999px;
     }
- 
+
     /* ── NEWSLETTER / CTA ── */
     .cta-box {
       background: var(--navy);
@@ -260,20 +268,20 @@
       text-align: center;
       margin-top: 3rem;
     }
- 
+
     .cta-box h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
       color: var(--white);
       margin-bottom: 0.5rem;
     }
- 
+
     .cta-box p {
       font-size: 0.9rem;
       color: #94a3b8;
       margin-bottom: 1.25rem;
     }
- 
+
     .cta-box a {
       display: inline-block;
       background: var(--teal);
@@ -285,16 +293,16 @@
       font-size: 0.9rem;
       transition: background 0.2s;
     }
- 
+
     .cta-box a:hover { background: var(--teal-dark); }
- 
+
     /* ── FOOTER ── */
     footer {
       background: var(--navy);
       color: #94a3b8;
       padding: 2.5rem 2rem;
     }
- 
+
     .footer-inner {
       max-width: 860px;
       margin: 0 auto;
@@ -304,34 +312,34 @@
       gap: 1rem;
       text-align: center;
     }
- 
+
     .footer-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--white);
       text-decoration: none;
     }
- 
+
     .footer-logo span { color: var(--teal-light); }
- 
+
     .footer-links {
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
     }
- 
+
     .footer-links a {
       color: #94a3b8;
       text-decoration: none;
       font-size: 0.85rem;
       transition: color 0.2s;
     }
- 
+
     .footer-links a:hover { color: var(--teal-light); }
     .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
     .footer-copy { font-size: 0.8rem; color: #475569; }
- 
+
     @media (max-width: 600px) {
       .nav-links { display: none; }
       .post-card { flex-direction: column; }
@@ -340,7 +348,7 @@
   </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
@@ -350,7 +358,7 @@
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
- 
+
 <!-- HERO -->
 <div class="page-hero">
   <div class="breadcrumb">
@@ -359,10 +367,10 @@
   <h1>The CalcWonk Blog</h1>
   <p>Practical guides for small business owners and individuals who want real numbers — not ballpark guesses.</p>
 </div>
- 
+
 <!-- MAIN -->
 <div class="page-container">
- 
+
   <!-- CATEGORY FILTER -->
   <div class="category-filter">
     <button class="filter-btn active">All</button>
@@ -370,10 +378,10 @@
     <button class="filter-btn">Personal Finance</button>
     <button class="filter-btn">Hiring & HR</button>
   </div>
- 
+
   <!-- POSTS LIST -->
   <div class="posts-list">
- 
+
     <!-- POST 1 — LIVE -->
     <a href="/blog/how-much-does-it-cost-to-hire-an-employee/" class="post-card">
       <div class="post-card-icon">👤</div>
@@ -388,7 +396,7 @@
       </div>
       <div class="post-card-arrow">→</div>
     </a>
- 
+
     <!-- COMING SOON POSTS -->
     <div class="post-card coming-soon">
       <div class="post-card-icon">⚖️</div>
@@ -400,7 +408,7 @@
         <div class="post-card-excerpt">The contractor vs. employee decision isn't just about cost — it's about control, flexibility, and legal risk. Here's how to think through it.</div>
       </div>
     </div>
- 
+
     <div class="post-card coming-soon">
       <div class="post-card-icon">📉</div>
       <div class="post-card-body">
@@ -411,7 +419,7 @@
         <div class="post-card-excerpt">Most business owners underestimate turnover cost by 50% or more. Here's what actually happens to your bottom line when someone walks out the door.</div>
       </div>
     </div>
- 
+
     <div class="post-card coming-soon">
       <div class="post-card-icon">📊</div>
       <div class="post-card-body">
@@ -422,7 +430,7 @@
         <div class="post-card-excerpt">Before you launch a product, take on a loan, or hire your first employee — you need to know your break-even number. Here's how to find it.</div>
       </div>
     </div>
- 
+
     <div class="post-card coming-soon">
       <div class="post-card-icon orange">💰</div>
       <div class="post-card-body">
@@ -433,7 +441,7 @@
         <div class="post-card-excerpt">The answer depends entirely on your current tax rate vs. your expected retirement tax rate. Here's how to model both scenarios honestly.</div>
       </div>
     </div>
- 
+
     <div class="post-card coming-soon">
       <div class="post-card-icon orange">🏦</div>
       <div class="post-card-body">
@@ -444,18 +452,18 @@
         <div class="post-card-excerpt">APR doesn't tell the whole story. Origination fees, closing costs, and prepayment penalties can add thousands to what looks like a competitive rate.</div>
       </div>
     </div>
- 
+
   </div>
- 
+
   <!-- CTA BOX -->
   <div class="cta-box">
     <h2>Need a number right now?</h2>
     <p>Skip the reading — our calculators give you the answer in under a minute.</p>
     <a href="/">Browse All Calculators →</a>
   </div>
- 
+
 </div>
- 
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -466,14 +474,9 @@
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="mailto:calcwonk@gmail.com">Contact</a>
+      <a href="/cdn-cgi/l/email-protection#5231333e31253d3c3912353f333b3e7c313d3f">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.
     </p>
-    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
-  </div>
-</footer>
- 
-</body>
-</html>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved
