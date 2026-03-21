@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Small Business & Personal Finance Guides | CalcWonk</title>
+  <meta name="description" content="Practical guides for small business owners and individuals making financial decisions. Real numbers, plain English, no fluff." />
+  <link rel="canonical" href="https://calcwonk.com/blog/" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #ccfbf1;
+      --teal-xlight: #f0fdfa;
+      --orange: #f97316;
+      --orange-light: #fff7ed;
+      --navy: #1e293b;
+      --gray: #64748b;
+      --gray-light: #f8fafc;
+      --border: #e2e8f0;
+      --white: #ffffff;
+    }
+ 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+ 
+    /* ── NAV ── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+ 
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      text-decoration: none;
+    }
+ 
+    .nav-logo span { color: var(--teal); }
+ 
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+ 
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+ 
+    .nav-links a:hover { color: var(--teal); }
+ 
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--white) 60%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+ 
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+ 
+    .breadcrumb a { color: var(--teal); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+ 
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+ 
+    .page-hero p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+ 
+    /* ── LAYOUT ── */
+    .page-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+ 
+    /* ── CATEGORY FILTER ── */
+    .category-filter {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+ 
+    .filter-btn {
+      padding: 0.4rem 1rem;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      border-radius: 999px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+ 
+    .filter-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .filter-btn.active { background: var(--teal); border-color: var(--teal); color: var(--white); }
+ 
+    /* ── POST CARDS ── */
+    .posts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+ 
+    .post-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem 1.75rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+    }
+ 
+    .post-card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      border-color: var(--teal);
+      transform: translateY(-2px);
+    }
+ 
+    .post-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--teal-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+ 
+    .post-card-icon.orange { background: #ffedd5; }
+ 
+    .post-card-body { flex: 1; }
+ 
+    .post-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.4rem;
+      flex-wrap: wrap;
+    }
+ 
+    .post-card-category {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--teal-dark);
+      background: var(--teal-light);
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+    }
+ 
+    .post-card-category.orange {
+      color: #92400e;
+      background: #ffedd5;
+    }
+ 
+    .post-card-date {
+      font-size: 0.78rem;
+      color: var(--gray);
+    }
+ 
+    .post-card-read {
+      font-size: 0.78rem;
+      color: var(--gray);
+    }
+ 
+    .post-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+      line-height: 1.35;
+    }
+ 
+    .post-card-excerpt {
+      font-size: 0.875rem;
+      color: var(--gray);
+      line-height: 1.55;
+    }
+ 
+    .post-card-arrow {
+      font-size: 1.1rem;
+      color: var(--teal);
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+      transition: transform 0.2s;
+    }
+ 
+    .post-card:hover .post-card-arrow { transform: translateX(3px); }
+ 
+    /* ── COMING SOON CARD ── */
+    .post-card.coming-soon {
+      opacity: 0.55;
+      cursor: default;
+      pointer-events: none;
+    }
+ 
+    .coming-soon-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--gray);
+      background: var(--gray-light);
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+    }
+ 
+    /* ── NEWSLETTER / CTA ── */
+    .cta-box {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+ 
+    .cta-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+ 
+    .cta-box p {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 1.25rem;
+    }
+ 
+    .cta-box a {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+ 
+    .cta-box a:hover { background: var(--teal-dark); }
+ 
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: #94a3b8;
+      padding: 2.5rem 2rem;
+    }
+ 
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+ 
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+ 
+    .footer-logo span { color: var(--teal-light); }
+ 
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+ 
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+ 
+    .footer-links a:hover { color: var(--teal-light); }
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+ 
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .post-card { flex-direction: column; }
+      .post-card-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
+  </ul>
+</nav>
+ 
+<!-- HERO -->
+<div class="page-hero">
+  <div class="breadcrumb">
+    <a href="/">CalcWonk</a> › Blog
+  </div>
+  <h1>The CalcWonk Blog</h1>
+  <p>Practical guides for small business owners and individuals who want real numbers — not ballpark guesses.</p>
+</div>
+ 
+<!-- MAIN -->
+<div class="page-container">
+ 
+  <!-- CATEGORY FILTER -->
+  <div class="category-filter">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Small Business</button>
+    <button class="filter-btn">Personal Finance</button>
+    <button class="filter-btn">Hiring & HR</button>
+  </div>
+ 
+  <!-- POSTS LIST -->
+  <div class="posts-list">
+ 
+    <!-- POST 1 — LIVE -->
+    <a href="/blog/how-much-does-it-cost-to-hire-an-employee/" class="post-card">
+      <div class="post-card-icon">👤</div>
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="post-card-category">Hiring & HR</span>
+          <span class="post-card-date">March 2026</span>
+          <span class="post-card-read">6 min read</span>
+        </div>
+        <div class="post-card-title">How Much Does It Really Cost to Hire an Employee?</div>
+        <div class="post-card-excerpt">Hiring someone at $65,000 doesn't cost you $65,000. Here's what a new employee actually costs — including taxes, benefits, and the costs nobody talks about.</div>
+      </div>
+      <div class="post-card-arrow">→</div>
+    </a>
+ 
+    <!-- COMING SOON POSTS -->
+    <div class="post-card coming-soon">
+      <div class="post-card-icon">⚖️</div>
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="coming-soon-badge">Coming Soon</span>
+        </div>
+        <div class="post-card-title">1099 vs W-2: How to Make the Right Call for Your Business</div>
+        <div class="post-card-excerpt">The contractor vs. employee decision isn't just about cost — it's about control, flexibility, and legal risk. Here's how to think through it.</div>
+      </div>
+    </div>
+ 
+    <div class="post-card coming-soon">
+      <div class="post-card-icon">📉</div>
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="coming-soon-badge">Coming Soon</span>
+        </div>
+        <div class="post-card-title">The Real Cost of Losing an Employee (It's More Than You Think)</div>
+        <div class="post-card-excerpt">Most business owners underestimate turnover cost by 50% or more. Here's what actually happens to your bottom line when someone walks out the door.</div>
+      </div>
+    </div>
+ 
+    <div class="post-card coming-soon">
+      <div class="post-card-icon">📊</div>
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="coming-soon-badge">Coming Soon</span>
+        </div>
+        <div class="post-card-title">How to Calculate Your Break-Even Point (And Why It Changes Everything)</div>
+        <div class="post-card-excerpt">Before you launch a product, take on a loan, or hire your first employee — you need to know your break-even number. Here's how to find it.</div>
+      </div>
+    </div>
+ 
+    <div class="post-card coming-soon">
+      <div class="post-card-icon orange">💰</div>
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="coming-soon-badge">Coming Soon</span>
+        </div>
+        <div class="post-card-title">Roth vs. Traditional IRA: Which One Is Actually Better for You?</div>
+        <div class="post-card-excerpt">The answer depends entirely on your current tax rate vs. your expected retirement tax rate. Here's how to model both scenarios honestly.</div>
+      </div>
+    </div>
+ 
+    <div class="post-card coming-soon">
+      <div class="post-card-icon orange">🏦</div>
+      <div class="post-card-body">
+        <div class="post-card-meta">
+          <span class="coming-soon-badge">Coming Soon</span>
+        </div>
+        <div class="post-card-title">What Your Business Loan Really Costs (Beyond the APR)</div>
+        <div class="post-card-excerpt">APR doesn't tell the whole story. Origination fees, closing costs, and prepayment penalties can add thousands to what looks like a competitive rate.</div>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- CTA BOX -->
+  <div class="cta-box">
+    <h2>Need a number right now?</h2>
+    <p>Skip the reading — our calculators give you the answer in under a minute.</p>
+    <a href="/">Browse All Calculators →</a>
+  </div>
+ 
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
+      <a href="mailto:calcwonk@gmail.com">Contact</a>
+    </div>
+    <p class="footer-disclaimer">
+      CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.
+    </p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+  </div>
+</footer>
+ 
+</body>
+</html>
