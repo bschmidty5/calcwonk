@@ -420,6 +420,49 @@
     .footer-copy { font-size: 0.8rem; color: #475569; }
  
     @media (max-width: 600px) { .nav-links { display: none; } }
+ 
+    /* ── AUTHOR BIO ── */
+    .author-bio-block {
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin: 2.5rem 0;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .author-bio-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .author-bio-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--navy);
+      margin-bottom: 0.15rem;
+    }
+    .author-bio-title {
+      font-size: 0.78rem;
+      color: var(--teal-dark);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .author-bio-text {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+    .author-bio-text a { color: var(--teal); }
   </style>
 </head>
 <body>
@@ -444,7 +487,9 @@
     <span class="article-category">Small Business</span>
     <h1>How Much Does It Really Cost to Hire an Employee?</h1>
     <div class="article-meta">
-      <span>By CalcWonk</span>
+      <span>By <a href="/about/" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px;">Brian Schmidt</a></span>
+      <span class="article-meta-divider">·</span>
+      <span>Founder, CalcWonk · MPA, Public Policy</span>
       <span class="article-meta-divider">·</span>
       <span>March 2026</span>
       <span class="article-meta-divider">·</span>
@@ -556,6 +601,19 @@
  
   </div>
  
+ 
+  <!-- AUTHOR BIO -->
+  <div class="author-bio-block">
+    <div class="author-bio-avatar">B</div>
+    <div>
+      <div class="author-bio-name">Brian Schmidt</div>
+      <div class="author-bio-title">Founder, CalcWonk · MPA, Public Policy</div>
+      <div class="author-bio-text">
+        Brian Schmidt has spent 20 years managing multi-million dollar budgets, overseeing payroll and HR systems, and making the kinds of financial decisions these calculators are built around. He is the Executive Director of Kids Win Missouri and a former Executive Director of the Missouri General Assembly's Joint Committee on Tax Policy. His work on child care financing has been featured in the Washington Post. He built CalcWonk to give business owners and individuals the same data-driven tools he wished he'd had. <a href="/about/">Learn more about Brian →</a>
+      </div>
+    </div>
+  </div>
+ 
   <!-- RELATED -->
   <div class="related-section">
     <div class="related-title">Related Tools & Reading</div>
@@ -590,14 +648,9 @@
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="mailto:calcwonk@gmail.com">Contact</a>
+      <a href="/cdn-cgi/l/email-protection#7615171a150119181d36111b171f1a5815191b">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.
     </p>
-    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
-  </div>
-</footer>
- 
-</body>
-</html>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved
