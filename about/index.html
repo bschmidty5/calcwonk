@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About CalcWonk — Built by Brian Schmidt | CalcWonk</title>
@@ -22,16 +30,16 @@
       --border: #e2e8f0;
       --white: #ffffff;
     }
- 
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--white);
       color: var(--navy);
       line-height: 1.7;
     }
- 
+
     /* ── NAV ── */
     nav {
       background: var(--white);
@@ -46,22 +54,22 @@
       z-index: 100;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
- 
+
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       color: var(--navy);
       text-decoration: none;
     }
- 
+
     .nav-logo span { color: var(--teal); }
- 
+
     .nav-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
     }
- 
+
     .nav-links a {
       font-size: 0.9rem;
       font-weight: 500;
@@ -69,9 +77,9 @@
       text-decoration: none;
       transition: color 0.2s;
     }
- 
+
     .nav-links a:hover { color: var(--teal); }
- 
+
     /* ── PAGE HERO ── */
     .page-hero {
       background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--white) 60%);
@@ -79,37 +87,37 @@
       padding: 3rem 2rem 2.5rem;
       text-align: center;
     }
- 
+
     .breadcrumb {
       font-size: 0.8rem;
       color: var(--gray);
       margin-bottom: 1rem;
     }
- 
+
     .breadcrumb a { color: var(--teal); text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
- 
+
     .page-hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.8rem, 4vw, 2.6rem);
       color: var(--navy);
       margin-bottom: 0.75rem;
     }
- 
+
     .page-hero p {
       color: var(--gray);
       font-size: 1.05rem;
       max-width: 560px;
       margin: 0 auto;
     }
- 
+
     /* ── LAYOUT ── */
     .page-container {
       max-width: 800px;
       margin: 0 auto;
       padding: 3rem 1.5rem 5rem;
     }
- 
+
     /* ── AUTHOR CARD ── */
     .author-card {
       background: var(--navy);
@@ -121,7 +129,7 @@
       align-items: flex-start;
       flex-wrap: wrap;
     }
- 
+
     .author-avatar {
       width: 100px;
       height: 100px;
@@ -136,36 +144,36 @@
       flex-shrink: 0;
       border: 3px solid rgba(255,255,255,0.15);
     }
- 
+
     .author-info { flex: 1; }
- 
+
     .author-name {
       font-family: 'Playfair Display', serif;
       font-size: 1.6rem;
       color: var(--white);
       margin-bottom: 0.25rem;
     }
- 
+
     .author-title {
       font-size: 0.875rem;
       color: var(--teal-light);
       font-weight: 600;
       margin-bottom: 0.75rem;
     }
- 
+
     .author-bio-short {
       font-size: 0.9rem;
       color: #94a3b8;
       line-height: 1.6;
       margin-bottom: 1.25rem;
     }
- 
+
     .author-credentials {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
     }
- 
+
     .credential-badge {
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.12);
@@ -175,10 +183,10 @@
       padding: 0.25rem 0.75rem;
       border-radius: 999px;
     }
- 
+
     /* ── CONTENT SECTIONS ── */
     .content-section { margin-bottom: 2.5rem; }
- 
+
     .content-section h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
@@ -187,17 +195,17 @@
       padding-bottom: 0.5rem;
       border-bottom: 2px solid var(--teal-light);
     }
- 
+
     .content-section p {
       font-size: 0.975rem;
       color: #334155;
       line-height: 1.8;
       margin-bottom: 1rem;
     }
- 
+
     .content-section a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
     .content-section a:hover { color: var(--teal-dark); }
- 
+
     /* ── HIGHLIGHT BOX ── */
     .highlight-box {
       background: var(--orange-light);
@@ -206,14 +214,14 @@
       padding: 1.25rem 1.5rem;
       margin: 1.5rem 0;
     }
- 
+
     .highlight-box p {
       font-size: 0.95rem;
       color: #7c2d12;
       margin: 0;
       font-style: italic;
     }
- 
+
     .highlight-box cite {
       display: block;
       font-size: 0.8rem;
@@ -222,7 +230,7 @@
       font-weight: 600;
       margin-top: 0.5rem;
     }
- 
+
     /* ── CREDENTIALS GRID ── */
     .credentials-grid {
       display: grid;
@@ -230,31 +238,31 @@
       gap: 1rem;
       margin: 1.5rem 0;
     }
- 
+
     @media (max-width: 540px) { .credentials-grid { grid-template-columns: 1fr; } }
- 
+
     .credential-card {
       background: var(--gray-light);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 1.1rem 1.25rem;
     }
- 
+
     .credential-card-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
- 
+
     .credential-card-title {
       font-weight: 700;
       font-size: 0.9rem;
       color: var(--navy);
       margin-bottom: 0.25rem;
     }
- 
+
     .credential-card-desc {
       font-size: 0.8rem;
       color: var(--gray);
       line-height: 1.5;
     }
- 
+
     /* ── TOOLS CTA ── */
     .tools-cta {
       background: var(--teal);
@@ -263,20 +271,20 @@
       text-align: center;
       margin-top: 2.5rem;
     }
- 
+
     .tools-cta h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
       color: var(--white);
       margin-bottom: 0.5rem;
     }
- 
+
     .tools-cta p {
       font-size: 0.9rem;
       color: rgba(255,255,255,0.8);
       margin-bottom: 1.25rem;
     }
- 
+
     .tools-cta a {
       display: inline-block;
       background: var(--white);
@@ -288,16 +296,16 @@
       font-size: 0.9rem;
       transition: transform 0.1s;
     }
- 
+
     .tools-cta a:hover { transform: translateY(-1px); }
- 
+
     /* ── FOOTER ── */
     footer {
       background: var(--navy);
       color: #94a3b8;
       padding: 2.5rem 2rem;
     }
- 
+
     .footer-inner {
       max-width: 800px;
       margin: 0 auto;
@@ -307,39 +315,39 @@
       gap: 1rem;
       text-align: center;
     }
- 
+
     .footer-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--white);
       text-decoration: none;
     }
- 
+
     .footer-logo span { color: var(--teal-light); }
- 
+
     .footer-links {
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
     }
- 
+
     .footer-links a {
       color: #94a3b8;
       text-decoration: none;
       font-size: 0.85rem;
       transition: color 0.2s;
     }
- 
+
     .footer-links a:hover { color: var(--teal-light); }
     .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
     .footer-copy { font-size: 0.8rem; color: #475569; }
- 
+
     @media (max-width: 600px) { .nav-links { display: none; } }
   </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
@@ -350,7 +358,7 @@
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
- 
+
 <!-- HERO -->
 <div class="page-hero">
   <div class="breadcrumb">
@@ -359,10 +367,10 @@
   <h1>About CalcWonk</h1>
   <p>Real tools built by someone who has spent 20 years running the numbers for real.</p>
 </div>
- 
+
 <!-- MAIN -->
 <div class="page-container">
- 
+
   <!-- AUTHOR CARD -->
   <div class="author-card">
     <div class="author-avatar">B</div>
@@ -382,22 +390,22 @@
       </div>
     </div>
   </div>
- 
+
   <!-- WHY CALCWONK -->
   <div class="content-section">
     <h2>Why CalcWonk Exists</h2>
     <p>Most financial calculators are built by developers who understand code but have never managed a payroll, negotiated a grant budget, or tried to figure out whether they could actually afford to hire someone. The result is tools that do the arithmetic but miss the point — they give you a number without telling you what to do with it.</p>
     <p>I built CalcWonk because I kept running into that problem in my own work. As the Executive Director of Kids Win Missouri, I manage a multi-million dollar budget, oversee payroll and HR benefits, manage grants from multiple funders simultaneously, and make hiring decisions that directly affect both our staff and the families we serve. Every time I needed to make one of those decisions, I wanted a tool that would give me the full picture — not just the arithmetic, but the context and the insight to act on it.</p>
     <p>That tool didn't exist. So I built it.</p>
- 
+
     <div class="highlight-box">
       <p>"The best financial decisions come from understanding the complete picture — not just the number on the surface, but everything underneath it that most people never calculate."</p>
       <cite>— Brian Schmidt, Founder of CalcWonk</cite>
     </div>
- 
+
     <p>Every calculator on CalcWonk is built around a real decision I've faced or watched others face — the true cost of hiring someone, whether a contractor makes more sense than an employee, what turnover actually costs an organization, whether a loan makes financial sense at its real total cost. These aren't theoretical exercises. They're the questions that keep business owners and nonprofit leaders up at night, and they deserve better tools than a generic spreadsheet.</p>
   </div>
- 
+
   <!-- BACKGROUND -->
   <div class="content-section">
     <h2>Brian's Background</h2>
@@ -406,7 +414,7 @@
     <p>Brian has developed a child care cost-sharing model that facilitates sharing of costs between employers, families, philanthropy, and the public sector — a program that has been featured in the Washington Post and recognized in a report from the Buffett Early Childhood Institute.</p>
     <p>He holds a Master's in Public Affairs with an emphasis in public policy, and brings a data-driven approach to everything he builds — including the tools on this site.</p>
   </div>
- 
+
   <!-- CREDENTIALS -->
   <div class="content-section">
     <h2>What Brian Brings to CalcWonk</h2>
@@ -443,7 +451,7 @@
       </div>
     </div>
   </div>
- 
+
   <!-- EDITORIAL STANDARDS -->
   <div class="content-section">
     <h2>How CalcWonk Works</h2>
@@ -451,16 +459,16 @@
     <p>CalcWonk earns revenue through affiliate recommendations. When a calculator naturally leads to a product recommendation — payroll software after an employee cost calculation, accounting software after a profit margin analysis — we may include an affiliate link. Those relationships never influence our calculator results or editorial content. We only recommend products we believe are genuinely useful for the decision at hand.</p>
     <p>Full details are in our <a href="/legal/">Affiliate Disclosure</a>.</p>
   </div>
- 
+
   <!-- CTA -->
   <div class="tools-cta">
     <h2>Ready to run the numbers?</h2>
     <p>Six free calculators built around the financial decisions that matter most to small business owners.</p>
     <a href="/">Browse All Calculators →</a>
   </div>
- 
+
 </div>
- 
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -472,14 +480,9 @@
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="mailto:calcwonk@gmail.com">Contact</a>
+      <a href="/cdn-cgi/l/email-protection#2340424f40544c4d4863444e424a4f0d404c4e">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.
     </p>
-    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
-  </div>
-</footer>
- 
-</body>
-</html>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved
