@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How Much Does It Really Cost to Hire an Employee? | CalcWonk</title>
@@ -22,16 +30,16 @@
       --border: #e2e8f0;
       --white: #ffffff;
     }
- 
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--white);
       color: var(--navy);
       line-height: 1.7;
     }
- 
+
     /* ── NAV ── */
     nav {
       background: var(--white);
@@ -46,22 +54,22 @@
       z-index: 100;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
- 
+
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       color: var(--navy);
       text-decoration: none;
     }
- 
+
     .nav-logo span { color: var(--teal); }
- 
+
     .nav-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
     }
- 
+
     .nav-links a {
       font-size: 0.9rem;
       font-weight: 500;
@@ -69,33 +77,33 @@
       text-decoration: none;
       transition: color 0.2s;
     }
- 
+
     .nav-links a:hover { color: var(--teal); }
- 
+
     /* ── ARTICLE LAYOUT ── */
     .article-wrapper {
       max-width: 720px;
       margin: 0 auto;
       padding: 3rem 1.5rem 5rem;
     }
- 
+
     /* ── BREADCRUMB ── */
     .breadcrumb {
       font-size: 0.8rem;
       color: var(--gray);
       margin-bottom: 1.5rem;
     }
- 
+
     .breadcrumb a {
       color: var(--teal);
       text-decoration: none;
     }
- 
+
     .breadcrumb a:hover { text-decoration: underline; }
- 
+
     /* ── ARTICLE HEADER ── */
     .article-header { margin-bottom: 2rem; }
- 
+
     .article-category {
       display: inline-block;
       background: var(--teal-light);
@@ -108,7 +116,7 @@
       border-radius: 999px;
       margin-bottom: 1rem;
     }
- 
+
     .article-header h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -116,7 +124,7 @@
       line-height: 1.25;
       margin-bottom: 1rem;
     }
- 
+
     .article-meta {
       display: flex;
       align-items: center;
@@ -125,14 +133,14 @@
       color: var(--gray);
       flex-wrap: wrap;
     }
- 
+
     .article-meta-divider { color: var(--border); }
- 
+
     /* ── ARTICLE BODY ── */
     .article-body { font-size: 1rem; color: #334155; }
- 
+
     .article-body p { margin-bottom: 1.25rem; }
- 
+
     .article-body h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
@@ -141,32 +149,32 @@
       padding-top: 1.5rem;
       border-top: 1px solid var(--border);
     }
- 
+
     .article-body h2:first-of-type { border-top: none; padding-top: 0; }
- 
+
     .article-body h3 {
       font-size: 1rem;
       font-weight: 700;
       color: var(--navy);
       margin: 1.5rem 0 0.5rem;
     }
- 
+
     .article-body a {
       color: var(--teal);
       text-decoration: underline;
       text-underline-offset: 2px;
     }
- 
+
     .article-body a:hover { color: var(--teal-dark); }
- 
+
     .article-body ul {
       margin: 0.75rem 0 1.25rem 1.5rem;
     }
- 
+
     .article-body ul li { margin-bottom: 0.4rem; }
- 
+
     .article-body strong { color: var(--navy); font-weight: 600; }
- 
+
     /* ── CALLOUT BOX ── */
     .callout {
       background: var(--teal-xlight);
@@ -177,9 +185,9 @@
       font-size: 0.95rem;
       color: #134e4a;
     }
- 
+
     .callout strong { color: var(--teal-dark); }
- 
+
     /* ── COST TABLE ── */
     .cost-table {
       width: 100%;
@@ -190,7 +198,7 @@
       overflow: hidden;
       border: 1px solid var(--border);
     }
- 
+
     .cost-table th {
       background: var(--navy);
       color: var(--white);
@@ -200,27 +208,27 @@
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
- 
+
     .cost-table th:last-child { text-align: right; }
- 
+
     .cost-table td {
       padding: 0.65rem 1rem;
       border-bottom: 1px solid var(--border);
       color: var(--navy);
     }
- 
+
     .cost-table td:last-child { text-align: right; font-weight: 600; }
- 
+
     .cost-table tr:last-child td {
       border-bottom: none;
       background: var(--teal-xlight);
       font-weight: 700;
       color: var(--teal-dark);
     }
- 
+
     .cost-table tr:nth-child(even) td { background: var(--gray-light); }
     .cost-table tr:last-child td { background: var(--teal-xlight) !important; }
- 
+
     /* ── CALCULATOR CTA ── */
     .calc-cta {
       background: var(--navy);
@@ -233,20 +241,20 @@
       gap: 1.5rem;
       flex-wrap: wrap;
     }
- 
+
     .calc-cta-text h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--white);
       margin-bottom: 0.3rem;
     }
- 
+
     .calc-cta-text p {
       font-size: 0.85rem;
       color: #94a3b8;
       margin: 0;
     }
- 
+
     .calc-cta-btn {
       display: inline-block;
       background: var(--teal);
@@ -261,7 +269,7 @@
       flex-shrink: 0;
       -webkit-text-fill-color: #ffffff;
     }
- 
+
     .calc-cta-btn:hover {
       background: var(--teal-dark);
       transform: translateY(-1px);
@@ -269,7 +277,7 @@
       text-decoration: none !important;
       -webkit-text-fill-color: #ffffff;
     }
- 
+
     /* ── AFFILIATE BOX ── */
     .affiliate-box {
       background: var(--orange-light);
@@ -278,7 +286,7 @@
       padding: 1.25rem 1.5rem;
       margin: 2rem 0;
     }
- 
+
     .affiliate-box-label {
       font-size: 0.7rem;
       font-weight: 700;
@@ -287,20 +295,20 @@
       color: var(--orange);
       margin-bottom: 0.5rem;
     }
- 
+
     .affiliate-box h3 {
       font-size: 1rem;
       font-weight: 700;
       color: var(--navy);
       margin-bottom: 0.4rem;
     }
- 
+
     .affiliate-box p {
       font-size: 0.875rem;
       color: #7c2d12;
       margin-bottom: 0.9rem;
     }
- 
+
     .affiliate-box a.btn {
       display: inline-block;
       background: var(--orange);
@@ -312,39 +320,39 @@
       font-size: 0.875rem;
       transition: background 0.2s;
     }
- 
+
     .affiliate-box a.btn:hover { background: #ea6c00; color: var(--white); text-decoration: none; }
- 
+
     .affiliate-disclosure {
       font-size: 0.72rem;
       color: #92400e;
       margin-top: 0.6rem;
     }
- 
+
     .affiliate-disclosure a { color: #92400e; }
- 
+
     /* ── RELATED POSTS ── */
     .related-section {
       margin-top: 3rem;
       padding-top: 2rem;
       border-top: 2px solid var(--border);
     }
- 
+
     .related-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--navy);
       margin-bottom: 1rem;
     }
- 
+
     .related-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
- 
+
     @media (max-width: 540px) { .related-grid { grid-template-columns: 1fr; } }
- 
+
     .related-card {
       background: var(--gray-light);
       border: 1px solid var(--border);
@@ -353,12 +361,12 @@
       text-decoration: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
- 
+
     .related-card:hover {
       border-color: var(--teal);
       box-shadow: 0 4px 12px rgba(13,148,136,0.08);
     }
- 
+
     .related-card-label {
       font-size: 0.7rem;
       font-weight: 700;
@@ -367,21 +375,21 @@
       color: var(--teal);
       margin-bottom: 0.3rem;
     }
- 
+
     .related-card h4 {
       font-size: 0.9rem;
       font-weight: 600;
       color: var(--navy);
       line-height: 1.4;
     }
- 
+
     /* ── FOOTER ── */
     footer {
       background: var(--navy);
       color: #94a3b8;
       padding: 2.5rem 2rem;
     }
- 
+
     .footer-inner {
       max-width: 720px;
       margin: 0 auto;
@@ -391,36 +399,36 @@
       gap: 1rem;
       text-align: center;
     }
- 
+
     .footer-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--white);
       text-decoration: none;
     }
- 
+
     .footer-logo span { color: var(--teal-light); }
- 
+
     .footer-links {
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
     }
- 
+
     .footer-links a {
       color: #94a3b8;
       text-decoration: none;
       font-size: 0.85rem;
       transition: color 0.2s;
     }
- 
+
     .footer-links a:hover { color: var(--teal-light); }
     .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
     .footer-copy { font-size: 0.8rem; color: #475569; }
- 
+
     @media (max-width: 600px) { .nav-links { display: none; } }
- 
+
     /* ── AUTHOR BIO ── */
     .author-bio-block {
       background: var(--gray-light);
@@ -466,7 +474,7 @@
   </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
@@ -475,14 +483,14 @@
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
- 
+
 <!-- ARTICLE -->
 <div class="article-wrapper">
- 
+
   <div class="breadcrumb">
     <a href="/">CalcWonk</a> › <a href="/blog/">Blog</a> › How Much Does It Really Cost to Hire an Employee?
   </div>
- 
+
   <header class="article-header">
     <span class="article-category">Small Business</span>
     <h1>How Much Does It Really Cost to Hire an Employee?</h1>
@@ -496,53 +504,53 @@
       <span>6 min read</span>
     </div>
   </header>
- 
+
   <div class="article-body">
- 
+
     <p>You've found the right person. You've agreed on a $65,000 salary. You shake hands and think — okay, this is going to cost me $65,000 a year.</p>
- 
+
     <p>It won't. Not even close.</p>
- 
+
     <p>The real cost of hiring an employee is typically <strong>25–40% higher than their base salary</strong> once you account for payroll taxes, benefits, equipment, and the handful of other costs that appear in your bank account but never show up in the offer letter. For most small business owners, this comes as a genuine surprise — and an expensive one.</p>
- 
+
     <p>Let's break it down so there are no surprises when your first payroll hits.</p>
- 
+
     <h2>The Costs That Show Up on Every Paycheck</h2>
- 
+
     <p>Before your employee ever sees a dollar, you're already paying more than their salary. Here's what gets added on top before you even get to benefits.</p>
- 
+
     <h3>Employer Payroll Taxes</h3>
- 
+
     <p>This is the one that catches people most off guard. As an employer, you pay your own share of Social Security (6.2%) and Medicare (1.45%) taxes on top of what your employee pays. Add federal and state unemployment taxes — typically another 0.5–1% — and you're looking at roughly <strong>8–10% on top of salary</strong> just in taxes before anything else.</p>
- 
+
     <p>On a $65,000 salary, that's about $5,300 extra per year. It doesn't appear in your employee's paycheck. It just disappears from your bank account every pay period, automatically.</p>
- 
+
     <h2>Benefits — Where the Real Money Goes</h2>
- 
+
     <p>This is where the number really starts to move. Even a modest benefits package adds significantly to your total cost.</p>
- 
+
     <p><strong>Health insurance</strong> is the biggest line item. Employers typically contribute $500–$700 per month for single coverage — that's $6,000–$8,400 per year, per employee. Family coverage pushes that higher still.</p>
- 
+
     <p><strong>Retirement contributions</strong> add another layer. A 3% 401(k) match on a $65,000 salary is $1,950 per year — modest on its own, but it compounds with everything else.</p>
- 
+
     <p><strong>Paid time off</strong> is a cost most people forget to calculate. If you offer 15 days of PTO and your employee earns $65,000, you're paying roughly $3,750 for days they're not working. That's not a complaint — it's just a real cost that belongs in your calculation.</p>
- 
+
     <div class="callout">
       <strong>Quick math:</strong> A $65,000 salary with basic health insurance, a 3% 401(k) match, and 15 days PTO already costs you around $77,000 before you've bought a laptop or paid for a desk.
     </div>
- 
+
     <h2>The Costs Nobody Talks About</h2>
- 
+
     <p>Payroll taxes and benefits are the obvious ones. But there's a third category that business owners consistently underestimate — overhead.</p>
- 
+
     <p>Think about what it actually takes to bring someone on. There's the recruiting cost — job postings, interview time, background checks — which typically runs $3,000–$5,000 even when you're not using a recruiter. There's equipment: a laptop, monitor, phone, and relevant software licenses can easily run $2,500–$4,000 upfront. And if you have office space, there's an allocated cost for the desk, utilities, and square footage your new hire occupies.</p>
- 
+
     <p>None of these show up in the offer letter. All of them show up in your cash flow.</p>
- 
+
     <h2>What It Actually Looks Like</h2>
- 
+
     <p>Here's what a $65,000 employee realistically costs a small business owner in year one:</p>
- 
+
     <table class="cost-table">
       <thead>
         <tr>
@@ -562,17 +570,17 @@
         <tr><td><strong>True Total Cost</strong></td><td><strong>$92,798</strong></td></tr>
       </tbody>
     </table>
- 
+
     <p>That $65,000 hire costs you closer to <strong>$93,000</strong>. That's 43% more than the number you agreed to over a handshake.</p>
- 
+
     <p>This isn't to say don't hire — it's to say go in with your eyes open. Knowing the real number lets you set realistic revenue expectations for the role, make a more informed decision about timing, and avoid the cash flow shock that catches so many small business owners off guard around month two.</p>
- 
+
     <h2>The Rule of Thumb Worth Remembering</h2>
- 
+
     <p>A useful benchmark: <strong>an employee should generate at least 3x their fully-loaded cost in revenue or value to your business.</strong> That's not a hard rule — support roles and operations staff create value in ways that don't show up directly in revenue — but it's a healthy gut check before you make an offer.</p>
- 
+
     <p>For a $93,000 all-in cost, that means the hire should be generating roughly $279,000 in revenue or equivalent value annually. If you can see a clear path to that, hire confidently. If you can't, it might be worth waiting until the business can genuinely support it.</p>
- 
+
     <!-- CALCULATOR CTA -->
     <div class="calc-cta">
       <div class="calc-cta-text">
@@ -581,11 +589,11 @@
       </div>
       <a href="/true-cost-of-an-employee-calculator/" class="calc-cta-btn">Use the Calculator →</a>
     </div>
- 
+
     <h2>One More Thing Before You Hire</h2>
- 
+
     <p>Once you know your true cost, make sure your payroll setup can handle it. Payroll taxes, benefit deductions, and quarterly filings are manageable — but only if you have the right system in place from day one. Doing it manually is how compliance mistakes happen.</p>
- 
+
     <!-- AFFILIATE BOX -->
     <div class="affiliate-box">
       <div class="affiliate-box-label">Tool Recommendation</div>
@@ -594,14 +602,14 @@
       <a href="https://gusto.com/r/brian7e7eb3a4" target="_blank" rel="noopener" class="btn">Try Gusto Free →</a>
       <div class="affiliate-disclosure">CalcWonk may earn a commission if you sign up through this link — at no extra cost to you. <a href="/legal/">See our disclosure</a>.</div>
     </div>
- 
+
     <p>Hiring is one of the most consequential decisions a small business owner makes. Getting the number right before you commit doesn't make the decision harder — it makes it cleaner. You'll know exactly what you're taking on, exactly what you need the role to deliver, and exactly what to expect when payroll runs for the first time.</p>
- 
+
     <p>That's worth fifteen minutes with a calculator before you sign anything.</p>
- 
+
   </div>
- 
- 
+
+
   <!-- AUTHOR BIO -->
   <div class="author-bio-block">
     <div class="author-bio-avatar">B</div>
@@ -613,7 +621,7 @@
       </div>
     </div>
   </div>
- 
+
   <!-- RELATED -->
   <div class="related-section">
     <div class="related-title">Related Tools & Reading</div>
@@ -636,9 +644,9 @@
       </a>
     </div>
   </div>
- 
+
 </div>
- 
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
