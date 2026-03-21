@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Business Loan True Cost Calculator — Beyond the APR | CalcWonk</title>
@@ -28,16 +36,16 @@
       --purple: #7c3aed;
       --purple-light: #ede9fe;
     }
- 
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--white);
       color: var(--navy);
       line-height: 1.6;
     }
- 
+
     /* ── NAV ── */
     nav {
       background: var(--white);
@@ -52,22 +60,22 @@
       z-index: 100;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
- 
+
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
       color: var(--navy);
       text-decoration: none;
     }
- 
+
     .nav-logo span { color: var(--teal); }
- 
+
     .nav-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
     }
- 
+
     .nav-links a {
       font-size: 0.9rem;
       font-weight: 500;
@@ -75,9 +83,9 @@
       text-decoration: none;
       transition: color 0.2s;
     }
- 
+
     .nav-links a:hover { color: var(--teal); }
- 
+
     /* ── PAGE HERO ── */
     .page-hero {
       background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--white) 60%);
@@ -85,16 +93,16 @@
       padding: 3rem 2rem 2.5rem;
       text-align: center;
     }
- 
+
     .breadcrumb {
       font-size: 0.8rem;
       color: var(--gray);
       margin-bottom: 1rem;
     }
- 
+
     .breadcrumb a { color: var(--teal); text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
- 
+
     .page-hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.6rem, 4vw, 2.4rem);
@@ -104,21 +112,21 @@
       margin-left: auto;
       margin-right: auto;
     }
- 
+
     .page-hero p {
       color: var(--gray);
       font-size: 1.05rem;
       max-width: 580px;
       margin: 0 auto;
     }
- 
+
     /* ── LAYOUT ── */
     .page-container {
       max-width: 900px;
       margin: 0 auto;
       padding: 2.5rem 1.5rem 5rem;
     }
- 
+
     /* ── CALC CARD ── */
     .calc-card {
       background: var(--white);
@@ -128,7 +136,7 @@
       overflow: hidden;
       margin-bottom: 2.5rem;
     }
- 
+
     .calc-header {
       background: var(--teal);
       padding: 1.25rem 1.75rem;
@@ -136,15 +144,15 @@
       align-items: center;
       gap: 0.75rem;
     }
- 
+
     .calc-header h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
       color: var(--white);
     }
- 
+
     .calc-body { padding: 2rem 1.75rem; }
- 
+
     /* ── LOAN TABS ── */
     .loan-tabs {
       display: flex;
@@ -152,7 +160,7 @@
       margin-bottom: 1.75rem;
       flex-wrap: wrap;
     }
- 
+
     .loan-tab {
       padding: 0.5rem 1.1rem;
       border: 1.5px solid var(--border);
@@ -165,18 +173,18 @@
       cursor: pointer;
       transition: all 0.2s;
     }
- 
+
     .loan-tab:hover { border-color: var(--teal); color: var(--teal); }
- 
+
     .loan-tab.active {
       background: var(--teal);
       border-color: var(--teal);
       color: var(--white);
     }
- 
+
     /* ── INPUT SECTIONS ── */
     .input-section { margin-bottom: 1.75rem; }
- 
+
     .input-section-title {
       font-size: 0.75rem;
       font-weight: 600;
@@ -187,35 +195,35 @@
       padding-bottom: 0.5rem;
       border-bottom: 2px solid var(--teal-light);
     }
- 
+
     .input-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
- 
+
     @media (max-width: 580px) { .input-grid { grid-template-columns: 1fr; } }
- 
+
     .input-group {
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
     }
- 
+
     .input-group label {
       font-size: 0.85rem;
       font-weight: 500;
       color: var(--navy);
     }
- 
+
     .hint { font-size: 0.75rem; color: var(--gray); }
- 
+
     .input-wrapper {
       position: relative;
       display: flex;
       align-items: center;
     }
- 
+
     .input-prefix, .input-suffix {
       position: absolute;
       font-size: 0.9rem;
@@ -223,10 +231,10 @@
       font-weight: 500;
       pointer-events: none;
     }
- 
+
     .input-prefix { left: 0.75rem; }
     .input-suffix { right: 0.75rem; }
- 
+
     .input-wrapper input, .input-wrapper select {
       width: 100%;
       padding: 0.6rem 0.75rem;
@@ -239,19 +247,19 @@
       transition: border-color 0.2s, box-shadow 0.2s;
       -moz-appearance: textfield;
     }
- 
+
     .input-wrapper input::-webkit-outer-spin-button,
     .input-wrapper input::-webkit-inner-spin-button { -webkit-appearance: none; }
- 
+
     .input-wrapper input:focus, .input-wrapper select:focus {
       outline: none;
       border-color: var(--teal);
       box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
     }
- 
+
     .has-prefix input { padding-left: 1.75rem; }
     .has-suffix input { padding-right: 2.5rem; }
- 
+
     /* ── KEY METRICS ── */
     .key-metrics {
       display: grid;
@@ -259,19 +267,19 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
- 
+
     @media (max-width: 580px) { .key-metrics { grid-template-columns: 1fr 1fr; } }
- 
+
     .metric-box {
       background: var(--navy);
       border-radius: 12px;
       padding: 1.25rem;
       text-align: center;
     }
- 
+
     .metric-box.highlight { background: var(--teal); }
     .metric-box.warning { background: #7c2d12; }
- 
+
     .metric-label {
       font-size: 0.72rem;
       color: #94a3b8;
@@ -279,29 +287,29 @@
       letter-spacing: 0.06em;
       margin-bottom: 0.4rem;
     }
- 
+
     .metric-box.highlight .metric-label,
     .metric-box.warning .metric-label { color: rgba(255,255,255,0.7); }
- 
+
     .metric-value {
       font-family: 'Playfair Display', serif;
       font-size: 1.7rem;
       color: var(--teal-light);
       line-height: 1.1;
     }
- 
+
     .metric-box.highlight .metric-value { color: var(--white); font-size: 2rem; }
     .metric-box.warning .metric-value { color: #fca5a5; }
- 
+
     .metric-sub {
       font-size: 0.72rem;
       color: #64748b;
       margin-top: 0.3rem;
     }
- 
+
     .metric-box.highlight .metric-sub,
     .metric-box.warning .metric-sub { color: rgba(255,255,255,0.6); }
- 
+
     /* ── AMORTIZATION PREVIEW ── */
     .amort-preview {
       background: var(--gray-light);
@@ -310,7 +318,7 @@
       padding: 1.5rem;
       margin-bottom: 1.5rem;
     }
- 
+
     .amort-title {
       font-size: 0.8rem;
       font-weight: 600;
@@ -319,9 +327,9 @@
       letter-spacing: 0.06em;
       margin-bottom: 1rem;
     }
- 
+
     canvas { width: 100% !important; }
- 
+
     /* ── COST BREAKDOWN ── */
     .cost-breakdown {
       background: var(--red-light);
@@ -330,7 +338,7 @@
       padding: 1.25rem 1.5rem;
       margin-bottom: 1.5rem;
     }
- 
+
     .cost-breakdown-title {
       font-size: 0.8rem;
       font-weight: 600;
@@ -339,15 +347,15 @@
       letter-spacing: 0.06em;
       margin-bottom: 0.75rem;
     }
- 
+
     .cost-breakdown-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0.75rem;
     }
- 
+
     @media (max-width: 580px) { .cost-breakdown-grid { grid-template-columns: 1fr; } }
- 
+
     .cost-box {
       background: var(--white);
       border-radius: 8px;
@@ -355,11 +363,11 @@
       border: 1px solid #fecaca;
       text-align: center;
     }
- 
+
     .cost-box-label { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.3rem; }
     .cost-box-value { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--red); }
     .cost-box-pct { font-size: 0.72rem; color: var(--gray); margin-top: 0.2rem; }
- 
+
     /* ── COMPARISON PANEL ── */
     .compare-toggle {
       display: flex;
@@ -369,28 +377,28 @@
       cursor: pointer;
       user-select: none;
     }
- 
+
     .compare-toggle input { cursor: pointer; accent-color: var(--teal); width: 16px; height: 16px; }
     .compare-toggle label { font-size: 0.9rem; font-weight: 600; color: var(--navy); cursor: pointer; }
- 
+
     .compare-panel { display: none; }
     .compare-panel.visible { display: block; }
- 
+
     .compare-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
       margin-bottom: 1rem;
     }
- 
+
     @media (max-width: 580px) { .compare-grid { grid-template-columns: 1fr; } }
- 
+
     .compare-col {
       border: 1.5px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
     }
- 
+
     .compare-col-header {
       padding: 0.75rem 1rem;
       font-size: 0.8rem;
@@ -398,12 +406,12 @@
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
- 
+
     .compare-col:first-child .compare-col-header { background: var(--teal-xlight); color: var(--teal-dark); }
     .compare-col:last-child .compare-col-header { background: var(--purple-light); color: var(--purple); }
- 
+
     .compare-col-body { padding: 1rem; }
- 
+
     .compare-row {
       display: flex;
       justify-content: space-between;
@@ -411,11 +419,11 @@
       padding: 0.35rem 0;
       border-bottom: 1px solid var(--border);
     }
- 
+
     .compare-row:last-child { border-bottom: none; }
     .compare-row-label { color: var(--gray); }
     .compare-row-val { font-weight: 600; color: var(--navy); }
- 
+
     .compare-winner {
       background: var(--green-light);
       border: 1px solid var(--green-border);
@@ -426,7 +434,7 @@
       font-weight: 600;
       text-align: center;
     }
- 
+
     /* ── INSIGHT ── */
     .insight-box {
       background: var(--orange-light);
@@ -438,17 +446,17 @@
       align-items: flex-start;
       margin-bottom: 1.5rem;
     }
- 
+
     .insight-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 0.1rem; }
- 
+
     .insight-text {
       font-size: 0.875rem;
       color: #7c2d12;
       line-height: 1.6;
     }
- 
+
     .insight-text strong { color: #9a3412; }
- 
+
     /* ── AMORTIZATION TABLE ── */
     .amort-table-wrapper {
       max-height: 280px;
@@ -457,13 +465,13 @@
       border-radius: 10px;
       margin-bottom: 1.5rem;
     }
- 
+
     .amort-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.8rem;
     }
- 
+
     .amort-table th {
       position: sticky;
       top: 0;
@@ -475,21 +483,21 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
- 
+
     .amort-table th:first-child { text-align: left; }
- 
+
     .amort-table td {
       padding: 0.45rem 0.75rem;
       border-bottom: 1px solid var(--border);
       text-align: right;
       color: var(--navy);
     }
- 
+
     .amort-table td:first-child { text-align: left; color: var(--gray); }
     .amort-table tr:last-child td { border-bottom: none; font-weight: 600; background: var(--teal-xlight); }
     .amort-table tr:nth-child(even) td { background: var(--gray-light); }
     .amort-table tr:last-child td { background: var(--teal-xlight) !important; color: var(--teal-dark); }
- 
+
     /* ── RELATED TOOLS ── */
     .related-tools {
       display: grid;
@@ -497,9 +505,9 @@
       gap: 1rem;
       margin-bottom: 2.5rem;
     }
- 
+
     @media (max-width: 540px) { .related-tools { grid-template-columns: 1fr; } }
- 
+
     .related-tool {
       background: var(--teal-xlight);
       border: 1.5px solid var(--teal-light);
@@ -512,13 +520,13 @@
       text-decoration: none;
       transition: box-shadow 0.2s;
     }
- 
+
     .related-tool:hover { box-shadow: 0 4px 12px rgba(13,148,136,0.12); }
- 
+
     .related-tool-text h4 { font-weight: 600; font-size: 0.875rem; color: var(--navy); margin-bottom: 0.15rem; }
     .related-tool-text p { font-size: 0.78rem; color: var(--gray); margin: 0; }
     .related-tool-arrow { font-size: 1rem; color: var(--teal); flex-shrink: 0; }
- 
+
     /* ── AFFILIATE ── */
     .affiliate-section {
       background: var(--gray-light);
@@ -527,25 +535,25 @@
       padding: 1.5rem;
       margin-bottom: 2.5rem;
     }
- 
+
     .affiliate-section h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       color: var(--navy);
       margin-bottom: 0.3rem;
     }
- 
+
     .affiliate-section > p { font-size: 0.875rem; color: var(--gray); margin-bottom: 1rem; }
- 
+
     .affiliate-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
       margin-bottom: 1rem;
     }
- 
+
     @media (max-width: 540px) { .affiliate-cards { grid-template-columns: 1fr; } }
- 
+
     .affiliate-card {
       background: var(--white);
       border: 1.5px solid var(--border);
@@ -557,12 +565,12 @@
       text-decoration: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
- 
+
     .affiliate-card:hover { border-color: var(--teal); box-shadow: 0 4px 12px rgba(13,148,136,0.1); }
- 
+
     .affiliate-card-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); }
     .affiliate-card-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.4; flex: 1; }
- 
+
     .affiliate-card-cta {
       display: inline-block;
       background: var(--teal);
@@ -575,9 +583,9 @@
       text-align: center;
       transition: background 0.2s;
     }
- 
+
     .affiliate-card:hover .affiliate-card-cta { background: var(--teal-dark); }
- 
+
     .affiliate-disclosure {
       font-size: 0.75rem;
       color: var(--gray);
@@ -585,13 +593,13 @@
       align-items: flex-start;
       gap: 0.4rem;
     }
- 
+
     .affiliate-disclosure a { color: var(--teal); text-decoration: none; }
     .affiliate-disclosure a:hover { text-decoration: underline; }
- 
+
     /* ── CONTENT ── */
     .content-section { margin-bottom: 2.5rem; }
- 
+
     .content-section h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.5rem;
@@ -600,16 +608,16 @@
       padding-bottom: 0.5rem;
       border-bottom: 2px solid var(--teal-light);
     }
- 
+
     .content-section h3 { font-size: 1rem; font-weight: 600; color: var(--navy); margin: 1.25rem 0 0.5rem; }
- 
+
     .content-section p { font-size: 0.95rem; color: #334155; line-height: 1.75; margin-bottom: 0.75rem; }
- 
+
     /* ── FAQ ── */
     .faq-list { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
     .faq-item { border-bottom: 1px solid var(--border); }
     .faq-item:last-child { border-bottom: none; }
- 
+
     .faq-question {
       width: 100%;
       background: none;
@@ -627,12 +635,12 @@
       gap: 1rem;
       transition: background 0.15s;
     }
- 
+
     .faq-question:hover { background: var(--gray-light); }
     .faq-question.open { background: var(--teal-xlight); color: var(--teal-dark); }
     .faq-chevron { font-size: 0.75rem; transition: transform 0.2s; color: var(--gray); flex-shrink: 0; }
     .faq-question.open .faq-chevron { transform: rotate(180deg); color: var(--teal); }
- 
+
     .faq-answer {
       display: none;
       padding: 0 1.25rem 1rem;
@@ -641,12 +649,12 @@
       line-height: 1.7;
       background: var(--teal-xlight);
     }
- 
+
     .faq-answer.open { display: block; }
- 
+
     /* ── FOOTER ── */
     footer { background: var(--navy); color: #94a3b8; padding: 2.5rem 2rem; }
- 
+
     .footer-inner {
       max-width: 900px;
       margin: 0 auto;
@@ -656,12 +664,12 @@
       gap: 1rem;
       text-align: center;
     }
- 
+
     .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); text-decoration: none; }
     .footer-logo span { color: var(--teal-light); }
- 
+
     .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
- 
+
     .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
     .footer-links a:hover { color: var(--teal-light); }
     .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 600px; line-height: 1.5; }
@@ -669,7 +677,7 @@
   </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
@@ -678,7 +686,7 @@
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
- 
+
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="breadcrumb">
@@ -687,10 +695,10 @@
   <h1>Business Loan True Cost Calculator</h1>
   <p>APR doesn't tell the whole story. See the total interest, fees, and real cost of a business loan — and compare two offers side by side before you sign anything.</p>
 </div>
- 
+
 <!-- MAIN -->
 <div class="page-container">
- 
+
   <!-- CALCULATOR -->
   <div class="calc-card">
     <div class="calc-header">
@@ -698,7 +706,7 @@
       <h2>Enter Your Loan Details</h2>
     </div>
     <div class="calc-body">
- 
+
       <!-- LOAN TYPE TABS -->
       <div class="loan-tabs">
         <button class="loan-tab active" onclick="setLoanType('term', this)">Term Loan</button>
@@ -706,7 +714,7 @@
         <button class="loan-tab" onclick="setLoanType('loc', this)">Line of Credit</button>
         <button class="loan-tab" onclick="setLoanType('mca', this)">Merchant Cash Advance</button>
       </div>
- 
+
       <!-- LOAN INPUTS -->
       <div class="input-section">
         <div class="input-section-title">Loan Details</div>
@@ -748,7 +756,7 @@
           </div>
         </div>
       </div>
- 
+
       <!-- FEES -->
       <div class="input-section">
         <div class="input-section-title">Fees & Additional Costs</div>
@@ -787,7 +795,7 @@
           </div>
         </div>
       </div>
- 
+
       <!-- KEY METRICS -->
       <div class="key-metrics">
         <div class="metric-box highlight">
@@ -821,13 +829,13 @@
           <div class="metric-sub">total cost / loan amount</div>
         </div>
       </div>
- 
+
       <!-- AMORTIZATION CHART -->
       <div class="amort-preview">
         <div class="amort-title">Principal vs. Interest Over Time</div>
         <canvas id="loanChart" height="220"></canvas>
       </div>
- 
+
       <!-- COST BREAKDOWN -->
       <div class="cost-breakdown">
         <div class="cost-breakdown-title">🔍 Where Your Money Goes</div>
@@ -849,13 +857,13 @@
           </div>
         </div>
       </div>
- 
+
       <!-- LOAN COMPARISON -->
       <div class="compare-toggle">
         <input type="checkbox" id="compareToggle" onchange="toggleCompare(this)" />
         <label for="compareToggle">Compare with a second loan offer</label>
       </div>
- 
+
       <div id="comparePanel" class="compare-panel">
         <div class="input-section">
           <div class="input-section-title" style="color:#7c3aed;border-color:#c4b5fd">Loan B — Second Offer</div>
@@ -904,17 +912,17 @@
             </div>
           </div>
         </div>
- 
+
         <div class="compare-grid" id="compareGrid"></div>
         <div class="compare-winner" id="compareWinner"></div>
       </div>
- 
+
       <!-- INSIGHT -->
       <div class="insight-box" style="margin-top:1.5rem">
         <div class="insight-icon">💡</div>
         <div class="insight-text" id="insightText">Enter your loan details above to see your personalized insight.</div>
       </div>
- 
+
       <!-- AMORTIZATION TABLE -->
       <div class="amort-title" style="font-size:0.8rem;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem">
         Amortization Schedule
@@ -933,10 +941,10 @@
           <tbody id="amortBody"></tbody>
         </table>
       </div>
- 
+
     </div>
   </div>
- 
+
   <!-- RELATED TOOLS -->
   <div class="related-tools">
     <a href="/break-even-calculator/" class="related-tool">
@@ -954,7 +962,7 @@
       <div class="related-tool-arrow">→</div>
     </a>
   </div>
- 
+
   <!-- AFFILIATE -->
   <div class="affiliate-section">
     <h3>Compare Business Loan Offers From Multiple Lenders</h3>
@@ -976,27 +984,27 @@
       <span>CalcWonk may earn a commission if you apply through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal/">See our Affiliate Disclosure</a>.</span>
     </div>
   </div>
- 
+
   <!-- CONTENT -->
   <div class="content-section">
     <h2>Why APR Understates the True Cost of a Business Loan</h2>
     <p>APR is a useful starting point — but it's an incomplete picture of what a business loan will actually cost you. Origination fees, closing costs, annual maintenance fees, and prepayment penalties all add to the total cost of borrowing in ways that APR alone doesn't fully capture. Two loans with identical APRs can have meaningfully different true costs depending on their fee structures and terms.</p>
- 
+
     <h3>The Factor Rate Trap in Merchant Cash Advances</h3>
     <p>Merchant cash advances and some short-term business loans are priced using a factor rate rather than an APR — something like 1.25 or 1.40 rather than a percentage. A factor rate of 1.35 on a $100,000 advance means you repay $135,000 total. That sounds straightforward, but when converted to an equivalent APR over a typical repayment period of 6–12 months, factor rate products frequently carry effective APRs of 40–150%. Always convert factor rates to APR before comparing against traditional loan products.</p>
- 
+
     <h3>Shorter Terms Mean Higher Payments but Less Total Interest</h3>
     <p>A common mistake is choosing a longer loan term to get a lower monthly payment without recognizing the total interest cost increase. A $150,000 loan at 8.5% over 5 years costs roughly $34,000 in interest. The same loan over 7 years costs around $48,000 — $14,000 more in interest for the privilege of a lower monthly payment. The amortization schedule in this calculator shows you exactly how this plays out month by month for your specific loan.</p>
- 
+
     <h3>How to Actually Compare Two Loan Offers</h3>
     <p>The most reliable comparison metric is total cost of borrowing — the sum of all principal repaid, all interest paid, and all fees over the life of the loan. Two loans that look similar on APR can diverge significantly when fees are factored in. Use the loan comparison feature in this calculator to enter both offers and see the true total cost side by side before making a decision.</p>
   </div>
- 
+
   <!-- FAQ -->
   <div class="content-section">
     <h2>Frequently Asked Questions</h2>
     <div class="faq-list">
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           What is a good interest rate for a small business loan?
@@ -1006,7 +1014,7 @@
           It depends on the loan type and your creditworthiness. SBA loans typically carry rates of 6–11% and are considered the gold standard for small business borrowing. Conventional bank term loans run 6–13% for well-qualified borrowers. Online lenders typically charge 10–30%. Merchant cash advances and short-term loans can carry effective rates of 40–150% when converted to APR. As a rule of thumb, anything under 10% APR is competitive, 10–20% is moderate, and above 25% should be scrutinized carefully.
         </div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           What is an origination fee on a business loan?
@@ -1016,7 +1024,7 @@
           An origination fee is a one-time charge by the lender for processing the loan, typically expressed as a percentage of the loan amount (usually 0.5–3%). On a $150,000 loan with a 2% origination fee, you pay $3,000 upfront — but often it's deducted from the loan proceeds, meaning you receive $147,000 but repay $150,000. This effectively increases your APR beyond the stated rate, which is why this calculator adds fees into the true cost calculation.
         </div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           Should I pay off a business loan early?
@@ -1026,7 +1034,7 @@
           It depends on whether the loan has a prepayment penalty and what your alternatives are for that capital. If there's no prepayment penalty and you have excess cash, early payoff saves you all remaining interest. If there's a prepayment penalty, calculate whether the interest savings outweigh the penalty cost. Also consider opportunity cost — if you can deploy that capital at a return higher than the loan's interest rate, it may be better to keep the loan and invest the cash. This calculator shows the prepayment penalty amount so you can make an informed decision.
         </div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           What is the difference between a business loan and a line of credit?
@@ -1036,7 +1044,7 @@
           A term loan gives you a lump sum upfront that you repay on a fixed schedule over a set period. A line of credit gives you access to a pool of funds you can draw from and repay repeatedly, only paying interest on what you've drawn. Term loans are better for one-time large purchases like equipment. Lines of credit are better for managing cash flow fluctuations or covering short-term gaps. Lines of credit typically carry higher interest rates than term loans but offer more flexibility.
         </div>
       </div>
- 
+
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
           How do SBA loans differ from conventional business loans?
@@ -1046,16 +1054,16 @@
           SBA loans are conventional bank loans partially guaranteed by the Small Business Administration, which allows lenders to offer lower rates and longer terms than they could otherwise. SBA 7(a) loans — the most common type — offer up to $5 million with terms up to 25 years for real estate and 10 years for equipment or working capital. The tradeoff is a lengthy application process (typically 60–90 days), substantial documentation requirements, and SBA guarantee fees of 0.5–3.75% depending on loan size and term. For businesses that qualify, SBA loans usually offer the best combination of rate, term, and loan size available.
         </div>
       </div>
- 
+
     </div>
   </div>
- 
+
   <p style="font-size:0.8rem;color:var(--gray);text-align:center;margin-top:-1rem">
     CalcWonk tools are built for business owners who want real numbers, not ballpark guesses. Always calculate total cost before signing a loan agreement.
   </p>
- 
+
 </div>
- 
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -1065,7 +1073,7 @@
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="mailto:calcwonk@gmail.com">Contact</a>
+      <a href="/cdn-cgi/l/email-protection#0467656867736b6a6f446369656d682a676b69">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you apply through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice. Always consult a financial advisor before taking on business debt.
@@ -1073,19 +1081,19 @@
     <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
   </div>
 </footer>
- 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
   let loanChart = null;
   let currentLoanType = 'term';
- 
+
   const LOAN_TYPE_DEFAULTS = {
     term:  { rate: 8.5,  term: 60,  origination: 1.5,  closing: 500,  annual: 0    },
     sba:   { rate: 7.0,  term: 120, origination: 2.5,  closing: 1000, annual: 0    },
     loc:   { rate: 12.0, term: 12,  origination: 1.0,  closing: 250,  annual: 150  },
     mca:   { rate: 40.0, term: 12,  origination: 3.0,  closing: 0,    annual: 0    },
   };
- 
+
   function setLoanType(type, btn) {
     currentLoanType = type;
     document.querySelectorAll('.loan-tab').forEach(t => t.classList.remove('active'));
@@ -1098,35 +1106,35 @@
     document.getElementById('annualFee').value       = d.annual;
     calculate();
   }
- 
+
   function toggleCompare(cb) {
     const panel = document.getElementById('comparePanel');
     panel.classList.toggle('visible', cb.checked);
     if (cb.checked) calculate();
   }
- 
+
   function fmt(n) { return '$' + Math.round(Math.abs(n)).toLocaleString(); }
   function fmtPct(n) { return (Math.round(n * 10) / 10).toFixed(2) + '%'; }
- 
+
   function calcLoan(principal, annualRate, termMonths, originationPct, closingCosts, annualFee, paymentsPerYear) {
     const periodicRate = (annualRate / 100) / paymentsPerYear;
     const numPayments  = Math.round((termMonths / 12) * paymentsPerYear);
     let payment;
- 
+
     if (periodicRate === 0) {
       payment = principal / numPayments;
     } else {
       payment = principal * (periodicRate * Math.pow(1 + periodicRate, numPayments))
                 / (Math.pow(1 + periodicRate, numPayments) - 1);
     }
- 
+
     const totalPaid      = payment * numPayments;
     const totalInterest  = totalPaid - principal;
     const originationAmt = principal * (originationPct / 100);
     const totalAnnualFees= annualFee * Math.ceil(termMonths / 12);
     const totalFees      = originationAmt + closingCosts + totalAnnualFees;
     const trueCost       = totalPaid + totalFees;
- 
+
     // Effective APR approximation
     const monthlyPayment = payment * (paymentsPerYear / 12);
     const netProceeds    = principal - originationAmt - closingCosts;
@@ -1134,15 +1142,15 @@
     if (netProceeds > 0 && netProceeds !== principal) {
       effectiveAPR = (totalInterest + totalFees) / principal / (termMonths / 12) * 100;
     }
- 
+
     return { payment, totalPaid, totalInterest, totalFees, trueCost, effectiveAPR, numPayments, periodicRate, principal };
   }
- 
+
   function buildAmortization(principal, periodicRate, payment, numPayments, paymentsPerYear) {
     const rows = [];
     let balance = principal;
     const period = paymentsPerYear === 12 ? 'Month' : paymentsPerYear === 52 ? 'Week' : paymentsPerYear === 26 ? 'Bi-wk' : 'Qtr';
- 
+
     for (let i = 1; i <= numPayments; i++) {
       const interestPmt  = balance * periodicRate;
       const principalPmt = Math.min(payment - interestPmt, balance);
@@ -1150,10 +1158,10 @@
       rows.push({ period: `${period} ${i}`, payment, principal: principalPmt, interest: interestPmt, balance });
       if (balance <= 0) break;
     }
- 
+
     return rows;
   }
- 
+
   function calculate() {
     const loanAmount    = parseFloat(document.getElementById('loanAmount').value) || 0;
     const interestRate  = parseFloat(document.getElementById('interestRate').value) || 0;
@@ -1162,13 +1170,13 @@
     const closingCosts  = parseFloat(document.getElementById('closingCosts').value) || 0;
     const annualFee     = parseFloat(document.getElementById('annualFee').value) || 0;
     const paymentsPerYear = parseInt(document.getElementById('paymentFrequency').value) || 12;
- 
+
     if (!loanAmount || !termMonths) return;
- 
+
     const loan = calcLoan(loanAmount, interestRate, termMonths, originationFee, closingCosts, annualFee, paymentsPerYear);
- 
+
     const freqLabels = { 12: 'per month', 52: 'per week', 26: 'bi-weekly', 4: 'per quarter' };
- 
+
     document.getElementById('monthlyPayment').textContent  = fmt(loan.payment);
     document.getElementById('paymentFreqLabel').textContent= freqLabels[paymentsPerYear] || 'per period';
     document.getElementById('totalInterest').textContent   = fmt(loan.totalInterest);
@@ -1176,7 +1184,7 @@
     document.getElementById('totalFees').textContent       = fmt(loan.totalFees);
     document.getElementById('effectiveAPR').textContent    = fmtPct(loan.effectiveAPR);
     document.getElementById('costPerDollar').textContent   = '$' + (loan.trueCost / loanAmount).toFixed(2);
- 
+
     // Cost breakdown boxes
     const total = loan.trueCost;
     document.getElementById('principalBox').textContent = fmt(loanAmount);
@@ -1185,7 +1193,7 @@
     document.getElementById('interestPct').textContent  = (loan.totalInterest/total*100).toFixed(1) + '% of total';
     document.getElementById('feesBox').textContent      = fmt(loan.totalFees);
     document.getElementById('feesPct').textContent      = (loan.totalFees/total*100).toFixed(1) + '% of total';
- 
+
     // Insight
     const interestRatio = (loan.totalInterest / loanAmount * 100).toFixed(0);
     document.getElementById('insightText').innerHTML =
@@ -1194,15 +1202,15 @@
       (loan.effectiveAPR > interestRate + 0.5
         ? `Your effective APR including fees is <strong>${fmtPct(loan.effectiveAPR)}</strong> — higher than the stated rate of ${interestRate}% due to fees.`
         : `Your effective APR including fees is close to the stated rate, indicating a relatively low-fee loan structure.`);
- 
+
     // Chart
     const amortRows = buildAmortization(loanAmount, loan.periodicRate, loan.payment, loan.numPayments, paymentsPerYear);
     const sampleRate = Math.max(1, Math.floor(amortRows.length / 24));
     const sampled = amortRows.filter((_, i) => i % sampleRate === 0 || i === amortRows.length - 1);
- 
+
     const ctx = document.getElementById('loanChart').getContext('2d');
     if (loanChart) loanChart.destroy();
- 
+
     loanChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -1249,7 +1257,7 @@
         }
       }
     });
- 
+
     // Amortization table
     document.getElementById('amortBody').innerHTML = amortRows.map(r =>
       `<tr>
@@ -1266,7 +1274,7 @@
       <td>$${Math.round(loan.totalInterest).toLocaleString()}</td>
       <td>$0</td>
     </tr>`]).join('');
- 
+
     // Comparison
     if (document.getElementById('compareToggle').checked) {
       const b_amount   = parseFloat(document.getElementById('b_loanAmount').value) || loanAmount;
@@ -1275,11 +1283,11 @@
       const b_orig     = parseFloat(document.getElementById('b_originationFee').value) || 0;
       const b_closing  = parseFloat(document.getElementById('b_closingCosts').value) || 0;
       const b_annual   = parseFloat(document.getElementById('b_annualFee').value) || 0;
- 
+
       const loanB = calcLoan(b_amount, b_rate, b_term, b_orig, b_closing, b_annual, 12);
- 
+
       const aWins = loan.trueCost <= loanB.trueCost;
- 
+
       document.getElementById('compareGrid').innerHTML = `
         <div class="compare-col">
           <div class="compare-col-header">Loan A (Your Primary)</div>
@@ -1301,13 +1309,13 @@
             <div class="compare-row"><span class="compare-row-label">True Total Cost</span><span class="compare-row-val">${fmt(loanB.trueCost)}</span></div>
           </div>
         </div>`;
- 
+
       const savings = Math.abs(loan.trueCost - loanB.trueCost);
       document.getElementById('compareWinner').innerHTML =
         `✓ Loan ${aWins ? 'A' : 'B'} has the lower true total cost — saving you ${fmt(savings)} over the life of the loan.`;
     }
   }
- 
+
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = btn.classList.contains('open');
@@ -1320,14 +1328,5 @@
       answer.classList.add('open');
     }
   }
- 
-  document.querySelectorAll('input[type="number"], select').forEach(el => {
-    el.addEventListener('input', calculate);
-    el.addEventListener('change', calculate);
-  });
- 
-  calculate();
-</script>
- 
-</body>
-</html>
+
+  document.querySelectorAll('input[type="number"], select').forEach
