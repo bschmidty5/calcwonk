@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1099 vs. W-2: How to Make the Right Call for Your Business | CalcWonk</title>
+  <meta name="description" content="The contractor vs. employee decision isn't just about cost — it's about control, flexibility, and legal risk. Here's how to think through it before you make an offer." />
+  <meta name="google-site-verification" content="ff98ab57f993bbf3" />
+  <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
+  <link rel="canonical" href="https://calcwonk.com/blog/1099-vs-w2-how-to-make-the-right-call/" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #ccfbf1;
+      --teal-xlight: #f0fdfa;
+      --orange: #f97316;
+      --orange-light: #fff7ed;
+      --orange-border: #fed7aa;
+      --navy: #1e293b;
+      --gray: #64748b;
+      --gray-light: #f8fafc;
+      --border: #e2e8f0;
+      --white: #ffffff;
+    }
+ 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      line-height: 1.7;
+    }
+ 
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+ 
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); text-decoration: none; }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+ 
+    .article-wrapper { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+ 
+    .breadcrumb { font-size: 0.8rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--teal); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+ 
+    .article-header { margin-bottom: 2rem; }
+ 
+    .article-category {
+      display: inline-block;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+ 
+    .article-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+ 
+    .article-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.82rem; color: var(--gray); flex-wrap: wrap; }
+    .article-meta-divider { color: var(--border); }
+ 
+    .article-body { font-size: 1rem; color: #334155; }
+    .article-body p { margin-bottom: 1.25rem; }
+ 
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin: 2rem 0 0.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+ 
+    .article-body h2:first-of-type { border-top: none; padding-top: 0; }
+    .article-body h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .article-body a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+    .article-body a:hover { color: var(--teal-dark); }
+    .article-body strong { color: var(--navy); font-weight: 600; }
+ 
+    .callout {
+      background: var(--teal-xlight);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 10px 10px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+      font-size: 0.95rem;
+      color: #134e4a;
+    }
+ 
+    .callout strong { color: var(--teal-dark); }
+ 
+    .warning-box {
+      background: #fef9c3;
+      border-left: 4px solid #facc15;
+      border-radius: 0 10px 10px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+      font-size: 0.95rem;
+      color: #713f12;
+    }
+ 
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin: 1.5rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+ 
+    .comparison-table th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.65rem 1rem;
+      text-align: left;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+ 
+    .comparison-table td {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--navy);
+      vertical-align: top;
+    }
+ 
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:nth-child(even) td { background: var(--gray-light); }
+ 
+    .calc-cta {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      margin: 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+ 
+    .calc-cta-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.3rem; }
+    .calc-cta-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+ 
+    .calc-cta-btn {
+      display: inline-block;
+      background: var(--teal);
+      color: #ffffff !important;
+      text-decoration: none !important;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.1s;
+      flex-shrink: 0;
+      -webkit-text-fill-color: #ffffff;
+    }
+ 
+    .calc-cta-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+ 
+    .affiliate-box {
+      background: var(--orange-light);
+      border: 1px solid var(--orange-border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+ 
+    .affiliate-box-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 0.5rem; }
+    .affiliate-box h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .affiliate-box p { font-size: 0.875rem; color: #7c2d12; margin-bottom: 0.9rem; }
+ 
+    .affiliate-box a.btn {
+      display: inline-block;
+      background: var(--orange);
+      color: #ffffff !important;
+      text-decoration: none !important;
+      padding: 0.55rem 1.25rem;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      -webkit-text-fill-color: #ffffff;
+    }
+ 
+    .affiliate-box a.btn:hover { background: #ea6c00; }
+    .affiliate-disclosure { font-size: 0.72rem; color: #92400e; margin-top: 0.6rem; }
+    .affiliate-disclosure a { color: #92400e; }
+ 
+    .author-bio-block {
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin: 2.5rem 0;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+ 
+    .author-bio-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+ 
+    .author-bio-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.15rem; }
+    .author-bio-title { font-size: 0.78rem; color: var(--teal-dark); font-weight: 600; margin-bottom: 0.5rem; }
+    .author-bio-text { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+    .author-bio-text a { color: var(--teal); }
+ 
+    .related-section { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border); }
+    .related-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1rem; }
+ 
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) { .related-grid { grid-template-columns: 1fr; } }
+ 
+    .related-card {
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+ 
+    .related-card:hover { border-color: var(--teal); box-shadow: 0 4px 12px rgba(13,148,136,0.08); }
+    .related-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--teal); margin-bottom: 0.3rem; }
+    .related-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--navy); line-height: 1.4; }
+ 
+    footer { background: var(--navy); color: #94a3b8; padding: 2.5rem 2rem; }
+    .footer-inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); text-decoration: none; }
+    .footer-logo span { color: var(--teal-light); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal-light); }
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+ 
+    @media (max-width: 600px) { .nav-links { display: none; } }
+ 
+    /* ── READABILITY FIX ── */
+    html, body { background: #ffffff !important; color: #1e293b !important; }
+    .article-wrapper { background: #ffffff !important; }
+    .article-body { color: #334155 !important; background: #ffffff !important; }
+    .article-body p, .article-body li { color: #334155 !important; }
+    .article-body h2, .article-body h3 { color: #1e293b !important; background: transparent !important; }
+    .article-header h1 { color: #1e293b !important; }
+    .breadcrumb { color: #64748b !important; background: transparent !important; }
+  </style>
+</head>
+<body>
+ 
+<nav>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
+  </ul>
+</nav>
+ 
+<div class="article-wrapper">
+ 
+  <div class="breadcrumb">
+    <a href="/">CalcWonk</a> › <a href="/blog/">Blog</a> › 1099 vs. W-2: How to Make the Right Call
+  </div>
+ 
+  <header class="article-header">
+    <span class="article-category">Hiring & HR</span>
+    <h1>1099 vs. W-2: How to Make the Right Call for Your Business</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px;">Brian Schmidt</a></span>
+      <span class="article-meta-divider">·</span>
+      <span>Founder, CalcWonk · MPA, Public Policy</span>
+      <span class="article-meta-divider">·</span>
+      <span>March 2026</span>
+      <span class="article-meta-divider">·</span>
+      <span>6 min read</span>
+    </div>
+  </header>
+ 
+  <div class="article-body">
+ 
+    <p>You need someone to do a job. The question is whether to bring them on as an employee or hire them as a contractor. On the surface it seems like a simple cost comparison — but get it wrong and you could be looking at back taxes, penalties, and a very uncomfortable conversation with the IRS.</p>
+ 
+    <p>Here's how to think through the decision the right way.</p>
+ 
+    <h2>The Cost Difference Is Real — But Not What You Think</h2>
+ 
+    <p>Most business owners assume contractors are automatically cheaper than employees. Sometimes that's true. Often it's not — and the math is more nuanced than it looks.</p>
+ 
+    <p>A contractor charging $65 per hour sounds expensive next to an employee earning $65,000 per year. But that employee costs you significantly more than their salary once you add payroll taxes, health insurance, retirement contributions, and overhead. Meanwhile the contractor is covering all of those costs themselves — which is exactly why their hourly rate is higher.</p>
+ 
+    <p>The real cost comparison depends on hours. For a role you need 40 hours a week year-round, the employee almost always wins on total cost. For a role you need 20 hours a week for six months, the contractor almost always wins — you pay for exactly what you need with no fixed overhead attached.</p>
+ 
+    <div class="callout">
+      <strong>The rule of thumb:</strong> Contractors make financial sense for short-term, project-based, or variable workloads. Employees make sense for ongoing, full-time roles central to your business operations.
+    </div>
+ 
+    <h2>The Three Tests That Actually Determine Classification</h2>
+ 
+    <p>Here's where most business owners get into trouble. They think they can decide whether someone is a contractor or employee based on how they want to structure the relationship. The IRS disagrees — and so do most states.</p>
+ 
+    <p>The IRS uses three factors to evaluate whether a worker is truly an independent contractor or a de facto employee. All three matter.</p>
+ 
+    <h3>Behavioral Control</h3>
+    <p>Do you control how the work gets done — not just what gets delivered? If you set someone's hours, require them to use your equipment, mandate how they perform specific tasks, or direct their day-to-day activities, that looks like an employee relationship regardless of what your contract says.</p>
+ 
+    <h3>Financial Control</h3>
+    <p>Does the worker have the ability to profit or lose money based on how they do their work? A true contractor typically has multiple clients, sets their own rates, invests in their own tools, and can work for competitors. Someone who works exclusively for you, on your schedule, with your equipment, looks like an employee to the IRS even if you're issuing 1099s.</p>
+ 
+    <h3>Type of Relationship</h3>
+    <p>Is the work indefinite and ongoing, or project-based with a defined end? Does the worker receive benefits? Is their work central to your core business? The more the answers point toward an ongoing, integrated relationship, the more it looks like employment.</p>
+ 
+    <div class="warning-box">
+      ⚠️ <strong>Misclassification is expensive.</strong> If the IRS determines you've misclassified an employee as a contractor, you're on the hook for all unpaid payroll taxes — both the employer and employee portions — plus interest and penalties that can run 20–40% of the original tax owed. State penalties stack on top of federal ones.
+    </div>
+ 
+    <h2>When Contractors Make Clear Sense</h2>
+ 
+    <p>There are situations where the contractor relationship is straightforward and low-risk. A graphic designer who works on a specific project and delivers a finished product. A software developer brought in to build a specific feature. A consultant engaged for a defined engagement with a clear deliverable. A bookkeeper who works a few hours a month for multiple clients.</p>
+ 
+    <p>What these situations share: the work is defined, the deliverable is clear, the relationship has a natural end, and the worker has the autonomy to decide how to get the work done.</p>
+ 
+    <h2>When You Should Hire an Employee</h2>
+ 
+    <p>If you need someone five days a week doing work that's central to your business, under your direction, using your systems and equipment — that's an employee. Trying to structure that as a contractor relationship creates legal risk that isn't worth the payroll tax savings.</p>
+ 
+    <p>The other signal is tenure. A contractor who has worked exclusively for you for 12 months is an increasingly difficult arrangement to defend. The longer an exclusive, ongoing relationship continues, the more it resembles employment in the eyes of regulators.</p>
+ 
+    <h2>The Real Numbers Side by Side</h2>
+ 
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Factor</th>
+          <th>Contractor (1099)</th>
+          <th>Employee (W-2)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Payroll taxes</td>
+          <td>You pay none</td>
+          <td>You pay ~8.15% on top of salary</td>
+        </tr>
+        <tr>
+          <td>Benefits</td>
+          <td>None required</td>
+          <td>Health, retirement, PTO add 20–30%</td>
+        </tr>
+        <tr>
+          <td>Hourly rate</td>
+          <td>Higher — they price in their costs</td>
+          <td>Lower — you cover their costs</td>
+        </tr>
+        <tr>
+          <td>Control</td>
+          <td>Output only — not how or when</td>
+          <td>Full direction of work and schedule</td>
+        </tr>
+        <tr>
+          <td>Commitment</td>
+          <td>Project-based, flexible</td>
+          <td>Ongoing, more stable</td>
+        </tr>
+        <tr>
+          <td>Misclassification risk</td>
+          <td>Real if relationship is employee-like</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+    </table>
+ 
+    <div class="calc-cta">
+      <div class="calc-cta-text">
+        <h3>Run the Numbers for Your Situation</h3>
+        <p>Enter your specific hourly rate, hours, and benefits to see which option actually costs less.</p>
+      </div>
+      <a href="/contractor-vs-employee/" class="calc-cta-btn">Use the Calculator →</a>
+    </div>
+ 
+    <h2>One More Thing — Payroll Either Way</h2>
+ 
+    <p>Whether you hire an employee or bring on contractors, you need a system to manage payments and compliance. For employees that means payroll taxes, filings, and W-2s. For contractors that means tracking payments and issuing 1099s for anyone you pay more than $600 in a year. Getting this wrong in either direction creates tax headaches you don't want.</p>
+ 
+    <div class="affiliate-box">
+      <div class="affiliate-box-label">Tool Recommendation</div>
+      <h3>Gusto — Handles Both Employees and Contractors</h3>
+      <p>Gusto manages payroll for W-2 employees and contractor payments in one place — including automatic 1099 generation at year end. If you're managing a mix of both, it's the cleanest solution available for small businesses.</p>
+      <a href="https://gusto.com/r/brian7e7eb3a4" target="_blank" rel="noopener" class="btn">Try Gusto Free →</a>
+      <div class="affiliate-disclosure">CalcWonk may earn a commission if you sign up through this link — at no extra cost to you. <a href="/legal/">See our disclosure</a>.</div>
+    </div>
+ 
+    <p>The contractor vs. employee decision is worth getting right the first time. The tax savings from misclassification are never worth the penalties if the IRS disagrees with your classification. When in doubt, run the numbers honestly — and if the relationship looks like employment, structure it that way.</p>
+ 
+  </div>
+ 
+  <div class="author-bio-block">
+    <div class="author-bio-avatar">B</div>
+    <div>
+      <div class="author-bio-name">Brian Schmidt</div>
+      <div class="author-bio-title">Founder, CalcWonk · MPA, Public Policy</div>
+      <div class="author-bio-text">Brian Schmidt has spent 20 years managing multi-million dollar budgets, overseeing payroll and HR systems, and making the kinds of financial decisions these calculators are built around. He currently leads a Missouri-based nonprofit organization focused on policy and systems change, and previously served as Executive Director of the Missouri General Assembly's Joint Committee on Tax Policy. His work on child care financing has been featured in the Washington Post. He built CalcWonk to give business owners and individuals the same data-driven tools he wished he'd had. <a href="/about/">Learn more about Brian →</a></div>
+    </div>
+  </div>
+ 
+  <div class="related-section">
+    <div class="related-title">Related Tools & Reading</div>
+    <div class="related-grid">
+      <a href="/contractor-vs-employee/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Contractor vs. Employee Calculator</h4>
+      </a>
+      <a href="/true-cost-of-an-employee-calculator/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>True Cost of an Employee Calculator</h4>
+      </a>
+      <a href="/cost-of-employee-turnover/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Cost of Employee Turnover Calculator</h4>
+      </a>
+      <a href="/blog/how-much-does-it-cost-to-hire-an-employee/" class="related-card">
+        <div class="related-card-label">Blog Post</div>
+        <h4>How Much Does It Really Cost to Hire an Employee?</h4>
+      </a>
+    </div>
+  </div>
+ 
+</div>
+ 
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
+      <a href="/cdn-cgi/l/email-protection#d6b5b7bab5a1b9b8bd96b1bbb7bfbaf8b5b9bb">Contact</a>
+    </div>
+    <p class="footer-disclaimer">CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.</p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved
