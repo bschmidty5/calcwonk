@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Real Cost of Losing an Employee (It's More Than You Think) | CalcWonk</title>
+  <meta name="description" content="Most business owners underestimate employee turnover cost by 50% or more. Here's what actually happens to your bottom line when someone walks out the door." />
+  <meta name="google-site-verification" content="ff98ab57f993bbf3" />
+  <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
+  <link rel="canonical" href="https://calcwonk.com/blog/real-cost-of-losing-an-employee/" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #ccfbf1;
+      --teal-xlight: #f0fdfa;
+      --orange: #f97316;
+      --orange-light: #fff7ed;
+      --orange-border: #fed7aa;
+      --navy: #1e293b;
+      --gray: #64748b;
+      --gray-light: #f8fafc;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --red: #dc2626;
+      --red-light: #fee2e2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--navy); line-height: 1.7; }
+
+    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); text-decoration: none; }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+
+    .article-wrapper { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .breadcrumb { font-size: 0.8rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--teal); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-header { margin-bottom: 2rem; }
+
+    .article-category { display: inline-block; background: var(--teal-light); color: var(--teal-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 1rem; }
+
+    .article-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--navy); line-height: 1.25; margin-bottom: 1rem; }
+    .article-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.82rem; color: var(--gray); flex-wrap: wrap; }
+    .article-meta-divider { color: var(--border); }
+
+    .article-body { font-size: 1rem; color: #334155; }
+    .article-body p { margin-bottom: 1.25rem; }
+    .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2rem 0 0.75rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .article-body h2:first-of-type { border-top: none; padding-top: 0; }
+    .article-body h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .article-body a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+    .article-body a:hover { color: var(--teal-dark); }
+    .article-body strong { color: var(--navy); font-weight: 600; }
+
+    .callout { background: var(--teal-xlight); border-left: 4px solid var(--teal); border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin: 1.75rem 0; font-size: 0.95rem; color: #134e4a; }
+    .callout strong { color: var(--teal-dark); }
+
+    .alert-box { background: var(--red-light); border-left: 4px solid var(--red); border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin: 1.75rem 0; font-size: 0.95rem; color: #7f1d1d; }
+
+    .cost-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1.5rem 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+    .cost-table th { background: var(--navy); color: var(--white); padding: 0.65rem 1rem; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .cost-table th:last-child { text-align: right; }
+    .cost-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); color: var(--navy); }
+    .cost-table td:last-child { text-align: right; font-weight: 600; }
+    .cost-table tr:last-child td { border-bottom: none; background: var(--red-light); font-weight: 700; color: var(--red); }
+    .cost-table tr:nth-child(even) td { background: var(--gray-light); }
+    .cost-table tr:last-child td { background: var(--red-light) !important; }
+
+    .calc-cta { background: var(--navy); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .calc-cta-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.3rem; }
+    .calc-cta-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+    .calc-cta-btn { display: inline-block; background: var(--teal); color: #ffffff !important; text-decoration: none !important; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background 0.2s, transform 0.1s; flex-shrink: 0; -webkit-text-fill-color: #ffffff; }
+    .calc-cta-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+    .affiliate-box { background: var(--orange-light); border: 1px solid var(--orange-border); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .affiliate-box-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 0.5rem; }
+    .affiliate-box h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .affiliate-box p { font-size: 0.875rem; color: #7c2d12; margin-bottom: 0.9rem; }
+    .affiliate-box a.btn { display: inline-block; background: var(--orange); color: #ffffff !important; text-decoration: none !important; padding: 0.55rem 1.25rem; border-radius: 7px; font-weight: 700; font-size: 0.875rem; -webkit-text-fill-color: #ffffff; }
+    .affiliate-box a.btn:hover { background: #ea6c00; }
+    .affiliate-disclosure { font-size: 0.72rem; color: #92400e; margin-top: 0.6rem; }
+    .affiliate-disclosure a { color: #92400e; }
+
+    .author-bio-block { background: var(--gray-light); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin: 2.5rem 0; display: flex; gap: 1.25rem; align-items: flex-start; }
+    .author-bio-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); flex-shrink: 0; }
+    .author-bio-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.15rem; }
+    .author-bio-title { font-size: 0.78rem; color: var(--teal-dark); font-weight: 600; margin-bottom: 0.5rem; }
+    .author-bio-text { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+    .author-bio-text a { color: var(--teal); }
+
+    .related-section { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border); }
+    .related-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) { .related-grid { grid-template-columns: 1fr; } }
+    .related-card { background: var(--gray-light); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .related-card:hover { border-color: var(--teal); box-shadow: 0 4px 12px rgba(13,148,136,0.08); }
+    .related-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--teal); margin-bottom: 0.3rem; }
+    .related-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--navy); line-height: 1.4; }
+
+    footer { background: var(--navy); color: #94a3b8; padding: 2.5rem 2rem; }
+    .footer-inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); text-decoration: none; }
+    .footer-logo span { color: var(--teal-light); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal-light); }
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+    @media (max-width: 600px) { .nav-links { display: none; } }
+
+    /* ── READABILITY FIX ── */
+    html, body { background: #ffffff !important; color: #1e293b !important; }
+    .article-wrapper { background: #ffffff !important; }
+    .article-body { color: #334155 !important; background: #ffffff !important; }
+    .article-body p, .article-body li { color: #334155 !important; }
+    .article-body h2, .article-body h3 { color: #1e293b !important; background: transparent !important; }
+    .article-header h1 { color: #1e293b !important; }
+    .breadcrumb { color: #64748b !important; background: transparent !important; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+
+  <div class="breadcrumb">
+    <a href="/">CalcWonk</a> › <a href="/blog/">Blog</a> › The Real Cost of Losing an Employee
+  </div>
+
+  <header class="article-header">
+    <span class="article-category">Hiring & HR</span>
+    <h1>The Real Cost of Losing an Employee (It's More Than You Think)</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px;">Brian Schmidt</a></span>
+      <span class="article-meta-divider">·</span>
+      <span>Founder, CalcWonk · MPA, Public Policy</span>
+      <span class="article-meta-divider">·</span>
+      <span>March 2026</span>
+      <span class="article-meta-divider">·</span>
+      <span>5 min read</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>When an employee gives notice, most business owners start mentally calculating the recruiting cost. Job posting, maybe an agency fee, a few rounds of interviews. A few thousand dollars, they figure. Annoying but manageable.</p>
+
+    <p>The real number is almost always three to five times higher than that estimate. And most of it is invisible.</p>
+
+    <h2>Why the Obvious Costs Are the Smallest Part</h2>
+
+    <p>Recruiting costs — job postings, background checks, interview time — are real but typically represent less than a third of total turnover cost. The majority of what losing an employee actually costs you doesn't show up on any invoice. It shows up in your cash flow, your team's capacity, and your customers' experience over the following three to six months.</p>
+
+    <p>Here's where the money actually goes.</p>
+
+    <h3>The Vacancy Gap</h3>
+    <p>From the day someone gives notice to the day their replacement is fully productive, work either piles up, gets redistributed to colleagues who are already at capacity, or simply doesn't get done. A role vacant for four to six weeks at a $65,000 salary represents $5,000–$7,500 in salary-equivalent output that evaporates before you've hired anyone new.</p>
+
+    <h3>The Ramp-Up Period</h3>
+    <p>This is the cost that most business owners genuinely don't account for. A new hire doesn't perform at 100% on day one — or week one, or often month one. Research consistently shows new employees operate at 25–50% of full productivity during their first 60–90 days, depending on role complexity. Every week of partial productivity is a real cost against your business that continues long after the recruiting process is over.</p>
+
+    <h3>Manager and Team Time</h3>
+    <p>Think about what your manager actually does when someone leaves and someone new arrives. Interviews. Onboarding meetings. Answering questions. Reviewing work more closely than they otherwise would. All of that pulls your highest-paid people away from higher-value work. At $90,000 per year, a manager's time costs roughly $43 per hour. Twenty hours of onboarding work is nearly $900 in management cost that never appears in any budget line.</p>
+
+    <h3>Institutional Knowledge</h3>
+    <p>This one is hardest to quantify but often the most expensive in practice. The employee who leaves knows which clients need special handling, which vendor relationships are fragile, which internal processes are undocumented, and where the landmines are buried. That knowledge walks out the door with them and takes months to reconstruct — if it ever fully is.</p>
+
+    <div class="alert-box">
+      Research consistently puts the cost of replacing an employee at <strong>50–200% of their annual salary</strong>. For a $65,000 employee in a mid-level role, that's $32,500–$130,000 per departure. Most business owners estimate 10–20% of salary. The gap between expectation and reality is where turnover quietly destroys margin.
+    </div>
+
+    <h2>What It Actually Looks Like in Dollars</h2>
+
+    <p>Here's a realistic example for a mid-level employee at $65,000 per year:</p>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Cost Category</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Job posting & recruiting</td><td>$1,500</td></tr>
+        <tr><td>Interview time (10 hrs of staff time)</td><td>$650</td></tr>
+        <tr><td>Background check & onboarding admin</td><td>$300</td></tr>
+        <tr><td>Productivity loss during 5-week vacancy</td><td>$6,250</td></tr>
+        <tr><td>New hire ramp-up (12 weeks at 50% productivity)</td><td>$7,500</td></tr>
+        <tr><td>Manager onboarding time (20 hrs)</td><td>$865</td></tr>
+        <tr><td>Formal training costs</td><td>$1,000</td></tr>
+        <tr><td>Institutional knowledge loss (estimated)</td><td>$5,000</td></tr>
+        <tr><td><strong>Total Cost Per Departure</strong></td><td><strong>$23,065</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>That's 35% of annual salary for a single mid-level departure — and that's a conservative estimate that assumes a relatively quick hire and a straightforward role. Senior or specialized roles run significantly higher.</p>
+
+    <div class="calc-cta">
+      <div class="calc-cta-text">
+        <h3>Calculate Your Actual Turnover Cost</h3>
+        <p>Enter your specific salary, role complexity, and recruiting costs to see the real number for your situation.</p>
+      </div>
+      <a href="/cost-of-employee-turnover/" class="calc-cta-btn">Use the Calculator →</a>
+    </div>
+
+    <h2>What Retention Is Actually Worth</h2>
+
+    <p>Once you know your real turnover cost, the ROI on retention investments looks completely different. If you're losing five employees a year at $23,000 per departure, that's $115,000 annually in turnover costs. Spending $30,000 on better benefits, more competitive salaries, or improved onboarding programs doesn't look like an expense anymore — it looks like a $85,000 savings.</p>
+
+    <p>The highest-impact retention investments, roughly in order of bang for your buck: competitive compensation reviewed annually, strong onboarding that makes new hires feel set up for success from day one, flexible working arrangements where the role allows it, clear growth paths so people know what their future looks like, and the quality of direct management — which research consistently shows is the primary driver of voluntary turnover.</p>
+
+    <div class="callout">
+      <strong>The most underrated retention tool:</strong> The stay interview. Ask your current employees — not in an annual review, but in a dedicated conversation — what would make them leave, and what keeps them engaged. You'll surface retention risks before they become departures, and the act of asking signals that you value their perspective.
+    </div>
+
+    <div class="affiliate-box">
+      <div class="affiliate-box-label">Tool Recommendation</div>
+      <h3>Gusto — Better Onboarding, Lower Turnover</h3>
+      <p>Research shows that poor onboarding is one of the leading drivers of early turnover. Gusto's structured onboarding flows, benefits administration, and employee self-service tools help new hires feel set up and supported from day one — which is when retention is most fragile.</p>
+      <a href="https://gusto.com/r/brian7e7eb3a4" target="_blank" rel="noopener" class="btn">Try Gusto Free →</a>
+      <div class="affiliate-disclosure">CalcWonk may earn a commission if you sign up through this link — at no extra cost to you. <a href="/legal/">See our disclosure</a>.</div>
+    </div>
+
+    <p>Turnover is one of those costs that's easy to ignore because it's spread across recruiting, productivity, management time, and training — none of which shows up as a single line item. But add it up and it's often one of the largest controllable expenses a small business carries. Knowing the real number is the first step to doing something about it.</p>
+
+  </div>
+
+  <div class="author-bio-block">
+    <div class="author-bio-avatar">B</div>
+    <div>
+      <div class="author-bio-name">Brian Schmidt</div>
+      <div class="author-bio-title">Founder, CalcWonk · MPA, Public Policy</div>
+      <div class="author-bio-text">Brian Schmidt has spent 20 years managing multi-million dollar budgets, overseeing payroll and HR systems, and making the kinds of financial decisions these calculators are built around. He currently leads a Missouri-based nonprofit organization focused on policy and systems change, and previously served as Executive Director of the Missouri General Assembly's Joint Committee on Tax Policy. His work on child care financing has been featured in the Washington Post. He built CalcWonk to give business owners and individuals the same data-driven tools he wished he'd had. <a href="/about/">Learn more about Brian →</a></div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <div class="related-title">Related Tools & Reading</div>
+    <div class="related-grid">
+      <a href="/cost-of-employee-turnover/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Cost of Employee Turnover Calculator</h4>
+      </a>
+      <a href="/true-cost-of-an-employee-calculator/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>True Cost of an Employee Calculator</h4>
+      </a>
+      <a href="/blog/how-much-does-it-cost-to-hire-an-employee/" class="related-card">
+        <div class="related-card-label">Blog Post</div>
+        <h4>How Much Does It Really Cost to Hire an Employee?</h4>
+      </a>
+      <a href="/blog/1099-vs-w2-how-to-make-the-right-call/" class="related-card">
+        <div class="related-card-label">Blog Post</div>
+        <h4>1099 vs. W-2: How to Make the Right Call</h4>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
+      <a href="/cdn-cgi/l/email-protection#2c4f4d404f5b4342476c4b414d4540024f4341">Contact</a>
+    </div>
+    <p class="footer-disclaimer">CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.</p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved
