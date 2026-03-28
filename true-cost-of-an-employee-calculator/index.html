@@ -1053,9 +1053,10 @@
     <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
     <form action="https://app.kit.com/forms/9253807/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9253807" data-uid="91aa4bbf85" data-format="inline" data-version="5" style="width:100%;margin-top:0.75rem;">
       <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" style="list-style:none;padding:0;color:#dc2626;font-size:0.8rem;"></ul>
-      <div data-element="fields" class="seva-fields formkit-fields" style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields" style="display:flex;gap:0.75rem;flex-wrap:wrap;">
         <div class="formkit-field" style="flex:1 0 200px;">
           <input class="kit-email-input" name="email_address" aria-label="Email Address" placeholder="your@email.com" required type="email" style="width:100%;padding:0.65rem 1rem;border-radius:8px;border:1.5px solid #e2e8f0;font-family:DM Sans,sans-serif;font-size:0.9rem;color:#1e293b;background:#fff;" />
+          <input type="hidden" name="tags[]" value="employee-cost-calculator" />
         </div>
         <button data-element="submit" class="kit-submit-btn" style="background:#0d9488;color:#fff;border:none;padding:0.65rem 1.25rem;border-radius:8px;font-family:DM Sans,sans-serif;font-size:0.875rem;font-weight:700;cursor:pointer;white-space:nowrap;">
           <div class="formkit-spinner" style="display:none;"><div></div><div></div><div></div></div>
@@ -1567,7 +1568,10 @@
     btn.disabled = false;
     btn.textContent = '📥 Download My PDF Report';
     status.style.color = '#6ee7b7';
-    status.textContent = '✅ Your PDF has been downloaded! Check your downloads folder. Welcome to CalcWonk!';
+    status.textContent = '✅ Your PDF has been downloaded! Check your downloads folder.';
+    // Show Kit email signup section
+    const kitSection = document.getElementById('kitSignupSection');
+    if (kitSection) { kitSection.style.display = 'block'; kitSection.scrollIntoView({behavior:'smooth', block:'nearest'}); }
 
     // GA event
     if (typeof gtag !== 'undefined') {
