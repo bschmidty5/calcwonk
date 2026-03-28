@@ -785,6 +785,57 @@
       width: 100%;
     }
     .pdf-privacy { font-size: 0.72rem; color: #475569; margin-top: 0.5rem; width: 100%; }
+
+    /* ── KIT SIGNUP SECTION ── */
+    .kit-signup-section {
+      background: var(--teal-xlight);
+      border: 1.5px solid var(--teal-light);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      margin: 0 0 2rem;
+    }
+    .kit-signup-inner { max-width: 100%; }
+    .kit-signup-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+    .kit-signup-text p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+    .kit-email-input {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color 0.2s;
+    }
+    .kit-email-input:focus { outline: none; border-color: var(--teal); }
+    .kit-submit-btn {
+      background: var(--teal);
+      color: #ffffff !important;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .kit-submit-btn:hover { background: var(--teal-dark); }
+    .formkit-spinner { display: none; }
+    .formkit-alert-error { color: #dc2626; font-size: 0.8rem; list-style: none; padding: 0; margin: 0 0 0.5rem; }
   </style>
 </head>
 <body>
@@ -980,23 +1031,39 @@
     </div>
   </div>
 
-  <!-- PDF CAPTURE -->
+  <!-- PDF DOWNLOAD -->
   <div class="pdf-capture" id="pdfCapture">
     <div class="pdf-capture-text">
-      <h3>📄 Save Your Results as a PDF</h3>
-      <p>Enter your email and we'll generate a formatted PDF report with your exact numbers, benchmarks, and plain-English insight.</p>
+      <h3>📄 Download Your Results as a PDF</h3>
+      <p>Get a formatted report with your exact numbers, benchmarks, and plain-English insight — instantly downloaded to your device.</p>
     </div>
     <div style="width:100%;">
-      <div class="pdf-capture-form">
-        <input type="email" id="pdfEmail" class="pdf-email-input" placeholder="your@email.com" />
-        <button class="pdf-download-btn" id="pdfBtn" onclick="handlePDFCapture()">Download My PDF Report →</button>
-      </div>
+      <button class="pdf-download-btn" id="pdfBtn" onclick="generatePDFDirect()">Download My PDF Report →</button>
       <div class="pdf-status" id="pdfStatus"></div>
-      <div class="pdf-privacy">🔒 Your numbers are never stored or shared. PDF generated on your device. Unsubscribe anytime.</div>
+      <div class="pdf-privacy">🔒 Your numbers are never stored or shared. PDF generated on your device.</div>
     </div>
   </div>
 
-  <!-- KIT API v4 handles signup — no form embed needed -->
+  <!-- KIT EMAIL SIGNUP -->
+  <div class="kit-signup-section">
+    <div class="kit-signup-text">
+      <h3>📬 Get More Free Tools & Small Business Finance Tips</h3>
+      <p>Join CalcWonk subscribers — new calculators, financial insights, and small business resources. No spam, unsubscribe anytime.</p>
+    </div>
+    <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+    <form action="https://app.kit.com/forms/9253807/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9253807" data-uid="91aa4bbf85" data-format="inline" data-version="5" style="width:100%;margin-top:0.75rem;">
+      <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" style="list-style:none;padding:0;color:#dc2626;font-size:0.8rem;"></ul>
+      <div data-element="fields" class="seva-fields formkit-fields" style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <div class="formkit-field" style="flex:1 0 200px;">
+          <input class="kit-email-input" name="email_address" aria-label="Email Address" placeholder="your@email.com" required type="email" style="width:100%;padding:0.65rem 1rem;border-radius:8px;border:1.5px solid #e2e8f0;font-family:DM Sans,sans-serif;font-size:0.9rem;color:#1e293b;background:#fff;" />
+        </div>
+        <button data-element="submit" class="kit-submit-btn" style="background:#0d9488;color:#fff;border:none;padding:0.65rem 1.25rem;border-radius:8px;font-family:DM Sans,sans-serif;font-size:0.875rem;font-weight:700;cursor:pointer;white-space:nowrap;">
+          <div class="formkit-spinner" style="display:none;"><div></div><div></div><div></div></div>
+          <span>Get Free Updates →</span>
+        </button>
+      </div>
+    </form>
+  </div>
 
     <!-- AFFILIATE SECTION -->
   <div class="affiliate-section">
@@ -1268,38 +1335,10 @@
     return '$' + Math.round(Math.abs(n)).toLocaleString();
   }
 
-  async function submitToKit(email) {
-    try {
-      await fetch('https://api.kit.com/v4/forms/9253807/subscribers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Kit-Api-Key': 'kit_064049c1e53f75675248ce395605ea30'
-        },
-        body: JSON.stringify({
-          email_address: email,
-          fields: { source: 'employee-cost-calculator' }
-        })
-      });
-      return true;
-    } catch(e) {
-      return true;
-    }
-  }
-
-  async function handlePDFCapture() {
-    const email = document.getElementById('pdfEmail').value.trim();
+  async function generatePDFDirect() {
     const btn = document.getElementById('pdfBtn');
     const status = document.getElementById('pdfStatus');
 
-    if (!email || !email.includes('@')) {
-      status.style.display = 'block';
-      status.style.color = '#fca5a5';
-      status.textContent = 'Please enter a valid email address.';
-      return;
-    }
-
-    // Check jsPDF is loaded
     if (!window.jspdf) {
       status.style.display = 'block';
       status.style.color = '#fca5a5';
@@ -1312,9 +1351,6 @@
     status.style.display = 'block';
     status.style.color = '#94a3b8';
     status.textContent = 'Building your PDF report...';
-
-    // Submit to Kit in background
-    await submitToKit(email);
 
     // Get current calculator values
     const salary      = parseFloat(document.getElementById('salary').value) || 0;
@@ -1529,7 +1565,7 @@
 
     // Update UI
     btn.disabled = false;
-    btn.textContent = 'Download My PDF Report →';
+    btn.textContent = '📥 Download My PDF Report';
     status.style.color = '#6ee7b7';
     status.textContent = '✅ Your PDF has been downloaded! Check your downloads folder. Welcome to CalcWonk!';
 
@@ -1541,6 +1577,7 @@
       });
     }
   }
+
 
   // ── LIVE UPDATE ──
   document.querySelectorAll('input[type="number"], select').forEach(el => {
