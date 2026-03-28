@@ -1073,7 +1073,7 @@
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="/cdn-cgi/l/email-protection#0467656867736b6a6f446369656d682a676b69">Contact</a>
+      <a href="mailto:brian@calcwonk.com">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you apply through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice. Always consult a financial advisor before taking on business debt.
@@ -1329,13 +1329,4 @@
     }
   }
 
-  document.querySelectorAll('input[type="number"], select').forEach(el => {
-    el.addEventListener('input', calculate);
-    el.addEventListener('change', calculate);
-  });
-
-  calculate();
-
-</script>
-</body>
-</html>
+  document.querySelectorAll('input[type="number"], select').forEac
