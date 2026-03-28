@@ -996,13 +996,15 @@
     </div>
   </div>
 
-  <!-- KIT HIDDEN FORM -->
-  <div style="display:none;">
-    <form id="kitForm" action="https://app.kit.com/forms/9253807/subscriptions" method="post">
-      <input type="email" name="email_address" id="kitEmailField" />
+  <!-- KIT SIGNUP (hidden) -->
+  <div style="display:none;" id="kitSignupContainer">
+    <form id="kitForm" data-sv-form="9253807" data-uid="91aa4bbf85" data-format="inline" action="https://app.kit.com/forms/9253807/subscriptions" method="post">
+      <input type="email" name="email_address" id="kitEmailField" value="" />
       <input type="hidden" name="tags[]" value="employee-cost-calculator" />
+      <button type="submit" id="kitSubmitBtn">Subscribe</button>
     </form>
   </div>
+  <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
 
     <!-- AFFILIATE SECTION -->
   <div class="affiliate-section">
@@ -1276,17 +1278,25 @@
 
   async function submitToKit(email) {
     try {
-      // Set email in hidden Kit form and submit via fetch
+      // Use Kit's own form submission mechanism
       document.getElementById('kitEmailField').value = email;
-      const formData = new FormData(document.getElementById('kitForm'));
-      await fetch('https://app.kit.com/forms/9253807/subscriptions', {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
+      
+      // Submit via XMLHttpRequest to Kit endpoint
+      return new Promise((resolve) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://app.kit.com/forms/9253807/subscriptions', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) { resolve(true); }
+        };
+        xhr.onerror = function() { resolve(true); };
+        xhr.ontimeout = function() { resolve(true); };
+        xhr.timeout = 5000;
+        const params = 'email_address=' + encodeURIComponent(email) + '&tags[]=employee-cost-calculator';
+        xhr.send(params);
       });
-      return true;
     } catch(e) {
-      return true; // Still generate PDF even if Kit signup fails
+      return true; // Always generate PDF even if signup fails
     }
   }
 
