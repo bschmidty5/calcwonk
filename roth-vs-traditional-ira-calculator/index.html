@@ -11,11 +11,8 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Roth vs. Traditional IRA Calculator — Which Is Better for You? | CalcWonk</title>
-  <meta name="description" content="Compare Roth vs. Traditional IRA side by side. See which account leaves you with more money in retirement based on your actual tax situation — not a generic rule of thumb." />
-  <meta name="google-site-verification" content="ff98ab57f993bbf3" />
-  <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
-  <link rel="canonical" href="https://calcwonk.com/roth-vs-traditional-ira-calculator/" />
+  <title>Business Loan True Cost Calculator — Beyond the APR | CalcWonk</title>
+  <meta name="description" content="Calculate the true total cost of a business loan including interest, fees, and origination costs. Compare loan offers side by side and see the real number before you sign." />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -34,9 +31,10 @@
       --green: #16a34a;
       --green-light: #dcfce7;
       --green-border: #bbf7d0;
+      --red: #dc2626;
+      --red-light: #fee2e2;
       --purple: #7c3aed;
       --purple-light: #ede9fe;
-      --purple-border: #c4b5fd;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -90,7 +88,7 @@
 
     /* ── PAGE HERO ── */
     .page-hero {
-      background: linear-gradient(135deg, var(--orange-light) 0%, var(--white) 60%);
+      background: linear-gradient(135deg, var(--teal-xlight) 0%, var(--white) 60%);
       border-bottom: 1px solid var(--border);
       padding: 3rem 2rem 2.5rem;
       text-align: center;
@@ -140,7 +138,7 @@
     }
 
     .calc-header {
-      background: var(--orange);
+      background: var(--teal);
       padding: 1.25rem 1.75rem;
       display: flex;
       align-items: center;
@@ -155,6 +153,35 @@
 
     .calc-body { padding: 2rem 1.75rem; }
 
+    /* ── LOAN TABS ── */
+    .loan-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+
+    .loan-tab {
+      padding: 0.5rem 1.1rem;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .loan-tab:hover { border-color: var(--teal); color: var(--teal); }
+
+    .loan-tab.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: var(--white);
+    }
+
     /* ── INPUT SECTIONS ── */
     .input-section { margin-bottom: 1.75rem; }
 
@@ -163,10 +190,10 @@
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--orange);
+      color: var(--teal);
       margin-bottom: 1rem;
       padding-bottom: 0.5rem;
-      border-bottom: 2px solid #ffedd5;
+      border-bottom: 2px solid var(--teal-light);
     }
 
     .input-grid {
@@ -226,113 +253,65 @@
 
     .input-wrapper input:focus, .input-wrapper select:focus {
       outline: none;
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(249,115,22,0.12);
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
     }
 
     .has-prefix input { padding-left: 1.75rem; }
     .has-suffix input { padding-right: 2.5rem; }
 
-    /* ── COMPARISON COLUMNS ── */
-    .comparison-cols {
+    /* ── KEY METRICS ── */
+    .key-metrics {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
 
-    @media (max-width: 560px) { .comparison-cols { grid-template-columns: 1fr; } }
+    @media (max-width: 580px) { .key-metrics { grid-template-columns: 1fr 1fr; } }
 
-    .comp-col {
-      border-radius: 14px;
-      padding: 1.5rem;
+    .metric-box {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
     }
 
-    .comp-col.roth { background: var(--teal-xlight); border: 2px solid var(--teal-light); }
-    .comp-col.traditional { background: var(--purple-light); border: 2px solid var(--purple-border); }
+    .metric-box.highlight { background: var(--teal); }
+    .metric-box.warning { background: #7c2d12; }
 
-    .comp-col-label {
+    .metric-label {
       font-size: 0.72rem;
-      font-weight: 700;
+      color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       margin-bottom: 0.4rem;
     }
 
-    .comp-col.roth .comp-col-label { color: var(--teal-dark); }
-    .comp-col.traditional .comp-col-label { color: var(--purple); }
+    .metric-box.highlight .metric-label,
+    .metric-box.warning .metric-label { color: rgba(255,255,255,0.7); }
 
-    .comp-col-value {
+    .metric-value {
       font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
-      line-height: 1;
-      margin-bottom: 0.3rem;
+      font-size: 1.7rem;
+      color: var(--teal-light);
+      line-height: 1.1;
     }
 
-    .comp-col.roth .comp-col-value { color: var(--teal-dark); }
-    .comp-col.traditional .comp-col-value { color: var(--purple); }
+    .metric-box.highlight .metric-value { color: var(--white); font-size: 2rem; }
+    .metric-box.warning .metric-value { color: #fca5a5; }
 
-    .comp-col-sub { font-size: 0.78rem; color: var(--gray); }
-
-    .comp-col-breakdown {
-      margin-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
+    .metric-sub {
+      font-size: 0.72rem;
+      color: #64748b;
+      margin-top: 0.3rem;
     }
 
-    .comp-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      padding: 0.3rem 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
+    .metric-box.highlight .metric-sub,
+    .metric-box.warning .metric-sub { color: rgba(255,255,255,0.6); }
 
-    .comp-row:last-child { border-bottom: none; }
-    .comp-row-label { color: var(--gray); }
-    .comp-row-val { font-weight: 600; color: var(--navy); }
-
-    /* ── VERDICT BANNER ── */
-    .verdict-banner {
-      background: var(--navy);
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .verdict-icon { font-size: 1.75rem; flex-shrink: 0; }
-
-    .verdict-body { flex: 1; }
-
-    .verdict-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--white);
-      margin-bottom: 0.2rem;
-    }
-
-    .verdict-sub { font-size: 0.85rem; color: #94a3b8; }
-
-    .verdict-diff {
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .verdict-diff-value {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      color: var(--orange);
-    }
-
-    .verdict-diff-label { font-size: 0.72rem; color: #94a3b8; }
-
-    /* ── CHART ── */
-    .chart-container {
+    /* ── AMORTIZATION PREVIEW ── */
+    .amort-preview {
       background: var(--gray-light);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -340,7 +319,7 @@
       margin-bottom: 1.5rem;
     }
 
-    .chart-title {
+    .amort-title {
       font-size: 0.8rem;
       font-weight: 600;
       color: var(--gray);
@@ -350,6 +329,111 @@
     }
 
     canvas { width: 100% !important; }
+
+    /* ── COST BREAKDOWN ── */
+    .cost-breakdown {
+      background: var(--red-light);
+      border: 1px solid #fecaca;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cost-breakdown-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+    }
+
+    .cost-breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 580px) { .cost-breakdown-grid { grid-template-columns: 1fr; } }
+
+    .cost-box {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      border: 1px solid #fecaca;
+      text-align: center;
+    }
+
+    .cost-box-label { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.3rem; }
+    .cost-box-value { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--red); }
+    .cost-box-pct { font-size: 0.72rem; color: var(--gray); margin-top: 0.2rem; }
+
+    /* ── COMPARISON PANEL ── */
+    .compare-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .compare-toggle input { cursor: pointer; accent-color: var(--teal); width: 16px; height: 16px; }
+    .compare-toggle label { font-size: 0.9rem; font-weight: 600; color: var(--navy); cursor: pointer; }
+
+    .compare-panel { display: none; }
+    .compare-panel.visible { display: block; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 580px) { .compare-grid { grid-template-columns: 1fr; } }
+
+    .compare-col {
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .compare-col-header {
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .compare-col:first-child .compare-col-header { background: var(--teal-xlight); color: var(--teal-dark); }
+    .compare-col:last-child .compare-col-header { background: var(--purple-light); color: var(--purple); }
+
+    .compare-col-body { padding: 1rem; }
+
+    .compare-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compare-row:last-child { border-bottom: none; }
+    .compare-row-label { color: var(--gray); }
+    .compare-row-val { font-weight: 600; color: var(--navy); }
+
+    .compare-winner {
+      background: var(--green-light);
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: var(--green);
+      font-weight: 600;
+      text-align: center;
+    }
 
     /* ── INSIGHT ── */
     .insight-box {
@@ -373,37 +457,46 @@
 
     .insight-text strong { color: #9a3412; }
 
-    /* ── SUMMARY TABLE ── */
-    .summary-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
+    /* ── AMORTIZATION TABLE ── */
+    .amort-table-wrapper {
+      max-height: 280px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
       margin-bottom: 1.5rem;
     }
 
-    .summary-table th {
-      text-align: left;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--gray);
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--border);
+    .amort-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
     }
 
-    .summary-table th:not(:first-child) { text-align: right; }
+    .amort-table th {
+      position: sticky;
+      top: 0;
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.5rem 0.75rem;
+      text-align: right;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
 
-    .summary-table td {
-      padding: 0.6rem 0.75rem;
+    .amort-table th:first-child { text-align: left; }
+
+    .amort-table td {
+      padding: 0.45rem 0.75rem;
       border-bottom: 1px solid var(--border);
+      text-align: right;
       color: var(--navy);
     }
 
-    .summary-table td:not(:first-child) { text-align: right; font-weight: 500; }
-
-    .summary-table tr.roth-row td { background: var(--teal-xlight); color: var(--teal-dark); font-weight: 700; }
-    .summary-table tr.trad-row td { background: var(--purple-light); color: var(--purple); font-weight: 700; }
+    .amort-table td:first-child { text-align: left; color: var(--gray); }
+    .amort-table tr:last-child td { border-bottom: none; font-weight: 600; background: var(--teal-xlight); }
+    .amort-table tr:nth-child(even) td { background: var(--gray-light); }
+    .amort-table tr:last-child td { background: var(--teal-xlight) !important; color: var(--teal-dark); }
 
     /* ── RELATED TOOLS ── */
     .related-tools {
@@ -481,16 +574,14 @@
     .affiliate-card-cta {
       display: inline-block;
       background: var(--teal);
-      color: #ffffff !important;
+      color: var(--white);
       font-size: 0.8rem;
       font-weight: 600;
       padding: 0.4rem 0.9rem;
       border-radius: 6px;
       margin-top: 0.25rem;
       text-align: center;
-      text-decoration: none !important;
       transition: background 0.2s;
-      -webkit-text-fill-color: #ffffff;
     }
 
     .affiliate-card:hover .affiliate-card-cta { background: var(--teal-dark); }
@@ -515,10 +606,11 @@
       color: var(--navy);
       margin-bottom: 0.75rem;
       padding-bottom: 0.5rem;
-      border-bottom: 2px solid #ffedd5;
+      border-bottom: 2px solid var(--teal-light);
     }
 
     .content-section h3 { font-size: 1rem; font-weight: 600; color: var(--navy); margin: 1.25rem 0 0.5rem; }
+
     .content-section p { font-size: 0.95rem; color: #334155; line-height: 1.75; margin-bottom: 0.75rem; }
 
     /* ── FAQ ── */
@@ -545,9 +637,9 @@
     }
 
     .faq-question:hover { background: var(--gray-light); }
-    .faq-question.open { background: var(--orange-light); color: #92400e; }
+    .faq-question.open { background: var(--teal-xlight); color: var(--teal-dark); }
     .faq-chevron { font-size: 0.75rem; transition: transform 0.2s; color: var(--gray); flex-shrink: 0; }
-    .faq-question.open .faq-chevron { transform: rotate(180deg); color: var(--orange); }
+    .faq-question.open .faq-chevron { transform: rotate(180deg); color: var(--teal); }
 
     .faq-answer {
       display: none;
@@ -555,7 +647,7 @@
       font-size: 0.875rem;
       color: #334155;
       line-height: 1.7;
-      background: var(--orange-light);
+      background: var(--teal-xlight);
     }
 
     .faq-answer.open { display: block; }
@@ -575,13 +667,13 @@
 
     .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); text-decoration: none; }
     .footer-logo span { color: var(--teal-light); }
+
     .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+
     .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
     .footer-links a:hover { color: var(--teal-light); }
     .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 600px; line-height: 1.5; }
     .footer-copy { font-size: 0.8rem; color: #475569; }
-
-    @media (max-width: 600px) { .nav-links { display: none; } }
   </style>
 </head>
 <body>
@@ -591,8 +683,6 @@
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
   <ul class="nav-links">
     <li><a href="/">Tools</a></li>
-    <li><a href="/blog/">Blog</a></li>
-    <li><a href="/about/">About</a></li>
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
@@ -600,10 +690,10 @@
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="breadcrumb">
-    <a href="/">CalcWonk</a> › Personal Finance › Roth vs. Traditional IRA Calculator
+    <a href="/">CalcWonk</a> › Small Business › Business Loan True Cost
   </div>
-  <h1>Roth vs. Traditional IRA Calculator</h1>
-  <p>Tax now or tax later? The right answer depends entirely on your specific tax situation — not a generic rule of thumb. Model both scenarios side by side and see which leaves you with more money in retirement.</p>
+  <h1>Business Loan True Cost Calculator</h1>
+  <p>APR doesn't tell the whole story. See the total interest, fees, and real cost of a business loan — and compare two offers side by side before you sign anything.</p>
 </div>
 
 <!-- MAIN -->
@@ -612,177 +702,245 @@
   <!-- CALCULATOR -->
   <div class="calc-card">
     <div class="calc-header">
-      <span>📈</span>
-      <h2>Enter Your Numbers</h2>
+      <span>🏦</span>
+      <h2>Enter Your Loan Details</h2>
     </div>
     <div class="calc-body">
 
-      <!-- YOUR SITUATION -->
-      <div class="input-section">
-        <div class="input-section-title">Your Situation</div>
-        <div class="input-grid">
-          <div class="input-group">
-            <label for="currentAge">Current Age</label>
-            <span class="hint">Your age today</span>
-            <div class="input-wrapper has-suffix">
-              <input type="number" id="currentAge" value="35" min="18" max="70" />
-              <span class="input-suffix">yrs</span>
-            </div>
-          </div>
-          <div class="input-group">
-            <label for="retirementAge">Retirement Age</label>
-            <span class="hint">When you plan to retire</span>
-            <div class="input-wrapper has-suffix">
-              <input type="number" id="retirementAge" value="65" min="50" max="80" />
-              <span class="input-suffix">yrs</span>
-            </div>
-          </div>
-          <div class="input-group">
-            <label for="annualContribution">Annual IRA Contribution</label>
-            <span class="hint">2025 limit: $7,000 ($8,000 if 50+)</span>
-            <div class="input-wrapper has-prefix">
-              <span class="input-prefix">$</span>
-              <input type="number" id="annualContribution" value="7000" min="500" max="8000" step="500" />
-            </div>
-          </div>
-          <div class="input-group">
-            <label for="currentBalance">Current IRA Balance</label>
-            <span class="hint">Existing balance if any, or 0</span>
-            <div class="input-wrapper has-prefix">
-              <span class="input-prefix">$</span>
-              <input type="number" id="currentBalance" value="25000" min="0" step="1000" />
-            </div>
-          </div>
-        </div>
+      <!-- LOAN TYPE TABS -->
+      <div class="loan-tabs">
+        <button class="loan-tab active" onclick="setLoanType('term', this)">Term Loan</button>
+        <button class="loan-tab" onclick="setLoanType('sba', this)">SBA Loan</button>
+        <button class="loan-tab" onclick="setLoanType('loc', this)">Line of Credit</button>
+        <button class="loan-tab" onclick="setLoanType('mca', this)">Merchant Cash Advance</button>
       </div>
 
-      <!-- TAX RATES -->
+      <!-- LOAN INPUTS -->
       <div class="input-section">
-        <div class="input-section-title">Tax Rates</div>
+        <div class="input-section-title">Loan Details</div>
         <div class="input-grid">
           <div class="input-group">
-            <label for="currentTaxRate">Current Marginal Tax Rate</label>
-            <span class="hint">Your federal + state rate today</span>
+            <label for="loanAmount">Loan Amount</label>
+            <span class="hint">Total amount borrowed</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="loanAmount" value="150000" min="1000" step="1000" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="interestRate">Annual Interest Rate (APR)</label>
+            <span class="hint">Annual percentage rate</span>
             <div class="input-wrapper has-suffix">
-              <input type="number" id="currentTaxRate" value="22" min="1" max="50" step="1" />
+              <input type="number" id="interestRate" value="8.5" min="0.1" max="100" step="0.1" />
               <span class="input-suffix">%</span>
             </div>
           </div>
           <div class="input-group">
-            <label for="retirementTaxRate">Expected Retirement Tax Rate</label>
-            <span class="hint">Your estimated rate in retirement</span>
+            <label for="loanTermMonths">Loan Term</label>
+            <span class="hint">Total repayment period</span>
             <div class="input-wrapper has-suffix">
-              <input type="number" id="retirementTaxRate" value="18" min="1" max="50" step="1" />
-              <span class="input-suffix">%</span>
+              <input type="number" id="loanTermMonths" value="60" min="1" max="360" step="1" />
+              <span class="input-suffix">mo</span>
             </div>
           </div>
           <div class="input-group">
-            <label for="investmentReturn">Expected Annual Return</label>
-            <span class="hint">Historical S&P 500 avg ~7% inflation-adjusted</span>
-            <div class="input-wrapper has-suffix">
-              <input type="number" id="investmentReturn" value="7" min="1" max="15" step="0.5" />
-              <span class="input-suffix">%</span>
-            </div>
-          </div>
-          <div class="input-group">
-            <label for="filingStatus">Filing Status</label>
+            <label for="paymentFrequency">Payment Frequency</label>
             <div class="input-wrapper">
-              <select id="filingStatus">
-                <option value="single">Single</option>
-                <option value="married" selected>Married Filing Jointly</option>
-                <option value="hoh">Head of Household</option>
+              <select id="paymentFrequency">
+                <option value="12" selected>Monthly</option>
+                <option value="52">Weekly</option>
+                <option value="26">Bi-weekly</option>
+                <option value="4">Quarterly</option>
               </select>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- COMPARISON COLUMNS -->
-      <div class="comparison-cols">
-        <div class="comp-col roth">
-          <div class="comp-col-label">Roth IRA</div>
-          <div class="comp-col-value" id="rothBalance">$0</div>
-          <div class="comp-col-sub">tax-free at retirement</div>
-          <div class="comp-col-breakdown">
-            <div class="comp-row">
-              <span class="comp-row-label">Total contributions</span>
-              <span class="comp-row-val" id="rothContributions">$0</span>
-            </div>
-            <div class="comp-row">
-              <span class="comp-row-label">Tax paid upfront</span>
-              <span class="comp-row-val" id="rothTaxUpfront">$0</span>
-            </div>
-            <div class="comp-row">
-              <span class="comp-row-label">Tax at withdrawal</span>
-              <span class="comp-row-val">$0</span>
-            </div>
-            <div class="comp-row">
-              <span class="comp-row-label">Net spendable</span>
-              <span class="comp-row-val" id="rothNet">$0</span>
+      <!-- FEES -->
+      <div class="input-section">
+        <div class="input-section-title">Fees & Additional Costs</div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label for="originationFee">Origination Fee</label>
+            <span class="hint">% of loan amount charged upfront</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="originationFee" value="1.5" min="0" max="10" step="0.1" />
+              <span class="input-suffix">%</span>
             </div>
           </div>
-        </div>
-        <div class="comp-col traditional">
-          <div class="comp-col-label">Traditional IRA</div>
-          <div class="comp-col-value" id="tradBalance">$0</div>
-          <div class="comp-col-sub">pre-tax at withdrawal</div>
-          <div class="comp-col-breakdown">
-            <div class="comp-row">
-              <span class="comp-row-label">Total contributions</span>
-              <span class="comp-row-val" id="tradContributions">$0</span>
+          <div class="input-group">
+            <label for="closingCosts">Closing / Processing Costs</label>
+            <span class="hint">Fixed fees charged at closing</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="closingCosts" value="500" min="0" step="50" />
             </div>
-            <div class="comp-row">
-              <span class="comp-row-label">Tax paid upfront</span>
-              <span class="comp-row-val">$0</span>
+          </div>
+          <div class="input-group">
+            <label for="annualFee">Annual Fee</label>
+            <span class="hint">Recurring yearly maintenance fee</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="annualFee" value="0" min="0" step="25" />
             </div>
-            <div class="comp-row">
-              <span class="comp-row-label">Tax at withdrawal</span>
-              <span class="comp-row-val" id="tradTaxWithdrawal">$0</span>
-            </div>
-            <div class="comp-row">
-              <span class="comp-row-label">Net spendable</span>
-              <span class="comp-row-val" id="tradNet">$0</span>
+          </div>
+          <div class="input-group">
+            <label for="prepaymentPenaltyPct">Prepayment Penalty</label>
+            <span class="hint">% of remaining balance if paid early</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="prepaymentPenaltyPct" value="0" min="0" max="10" step="0.1" />
+              <span class="input-suffix">%</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- VERDICT -->
-      <div class="verdict-banner" id="verdictBanner">
-        <div class="verdict-icon" id="verdictIcon">📊</div>
-        <div class="verdict-body">
-          <div class="verdict-title" id="verdictTitle">Enter your numbers to see the verdict</div>
-          <div class="verdict-sub" id="verdictSub">Adjust the inputs above to compare your specific situation</div>
+      <!-- KEY METRICS -->
+      <div class="key-metrics">
+        <div class="metric-box highlight">
+          <div class="metric-label">Monthly Payment</div>
+          <div class="metric-value" id="monthlyPayment">$0</div>
+          <div class="metric-sub" id="paymentFreqLabel">per month</div>
         </div>
-        <div class="verdict-diff">
-          <div class="verdict-diff-value" id="verdictDiff">—</div>
-          <div class="verdict-diff-label">advantage</div>
+        <div class="metric-box">
+          <div class="metric-label">Total Interest Paid</div>
+          <div class="metric-value" id="totalInterest">$0</div>
+          <div class="metric-sub">over loan term</div>
+        </div>
+        <div class="metric-box warning">
+          <div class="metric-label">True Total Cost</div>
+          <div class="metric-value" id="trueTotalCost">$0</div>
+          <div class="metric-sub">principal + interest + fees</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Total Fees</div>
+          <div class="metric-value" id="totalFees">$0</div>
+          <div class="metric-sub">all-in fee cost</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Effective APR</div>
+          <div class="metric-value" id="effectiveAPR">0%</div>
+          <div class="metric-sub">including all fees</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Cost Per $1 Borrowed</div>
+          <div class="metric-value" id="costPerDollar">$0</div>
+          <div class="metric-sub">total cost / loan amount</div>
         </div>
       </div>
 
-      <!-- CHART -->
-      <div class="chart-container">
-        <div class="chart-title">Portfolio Growth Over Time — Roth vs. Traditional</div>
-        <canvas id="iraChart" height="260"></canvas>
+      <!-- AMORTIZATION CHART -->
+      <div class="amort-preview">
+        <div class="amort-title">Principal vs. Interest Over Time</div>
+        <canvas id="loanChart" height="220"></canvas>
+      </div>
+
+      <!-- COST BREAKDOWN -->
+      <div class="cost-breakdown">
+        <div class="cost-breakdown-title">🔍 Where Your Money Goes</div>
+        <div class="cost-breakdown-grid">
+          <div class="cost-box">
+            <div class="cost-box-label">Principal Repaid</div>
+            <div class="cost-box-value" id="principalBox">$0</div>
+            <div class="cost-box-pct" id="principalPct">0% of total</div>
+          </div>
+          <div class="cost-box">
+            <div class="cost-box-label">Interest Cost</div>
+            <div class="cost-box-value" id="interestBox">$0</div>
+            <div class="cost-box-pct" id="interestPct">0% of total</div>
+          </div>
+          <div class="cost-box">
+            <div class="cost-box-label">Fees</div>
+            <div class="cost-box-value" id="feesBox">$0</div>
+            <div class="cost-box-pct" id="feesPct">0% of total</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOAN COMPARISON -->
+      <div class="compare-toggle">
+        <input type="checkbox" id="compareToggle" onchange="toggleCompare(this)" />
+        <label for="compareToggle">Compare with a second loan offer</label>
+      </div>
+
+      <div id="comparePanel" class="compare-panel">
+        <div class="input-section">
+          <div class="input-section-title" style="color:#7c3aed;border-color:#c4b5fd">Loan B — Second Offer</div>
+          <div class="input-grid">
+            <div class="input-group">
+              <label for="b_loanAmount">Loan Amount</label>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="b_loanAmount" value="150000" min="1000" step="1000" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="b_interestRate">Annual Interest Rate</label>
+              <div class="input-wrapper has-suffix">
+                <input type="number" id="b_interestRate" value="10.0" min="0.1" max="100" step="0.1" />
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="b_loanTermMonths">Loan Term (months)</label>
+              <div class="input-wrapper has-suffix">
+                <input type="number" id="b_loanTermMonths" value="48" min="1" max="360" />
+                <span class="input-suffix">mo</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="b_originationFee">Origination Fee %</label>
+              <div class="input-wrapper has-suffix">
+                <input type="number" id="b_originationFee" value="2.0" min="0" max="10" step="0.1" />
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="b_closingCosts">Closing Costs</label>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="b_closingCosts" value="750" min="0" step="50" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="b_annualFee">Annual Fee</label>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix">$</span>
+                <input type="number" id="b_annualFee" value="0" min="0" step="25" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-grid" id="compareGrid"></div>
+        <div class="compare-winner" id="compareWinner"></div>
       </div>
 
       <!-- INSIGHT -->
-      <div class="insight-box">
+      <div class="insight-box" style="margin-top:1.5rem">
         <div class="insight-icon">💡</div>
-        <div class="insight-text" id="insightText">Enter your numbers above to see your personalized insight.</div>
+        <div class="insight-text" id="insightText">Enter your loan details above to see your personalized insight.</div>
       </div>
 
-      <!-- SUMMARY TABLE -->
-      <table class="summary-table">
-        <thead>
-          <tr>
-            <th>Metric</th>
-            <th>Roth IRA</th>
-            <th>Traditional IRA</th>
-          </tr>
-        </thead>
-        <tbody id="summaryBody"></tbody>
-      </table>
+      <!-- AMORTIZATION TABLE -->
+      <div class="amort-title" style="font-size:0.8rem;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem">
+        Amortization Schedule
+      </div>
+      <div class="amort-table-wrapper">
+        <table class="amort-table">
+          <thead>
+            <tr>
+              <th style="text-align:left">Period</th>
+              <th>Payment</th>
+              <th>Principal</th>
+              <th>Interest</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody id="amortBody"></tbody>
+        </table>
+      </div>
 
     </div>
   </div>
@@ -792,14 +950,14 @@
     <a href="/break-even-calculator/" class="related-tool">
       <div class="related-tool-text">
         <h4>📊 Break-Even Calculator</h4>
-        <p>How long until your investments pay off?</p>
+        <p>Can your business generate enough revenue to service this loan?</p>
       </div>
       <div class="related-tool-arrow">→</div>
     </a>
-    <a href="/true-cost-of-an-employee-calculator/" class="related-tool">
+    <a href="/profit-margin-calculator/" class="related-tool">
       <div class="related-tool-text">
-        <h4>👤 True Cost of an Employee</h4>
-        <p>Thinking about a SEP-IRA or Solo 401k?</p>
+        <h4>💰 Profit Margin Calculator</h4>
+        <p>Will your margins support the monthly payment?</p>
       </div>
       <div class="related-tool-arrow">→</div>
     </a>
@@ -807,41 +965,39 @@
 
   <!-- AFFILIATE -->
   <div class="affiliate-section">
-    <h3>Ready to Open or Optimize Your IRA?</h3>
-    <p>Knowing which account wins is step one. These platforms make it easy to open the right one and start investing automatically.</p>
+    <h3>Compare Business Loan Offers From Multiple Lenders</h3>
+    <p>The best way to minimize your true loan cost is to compare multiple offers. These platforms let you check rates without affecting your credit score.</p>
     <div class="affiliate-cards">
-      <a href="#" class="affiliate-card" id="bettermentLink">
-        <div class="affiliate-card-name">Betterment</div>
-        <div class="affiliate-card-desc">Automated investing that handles asset allocation, rebalancing, and tax optimization for you. One of the best platforms for hands-off IRA investing.</div>
-        <span class="affiliate-card-cta">Open an IRA →</span>
+      <a href="#" class="affiliate-card">
+        <div class="affiliate-card-name">Fundera by NerdWallet</div>
+        <div class="affiliate-card-desc">Compare SBA loans, term loans, and lines of credit from multiple lenders in one place. Free to use — they earn from lenders, not you.</div>
+        <span class="affiliate-card-cta">Compare Rates →</span>
       </a>
       <a href="#" class="affiliate-card">
-        <div class="affiliate-card-name">Wealthfront</div>
-        <div class="affiliate-card-desc">Robo-advisor with strong tax-loss harvesting and a Path financial planning tool that models your retirement projections in detail.</div>
-        <span class="affiliate-card-cta">Open an IRA →</span>
+        <div class="affiliate-card-name">Lendio</div>
+        <div class="affiliate-card-desc">Marketplace connecting small businesses with 75+ lenders. Fill out one application and receive multiple offers to compare side by side.</div>
+        <span class="affiliate-card-cta">Get Offers →</span>
       </a>
     </div>
     <div class="affiliate-disclosure">
       <span>ℹ️</span>
-      <span>CalcWonk may earn a commission if you open an account through these links — at no extra cost to you. We only recommend platforms we believe are genuinely useful. <a href="/legal/">See our Affiliate Disclosure</a>.</span>
+      <span>CalcWonk may earn a commission if you apply through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal/">See our Affiliate Disclosure</a>.</span>
     </div>
   </div>
 
   <!-- CONTENT -->
   <div class="content-section">
-    <h2>Roth vs. Traditional IRA — The Real Difference</h2>
-    <p>Both Roth and Traditional IRAs give you tax-advantaged retirement savings — but they do it in opposite directions. A Traditional IRA gives you a tax break now and taxes you later. A Roth IRA taxes you now and gives you a tax break later. Which one wins depends almost entirely on one question: will your tax rate be higher now or in retirement?</p>
+    <h2>Why APR Understates the True Cost of a Business Loan</h2>
+    <p>APR is a useful starting point — but it's an incomplete picture of what a business loan will actually cost you. Origination fees, closing costs, annual maintenance fees, and prepayment penalties all add to the total cost of borrowing in ways that APR alone doesn't fully capture. Two loans with identical APRs can have meaningfully different true costs depending on their fee structures and terms.</p>
 
-    <h3>When a Roth IRA Wins</h3>
-    <p>If you expect to be in a higher tax bracket in retirement than you are today, the Roth wins. You pay tax on your contributions at today's lower rate, and every dollar of growth comes out completely tax-free in retirement. This is most often true for younger earners who are earlier in their careers and expect income to grow significantly, people who anticipate tax rates rising over time, and anyone who values the flexibility of tax-free withdrawals in retirement.</p>
-    <p>The Roth also has an important practical advantage — there are no required minimum distributions (RMDs). A Traditional IRA forces you to start withdrawing at age 73 whether you need the money or not. A Roth has no such requirement, which makes it a powerful wealth transfer tool if you don't need the money for living expenses.</p>
+    <h3>The Factor Rate Trap in Merchant Cash Advances</h3>
+    <p>Merchant cash advances and some short-term business loans are priced using a factor rate rather than an APR — something like 1.25 or 1.40 rather than a percentage. A factor rate of 1.35 on a $100,000 advance means you repay $135,000 total. That sounds straightforward, but when converted to an equivalent APR over a typical repayment period of 6–12 months, factor rate products frequently carry effective APRs of 40–150%. Always convert factor rates to APR before comparing against traditional loan products.</p>
 
-    <h3>When a Traditional IRA Wins</h3>
-    <p>If you're in a higher tax bracket today than you expect to be in retirement, the Traditional IRA typically wins. The tax deduction on contributions reduces your taxable income now at a high rate, and you pay tax on withdrawals later at a lower rate. This is most common for peak earners in their 40s and 50s who expect their income — and therefore their tax rate — to drop significantly in retirement.</p>
-    <p>The Traditional IRA also has higher effective contribution limits for high earners because pre-tax contributions reduce your taxable income dollar for dollar. A $7,000 Traditional IRA contribution at a 32% tax rate effectively costs you only $4,760 in after-tax dollars.</p>
+    <h3>Shorter Terms Mean Higher Payments but Less Total Interest</h3>
+    <p>A common mistake is choosing a longer loan term to get a lower monthly payment without recognizing the total interest cost increase. A $150,000 loan at 8.5% over 5 years costs roughly $34,000 in interest. The same loan over 7 years costs around $48,000 — $14,000 more in interest for the privilege of a lower monthly payment. The amortization schedule in this calculator shows you exactly how this plays out month by month for your specific loan.</p>
 
-    <h3>The Uncertainty Factor</h3>
-    <p>Here's the honest truth about this decision — nobody knows what tax rates will look like in 20 or 30 years. That uncertainty is actually an argument for diversification: holding both Roth and Traditional accounts gives you flexibility to withdraw from whichever is more tax-efficient in any given year of retirement. If you can only choose one, use this calculator with your best estimate of future tax rates and make the call that makes sense given what you know today.</p>
+    <h3>How to Actually Compare Two Loan Offers</h3>
+    <p>The most reliable comparison metric is total cost of borrowing — the sum of all principal repaid, all interest paid, and all fees over the life of the loan. Two loans that look similar on APR can diverge significantly when fees are factored in. Use the loan comparison feature in this calculator to enter both offers and see the true total cost side by side before making a decision.</p>
   </div>
 
   <!-- FAQ -->
@@ -851,51 +1007,51 @@
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          What is the IRA contribution limit for 2025?
+          What is a good interest rate for a small business loan?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          The 2025 IRA contribution limit is $7,000 per year for individuals under 50, and $8,000 for those 50 and older (the extra $1,000 is called the catch-up contribution). This limit applies to the combined total of all your IRAs — Roth and Traditional combined — not per account. Income limits apply to Roth IRA contributions and Traditional IRA deductibility depending on whether you have a workplace retirement plan.
+          It depends on the loan type and your creditworthiness. SBA loans typically carry rates of 6–11% and are considered the gold standard for small business borrowing. Conventional bank term loans run 6–13% for well-qualified borrowers. Online lenders typically charge 10–30%. Merchant cash advances and short-term loans can carry effective rates of 40–150% when converted to APR. As a rule of thumb, anything under 10% APR is competitive, 10–20% is moderate, and above 25% should be scrutinized carefully.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Can I contribute to both a Roth and Traditional IRA?
+          What is an origination fee on a business loan?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          Yes — you can contribute to both in the same year, but your total combined contributions across both accounts cannot exceed the annual limit ($7,000 or $8,000 if 50+). For example you could put $3,500 in a Roth and $3,500 in a Traditional IRA. Many financial planners recommend this diversification approach because it gives you flexibility in retirement to withdraw from whichever account is most tax-efficient in a given year.
+          An origination fee is a one-time charge by the lender for processing the loan, typically expressed as a percentage of the loan amount (usually 0.5–3%). On a $150,000 loan with a 2% origination fee, you pay $3,000 upfront — but often it's deducted from the loan proceeds, meaning you receive $147,000 but repay $150,000. This effectively increases your APR beyond the stated rate, which is why this calculator adds fees into the true cost calculation.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          What are the income limits for a Roth IRA?
+          Should I pay off a business loan early?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          For 2025, Roth IRA contributions begin phasing out at $150,000 modified adjusted gross income (MAGI) for single filers and $236,000 for married filing jointly. Contributions are completely eliminated at $165,000 for single filers and $246,000 for married filing jointly. If you exceed these limits, a backdoor Roth IRA conversion is a legal strategy worth discussing with a financial advisor.
+          It depends on whether the loan has a prepayment penalty and what your alternatives are for that capital. If there's no prepayment penalty and you have excess cash, early payoff saves you all remaining interest. If there's a prepayment penalty, calculate whether the interest savings outweigh the penalty cost. Also consider opportunity cost — if you can deploy that capital at a return higher than the loan's interest rate, it may be better to keep the loan and invest the cash. This calculator shows the prepayment penalty amount so you can make an informed decision.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          What is a backdoor Roth IRA?
+          What is the difference between a business loan and a line of credit?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          A backdoor Roth IRA is a strategy that allows high earners who exceed the Roth income limits to still contribute to a Roth IRA. The process involves making a non-deductible contribution to a Traditional IRA and then converting it to a Roth IRA. There are no income limits on conversions. The tax implications can be complex depending on whether you have other Traditional IRA balances, so consulting a tax professional before executing this strategy is advisable.
+          A term loan gives you a lump sum upfront that you repay on a fixed schedule over a set period. A line of credit gives you access to a pool of funds you can draw from and repay repeatedly, only paying interest on what you've drawn. Term loans are better for one-time large purchases like equipment. Lines of credit are better for managing cash flow fluctuations or covering short-term gaps. Lines of credit typically carry higher interest rates than term loans but offer more flexibility.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          When can I withdraw from a Roth IRA without penalty?
+          How do SBA loans differ from conventional business loans?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          Roth IRA contributions (not earnings) can be withdrawn at any time, at any age, with no taxes or penalties — because you already paid tax on that money. Earnings can be withdrawn tax-free and penalty-free once you are at least 59½ years old AND the account has been open for at least five years. Withdrawing earnings before those conditions are met generally results in taxes plus a 10% penalty, with some exceptions for first-time home purchases, disability, and certain other circumstances.
+          SBA loans are conventional bank loans partially guaranteed by the Small Business Administration, which allows lenders to offer lower rates and longer terms than they could otherwise. SBA 7(a) loans — the most common type — offer up to $5 million with terms up to 25 years for real estate and 10 years for equipment or working capital. The tradeoff is a lengthy application process (typically 60–90 days), substantial documentation requirements, and SBA guarantee fees of 0.5–3.75% depending on loan size and term. For businesses that qualify, SBA loans usually offer the best combination of rate, term, and loan size available.
         </div>
       </div>
 
@@ -903,7 +1059,7 @@
   </div>
 
   <p style="font-size:0.8rem;color:var(--gray);text-align:center;margin-top:-1rem">
-    CalcWonk tools are for informational purposes only and do not constitute financial or tax advice. Consult a qualified financial advisor before making retirement account decisions.
+    CalcWonk tools are built for business owners who want real numbers, not ballpark guesses. Always calculate total cost before signing a loan agreement.
   </p>
 
 </div>
@@ -914,15 +1070,13 @@
     <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
     <div class="footer-links">
       <a href="/">Home</a>
-      <a href="/blog/">Blog</a>
-      <a href="/about/">About</a>
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="/cdn-cgi/l/email-protection#c9aaa8a5aabea6a7a289aea4a8a0a5e7aaa6a4">Contact</a>
+      <a href="mailto:brian@calcwonk.com">Contact</a>
     </div>
     <p class="footer-disclaimer">
-      CalcWonk participates in affiliate programs and may earn a commission if you open an account through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, tax, or professional advice. Consult a qualified financial advisor before making investment decisions.
+      CalcWonk participates in affiliate programs and may earn a commission if you apply through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice. Always consult a financial advisor before taking on business debt.
     </p>
     <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
   </div>
@@ -930,162 +1084,236 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
-  let iraChart = null;
+  let loanChart = null;
+  let currentLoanType = 'term';
 
-  function fmt(n) {
-    return '$' + Math.round(Math.abs(n)).toLocaleString();
+  const LOAN_TYPE_DEFAULTS = {
+    term:  { rate: 8.5,  term: 60,  origination: 1.5,  closing: 500,  annual: 0    },
+    sba:   { rate: 7.0,  term: 120, origination: 2.5,  closing: 1000, annual: 0    },
+    loc:   { rate: 12.0, term: 12,  origination: 1.0,  closing: 250,  annual: 150  },
+    mca:   { rate: 40.0, term: 12,  origination: 3.0,  closing: 0,    annual: 0    },
+  };
+
+  function setLoanType(type, btn) {
+    currentLoanType = type;
+    document.querySelectorAll('.loan-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const d = LOAN_TYPE_DEFAULTS[type];
+    document.getElementById('interestRate').value    = d.rate;
+    document.getElementById('loanTermMonths').value  = d.term;
+    document.getElementById('originationFee').value  = d.origination;
+    document.getElementById('closingCosts').value    = d.closing;
+    document.getElementById('annualFee').value       = d.annual;
+    calculate();
+  }
+
+  function toggleCompare(cb) {
+    const panel = document.getElementById('comparePanel');
+    panel.classList.toggle('visible', cb.checked);
+    if (cb.checked) calculate();
+  }
+
+  function fmt(n) { return '$' + Math.round(Math.abs(n)).toLocaleString(); }
+  function fmtPct(n) { return (Math.round(n * 10) / 10).toFixed(2) + '%'; }
+
+  function calcLoan(principal, annualRate, termMonths, originationPct, closingCosts, annualFee, paymentsPerYear) {
+    const periodicRate = (annualRate / 100) / paymentsPerYear;
+    const numPayments  = Math.round((termMonths / 12) * paymentsPerYear);
+    let payment;
+
+    if (periodicRate === 0) {
+      payment = principal / numPayments;
+    } else {
+      payment = principal * (periodicRate * Math.pow(1 + periodicRate, numPayments))
+                / (Math.pow(1 + periodicRate, numPayments) - 1);
+    }
+
+    const totalPaid      = payment * numPayments;
+    const totalInterest  = totalPaid - principal;
+    const originationAmt = principal * (originationPct / 100);
+    const totalAnnualFees= annualFee * Math.ceil(termMonths / 12);
+    const totalFees      = originationAmt + closingCosts + totalAnnualFees;
+    const trueCost       = totalPaid + totalFees;
+
+    // Effective APR approximation
+    const monthlyPayment = payment * (paymentsPerYear / 12);
+    const netProceeds    = principal - originationAmt - closingCosts;
+    let effectiveAPR     = annualRate;
+    if (netProceeds > 0 && netProceeds !== principal) {
+      effectiveAPR = (totalInterest + totalFees) / principal / (termMonths / 12) * 100;
+    }
+
+    return { payment, totalPaid, totalInterest, totalFees, trueCost, effectiveAPR, numPayments, periodicRate, principal };
+  }
+
+  function buildAmortization(principal, periodicRate, payment, numPayments, paymentsPerYear) {
+    const rows = [];
+    let balance = principal;
+    const period = paymentsPerYear === 12 ? 'Month' : paymentsPerYear === 52 ? 'Week' : paymentsPerYear === 26 ? 'Bi-wk' : 'Qtr';
+
+    for (let i = 1; i <= numPayments; i++) {
+      const interestPmt  = balance * periodicRate;
+      const principalPmt = Math.min(payment - interestPmt, balance);
+      balance = Math.max(balance - principalPmt, 0);
+      rows.push({ period: `${period} ${i}`, payment, principal: principalPmt, interest: interestPmt, balance });
+      if (balance <= 0) break;
+    }
+
+    return rows;
   }
 
   function calculate() {
-    const currentAge        = parseInt(document.getElementById('currentAge').value) || 35;
-    const retirementAge     = parseInt(document.getElementById('retirementAge').value) || 65;
-    const annualContrib     = parseFloat(document.getElementById('annualContribution').value) || 7000;
-    const currentBalance    = parseFloat(document.getElementById('currentBalance').value) || 0;
-    const currentTaxRate    = parseFloat(document.getElementById('currentTaxRate').value) / 100 || 0.22;
-    const retirementTaxRate = parseFloat(document.getElementById('retirementTaxRate').value) / 100 || 0.18;
-    const returnRate        = parseFloat(document.getElementById('investmentReturn').value) / 100 || 0.07;
+    const loanAmount    = parseFloat(document.getElementById('loanAmount').value) || 0;
+    const interestRate  = parseFloat(document.getElementById('interestRate').value) || 0;
+    const termMonths    = parseFloat(document.getElementById('loanTermMonths').value) || 0;
+    const originationFee= parseFloat(document.getElementById('originationFee').value) || 0;
+    const closingCosts  = parseFloat(document.getElementById('closingCosts').value) || 0;
+    const annualFee     = parseFloat(document.getElementById('annualFee').value) || 0;
+    const paymentsPerYear = parseInt(document.getElementById('paymentFrequency').value) || 12;
 
-    const years = Math.max(retirementAge - currentAge, 1);
+    if (!loanAmount || !termMonths) return;
 
-    // ── ROTH ──
-    // Contributions are after-tax — same nominal amount but already taxed
-    // Growth is tax-free
-    let rothBalance = currentBalance;
-    const rothYearlyBalances = [rothBalance];
+    const loan = calcLoan(loanAmount, interestRate, termMonths, originationFee, closingCosts, annualFee, paymentsPerYear);
 
-    for (let i = 0; i < years; i++) {
-      rothBalance = (rothBalance + annualContrib) * (1 + returnRate);
-      rothYearlyBalances.push(Math.round(rothBalance));
-    }
+    const freqLabels = { 12: 'per month', 52: 'per week', 26: 'bi-weekly', 4: 'per quarter' };
 
-    const rothTotalContribs = annualContrib * years + currentBalance;
-    const rothTaxUpfront    = annualContrib * years * currentTaxRate;
-    const rothNet           = rothBalance; // no tax at withdrawal
+    document.getElementById('monthlyPayment').textContent  = fmt(loan.payment);
+    document.getElementById('paymentFreqLabel').textContent= freqLabels[paymentsPerYear] || 'per period';
+    document.getElementById('totalInterest').textContent   = fmt(loan.totalInterest);
+    document.getElementById('trueTotalCost').textContent   = fmt(loan.trueCost);
+    document.getElementById('totalFees').textContent       = fmt(loan.totalFees);
+    document.getElementById('effectiveAPR').textContent    = fmtPct(loan.effectiveAPR);
+    document.getElementById('costPerDollar').textContent   = '$' + (loan.trueCost / loanAmount).toFixed(2);
 
-    // ── TRADITIONAL ──
-    // Contributions are pre-tax — effectively larger since you save tax now
-    // Growth is tax-deferred — taxed at withdrawal
-    // To compare apples-to-apples: assume same after-tax cash outlay
-    // Effective traditional contribution = annualContrib / (1 - currentTaxRate)
-    const tradContribEquivalent = annualContrib / (1 - currentTaxRate);
-    let tradBalance = currentBalance / (1 - currentTaxRate);
-    const tradYearlyBalances = [tradBalance];
+    // Cost breakdown boxes
+    const total = loan.trueCost;
+    document.getElementById('principalBox').textContent = fmt(loanAmount);
+    document.getElementById('principalPct').textContent = (loanAmount/total*100).toFixed(1) + '% of total';
+    document.getElementById('interestBox').textContent  = fmt(loan.totalInterest);
+    document.getElementById('interestPct').textContent  = (loan.totalInterest/total*100).toFixed(1) + '% of total';
+    document.getElementById('feesBox').textContent      = fmt(loan.totalFees);
+    document.getElementById('feesPct').textContent      = (loan.totalFees/total*100).toFixed(1) + '% of total';
 
-    for (let i = 0; i < years; i++) {
-      tradBalance = (tradBalance + tradContribEquivalent) * (1 + returnRate);
-      tradYearlyBalances.push(Math.round(tradBalance));
-    }
-
-    const tradTaxWithdrawal = tradBalance * retirementTaxRate;
-    const tradNet           = tradBalance * (1 - retirementTaxRate);
-    const tradTotalContribs = tradContribEquivalent * years + currentBalance / (1 - currentTaxRate);
-
-    // ── UPDATE DOM ──
-    document.getElementById('rothBalance').textContent       = fmt(rothBalance);
-    document.getElementById('rothContributions').textContent = fmt(rothTotalContribs);
-    document.getElementById('rothTaxUpfront').textContent    = fmt(rothTaxUpfront);
-    document.getElementById('rothNet').textContent           = fmt(rothNet);
-
-    document.getElementById('tradBalance').textContent       = fmt(tradBalance);
-    document.getElementById('tradContributions').textContent = fmt(tradTotalContribs);
-    document.getElementById('tradTaxWithdrawal').textContent = fmt(tradTaxWithdrawal);
-    document.getElementById('tradNet').textContent           = fmt(tradNet);
-
-    // ── VERDICT ──
-    const diff    = Math.abs(rothNet - tradNet);
-    const winner  = rothNet >= tradNet ? 'Roth' : 'Traditional';
-    const winnerColor = winner === 'Roth' ? '#0d9488' : '#7c3aed';
-
-    document.getElementById('verdictIcon').textContent = winner === 'Roth' ? '📈' : '🏦';
-    document.getElementById('verdictTitle').textContent =
-      `The ${winner} IRA leaves you with more money`;
-    document.getElementById('verdictSub').textContent =
-      winner === 'Roth'
-        ? `Your current tax rate (${(currentTaxRate*100).toFixed(0)}%) is higher than your expected retirement rate (${(retirementTaxRate*100).toFixed(0)}%), so paying tax now and growing tax-free comes out ahead.`
-        : `Your expected retirement tax rate (${(retirementTaxRate*100).toFixed(0)}%) is lower than your current rate (${(currentTaxRate*100).toFixed(0)}%), so deferring taxes until retirement comes out ahead.`;
-    document.getElementById('verdictDiff').textContent = fmt(diff);
-
-    // ── INSIGHT ──
-    const taxDiff = currentTaxRate - retirementTaxRate;
+    // Insight
+    const interestRatio = (loan.totalInterest / loanAmount * 100).toFixed(0);
     document.getElementById('insightText').innerHTML =
-      `Over ${years} years, the <strong>${winner} IRA provides ${fmt(diff)} more in spendable retirement income</strong>. ` +
-      `Your ${winner === 'Roth' ? `current tax rate of ${(currentTaxRate*100).toFixed(0)}% is higher than your expected retirement rate of ${(retirementTaxRate*100).toFixed(0)}%, making tax-free Roth growth more valuable` : `expected retirement tax rate of ${(retirementTaxRate*100).toFixed(0)}% is lower than your current rate of ${(currentTaxRate*100).toFixed(0)}%, so deferring taxes wins`}. ` +
-      (Math.abs(taxDiff) < 0.03
-        ? `Your rates are very close — consider splitting contributions between both account types for flexibility.`
-        : `If tax rates change significantly before retirement, revisit this calculation.`);
+      `Over the life of this loan you will pay <strong>${fmt(loan.totalInterest)} in interest</strong> — ${interestRatio}% of the original loan amount — plus <strong>${fmt(loan.totalFees)} in fees</strong>. ` +
+      `Your true total cost of borrowing $${loanAmount.toLocaleString()} is <strong>${fmt(loan.trueCost)}</strong>. ` +
+      (loan.effectiveAPR > interestRate + 0.5
+        ? `Your effective APR including fees is <strong>${fmtPct(loan.effectiveAPR)}</strong> — higher than the stated rate of ${interestRate}% due to fees.`
+        : `Your effective APR including fees is close to the stated rate, indicating a relatively low-fee loan structure.`);
 
-    // ── SUMMARY TABLE ──
-    document.getElementById('summaryBody').innerHTML = `
-      <tr><td>Years of growth</td><td>${years} years</td><td>${years} years</td></tr>
-      <tr><td>Annual contribution</td><td>${fmt(annualContrib)}</td><td>${fmt(tradContribEquivalent)} (pre-tax equiv.)</td></tr>
-      <tr><td>Balance at retirement</td><td>${fmt(rothBalance)}</td><td>${fmt(tradBalance)}</td></tr>
-      <tr><td>Tax on withdrawal</td><td>$0 (tax-free)</td><td>${fmt(tradTaxWithdrawal)}</td></tr>
-      <tr class="roth-row"><td>Roth net spendable</td><td>${fmt(rothNet)}</td><td>—</td></tr>
-      <tr class="trad-row"><td>Traditional net spendable</td><td>—</td><td>${fmt(tradNet)}</td></tr>`;
+    // Chart
+    const amortRows = buildAmortization(loanAmount, loan.periodicRate, loan.payment, loan.numPayments, paymentsPerYear);
+    const sampleRate = Math.max(1, Math.floor(amortRows.length / 24));
+    const sampled = amortRows.filter((_, i) => i % sampleRate === 0 || i === amortRows.length - 1);
 
-    // ── CHART ──
-    const labels = Array.from({length: years + 1}, (_, i) => currentAge + i);
-    const ctx = document.getElementById('iraChart').getContext('2d');
-    if (iraChart) iraChart.destroy();
+    const ctx = document.getElementById('loanChart').getContext('2d');
+    if (loanChart) loanChart.destroy();
 
-    iraChart = new Chart(ctx, {
-      type: 'line',
+    loanChart = new Chart(ctx, {
+      type: 'bar',
       data: {
-        labels,
+        labels: sampled.map(r => r.period),
         datasets: [
           {
-            label: 'Roth IRA',
-            data: rothYearlyBalances,
-            borderColor: '#0d9488',
-            backgroundColor: 'rgba(13,148,136,0.08)',
-            borderWidth: 2.5,
-            pointRadius: 0,
-            fill: true,
-            tension: 0.3,
+            label: 'Principal',
+            data: sampled.map(r => r.principal),
+            backgroundColor: '#0d9488',
+            borderRadius: 2,
           },
           {
-            label: 'Traditional IRA (pre-tax)',
-            data: tradYearlyBalances,
-            borderColor: '#7c3aed',
-            backgroundColor: 'rgba(124,58,237,0.06)',
-            borderWidth: 2.5,
-            pointRadius: 0,
-            fill: true,
-            tension: 0.3,
+            label: 'Interest',
+            data: sampled.map(r => r.interest),
+            backgroundColor: '#f97316',
+            borderRadius: 2,
           }
         ]
       },
       options: {
         responsive: true,
-        interaction: { intersect: false, mode: 'index' },
         plugins: {
-          legend: {
-            labels: { font: { family: 'DM Sans', size: 12 }, color: '#64748b', boxWidth: 20 }
-          },
+          legend: { labels: { font: { family: 'DM Sans', size: 11 }, color: '#64748b', boxWidth: 14 } },
           tooltip: {
             callbacks: {
-              label: ctx => ctx.dataset.label + ': $' + Math.round(ctx.raw).toLocaleString(),
-              title: ctx => 'Age ' + ctx[0].label
+              label: ctx => ctx.dataset.label + ': $' + Math.round(ctx.raw).toLocaleString()
             }
           }
         },
         scales: {
           x: {
-            title: { display: true, text: 'Age', font: { family: 'DM Sans', size: 11 }, color: '#94a3b8' },
-            ticks: { font: { family: 'DM Sans', size: 10 }, color: '#94a3b8', maxTicksLimit: 10 },
-            grid: { color: 'rgba(0,0,0,0.04)' }
+            stacked: true,
+            ticks: { font: { family: 'DM Sans', size: 9 }, color: '#94a3b8', maxTicksLimit: 12 },
+            grid: { display: false }
           },
           y: {
-            title: { display: true, text: 'Portfolio Value', font: { family: 'DM Sans', size: 11 }, color: '#94a3b8' },
+            stacked: true,
             ticks: {
               font: { family: 'DM Sans', size: 10 }, color: '#94a3b8',
-              callback: v => '$' + (v >= 1000000 ? (v/1000000).toFixed(1) + 'M' : v >= 1000 ? (v/1000).toFixed(0) + 'k' : v)
+              callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(0) + 'k' : v)
             },
             grid: { color: 'rgba(0,0,0,0.04)' }
           }
         }
       }
     });
+
+    // Amortization table
+    document.getElementById('amortBody').innerHTML = amortRows.map(r =>
+      `<tr>
+        <td>${r.period}</td>
+        <td>$${Math.round(r.payment).toLocaleString()}</td>
+        <td>$${Math.round(r.principal).toLocaleString()}</td>
+        <td>$${Math.round(r.interest).toLocaleString()}</td>
+        <td>$${Math.round(r.balance).toLocaleString()}</td>
+      </tr>`
+    ).concat([`<tr>
+      <td>Total</td>
+      <td>$${Math.round(loan.totalPaid).toLocaleString()}</td>
+      <td>$${Math.round(loanAmount).toLocaleString()}</td>
+      <td>$${Math.round(loan.totalInterest).toLocaleString()}</td>
+      <td>$0</td>
+    </tr>`]).join('');
+
+    // Comparison
+    if (document.getElementById('compareToggle').checked) {
+      const b_amount   = parseFloat(document.getElementById('b_loanAmount').value) || loanAmount;
+      const b_rate     = parseFloat(document.getElementById('b_interestRate').value) || 0;
+      const b_term     = parseFloat(document.getElementById('b_loanTermMonths').value) || 0;
+      const b_orig     = parseFloat(document.getElementById('b_originationFee').value) || 0;
+      const b_closing  = parseFloat(document.getElementById('b_closingCosts').value) || 0;
+      const b_annual   = parseFloat(document.getElementById('b_annualFee').value) || 0;
+
+      const loanB = calcLoan(b_amount, b_rate, b_term, b_orig, b_closing, b_annual, 12);
+
+      const aWins = loan.trueCost <= loanB.trueCost;
+
+      document.getElementById('compareGrid').innerHTML = `
+        <div class="compare-col">
+          <div class="compare-col-header">Loan A (Your Primary)</div>
+          <div class="compare-col-body">
+            <div class="compare-row"><span class="compare-row-label">Monthly Payment</span><span class="compare-row-val">${fmt(loan.payment * (paymentsPerYear/12))}</span></div>
+            <div class="compare-row"><span class="compare-row-label">Total Interest</span><span class="compare-row-val">${fmt(loan.totalInterest)}</span></div>
+            <div class="compare-row"><span class="compare-row-label">Total Fees</span><span class="compare-row-val">${fmt(loan.totalFees)}</span></div>
+            <div class="compare-row"><span class="compare-row-label">Effective APR</span><span class="compare-row-val">${fmtPct(loan.effectiveAPR)}</span></div>
+            <div class="compare-row"><span class="compare-row-label">True Total Cost</span><span class="compare-row-val">${fmt(loan.trueCost)}</span></div>
+          </div>
+        </div>
+        <div class="compare-col">
+          <div class="compare-col-header">Loan B (Second Offer)</div>
+          <div class="compare-col-body">
+            <div class="compare-row"><span class="compare-row-label">Monthly Payment</span><span class="compare-row-val">${fmt(loanB.payment)}</span></div>
+            <div class="compare-row"><span class="compare-row-label">Total Interest</span><span class="compare-row-val">${fmt(loanB.totalInterest)}</span></div>
+            <div class="compare-row"><span class="compare-row-label">Total Fees</span><span class="compare-row-val">${fmt(loanB.totalFees)}</span></div>
+            <div class="compare-row"><span class="compare-row-label">Effective APR</span><span class="compare-row-val">${fmtPct(loanB.effectiveAPR)}</span></div>
+            <div class="compare-row"><span class="compare-row-label">True Total Cost</span><span class="compare-row-val">${fmt(loanB.trueCost)}</span></div>
+          </div>
+        </div>`;
+
+      const savings = Math.abs(loan.trueCost - loanB.trueCost);
+      document.getElementById('compareWinner').innerHTML =
+        `✓ Loan ${aWins ? 'A' : 'B'} has the lower true total cost — saving you ${fmt(savings)} over the life of the loan.`;
+    }
   }
 
   function toggleFaq(btn) {
@@ -1101,13 +1329,4 @@
     }
   }
 
-  document.querySelectorAll('input[type="number"], select').forEach(el => {
-    el.addEventListener('input', calculate);
-    el.addEventListener('change', calculate);
-  });
-
-  calculate();
-
-</script>
-</body>
-</html>
+  document.querySelectorAll('input[type="number"], select').forEac
