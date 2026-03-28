@@ -11,13 +11,9 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="ff98ab57f993bbf3" />
-  <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
-  <title>True Cost of an Employee Calculator — Beyond the Base Salary | CalcWonk</title>
-  <meta name="description" content="Calculate the real all-in cost of hiring an employee, including payroll taxes, benefits, and overhead. Most employees cost 25–40% more than their salary alone." />
-  <link rel="canonical" href="https://calcwonk.com/true-cost-of-an-employee-calculator/" />
+  <title>Contractor vs. Employee Calculator — 1099 vs W2 True Cost | CalcWonk</title>
+  <meta name="description" content="Compare the true cost of hiring a contractor vs. an employee. See the real difference between 1099 and W2 including taxes, benefits, and hidden costs." />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" async></script>
   <style>
     :root {
       --teal: #0d9488;
@@ -34,10 +30,8 @@
       --white: #ffffff;
       --green: #16a34a;
       --green-light: #dcfce7;
-      --amber: #d97706;
-      --amber-light: #fef3c7;
-      --red: #dc2626;
-      --red-light: #fee2e2;
+      --purple: #7c3aed;
+      --purple-light: #ede9fe;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -123,7 +117,7 @@
     .page-hero p {
       color: var(--gray);
       font-size: 1.05rem;
-      max-width: 560px;
+      max-width: 580px;
       margin: 0 auto;
     }
 
@@ -134,7 +128,7 @@
       padding: 2.5rem 1.5rem 5rem;
     }
 
-    /* ── CALCULATOR CARD ── */
+    /* ── CALC CARD ── */
     .calc-card {
       background: var(--white);
       border: 1px solid var(--border);
@@ -156,21 +150,12 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
       color: var(--white);
-      font-weight: 700;
     }
 
-    .calc-header .icon {
-      font-size: 1.4rem;
-    }
+    .calc-body { padding: 2rem 1.75rem; }
 
-    .calc-body {
-      padding: 2rem 1.75rem;
-    }
-
-    /* ── INPUTS ── */
-    .input-section {
-      margin-bottom: 1.75rem;
-    }
+    /* ── INPUT SECTIONS ── */
+    .input-section { margin-bottom: 1.75rem; }
 
     .input-section-title {
       font-size: 0.75rem;
@@ -189,9 +174,7 @@
       gap: 1rem;
     }
 
-    @media (max-width: 580px) {
-      .input-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 580px) { .input-grid { grid-template-columns: 1fr; } }
 
     .input-group {
       display: flex;
@@ -205,7 +188,7 @@
       color: var(--navy);
     }
 
-    .input-group .hint {
+    .hint {
       font-size: 0.75rem;
       color: var(--gray);
     }
@@ -250,173 +233,125 @@
     }
 
     .has-prefix input { padding-left: 1.75rem; }
-    .has-suffix input { padding-right: 2.25rem; }
+    .has-suffix input { padding-right: 2.5rem; }
 
-    /* ── TOGGLES ── */
-    .toggle-grid {
+    /* ── COMPARISON COLUMNS ── */
+    .comparison-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
-
-    @media (max-width: 580px) {
-      .toggle-grid { grid-template-columns: 1fr; }
-    }
-
-    .toggle-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--gray-light);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 0.6rem 0.9rem;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .toggle-item:hover { border-color: var(--teal); }
-    .toggle-item.on { background: var(--teal-xlight); border-color: var(--teal); }
-
-    .toggle-label {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--navy);
-    }
-
-    .toggle-switch {
-      width: 36px;
-      height: 20px;
-      background: var(--border);
-      border-radius: 999px;
-      position: relative;
-      transition: background 0.2s;
-      flex-shrink: 0;
-    }
-
-    .toggle-item.on .toggle-switch { background: var(--teal); }
-
-    .toggle-switch::after {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      background: white;
-      border-radius: 50%;
-      top: 2px;
-      left: 2px;
-      transition: left 0.2s;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
-
-    .toggle-item.on .toggle-switch::after { left: 18px; }
-
-    /* ── RESULTS ── */
-    .results-card {
-      background: var(--navy);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--white);
-    }
-
-    .results-main {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 1.25rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1.75rem;
     }
 
-    .results-total-label {
-      font-size: 0.8rem;
-      color: #94a3b8;
+    @media (max-width: 580px) { .comparison-grid { grid-template-columns: 1fr; } }
+
+    .col-header {
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0;
+    }
+
+    .col-header.employee { background: var(--teal-xlight); border: 2px solid var(--teal-light); }
+    .col-header.contractor { background: var(--purple-light); border: 2px solid #c4b5fd; }
+
+    .col-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
       margin-bottom: 0.25rem;
     }
 
-    .results-total-value {
+    .col-label.employee { color: var(--teal-dark); }
+    .col-label.contractor { color: var(--purple); }
+
+    .col-total {
       font-family: 'Playfair Display', serif;
-      font-size: 2.4rem;
-      color: var(--teal-light);
+      font-size: 1.9rem;
       line-height: 1;
+      margin-bottom: 0.2rem;
     }
 
-    .results-total-sub {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      margin-top: 0.3rem;
-    }
+    .col-total.employee { color: var(--teal-dark); }
+    .col-total.contractor { color: var(--purple); }
 
-    .results-multiplier {
-      text-align: right;
-    }
+    .col-sub { font-size: 0.78rem; color: var(--gray); }
 
-    .multiplier-value {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      color: var(--orange);
-    }
-
-    .multiplier-label {
-      font-size: 0.75rem;
-      color: #94a3b8;
-    }
-
-    /* ── BREAKDOWN BARS ── */
-    .breakdown-list {
+    /* ── VERDICT BANNER ── */
+    .verdict-banner {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
       display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .breakdown-item {
-      display: grid;
-      grid-template-columns: 140px 1fr 80px;
       align-items: center;
-      gap: 0.75rem;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    @media (max-width: 480px) {
-      .breakdown-item { grid-template-columns: 100px 1fr 70px; }
-    }
+    .verdict-icon { font-size: 1.75rem; flex-shrink: 0; }
 
-    .breakdown-label {
-      font-size: 0.78rem;
-      color: #94a3b8;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .verdict-text { flex: 1; }
 
-    .breakdown-bar-track {
-      background: rgba(255,255,255,0.08);
-      border-radius: 999px;
-      height: 6px;
-      overflow: hidden;
-    }
-
-    .breakdown-bar-fill {
-      height: 100%;
-      border-radius: 999px;
-      transition: width 0.4s ease;
-    }
-
-    .bar-base { background: #94a3b8; }
-    .bar-tax { background: var(--orange); }
-    .bar-benefits { background: #34d399; }
-    .bar-overhead { background: #818cf8; }
-
-    .breakdown-value {
-      font-size: 0.8rem;
+    .verdict-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
       color: var(--white);
-      text-align: right;
-      font-weight: 500;
+      margin-bottom: 0.2rem;
     }
+
+    .verdict-sub { font-size: 0.85rem; color: #94a3b8; }
+
+    .verdict-diff {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--orange);
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .verdict-diff-label { font-size: 0.72rem; color: #94a3b8; text-align: right; }
+
+    /* ── BREAKDOWN TABLE ── */
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .breakdown-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      padding: 0.5rem 0.75rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .breakdown-table th:not(:first-child) { text-align: right; }
+
+    .breakdown-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--navy);
+    }
+
+    .breakdown-table td:not(:first-child) { text-align: right; font-weight: 500; }
+
+    .breakdown-table tr.total-row td {
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-top: 2px solid var(--border);
+      border-bottom: none;
+    }
+
+    .breakdown-table tr.total-row td.employee-val { color: var(--teal-dark); }
+    .breakdown-table tr.total-row td.contractor-val { color: var(--purple); }
+
+    .na { color: #cbd5e1; font-weight: 400 !important; }
 
     /* ── INSIGHT BOX ── */
     .insight-box {
@@ -435,62 +370,30 @@
     .insight-text {
       font-size: 0.875rem;
       color: #7c2d12;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .insight-text strong { color: #9a3412; }
 
-    /* ── COST SUMMARY TABLE ── */
-    .summary-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
+    /* ── WARNING BOX ── */
+    .warning-box {
+      background: #fef9c3;
+      border: 1px solid #fde047;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
       margin-bottom: 1.5rem;
     }
 
-    .summary-table th {
-      text-align: left;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--gray);
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--border);
+    .warning-text {
+      font-size: 0.85rem;
+      color: #713f12;
+      line-height: 1.6;
     }
 
-    .summary-table td {
-      padding: 0.6rem 0.75rem;
-      border-bottom: 1px solid var(--border);
-      color: var(--navy);
-    }
-
-    .summary-table tr:last-child td {
-      border-bottom: none;
-      font-weight: 600;
-      color: var(--teal-dark);
-      font-size: 0.95rem;
-    }
-
-    .summary-table tr:last-child {
-      background: var(--teal-xlight);
-    }
-
-    .summary-table td:last-child {
-      text-align: right;
-      font-weight: 500;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 0.4rem;
-      vertical-align: middle;
-    }
-
-    /* ── AFFILIATE SECTION ── */
+    /* ── AFFILIATE ── */
     .affiliate-section {
       background: var(--gray-light);
       border: 1px solid var(--border);
@@ -499,20 +402,17 @@
       margin-bottom: 2.5rem;
     }
 
-    .affiliate-header {
-      margin-bottom: 1rem;
-    }
-
-    .affiliate-header h3 {
+    .affiliate-section h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       color: var(--navy);
       margin-bottom: 0.3rem;
     }
 
-    .affiliate-header p {
+    .affiliate-section > p {
       font-size: 0.875rem;
       color: var(--gray);
+      margin-bottom: 1rem;
     }
 
     .affiliate-cards {
@@ -522,9 +422,7 @@
       margin-bottom: 1rem;
     }
 
-    @media (max-width: 540px) {
-      .affiliate-cards { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 540px) { .affiliate-cards { grid-template-columns: 1fr; } }
 
     .affiliate-card {
       background: var(--white);
@@ -543,18 +441,8 @@
       box-shadow: 0 4px 12px rgba(13,148,136,0.1);
     }
 
-    .affiliate-card-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--navy);
-    }
-
-    .affiliate-card-desc {
-      font-size: 0.8rem;
-      color: var(--gray);
-      line-height: 1.4;
-      flex: 1;
-    }
+    .affiliate-card-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); }
+    .affiliate-card-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.4; flex: 1; }
 
     .affiliate-card-cta {
       display: inline-block;
@@ -579,17 +467,39 @@
       gap: 0.4rem;
     }
 
-    .affiliate-disclosure a {
-      color: var(--teal);
-      text-decoration: none;
-    }
-
+    .affiliate-disclosure a { color: var(--teal); text-decoration: none; }
     .affiliate-disclosure a:hover { text-decoration: underline; }
 
-    /* ── CONTENT SECTIONS ── */
-    .content-section {
+    /* ── RELATED TOOL ── */
+    .related-tool {
+      background: var(--teal-xlight);
+      border: 1.5px solid var(--teal-light);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-decoration: none;
       margin-bottom: 2.5rem;
+      transition: box-shadow 0.2s;
     }
+
+    .related-tool:hover { box-shadow: 0 4px 12px rgba(13,148,136,0.12); }
+
+    .related-tool-text h4 {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+
+    .related-tool-text p { font-size: 0.82rem; color: var(--gray); margin: 0; }
+
+    .related-tool-arrow { font-size: 1.25rem; color: var(--teal); flex-shrink: 0; }
+
+    /* ── CONTENT ── */
+    .content-section { margin-bottom: 2.5rem; }
 
     .content-section h2 {
       font-family: 'Playfair Display', serif;
@@ -616,18 +526,12 @@
 
     /* ── FAQ ── */
     .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
     }
 
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-    }
-
+    .faq-item { border-bottom: 1px solid var(--border); }
     .faq-item:last-child { border-bottom: none; }
 
     .faq-question {
@@ -651,13 +555,7 @@
     .faq-question:hover { background: var(--gray-light); }
     .faq-question.open { background: var(--teal-xlight); color: var(--teal-dark); }
 
-    .faq-chevron {
-      font-size: 0.75rem;
-      transition: transform 0.2s;
-      flex-shrink: 0;
-      color: var(--gray);
-    }
-
+    .faq-chevron { font-size: 0.75rem; transition: transform 0.2s; color: var(--gray); flex-shrink: 0; }
     .faq-question.open .faq-chevron { transform: rotate(180deg); color: var(--teal); }
 
     .faq-answer {
@@ -712,130 +610,8 @@
     }
 
     .footer-links a:hover { color: var(--teal-light); }
-
-    .footer-disclaimer {
-      font-size: 0.78rem;
-      color: #64748b;
-      max-width: 600px;
-      line-height: 1.5;
-    }
-
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 600px; line-height: 1.5; }
     .footer-copy { font-size: 0.8rem; color: #475569; }
-
-    /* ── PDF CAPTURE ── */
-    .pdf-capture {
-      background: var(--navy);
-      border-radius: 14px;
-      padding: 1.75rem 2rem;
-      margin: 2rem 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .pdf-capture-text h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      color: var(--white);
-      margin-bottom: 0.3rem;
-    }
-    .pdf-capture-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
-    .pdf-capture-form {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    .pdf-email-input {
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
-      border: 1.5px solid #334155;
-      background: #1e293b;
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      width: 220px;
-      transition: border-color 0.2s;
-    }
-    .pdf-email-input::placeholder { color: #64748b; }
-    .pdf-email-input:focus { outline: none; border-color: var(--teal); }
-    .pdf-download-btn {
-      background: var(--teal);
-      color: #ffffff !important;
-      border: none;
-      padding: 0.6rem 1.25rem;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.875rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      white-space: nowrap;
-      text-decoration: none !important;
-    }
-    .pdf-download-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
-    .pdf-download-btn:disabled { background: #334155; cursor: not-allowed; transform: none; }
-    .pdf-status {
-      font-size: 0.8rem;
-      color: var(--teal-light);
-      margin-top: 0.5rem;
-      display: none;
-      width: 100%;
-    }
-    .pdf-privacy { font-size: 0.72rem; color: #475569; margin-top: 0.5rem; width: 100%; }
-
-    /* ── KIT SIGNUP SECTION ── */
-    .kit-signup-section {
-      background: var(--teal-xlight);
-      border: 1.5px solid var(--teal-light);
-      border-radius: 14px;
-      padding: 1.75rem 2rem;
-      margin: 0 0 2rem;
-    }
-    .kit-signup-inner { max-width: 100%; }
-    .kit-signup-text h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--navy);
-      margin-bottom: 0.3rem;
-    }
-    .kit-signup-text p {
-      font-size: 0.85rem;
-      color: var(--gray);
-      margin-bottom: 1rem;
-    }
-    .kit-email-input {
-      width: 100%;
-      padding: 0.65rem 1rem;
-      border-radius: 8px;
-      border: 1.5px solid var(--border);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      color: var(--navy);
-      background: var(--white);
-      transition: border-color 0.2s;
-    }
-    .kit-email-input:focus { outline: none; border-color: var(--teal); }
-    .kit-submit-btn {
-      background: var(--teal);
-      color: #ffffff !important;
-      border: none;
-      padding: 0.65rem 1.25rem;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.875rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-      white-space: nowrap;
-      position: relative;
-      overflow: hidden;
-    }
-    .kit-submit-btn:hover { background: var(--teal-dark); }
-    .formkit-spinner { display: none; }
-    .formkit-alert-error { color: #dc2626; font-size: 0.8rem; list-style: none; padding: 0; margin: 0 0 0.5rem; }
   </style>
 </head>
 <body>
@@ -845,268 +621,238 @@
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
   <ul class="nav-links">
     <li><a href="/">Tools</a></li>
-    <li><a href="/blog/">Blog</a></li>
-    <li><a href="/about/">About</a></li>
-    <li><a href="/legal/">Disclosures</a></li>
+    <li><a href="/legal">Disclosures</a></li>
   </ul>
 </nav>
 
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="breadcrumb">
-    <a href="/">CalcWonk</a> › Small Business › True Cost of an Employee
+    <a href="/">CalcWonk</a> › Small Business › Contractor vs. Employee Calculator
   </div>
-  <h1>The True Cost of an Employee Calculator</h1>
-  <p>Hiring someone at $65,000 doesn't cost you $65,000. The real number is typically 25–40% higher. Find out exactly what a new hire will cost your business.</p>
+  <h1>Contractor vs. Employee Calculator</h1>
+  <p>1099 or W-2? The answer isn't just about hourly rate. See the true cost difference — including taxes, benefits, flexibility, and hidden risks.</p>
 </div>
 
 <!-- MAIN -->
 <div class="page-container">
 
-  <!-- CALCULATOR CARD -->
+  <!-- CALCULATOR -->
   <div class="calc-card">
     <div class="calc-header">
-      <span class="icon">👤</span>
+      <span>⚖️</span>
       <h2>Enter Your Numbers</h2>
     </div>
     <div class="calc-body">
 
-      <!-- BASE COMPENSATION -->
+      <!-- SHARED INPUTS -->
       <div class="input-section">
-        <div class="input-section-title">Base Compensation</div>
+        <div class="input-section-title">Role Details</div>
         <div class="input-grid">
           <div class="input-group">
-            <label for="salary">Annual Salary</label>
-            <div class="input-wrapper has-prefix">
-              <span class="input-prefix">$</span>
-              <input type="number" id="salary" value="65000" min="0" step="1000" />
-            </div>
-          </div>
-          <div class="input-group">
             <label for="hoursPerWeek">Hours Per Week</label>
+            <span class="hint">Expected weekly hours for this role</span>
             <div class="input-wrapper has-suffix">
               <input type="number" id="hoursPerWeek" value="40" min="1" max="60" />
               <span class="input-suffix">hrs</span>
             </div>
           </div>
+          <div class="input-group">
+            <label for="weeksPerYear">Weeks Per Year</label>
+            <span class="hint">How many weeks you need this role</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="weeksPerYear" value="52" min="1" max="52" />
+              <span class="input-suffix">wks</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- BENEFITS TOGGLES -->
+      <!-- EMPLOYEE INPUTS -->
       <div class="input-section">
-        <div class="input-section-title">Benefits — Toggle On/Off</div>
-        <div class="toggle-grid">
-          <div class="toggle-item on" id="toggle-health" onclick="toggleBenefit('health')">
-            <span class="toggle-label">🏥 Health Insurance</span>
-            <div class="toggle-switch"></div>
-          </div>
-          <div class="toggle-item on" id="toggle-retirement" onclick="toggleBenefit('retirement')">
-            <span class="toggle-label">🏦 401(k) Match</span>
-            <div class="toggle-switch"></div>
-          </div>
-          <div class="toggle-item on" id="toggle-pto" onclick="toggleBenefit('pto')">
-            <span class="toggle-label">🌴 Paid Time Off</span>
-            <div class="toggle-switch"></div>
-          </div>
-          <div class="toggle-item" id="toggle-dental" onclick="toggleBenefit('dental')">
-            <span class="toggle-label">🦷 Dental & Vision</span>
-            <div class="toggle-switch"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BENEFITS INPUTS -->
-      <div class="input-section" id="benefits-inputs">
-        <div class="input-section-title">Benefit Amounts</div>
+        <div class="input-section-title" style="color:var(--teal-dark)">Employee (W-2) Details</div>
         <div class="input-grid">
-          <div class="input-group" id="field-health">
+          <div class="input-group">
+            <label for="employeeSalary">Annual Salary</label>
+            <span class="hint">Base salary before taxes</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="employeeSalary" value="65000" min="0" step="1000" />
+            </div>
+          </div>
+          <div class="input-group">
             <label for="healthMonthly">Health Insurance / Month</label>
-            <span class="hint">Employer's share only</span>
+            <span class="hint">Employer's share</span>
             <div class="input-wrapper has-prefix">
               <span class="input-prefix">$</span>
               <input type="number" id="healthMonthly" value="550" min="0" step="10" />
             </div>
           </div>
-          <div class="input-group" id="field-retirement">
+          <div class="input-group">
             <label for="retirementMatch">401(k) Match</label>
-            <span class="hint">% of salary you match</span>
+            <span class="hint">% of salary you contribute</span>
             <div class="input-wrapper has-suffix">
               <input type="number" id="retirementMatch" value="3" min="0" max="10" step="0.5" />
               <span class="input-suffix">%</span>
             </div>
           </div>
-          <div class="input-group" id="field-pto">
-            <label for="ptoDays">PTO Days Per Year</label>
-            <span class="hint">Vacation + holidays</span>
-            <div class="input-wrapper has-suffix">
-              <input type="number" id="ptoDays" value="15" min="0" max="60" />
-              <span class="input-suffix">days</span>
-            </div>
-          </div>
-          <div class="input-group" id="field-dental">
-            <label for="dentalMonthly">Dental & Vision / Month</label>
-            <span class="hint">Employer's share</span>
+          <div class="input-group">
+            <label for="otherBenefits">Other Benefits / Year</label>
+            <span class="hint">PTO value, dental, vision, etc.</span>
             <div class="input-wrapper has-prefix">
               <span class="input-prefix">$</span>
-              <input type="number" id="dentalMonthly" value="60" min="0" step="5" />
+              <input type="number" id="otherBenefits" value="4000" min="0" step="100" />
             </div>
           </div>
         </div>
       </div>
 
-      <!-- OVERHEAD -->
+      <!-- CONTRACTOR INPUTS -->
       <div class="input-section">
-        <div class="input-section-title">Overhead & Other Costs</div>
+        <div class="input-section-title" style="color:var(--purple)">Contractor (1099) Details</div>
         <div class="input-grid">
           <div class="input-group">
-            <label for="equipment">Equipment & Setup</label>
-            <span class="hint">Computer, desk, phone, etc.</span>
+            <label for="contractorRate">Hourly Rate</label>
+            <span class="hint">What the contractor charges</span>
             <div class="input-wrapper has-prefix">
               <span class="input-prefix">$</span>
-              <input type="number" id="equipment" value="2500" min="0" step="100" />
+              <input type="number" id="contractorRate" value="65" min="0" step="1" />
             </div>
           </div>
           <div class="input-group">
-            <label for="software">Software / Month</label>
-            <span class="hint">Licenses, subscriptions</span>
-            <div class="input-wrapper has-prefix">
-              <span class="input-prefix">$</span>
-              <input type="number" id="software" value="100" min="0" step="10" />
+            <label for="agencyFee">Agency / Platform Fee</label>
+            <span class="hint">If using a staffing agency or platform</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="agencyFee" value="0" min="0" max="30" step="1" />
+              <span class="input-suffix">%</span>
             </div>
           </div>
           <div class="input-group">
-            <label for="recruiting">Recruiting Cost</label>
-            <span class="hint">One-time: postings, time, checks</span>
+            <label for="equipmentCost">Equipment & Tools</label>
+            <span class="hint">Any gear you provide the contractor</span>
             <div class="input-wrapper has-prefix">
               <span class="input-prefix">$</span>
-              <input type="number" id="recruiting" value="3500" min="0" step="100" />
+              <input type="number" id="equipmentCost" value="0" min="0" step="100" />
             </div>
           </div>
           <div class="input-group">
-            <label for="workspace">Office / Remote Stipend / Mo</label>
-            <span class="hint">Allocated workspace cost</span>
+            <label for="managementOverhead">Management Overhead / Mo</label>
+            <span class="hint">Extra time managing contracts, invoices</span>
             <div class="input-wrapper has-prefix">
               <span class="input-prefix">$</span>
-              <input type="number" id="workspace" value="200" min="0" step="25" />
+              <input type="number" id="managementOverhead" value="100" min="0" step="50" />
             </div>
           </div>
         </div>
       </div>
 
-      <!-- RESULTS -->
-      <div class="results-card" id="results">
-        <div class="results-main">
-          <div>
-            <div class="results-total-label">True Annual Cost</div>
-            <div class="results-total-value" id="totalCost">$0</div>
-            <div class="results-total-sub" id="totalCostMonthly">$0 / month</div>
-          </div>
-          <div class="results-multiplier">
-            <div class="multiplier-value" id="multiplier">0x</div>
-            <div class="multiplier-label">of base salary</div>
-          </div>
+      <!-- RESULTS: COMPARISON COLUMNS -->
+      <div class="comparison-grid">
+        <div class="col-header employee">
+          <div class="col-label employee">Employee (W-2)</div>
+          <div class="col-total employee" id="employeeTotal">$0</div>
+          <div class="col-sub" id="employeeHourly">$0 / hour true cost</div>
         </div>
-        <div class="breakdown-list" id="breakdownBars"></div>
+        <div class="col-header contractor">
+          <div class="col-label contractor">Contractor (1099)</div>
+          <div class="col-total contractor" id="contractorTotal">$0</div>
+          <div class="col-sub" id="contractorHourly">$0 / hour true cost</div>
+        </div>
       </div>
 
-      <!-- INSIGHT -->
-      <div class="insight-box" id="insightBox">
-        <div class="insight-icon">💡</div>
-        <div class="insight-text" id="insightText">Enter your numbers above to see your insight.</div>
+      <!-- VERDICT -->
+      <div class="verdict-banner" id="verdictBanner">
+        <div class="verdict-icon" id="verdictIcon">⚖️</div>
+        <div class="verdict-text">
+          <div class="verdict-title" id="verdictTitle">Enter your numbers to see the verdict</div>
+          <div class="verdict-sub" id="verdictSub">Adjust the inputs above to compare your specific situation</div>
+        </div>
+        <div>
+          <div class="verdict-diff" id="verdictDiff">—</div>
+          <div class="verdict-diff-label" id="verdictDiffLabel">annual difference</div>
+        </div>
       </div>
 
-      <!-- SUMMARY TABLE -->
-      <table class="summary-table">
+      <!-- BREAKDOWN TABLE -->
+      <table class="breakdown-table">
         <thead>
           <tr>
-            <th>Cost Category</th>
-            <th style="text-align:right">Annual Amount</th>
+            <th>Cost Item</th>
+            <th style="color:var(--teal-dark)">Employee</th>
+            <th style="color:var(--purple)">Contractor</th>
           </tr>
         </thead>
-        <tbody id="summaryTableBody">
-          <tr><td colspan="2" style="text-align:center;color:var(--gray);padding:1rem">Enter your numbers above</td></tr>
+        <tbody id="breakdownBody">
+          <tr>
+            <td colspan="3" style="text-align:center;color:var(--gray);padding:1.5rem">Enter your numbers above to see the full breakdown</td>
+          </tr>
         </tbody>
       </table>
 
-    </div>
-  </div>
-
-  <!-- PDF DOWNLOAD -->
-  <div class="pdf-capture" id="pdfCapture">
-    <div class="pdf-capture-text">
-      <h3>📄 Download Your Results as a PDF</h3>
-      <p>Get a formatted report with your exact numbers, benchmarks, and plain-English insight — instantly downloaded to your device.</p>
-    </div>
-    <div style="width:100%;">
-      <button class="pdf-download-btn" id="pdfBtn" onclick="generatePDFDirect()">Download My PDF Report →</button>
-      <div class="pdf-status" id="pdfStatus"></div>
-      <div class="pdf-privacy">🔒 Your numbers are never stored or shared. PDF generated on your device.</div>
-    </div>
-  </div>
-
-  <!-- KIT EMAIL SIGNUP -->
-  <div class="kit-signup-section">
-    <div class="kit-signup-text">
-      <h3>📬 Get More Free Tools & Small Business Finance Tips</h3>
-      <p>Join CalcWonk subscribers — new calculators, financial insights, and small business resources. No spam, unsubscribe anytime.</p>
-    </div>
-    <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
-    <form action="https://app.kit.com/forms/9253807/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9253807" data-uid="91aa4bbf85" data-format="inline" data-version="5" style="width:100%;margin-top:0.75rem;">
-      <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" style="list-style:none;padding:0;color:#dc2626;font-size:0.8rem;"></ul>
-      <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields" style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-        <div class="formkit-field" style="flex:1 0 200px;">
-          <input class="kit-email-input" name="email_address" aria-label="Email Address" placeholder="your@email.com" required type="email" style="width:100%;padding:0.65rem 1rem;border-radius:8px;border:1.5px solid #e2e8f0;font-family:DM Sans,sans-serif;font-size:0.9rem;color:#1e293b;background:#fff;" />
-          <input type="hidden" name="tags[]" value="employee-cost-calculator" />
-        </div>
-        <button data-element="submit" class="kit-submit-btn" style="background:#0d9488;color:#fff;border:none;padding:0.65rem 1.25rem;border-radius:8px;font-family:DM Sans,sans-serif;font-size:0.875rem;font-weight:700;cursor:pointer;white-space:nowrap;">
-          <div class="formkit-spinner" style="display:none;"><div></div><div></div><div></div></div>
-          <span>Get Free Updates →</span>
-        </button>
+      <!-- INSIGHT -->
+      <div class="insight-box">
+        <div class="insight-icon">💡</div>
+        <div class="insight-text" id="insightText">Enter your numbers above to see your personalized insight.</div>
       </div>
-    </form>
+
+      <!-- MISCLASSIFICATION WARNING -->
+      <div class="warning-box">
+        <div style="font-size:1.25rem;flex-shrink:0">⚠️</div>
+        <div class="warning-text">
+          <strong>Misclassification Risk:</strong> If you control how, when, and where someone works, the IRS may classify them as an employee regardless of how you pay them. Misclassifying an employee as a contractor can result in back taxes, penalties, and interest. When in doubt, consult a CPA or employment attorney before making the call.
+        </div>
+      </div>
+
+    </div>
   </div>
 
-    <!-- AFFILIATE SECTION -->
-  <div class="affiliate-section">
-    <div class="affiliate-header">
-      <h3>Now That You Know Your Number — Choose the Right Payroll Software</h3>
-      <p>Managing payroll manually is how compliance mistakes happen. The right software handles tax filings and deductions automatically.</p>
+  <!-- RELATED TOOL -->
+  <a href="/true-cost-of-an-employee-calculator/" class="related-tool">
+    <div class="related-tool-text">
+      <h4>👤 True Cost of an Employee Calculator</h4>
+      <p>Already decided on an employee? See the full all-in cost breakdown including every tax and benefit line.</p>
     </div>
+    <div class="related-tool-arrow">→</div>
+  </a>
+
+  <!-- AFFILIATE -->
+  <div class="affiliate-section">
+    <h3>Managing Contractors or Employees? Get the Right Tools</h3>
+    <p>Whether you hire W-2 employees or 1099 contractors, the right software saves hours of admin work and keeps you compliant.</p>
     <div class="affiliate-cards">
       <a href="https://gusto.com/r/brian7e7eb3a4" target="_blank" rel="noopener" class="affiliate-card">
         <div class="affiliate-card-name">Gusto</div>
-        <div class="affiliate-card-desc">Best for small businesses hiring their first few employees. Simple interface, automatic tax filing, strong benefits integration.</div>
+        <div class="affiliate-card-desc">Best for W-2 employees — handles payroll taxes, filings, and benefits automatically. Simple enough for first-time employers.</div>
         <span class="affiliate-card-cta">Try Gusto →</span>
       </a>
-      <a href="#" class="affiliate-card">
-        <div class="affiliate-card-name">Rippling</div>
-        <div class="affiliate-card-desc">Better for businesses that want HR, IT, and payroll in one platform. More powerful, ideal for 5+ employees.</div>
-        <span class="affiliate-card-cta">Try Rippling →</span>
+      <a href="https://get.deel.com/b99nzenjqw1m" target="_blank" rel="noopener" class="affiliate-card">
+        <div class="affiliate-card-name">Deel</div>
+        <div class="affiliate-card-desc">Built for contractor payments — handles contracts, invoicing, and international payments in one place. Great if you use multiple contractors.</div>
+        <span class="affiliate-card-cta">Try Deel →</span>
       </a>
     </div>
     <div class="affiliate-disclosure">
       <span>ℹ️</span>
-      <span>CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal/">See our Affiliate Disclosure</a>.</span>
+      <span>CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal">See our Affiliate Disclosure</a>.</span>
     </div>
   </div>
 
-  <!-- CONTENT: WHY SALARY IS NOT ENOUGH -->
+  <!-- CONTENT -->
   <div class="content-section">
-    <h2>Why Salary Is Just the Starting Point</h2>
-    <p>When most business owners think about hiring costs, they think about salary. But the IRS, your insurance provider, and your landlord don't care about that number — they each add their own layer on top. Understanding the full cost of an employee isn't just good financial hygiene. It's the difference between a hire that strengthens your business and one that quietly drains it.</p>
-    <p>The all-in cost of an employee typically breaks down into four buckets: base compensation, employer payroll taxes, benefits, and overhead. Each one is real, each one is unavoidable, and most of them are invisible until you're already committed.</p>
+    <h2>1099 vs W-2: What the Numbers Don't Tell You</h2>
+    <p>The hourly rate comparison is just the surface. A contractor charging $65/hour looks expensive next to an employee earning $65,000/year — until you factor in what that employee actually costs you. And on the flip side, contractors come with risks and hidden costs that don't show up in the invoice.</p>
 
-    <h3>Payroll Taxes: The Hidden 10%</h3>
-    <p>As an employer, you're responsible for paying your share of Social Security (6.2%) and Medicare (1.45%) on every dollar of wages — on top of what your employee pays. Add federal and state unemployment taxes and you're typically looking at an additional 8–10% on top of base salary before benefits enter the picture. On a $65,000 salary, that's roughly $5,500–$6,500 in taxes alone that never appears in the offer letter.</p>
+    <h3>Why Contractors Cost More Per Hour — But Less Overall</h3>
+    <p>A contractor's rate is typically 20–40% higher than an equivalent employee's hourly rate, and for good reason. Contractors pay both sides of Social Security and Medicare taxes themselves (15.3% vs the employee's 7.65%), they fund their own benefits, and they absorb their own overhead. When you hire a contractor you're not overpaying — you're paying for what you'd otherwise be providing yourself.</p>
+    <p>The math often favors contractors for short-term, specialized, or fluctuating workloads. You pay for exactly the hours you need, with no commitment beyond the contract. For a role you need 20 hours a week for six months, a contractor is almost always cheaper than a part-time employee when you factor in all the fixed costs of employment.</p>
 
-    <h3>Benefits: Where the Real Costs Accumulate</h3>
-    <p>Health insurance is the biggest variable. Employers typically contribute $500–$700 per month for single coverage — that's $6,000–$8,400 per year per employee. Add a 401(k) match of 3–4%, paid time off, and any other benefits, and you've added another $10,000–$15,000 annually on top of a mid-range salary.</p>
+    <h3>Why Employees Cost More — But Deliver More Control</h3>
+    <p>The fully-loaded cost of an employee is typically 25–40% above their salary. But what you get in return is meaningful: you can direct their work, set their hours, require them to use your systems, and build institutional knowledge over time. Employees are investments in your organization. Contractors are transactions.</p>
+    <p>For roles central to your business — customer-facing positions, core operations, anything requiring deep integration with your team — an employee usually makes more strategic sense even when the cost is higher.</p>
 
-    <h3>Overhead: The Costs Nobody Talks About</h3>
-    <p>Equipment, software licenses, office space or remote stipends, and recruiting costs are real expenditures that belong in any honest hiring calculation. Recruiting alone — job postings, interview time, background checks, and onboarding — typically runs $3,000–$5,000 for a salaried position even without a recruiter.</p>
-
-    <h3>What To Do With the Number</h3>
-    <p>Once you know your true all-in cost, a useful rule of thumb is that an employee should generate at least <strong>3x their fully-loaded cost</strong> in value to your business. That's not a hard rule — some roles are support functions that enable revenue elsewhere — but it's a healthy benchmark for evaluating whether a hire makes financial sense.</p>
+    <h3>The Misclassification Risk Is Real</h3>
+    <p>The IRS uses a behavioral, financial, and relationship test to determine whether a worker is truly a contractor or a de facto employee. If you set their hours, require them to use your equipment, prohibit them from working for competitors, or direct how (not just what) they deliver — there's a meaningful risk of misclassification. The penalties include back payroll taxes, interest, and fines that can far exceed whatever you saved by not putting someone on payroll.</p>
+    <p>When the work is ongoing, integral to your business, and performed under your direction, hire an employee. When the work is project-based, specialized, and independently delivered — a contractor often makes both financial and legal sense.</p>
   </div>
 
   <!-- FAQ -->
@@ -1116,61 +862,51 @@
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          How much does an employee really cost beyond their salary?
+          Is it cheaper to hire a contractor or an employee?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          Most employees cost between 25% and 40% more than their base salary when you factor in payroll taxes, benefits, and overhead. On a $65,000 salary, the true all-in cost typically runs $81,000–$91,000 per year.
+          It depends on the role and duration. For short-term or specialized work, contractors are usually cheaper when you factor in the benefits, payroll taxes, and overhead an employee requires. For ongoing, full-time roles, employees often cost less per hour of actual work — contractors charge a premium precisely because they cover their own taxes and benefits.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          What payroll taxes does an employer pay?
+          What taxes do I pay on a contractor vs. an employee?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          Employers pay 6.2% for Social Security, 1.45% for Medicare, up to $420/year in federal unemployment tax (FUTA), and a variable amount for state unemployment tax (SUTA) — typically $200–$600/year for most states. This calculator uses a combined employer tax rate of 8.15% as a reasonable estimate.
+          For employees, you pay the employer's share of Social Security (6.2%) and Medicare (1.45%), plus federal and state unemployment taxes — typically 8–10% on top of salary. For contractors, you pay nothing in payroll taxes. You simply pay their invoice and issue a 1099 form if you pay them more than $600 in a year. The contractor is responsible for their own self-employment taxes.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Is it cheaper to hire a contractor than an employee?
+          What is the ABC test for contractor classification?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          Often yes, in the short term — contractors don't require benefits, payroll taxes, or overhead. But contractors cost more per hour, can't be directed the same way, and carry legal risks if misclassified. Our Contractor vs. Employee calculator (coming soon) will help you compare your specific situation.
+          Several states use the ABC test to determine worker classification. To be a legitimate contractor, the worker must be: (A) free from your control and direction, (B) performing work outside your usual course of business, and (C) customarily engaged in an independent trade or business. All three must be true. States like California apply this test strictly — what's a contractor relationship in Texas may be an employment relationship in California.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          What is the true cost of a $50,000 employee?
+          Can a contractor work full time for just one company?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          At $50,000 base salary, you can expect total all-in costs of $62,000–$70,000 depending on your benefits package, state, and overhead. Use the calculator above with your specific inputs for a precise number.
+          Technically yes, but it significantly increases misclassification risk. One of the key factors the IRS considers is whether the worker has multiple clients. A contractor who works exclusively for one company, under that company's direction, for an extended period looks a lot like an employee to the IRS regardless of how the relationship is structured on paper.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          How do I calculate employee cost per hour?
+          What is a 1099 form and when do I need to issue one?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          Divide the total annual cost by the number of working hours in a year. For a full-time employee at 40 hrs/week, that's approximately 2,080 hours. A $65,000 salary with $20,000 in additional costs equals $85,000 total, or about $40.87 per productive hour.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Are calculator results accurate for my state?
-          <span class="faq-chevron">▼</span>
-        </button>
-        <div class="faq-answer">
-          This calculator uses federal averages for payroll taxes (8.15% employer rate) and typical benefit cost ranges. State-specific taxes — like state unemployment insurance rates — vary and are not individually accounted for. Results are estimates for planning purposes. Consult a CPA or payroll professional for figures specific to your state and situation.
+          A 1099-NEC form reports non-employee compensation to the IRS. You must issue one to any contractor you pay $600 or more in a calendar year. The deadline is January 31 of the following year. You send one copy to the contractor and file one with the IRS. Failing to issue required 1099s can result in penalties of $50–$280 per form.
         </div>
       </div>
 
@@ -1189,10 +925,10 @@
     <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
     <div class="footer-links">
       <a href="/">Home</a>
-      <a href="/legal/">Privacy Policy</a>
-      <a href="/legal/">Terms of Service</a>
-      <a href="/legal/">Affiliate Disclosure</a>
-      <a href="/cdn-cgi/l/email-protection#f098959c9c9fb093919c93879f9e9bde939f9d">Contact</a>
+      <a href="/legal">Privacy Policy</a>
+      <a href="/legal">Terms of Service</a>
+      <a href="/legal">Affiliate Disclosure</a>
+      <a href="mailto:brian@calcwonk.com">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice.
@@ -1202,395 +938,100 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // ── STATE ──
-  const benefits = { health: true, retirement: true, pto: true, dental: false };
-
-  // ── TOGGLES ──
-  function toggleBenefit(key) {
-    benefits[key] = !benefits[key];
-    const el = document.getElementById('toggle-' + key);
-    el.classList.toggle('on', benefits[key]);
-    const field = document.getElementById('field-' + key);
-    if (field) field.style.opacity = benefits[key] ? '1' : '0.4';
-    calculate();
-  }
-
-  // ── FORMAT ──
   function fmt(n) {
     return '$' + Math.round(n).toLocaleString();
   }
 
-  // ── CALCULATE ──
   function calculate() {
-    const salary      = parseFloat(document.getElementById('salary').value) || 0;
-    const hoursPerWk  = parseFloat(document.getElementById('hoursPerWeek').value) || 40;
-    const healthMo    = benefits.health     ? (parseFloat(document.getElementById('healthMonthly').value) || 0) : 0;
-    const retPct      = benefits.retirement ? (parseFloat(document.getElementById('retirementMatch').value) || 0) : 0;
-    const ptoDays     = benefits.pto        ? (parseFloat(document.getElementById('ptoDays').value) || 0) : 0;
-    const dentalMo    = benefits.dental     ? (parseFloat(document.getElementById('dentalMonthly').value) || 0) : 0;
-    const equipment   = parseFloat(document.getElementById('equipment').value) || 0;
-    const softwareMo  = parseFloat(document.getElementById('software').value) || 0;
-    const recruiting  = parseFloat(document.getElementById('recruiting').value) || 0;
-    const workspaceMo = parseFloat(document.getElementById('workspace').value) || 0;
+    const hoursPerWeek    = parseFloat(document.getElementById('hoursPerWeek').value) || 0;
+    const weeksPerYear    = parseFloat(document.getElementById('weeksPerYear').value) || 52;
+    const totalHours      = hoursPerWeek * weeksPerYear;
 
-    // Payroll taxes: SS 6.2% + Medicare 1.45% + FUTA/SUTA ~0.5%
-    const payrollTaxRate = 0.0815;
-    const payrollTax = salary * payrollTaxRate;
+    // Employee costs
+    const salary          = parseFloat(document.getElementById('employeeSalary').value) || 0;
+    const healthMo        = parseFloat(document.getElementById('healthMonthly').value) || 0;
+    const retirePct       = parseFloat(document.getElementById('retirementMatch').value) || 0;
+    const otherBenefits   = parseFloat(document.getElementById('otherBenefits').value) || 0;
 
-    // Benefits
-    const healthAnnual     = healthMo * 12;
-    const retirementAnnual = salary * (retPct / 100);
-    const dailyRate        = salary / 260;
-    const ptoValue         = dailyRate * ptoDays;
-    const dentalAnnual     = dentalMo * 12;
-    const totalBenefits    = healthAnnual + retirementAnnual + ptoValue + dentalAnnual;
+    const payrollTax      = salary * 0.0815;
+    const healthAnnual    = healthMo * 12;
+    const retirement      = salary * (retirePct / 100);
+    const employeeTotal   = salary + payrollTax + healthAnnual + retirement + otherBenefits;
+    const employeeHourly  = totalHours > 0 ? employeeTotal / totalHours : 0;
 
-    // Overhead
-    const softwareAnnual   = softwareMo * 12;
-    const workspaceAnnual  = workspaceMo * 12;
-    const totalOverhead    = equipment + softwareAnnual + recruiting + workspaceAnnual;
+    // Contractor costs
+    const contractorRate  = parseFloat(document.getElementById('contractorRate').value) || 0;
+    const agencyFeePct    = parseFloat(document.getElementById('agencyFee').value) || 0;
+    const equipment       = parseFloat(document.getElementById('equipmentCost').value) || 0;
+    const mgmtMo          = parseFloat(document.getElementById('managementOverhead').value) || 0;
 
-    const total = salary + payrollTax + totalBenefits + totalOverhead;
-    const multiplier = salary > 0 ? (total / salary) : 0;
-    const hourlyRate = total / (hoursPerWk * 52);
+    const baseContractor  = contractorRate * totalHours;
+    const agencyFeeAmt    = baseContractor * (agencyFeePct / 100);
+    const mgmtAnnual      = mgmtMo * 12;
+    const contractorTotal = baseContractor + agencyFeeAmt + equipment + mgmtAnnual;
+    const contractorHourly = totalHours > 0 ? contractorTotal / totalHours : 0;
 
-    // Update totals
-    document.getElementById('totalCost').textContent = fmt(total);
-    document.getElementById('totalCostMonthly').textContent = fmt(total / 12) + ' / month';
-    document.getElementById('multiplier').textContent = multiplier.toFixed(2) + 'x';
+    // Update comparison columns
+    document.getElementById('employeeTotal').textContent    = fmt(employeeTotal);
+    document.getElementById('employeeHourly').textContent   = fmt(employeeHourly) + ' / hour true cost';
+    document.getElementById('contractorTotal').textContent  = fmt(contractorTotal);
+    document.getElementById('contractorHourly').textContent = fmt(contractorHourly) + ' / hour true cost';
 
-    // Breakdown bars
-    const bars = [
-      { label: 'Base Salary',  value: salary,        cls: 'bar-base' },
-      { label: 'Payroll Taxes', value: payrollTax,   cls: 'bar-tax' },
-      { label: 'Benefits',      value: totalBenefits, cls: 'bar-benefits' },
-      { label: 'Overhead',      value: totalOverhead, cls: 'bar-overhead' },
+    // Verdict
+    const diff = Math.abs(employeeTotal - contractorTotal);
+    const cheaper = employeeTotal < contractorTotal ? 'employee' : 'contractor';
+    document.getElementById('verdictDiff').textContent = fmt(diff);
+
+    if (employeeTotal < contractorTotal) {
+      document.getElementById('verdictIcon').textContent = '👤';
+      document.getElementById('verdictTitle').textContent = 'The employee is cheaper overall';
+      document.getElementById('verdictSub').textContent = `At these rates, hiring an employee saves you ${fmt(diff)}/year vs. a contractor — but remember, employees offer more control and commitment.`;
+    } else if (contractorTotal < employeeTotal) {
+      document.getElementById('verdictIcon').textContent = '📋';
+      document.getElementById('verdictTitle').textContent = 'The contractor is cheaper overall';
+      document.getElementById('verdictSub').textContent = `At these rates, using a contractor saves you ${fmt(diff)}/year vs. an employee — but check misclassification risk if the work is ongoing.`;
+    } else {
+      document.getElementById('verdictIcon').textContent = '⚖️';
+      document.getElementById('verdictTitle').textContent = 'The costs are roughly equal';
+      document.getElementById('verdictSub').textContent = 'At these rates the financial difference is minimal — the decision comes down to control, commitment, and misclassification risk.';
+    }
+
+    // Breakdown table
+    const rows = [
+      ['Base wages / salary', salary, baseContractor],
+      ['Employer payroll taxes (8.15%)', payrollTax, null],
+      ['Health insurance', healthAnnual, null],
+      [`401(k) match (${retirePct}%)`, retirement, null],
+      ['Other benefits', otherBenefits, null],
+      ['Agency / platform fee', null, agencyFeeAmt],
+      ['Equipment & tools', null, equipment],
+      ['Management overhead', null, mgmtAnnual],
     ];
 
-    const barsHTML = bars.map(b => {
-      const pct = total > 0 ? (b.value / total * 100) : 0;
-      return `
-        <div class="breakdown-item">
-          <span class="breakdown-label">${b.label}</span>
-          <div class="breakdown-bar-track">
-            <div class="breakdown-bar-fill ${b.cls}" style="width:${pct.toFixed(1)}%"></div>
-          </div>
-          <span class="breakdown-value">${fmt(b.value)}</span>
-        </div>`;
-    }).join('');
-    document.getElementById('breakdownBars').innerHTML = barsHTML;
+    document.getElementById('breakdownBody').innerHTML = rows.map(([label, emp, con]) => {
+      const empCell = emp != null && emp > 0
+        ? `<td class="employee-val" style="color:var(--teal-dark)">${fmt(emp)}</td>`
+        : `<td class="na">—</td>`;
+      const conCell = con != null && con > 0
+        ? `<td class="contractor-val" style="color:var(--purple)">${fmt(con)}</td>`
+        : `<td class="na">—</td>`;
+      return `<tr><td>${label}</td>${empCell}${conCell}</tr>`;
+    }).join('') + `
+      <tr class="total-row">
+        <td>Total Annual Cost</td>
+        <td class="employee-val">${fmt(employeeTotal)}</td>
+        <td class="contractor-val">${fmt(contractorTotal)}</td>
+      </tr>`;
 
     // Insight
-    const overhead3x = total * 3;
+    const savingsAmt = fmt(diff);
+    const cheaperLabel = cheaper === 'employee' ? 'employee' : 'contractor';
     document.getElementById('insightText').innerHTML =
-      `To justify this hire using the <strong>3x rule</strong>, this employee should generate at least <strong>${fmt(overhead3x)} / year</strong> in revenue or value. At ${hoursPerWk} hrs/week, that's <strong>${fmt(overhead3x / (hoursPerWk * 52))} per productive hour</strong> of output needed.`;
-
-    // Summary table
-    const rows = [
-      ['Base Salary', salary],
-      ['Employer Payroll Taxes (8.15%)', payrollTax],
-    ];
-    if (benefits.health)      rows.push(['Health Insurance', healthAnnual]);
-    if (benefits.retirement)  rows.push([`401(k) Match (${retPct}%)`, retirementAnnual]);
-    if (benefits.pto)         rows.push([`PTO Value (${ptoDays} days)`, ptoValue]);
-    if (benefits.dental)      rows.push(['Dental & Vision', dentalAnnual]);
-    if (equipment > 0)        rows.push(['Equipment & Setup (amortized)', equipment]);
-    if (softwareMo > 0)       rows.push(['Software Licenses', softwareAnnual]);
-    if (recruiting > 0)       rows.push(['Recruiting Cost (amortized)', recruiting]);
-    if (workspaceMo > 0)      rows.push(['Office / Remote Stipend', workspaceAnnual]);
-    rows.push(['TOTAL TRUE COST', total]);
-
-    const dotColors = {
-      'Base Salary': '#94a3b8',
-      'Employer Payroll Taxes (8.15%)': '#f97316',
-      'TOTAL TRUE COST': 'var(--teal)',
-    };
-
-    document.getElementById('summaryTableBody').innerHTML = rows.map(([label, val], i) => {
-      const isTotal = i === rows.length - 1;
-      const dotStyle = dotColors[label] ? `<span class="dot" style="background:${dotColors[label]}"></span>` : '';
-      return `<tr${isTotal ? ' style="background:var(--teal-xlight)"' : ''}>
-        <td>${dotStyle}${label}</td>
-        <td>${fmt(val)}</td>
-      </tr>`;
-    }).join('');
+      `Based on your inputs, the <strong>${cheaperLabel} is less expensive by ${savingsAmt}/year</strong>. ` +
+      `The employee's true hourly cost is <strong>${fmt(employeeHourly)}/hr</strong> vs. the contractor's <strong>${fmt(contractorHourly)}/hr</strong>. ` +
+      (cheaper === 'contractor'
+        ? `Before choosing the contractor, make sure the working relationship qualifies — if you control their schedule and methods, the IRS may consider them an employee regardless.`
+        : `Even though the employee costs less, contractors offer flexibility with no long-term commitment — worth considering if the workload may fluctuate.`);
   }
 
-  // ── FAQ ──
-  function toggleFaq(btn) {
-    const answer = btn.nextElementSibling;
-    const isOpen = btn.classList.contains('open');
-    document.querySelectorAll('.faq-question').forEach(q => {
-      q.classList.remove('open');
-      q.nextElementSibling.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.classList.add('open');
-      answer.classList.add('open');
-    }
-  }
-
-
-  // ── PDF GENERATION ──
-  function fmtPDF(n) {
-    return '$' + Math.round(Math.abs(n)).toLocaleString();
-  }
-
-  async function generatePDFDirect() {
-    const btn = document.getElementById('pdfBtn');
-    const status = document.getElementById('pdfStatus');
-
-    if (!window.jspdf) {
-      status.style.display = 'block';
-      status.style.color = '#fca5a5';
-      status.textContent = 'PDF library still loading — please try again in a moment.';
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Generating...';
-    status.style.display = 'block';
-    status.style.color = '#94a3b8';
-    status.textContent = 'Building your PDF report...';
-
-    // Get current calculator values
-    const salary      = parseFloat(document.getElementById('salary').value) || 0;
-    const hoursPerWk  = parseFloat(document.getElementById('hoursPerWeek').value) || 40;
-    const healthMo    = benefits.health     ? (parseFloat(document.getElementById('healthMonthly').value) || 0) : 0;
-    const retPct      = benefits.retirement ? (parseFloat(document.getElementById('retirementMatch').value) || 0) : 0;
-    const ptoDays     = benefits.pto        ? (parseFloat(document.getElementById('ptoDays').value) || 0) : 0;
-    const dentalMo    = benefits.dental     ? (parseFloat(document.getElementById('dentalMonthly').value) || 0) : 0;
-    const equipment   = parseFloat(document.getElementById('equipment').value) || 0;
-    const softwareMo  = parseFloat(document.getElementById('software').value) || 0;
-    const recruiting  = parseFloat(document.getElementById('recruiting').value) || 0;
-    const workspaceMo = parseFloat(document.getElementById('workspace').value) || 0;
-
-    const payrollTax       = salary * 0.0815;
-    const healthAnnual     = healthMo * 12;
-    const retirementAnnual = salary * (retPct / 100);
-    const ptoValue         = (salary / 260) * ptoDays;
-    const dentalAnnual     = dentalMo * 12;
-    const totalBenefits    = healthAnnual + retirementAnnual + ptoValue + dentalAnnual;
-    const softwareAnnual   = softwareMo * 12;
-    const workspaceAnnual  = workspaceMo * 12;
-    const totalOverhead    = equipment + softwareAnnual + recruiting + workspaceAnnual;
-    const total            = salary + payrollTax + totalBenefits + totalOverhead;
-    const multiplier       = salary > 0 ? (total / salary).toFixed(2) : 0;
-    const hourlyRate       = total / (hoursPerWk * 52);
-    const overhead3x       = total * 3;
-    const pctAboveSalary   = salary > 0 ? (((total - salary) / salary) * 100).toFixed(0) : 0;
-
-    // Benchmark
-    let benchmarkText = '';
-    if (multiplier < 1.2) benchmarkText = 'Your cost multiplier is below average — this is a lean hire with minimal benefits and overhead.';
-    else if (multiplier < 1.35) benchmarkText = 'Your cost multiplier is within the typical range of 1.25–1.40x for most US businesses.';
-    else if (multiplier < 1.5) benchmarkText = 'Your cost multiplier is above average, reflecting a comprehensive benefits package.';
-    else benchmarkText = 'Your cost multiplier is well above average — this hire includes significant benefits and overhead investment.';
-
-    // Generate PDF using jsPDF
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
-    const pageW = 210;
-    const margin = 20;
-    const contentW = pageW - margin * 2;
-    let y = 0;
-
-    // ── HEADER BAND ──
-    doc.setFillColor(13, 148, 136); // teal
-    doc.rect(0, 0, pageW, 42, 'F');
-
-    doc.setTextColor(255, 255, 255);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.text('CalcWonk', margin, 18);
-
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'normal');
-    doc.text('True Cost of an Employee — Results Report', margin, 28);
-
-    doc.setFontSize(9);
-    doc.setTextColor(204, 251, 241);
-    doc.text('Generated ' + new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}), margin, 36);
-    doc.text('calcwonk.com/true-cost-of-an-employee-calculator/', pageW - margin, 36, {align:'right'});
-
-    y = 54;
-
-    // ── TOTAL COST HIGHLIGHT ──
-    doc.setFillColor(240, 253, 250);
-    doc.setDrawColor(13, 148, 136);
-    doc.roundedRect(margin, y, contentW, 28, 3, 3, 'FD');
-
-    doc.setTextColor(15, 118, 110);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.text('TRUE ANNUAL COST', margin + 8, y + 9);
-
-    doc.setFontSize(26);
-    doc.setTextColor(13, 148, 136);
-    doc.text(fmtPDF(total), margin + 8, y + 22);
-
-    doc.setFontSize(11);
-    doc.setTextColor(100, 116, 139);
-    doc.setFont('helvetica', 'normal');
-    doc.text(fmtPDF(total/12) + ' / month', pageW/2 + 10, y + 13);
-    doc.text(multiplier + 'x base salary', pageW/2 + 10, y + 22);
-
-    y += 36;
-
-    // ── COST BREAKDOWN ──
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.setTextColor(30, 41, 59);
-    doc.text('Cost Breakdown', margin, y);
-    y += 6;
-
-    // Table header
-    doc.setFillColor(30, 41, 59);
-    doc.rect(margin, y, contentW, 7, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Category', margin + 4, y + 5);
-    doc.text('Annual Amount', pageW - margin - 4, y + 5, {align: 'right'});
-    y += 7;
-
-    // Table rows
-    const rows = [
-      ['Base Salary', salary, false],
-      ['Employer Payroll Taxes (8.15%)', payrollTax, false],
-    ];
-    if (benefits.health && healthAnnual > 0)      rows.push(['Health Insurance', healthAnnual, false]);
-    if (benefits.retirement && retirementAnnual > 0) rows.push([`401(k) Match (${retPct}%)`, retirementAnnual, false]);
-    if (benefits.pto && ptoValue > 0)             rows.push([`PTO Value (${ptoDays} days)`, ptoValue, false]);
-    if (benefits.dental && dentalAnnual > 0)       rows.push(['Dental & Vision', dentalAnnual, false]);
-    if (equipment > 0)    rows.push(['Equipment & Setup', equipment, false]);
-    if (softwareMo > 0)   rows.push(['Software Licenses', softwareAnnual, false]);
-    if (recruiting > 0)   rows.push(['Recruiting Cost', recruiting, false]);
-    if (workspaceMo > 0)  rows.push(['Office / Remote Stipend', workspaceAnnual, false]);
-    rows.push(['TOTAL TRUE ANNUAL COST', total, true]);
-
-    rows.forEach(([label, val, isTotal], i) => {
-      if (isTotal) {
-        doc.setFillColor(240, 253, 250);
-        doc.setDrawColor(13, 148, 136);
-        doc.rect(margin, y, contentW, 8, 'FD');
-        doc.setTextColor(15, 118, 110);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(10);
-      } else {
-        doc.setFillColor(i % 2 === 0 ? 248 : 255, i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 252 : 255);
-        doc.rect(margin, y, contentW, 7, 'F');
-        doc.setTextColor(30, 41, 59);
-        doc.setFont('helvetica', i === rows.length - 1 ? 'bold' : 'normal');
-        doc.setFontSize(9);
-      }
-      doc.text(label, margin + 4, y + (isTotal ? 5.5 : 5));
-      doc.text(fmtPDF(val), pageW - margin - 4, y + (isTotal ? 5.5 : 5), {align: 'right'});
-      y += isTotal ? 8 : 7;
-    });
-
-    y += 8;
-
-    // ── BENCHMARK ──
-    doc.setFillColor(255, 247, 237);
-    doc.setDrawColor(249, 115, 22);
-    doc.roundedRect(margin, y, contentW, 22, 2, 2, 'FD');
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
-    doc.setTextColor(154, 52, 18);
-    doc.text('BENCHMARK COMPARISON', margin + 4, y + 7);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(124, 45, 18);
-    const benchLines = doc.splitTextToSize(benchmarkText + ' Industry average: 1.25–1.40x base salary.', contentW - 8);
-    doc.text(benchLines, margin + 4, y + 14);
-    y += 28;
-
-    // ── INSIGHT ──
-    doc.setFillColor(248, 250, 252);
-    doc.setDrawColor(226, 232, 240);
-    doc.roundedRect(margin, y, contentW, 30, 2, 2, 'FD');
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
-    doc.setTextColor(30, 41, 59);
-    doc.text('💡  KEY INSIGHT', margin + 4, y + 7);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(51, 65, 85);
-    const insightLine1 = `This employee costs ${pctAboveSalary}% more than their base salary. To justify this hire using the`;
-    const insightLine2 = `3x rule, they should generate at least ${fmtPDF(overhead3x)}/year in revenue or value — that's`;
-    const insightLine3 = `${fmtPDF(hourlyRate)}/productive hour at ${hoursPerWk} hours per week.`;
-    doc.text(insightLine1, margin + 4, y + 14);
-    doc.text(insightLine2, margin + 4, y + 20);
-    doc.text(insightLine3, margin + 4, y + 26);
-    y += 36;
-
-    // ── TOOL RECOMMENDATION ──
-    doc.setFillColor(204, 251, 241);
-    doc.setDrawColor(13, 148, 136);
-    doc.roundedRect(margin, y, contentW, 24, 2, 2, 'FD');
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
-    doc.setTextColor(15, 118, 110);
-    doc.text('NEXT STEP — MANAGE THESE COSTS WITH GUSTO', margin + 4, y + 7);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(20, 78, 74);
-    const gustoText = 'Gusto handles payroll taxes, benefits administration, and compliance automatically for small businesses. Try it free at gusto.com/r/brian7e7eb3a4';
-    const gustoLines = doc.splitTextToSize(gustoText, contentW - 8);
-    doc.text(gustoLines, margin + 4, y + 14);
-    y += 30;
-
-    // ── FOOTER ──
-    doc.setDrawColor(226, 232, 240);
-    doc.line(margin, y, pageW - margin, y);
-    y += 5;
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7.5);
-    doc.setTextColor(100, 116, 139);
-    doc.text('Generated by CalcWonk · calcwonk.com · Results are for informational purposes only and do not constitute financial or legal advice.', margin, y);
-    y += 4;
-    doc.text('CalcWonk may earn a commission from affiliate recommendations. See calcwonk.com/legal/ for full disclosure.', margin, y);
-
-    // Save PDF
-    const fileName = 'CalcWonk-Employee-Cost-Report.pdf';
-    doc.save(fileName);
-
-    // Update UI
-    btn.disabled = false;
-    btn.textContent = '📥 Download My PDF Report';
-    status.style.color = '#6ee7b7';
-    status.textContent = '✅ Your PDF has been downloaded! Check your downloads folder.';
-    // Show Kit email signup section
-    const kitSection = document.getElementById('kitSignupSection');
-    if (kitSection) { kitSection.style.display = 'block'; kitSection.scrollIntoView({behavior:'smooth', block:'nearest'}); }
-
-    // GA event
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'pdf_download', {
-        event_category: 'engagement',
-        event_label: 'employee_cost_calculator'
-      });
-    }
-  }
-
-
-  // ── LIVE UPDATE ──
-  document.querySelectorAll('input[type="number"], select').forEach(el => {
-    el.addEventListener('input', calculate);
-    el.addEventListener('change', calculate);
-  });
-
-  calculate();
-
-</script>
-</body>
-</html>
+  document.querySelectorAll('input[type="number"], select').forEac
