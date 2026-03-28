@@ -17,7 +17,7 @@
   <meta name="description" content="Calculate the real all-in cost of hiring an employee, including payroll taxes, benefits, and overhead. Most employees cost 25–40% more than their salary alone." />
   <link rel="canonical" href="https://calcwonk.com/true-cost-of-an-employee-calculator/" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" async></script>
   <style>
     :root {
       --teal: #0d9488;
@@ -1302,6 +1302,14 @@
       return;
     }
 
+    // Check jsPDF is loaded
+    if (!window.jspdf) {
+      status.style.display = 'block';
+      status.style.color = '#fca5a5';
+      status.textContent = 'PDF library still loading — please try again in a moment.';
+      return;
+    }
+
     btn.disabled = true;
     btn.textContent = 'Generating...';
     status.style.display = 'block';
@@ -1524,7 +1532,6 @@
 
     // Update UI
     btn.disabled = false;
-    btn.disabled = false;
     btn.textContent = 'Download My PDF Report →';
     status.style.color = '#6ee7b7';
     status.textContent = '✅ Your PDF has been downloaded! Check your downloads folder. Welcome to CalcWonk!';
@@ -1539,4 +1546,13 @@
   }
 
   // ── LIVE UPDATE ──
-  document.querySelectorAll('input[type="nu
+  document.querySelectorAll('input[type="number"], select').forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+
+  calculate();
+
+</script>
+</body>
+</html>
