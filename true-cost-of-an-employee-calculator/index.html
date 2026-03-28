@@ -11,9 +11,13 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="ff98ab57f993bbf3" />
+  <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
   <title>True Cost of an Employee Calculator — Beyond the Base Salary | CalcWonk</title>
   <meta name="description" content="Calculate the real all-in cost of hiring an employee, including payroll taxes, benefits, and overhead. Most employees cost 25–40% more than their salary alone." />
+  <link rel="canonical" href="https://calcwonk.com/true-cost-of-an-employee-calculator/" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
       --teal: #0d9488;
@@ -717,23 +721,89 @@
     }
 
     .footer-copy { font-size: 0.8rem; color: #475569; }
+
+    /* ── PDF CAPTURE ── */
+    .pdf-capture {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      margin: 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .pdf-capture-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .pdf-capture-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+    .pdf-capture-form {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .pdf-email-input {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1.5px solid #334155;
+      background: #1e293b;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      width: 220px;
+      transition: border-color 0.2s;
+    }
+    .pdf-email-input::placeholder { color: #64748b; }
+    .pdf-email-input:focus { outline: none; border-color: var(--teal); }
+    .pdf-download-btn {
+      background: var(--teal);
+      color: #ffffff !important;
+      border: none;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+      text-decoration: none !important;
+    }
+    .pdf-download-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+    .pdf-download-btn:disabled { background: #334155; cursor: not-allowed; transform: none; }
+    .pdf-status {
+      font-size: 0.8rem;
+      color: var(--teal-light);
+      margin-top: 0.5rem;
+      display: none;
+      width: 100%;
+    }
+    .pdf-privacy { font-size: 0.72rem; color: #475569; margin-top: 0.5rem; width: 100%; }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="/calcwonk/" class="nav-logo">Calc<span>Wonk</span></a>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
   <ul class="nav-links">
-    <li><a href="/calcwonk/">Tools</a></li>
-    <li><a href="/calcwonk/legal">Disclosures</a></li>
+    <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
 
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="breadcrumb">
-    <a href="/calcwonk/">CalcWonk</a> › Small Business › True Cost of an Employee
+    <a href="/">CalcWonk</a> › Small Business › True Cost of an Employee
   </div>
   <h1>The True Cost of an Employee Calculator</h1>
   <p>Hiring someone at $65,000 doesn't cost you $65,000. The real number is typically 25–40% higher. Find out exactly what a new hire will cost your business.</p>
@@ -910,14 +980,38 @@
     </div>
   </div>
 
-  <!-- AFFILIATE SECTION -->
+  <!-- PDF CAPTURE -->
+  <div class="pdf-capture" id="pdfCapture">
+    <div class="pdf-capture-text">
+      <h3>📄 Save Your Results as a PDF</h3>
+      <p>Enter your email and we'll generate a formatted PDF report with your exact numbers, benchmarks, and plain-English insight.</p>
+    </div>
+    <div style="width:100%;">
+      <div class="pdf-capture-form">
+        <input type="email" id="pdfEmail" class="pdf-email-input" placeholder="your@email.com" />
+        <button class="pdf-download-btn" id="pdfBtn" onclick="handlePDFCapture()">Download My PDF Report →</button>
+      </div>
+      <div class="pdf-status" id="pdfStatus"></div>
+      <div class="pdf-privacy">🔒 Your numbers are never stored or shared. PDF generated on your device. Unsubscribe anytime.</div>
+    </div>
+  </div>
+
+  <!-- KIT HIDDEN FORM -->
+  <div style="display:none;">
+    <form id="kitForm" action="https://app.kit.com/forms/9253807/subscriptions" method="post">
+      <input type="email" name="email_address" id="kitEmailField" />
+      <input type="hidden" name="tags[]" value="employee-cost-calculator" />
+    </form>
+  </div>
+
+    <!-- AFFILIATE SECTION -->
   <div class="affiliate-section">
     <div class="affiliate-header">
       <h3>Now That You Know Your Number — Choose the Right Payroll Software</h3>
       <p>Managing payroll manually is how compliance mistakes happen. The right software handles tax filings and deductions automatically.</p>
     </div>
     <div class="affiliate-cards">
-      <a href="#" class="affiliate-card">
+      <a href="https://gusto.com/r/brian7e7eb3a4" target="_blank" rel="noopener" class="affiliate-card">
         <div class="affiliate-card-name">Gusto</div>
         <div class="affiliate-card-desc">Best for small businesses hiring their first few employees. Simple interface, automatic tax filing, strong benefits integration.</div>
         <span class="affiliate-card-cta">Try Gusto →</span>
@@ -930,7 +1024,7 @@
     </div>
     <div class="affiliate-disclosure">
       <span>ℹ️</span>
-      <span>CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/calcwonk/legal">See our Affiliate Disclosure</a>.</span>
+      <span>CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal/">See our Affiliate Disclosure</a>.</span>
     </div>
   </div>
 
@@ -1030,12 +1124,12 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <a href="/calcwonk/" class="footer-logo">Calc<span>Wonk</span></a>
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
     <div class="footer-links">
-      <a href="/calcwonk/">Home</a>
-      <a href="/calcwonk/legal">Privacy Policy</a>
-      <a href="/calcwonk/legal">Terms of Service</a>
-      <a href="/calcwonk/legal">Affiliate Disclosure</a>
+      <a href="/">Home</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
       <a href="/cdn-cgi/l/email-protection#f098959c9c9fb093919c93879f9e9bde939f9d">Contact</a>
     </div>
     <p class="footer-disclaimer">
@@ -1171,6 +1265,276 @@
     if (!isOpen) {
       btn.classList.add('open');
       answer.classList.add('open');
+    }
+  }
+
+
+  // ── PDF GENERATION ──
+  function fmtPDF(n) {
+    return '$' + Math.round(Math.abs(n)).toLocaleString();
+  }
+
+  async function submitToKit(email) {
+    try {
+      // Set email in hidden Kit form and submit via fetch
+      document.getElementById('kitEmailField').value = email;
+      const formData = new FormData(document.getElementById('kitForm'));
+      await fetch('https://app.kit.com/forms/9253807/subscriptions', {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      });
+      return true;
+    } catch(e) {
+      return true; // Still generate PDF even if Kit signup fails
+    }
+  }
+
+  async function handlePDFCapture() {
+    const email = document.getElementById('pdfEmail').value.trim();
+    const btn = document.getElementById('pdfBtn');
+    const status = document.getElementById('pdfStatus');
+
+    if (!email || !email.includes('@')) {
+      status.style.display = 'block';
+      status.style.color = '#fca5a5';
+      status.textContent = 'Please enter a valid email address.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Generating...';
+    status.style.display = 'block';
+    status.style.color = '#94a3b8';
+    status.textContent = 'Building your PDF report...';
+
+    // Submit to Kit in background
+    await submitToKit(email);
+
+    // Get current calculator values
+    const salary      = parseFloat(document.getElementById('salary').value) || 0;
+    const hoursPerWk  = parseFloat(document.getElementById('hoursPerWeek').value) || 40;
+    const healthMo    = benefits.health     ? (parseFloat(document.getElementById('healthMonthly').value) || 0) : 0;
+    const retPct      = benefits.retirement ? (parseFloat(document.getElementById('retirementMatch').value) || 0) : 0;
+    const ptoDays     = benefits.pto        ? (parseFloat(document.getElementById('ptoDays').value) || 0) : 0;
+    const dentalMo    = benefits.dental     ? (parseFloat(document.getElementById('dentalMonthly').value) || 0) : 0;
+    const equipment   = parseFloat(document.getElementById('equipment').value) || 0;
+    const softwareMo  = parseFloat(document.getElementById('software').value) || 0;
+    const recruiting  = parseFloat(document.getElementById('recruiting').value) || 0;
+    const workspaceMo = parseFloat(document.getElementById('workspace').value) || 0;
+
+    const payrollTax       = salary * 0.0815;
+    const healthAnnual     = healthMo * 12;
+    const retirementAnnual = salary * (retPct / 100);
+    const ptoValue         = (salary / 260) * ptoDays;
+    const dentalAnnual     = dentalMo * 12;
+    const totalBenefits    = healthAnnual + retirementAnnual + ptoValue + dentalAnnual;
+    const softwareAnnual   = softwareMo * 12;
+    const workspaceAnnual  = workspaceMo * 12;
+    const totalOverhead    = equipment + softwareAnnual + recruiting + workspaceAnnual;
+    const total            = salary + payrollTax + totalBenefits + totalOverhead;
+    const multiplier       = salary > 0 ? (total / salary).toFixed(2) : 0;
+    const hourlyRate       = total / (hoursPerWk * 52);
+    const overhead3x       = total * 3;
+    const pctAboveSalary   = salary > 0 ? (((total - salary) / salary) * 100).toFixed(0) : 0;
+
+    // Benchmark
+    let benchmarkText = '';
+    if (multiplier < 1.2) benchmarkText = 'Your cost multiplier is below average — this is a lean hire with minimal benefits and overhead.';
+    else if (multiplier < 1.35) benchmarkText = 'Your cost multiplier is within the typical range of 1.25–1.40x for most US businesses.';
+    else if (multiplier < 1.5) benchmarkText = 'Your cost multiplier is above average, reflecting a comprehensive benefits package.';
+    else benchmarkText = 'Your cost multiplier is well above average — this hire includes significant benefits and overhead investment.';
+
+    // Generate PDF using jsPDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+    const pageW = 210;
+    const margin = 20;
+    const contentW = pageW - margin * 2;
+    let y = 0;
+
+    // ── HEADER BAND ──
+    doc.setFillColor(13, 148, 136); // teal
+    doc.rect(0, 0, pageW, 42, 'F');
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.text('CalcWonk', margin, 18);
+
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text('True Cost of an Employee — Results Report', margin, 28);
+
+    doc.setFontSize(9);
+    doc.setTextColor(204, 251, 241);
+    doc.text('Generated ' + new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}), margin, 36);
+    doc.text('calcwonk.com/true-cost-of-an-employee-calculator/', pageW - margin, 36, {align:'right'});
+
+    y = 54;
+
+    // ── TOTAL COST HIGHLIGHT ──
+    doc.setFillColor(240, 253, 250);
+    doc.setDrawColor(13, 148, 136);
+    doc.roundedRect(margin, y, contentW, 28, 3, 3, 'FD');
+
+    doc.setTextColor(15, 118, 110);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.text('TRUE ANNUAL COST', margin + 8, y + 9);
+
+    doc.setFontSize(26);
+    doc.setTextColor(13, 148, 136);
+    doc.text(fmtPDF(total), margin + 8, y + 22);
+
+    doc.setFontSize(11);
+    doc.setTextColor(100, 116, 139);
+    doc.setFont('helvetica', 'normal');
+    doc.text(fmtPDF(total/12) + ' / month', pageW/2 + 10, y + 13);
+    doc.text(multiplier + 'x base salary', pageW/2 + 10, y + 22);
+
+    y += 36;
+
+    // ── COST BREAKDOWN ──
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(30, 41, 59);
+    doc.text('Cost Breakdown', margin, y);
+    y += 6;
+
+    // Table header
+    doc.setFillColor(30, 41, 59);
+    doc.rect(margin, y, contentW, 7, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Category', margin + 4, y + 5);
+    doc.text('Annual Amount', pageW - margin - 4, y + 5, {align: 'right'});
+    y += 7;
+
+    // Table rows
+    const rows = [
+      ['Base Salary', salary, false],
+      ['Employer Payroll Taxes (8.15%)', payrollTax, false],
+    ];
+    if (benefits.health && healthAnnual > 0)      rows.push(['Health Insurance', healthAnnual, false]);
+    if (benefits.retirement && retirementAnnual > 0) rows.push([`401(k) Match (${retPct}%)`, retirementAnnual, false]);
+    if (benefits.pto && ptoValue > 0)             rows.push([`PTO Value (${ptoDays} days)`, ptoValue, false]);
+    if (benefits.dental && dentalAnnual > 0)       rows.push(['Dental & Vision', dentalAnnual, false]);
+    if (equipment > 0)    rows.push(['Equipment & Setup', equipment, false]);
+    if (softwareMo > 0)   rows.push(['Software Licenses', softwareAnnual, false]);
+    if (recruiting > 0)   rows.push(['Recruiting Cost', recruiting, false]);
+    if (workspaceMo > 0)  rows.push(['Office / Remote Stipend', workspaceAnnual, false]);
+    rows.push(['TOTAL TRUE ANNUAL COST', total, true]);
+
+    rows.forEach(([label, val, isTotal], i) => {
+      if (isTotal) {
+        doc.setFillColor(240, 253, 250);
+        doc.setDrawColor(13, 148, 136);
+        doc.rect(margin, y, contentW, 8, 'FD');
+        doc.setTextColor(15, 118, 110);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10);
+      } else {
+        doc.setFillColor(i % 2 === 0 ? 248 : 255, i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 252 : 255);
+        doc.rect(margin, y, contentW, 7, 'F');
+        doc.setTextColor(30, 41, 59);
+        doc.setFont('helvetica', i === rows.length - 1 ? 'bold' : 'normal');
+        doc.setFontSize(9);
+      }
+      doc.text(label, margin + 4, y + (isTotal ? 5.5 : 5));
+      doc.text(fmtPDF(val), pageW - margin - 4, y + (isTotal ? 5.5 : 5), {align: 'right'});
+      y += isTotal ? 8 : 7;
+    });
+
+    y += 8;
+
+    // ── BENCHMARK ──
+    doc.setFillColor(255, 247, 237);
+    doc.setDrawColor(249, 115, 22);
+    doc.roundedRect(margin, y, contentW, 22, 2, 2, 'FD');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(154, 52, 18);
+    doc.text('BENCHMARK COMPARISON', margin + 4, y + 7);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(124, 45, 18);
+    const benchLines = doc.splitTextToSize(benchmarkText + ' Industry average: 1.25–1.40x base salary.', contentW - 8);
+    doc.text(benchLines, margin + 4, y + 14);
+    y += 28;
+
+    // ── INSIGHT ──
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(226, 232, 240);
+    doc.roundedRect(margin, y, contentW, 30, 2, 2, 'FD');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(30, 41, 59);
+    doc.text('💡  KEY INSIGHT', margin + 4, y + 7);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(51, 65, 85);
+    const insightLine1 = `This employee costs ${pctAboveSalary}% more than their base salary. To justify this hire using the`;
+    const insightLine2 = `3x rule, they should generate at least ${fmtPDF(overhead3x)}/year in revenue or value — that's`;
+    const insightLine3 = `${fmtPDF(hourlyRate)}/productive hour at ${hoursPerWk} hours per week.`;
+    doc.text(insightLine1, margin + 4, y + 14);
+    doc.text(insightLine2, margin + 4, y + 20);
+    doc.text(insightLine3, margin + 4, y + 26);
+    y += 36;
+
+    // ── TOOL RECOMMENDATION ──
+    doc.setFillColor(204, 251, 241);
+    doc.setDrawColor(13, 148, 136);
+    doc.roundedRect(margin, y, contentW, 24, 2, 2, 'FD');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(15, 118, 110);
+    doc.text('NEXT STEP — MANAGE THESE COSTS WITH GUSTO', margin + 4, y + 7);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(20, 78, 74);
+    const gustoText = 'Gusto handles payroll taxes, benefits administration, and compliance automatically for small businesses. Try it free at gusto.com/r/brian7e7eb3a4';
+    const gustoLines = doc.splitTextToSize(gustoText, contentW - 8);
+    doc.text(gustoLines, margin + 4, y + 14);
+    y += 30;
+
+    // ── FOOTER ──
+    doc.setDrawColor(226, 232, 240);
+    doc.line(margin, y, pageW - margin, y);
+    y += 5;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(100, 116, 139);
+    doc.text('Generated by CalcWonk · calcwonk.com · Results are for informational purposes only and do not constitute financial or legal advice.', margin, y);
+    y += 4;
+    doc.text('CalcWonk may earn a commission from affiliate recommendations. See calcwonk.com/legal/ for full disclosure.', margin, y);
+
+    // Save PDF
+    const fileName = 'CalcWonk-Employee-Cost-Report.pdf';
+    doc.save(fileName);
+
+    // Update UI
+    btn.disabled = false;
+    btn.disabled = false;
+    btn.textContent = 'Download My PDF Report →';
+    status.style.color = '#6ee7b7';
+    status.textContent = '✅ Your PDF has been downloaded! Check your downloads folder. Welcome to CalcWonk!';
+
+    // GA event
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'pdf_download', {
+        event_category: 'engagement',
+        event_label: 'employee_cost_calculator'
+      });
     }
   }
 
