@@ -996,15 +996,7 @@
     </div>
   </div>
 
-  <!-- KIT SIGNUP (hidden) -->
-  <div style="display:none;" id="kitSignupContainer">
-    <form id="kitForm" data-sv-form="9253807" data-uid="91aa4bbf85" data-format="inline" action="https://app.kit.com/forms/9253807/subscriptions" method="post">
-      <input type="email" name="email_address" id="kitEmailField" value="" />
-      <input type="hidden" name="tags[]" value="employee-cost-calculator" />
-      <button type="submit" id="kitSubmitBtn">Subscribe</button>
-    </form>
-  </div>
-  <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+  <!-- KIT API v4 handles signup — no form embed needed -->
 
     <!-- AFFILIATE SECTION -->
   <div class="affiliate-section">
@@ -1278,31 +1270,21 @@
 
   async function submitToKit(email) {
     try {
-      // Try Kit API v4 first
-      const r = await fetch('https://api.kit.com/v4/subscribers', {
+      await fetch('https://api.kit.com/v4/forms/9253807/subscribers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Kit-Api-Key': '4nLr9nW8Ngj0M_3WhIXOsg'
+          'X-Kit-Api-Key': 'kit_064049c1e53f75675248ce395605ea30'
         },
-        body: JSON.stringify({ email_address: email, state: 'active' })
-      });
-      if (r.ok) return true;
-    } catch(e) {}
-
-    try {
-      // Fallback: ConvertKit v3 API — subscribe to form directly
-      await fetch('https://api.convertkit.com/v3/forms/9253807/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          api_key: '4nLr9nW8Ngj0M_3WhIXOsg',
-          email: email
+          email_address: email,
+          fields: { source: 'employee-cost-calculator' }
         })
       });
-    } catch(e) {}
-
-    return true; // Always generate PDF regardless
+      return true;
+    } catch(e) {
+      return true;
+    }
   }
 
   async function handlePDFCapture() {
