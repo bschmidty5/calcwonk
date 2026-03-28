@@ -349,7 +349,7 @@
     <div class="contact-box">
       <h3>Questions about our affiliate relationships?</h3>
       <p>We're happy to answer any questions about how we work.</p>
-      <a href="/cdn-cgi/l/email-protection#7417151817031b1a1f341319151d185a171b19" class="btn"><span class="__cf_email__" data-cfemail="bddedcd1decad2d3d6fddad0dcd4d193ded2d0">[email&#160;protected]</span></a>
+      <a href="mailto:brian@calcwonk.com" class="btn">brian@calcwonk.com</a>
     </div>
   </div>
 
@@ -397,7 +397,7 @@
     <p>We retain analytics data for up to 26 months, after which it is automatically deleted. If you contact us by email, we retain your message for as long as reasonably necessary to respond to your inquiry.</p>
 
     <h2>Your Rights</h2>
-    <p>Depending on your location, you may have certain rights regarding your personal data, including the right to access, correct, or delete information we hold about you. To exercise these rights, please contact us at <a href="/cdn-cgi/l/email-protection#e380828f80948c8d88a3848e828a8fcd808c8e"><span class="__cf_email__" data-cfemail="81e2e0ede2f6eeefeac1e6ece0e8edafe2eeec">[email&#160;protected]</span></a>. Because we collect minimal personal data, most requests can be handled quickly.</p>
+    <p>Depending on your location, you may have certain rights regarding your personal data, including the right to access, correct, or delete information we hold about you. To exercise these rights, please contact us at <a href="mailto:brian@calcwonk.com">brian@calcwonk.com</a>. Because we collect minimal personal data, most requests can be handled quickly.</p>
     <p>If you are a resident of California, the EU, or another jurisdiction with specific privacy rights, those rights apply to the extent data we hold falls within their scope.</p>
 
     <h2>Children's Privacy</h2>
@@ -409,7 +409,7 @@
     <div class="contact-box">
       <h3>Privacy questions?</h3>
       <p>Contact us at any time and we'll respond promptly.</p>
-      <a href="/cdn-cgi/l/email-protection#5734363b342038393c17303a363e3b7934383a" class="btn"><span class="__cf_email__" data-cfemail="d1b2b0bdb2a6bebfba91b6bcb0b8bdffb2bebc">[email&#160;protected]</span></a>
+      <a href="mailto:brian@calcwonk.com" class="btn">brian@calcwonk.com</a>
     </div>
   </div>
 
@@ -457,12 +457,12 @@
     <p>We may update these Terms from time to time. Continued use of the Site after changes are posted constitutes acceptance of the revised Terms. We will update the "Last updated" date at the top of the Legal &amp; Disclosures page when changes are made.</p>
 
     <h2>Contact</h2>
-    <p>Questions about these Terms? Contact us at <a href="/cdn-cgi/l/email-protection#6f0c0e030c180001042f08020e0603410c0002"><span class="__cf_email__" data-cfemail="89eae8e5eafee6e7e2c9eee4e8e0e5a7eae6e4">[email&#160;protected]</span></a>.</p>
+    <p>Questions about these Terms? Contact us at <a href="mailto:brian@calcwonk.com">brian@calcwonk.com</a>.</p>
 
     <div class="contact-box">
       <h3>Have a question about our terms?</h3>
       <p>We're a small operation and we respond to every message.</p>
-      <a href="/cdn-cgi/l/email-protection#5033313c33273f3e3b10373d31393c7e333f3d" class="btn"><span class="__cf_email__" data-cfemail="d1b2b0bdb2a6bebfba91b6bcb0b8bdffb2bebc">[email&#160;protected]</span></a>
+      <a href="mailto:brian@calcwonk.com" class="btn">brian@calcwonk.com</a>
     </div>
   </div>
 
@@ -474,9 +474,42 @@
     <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
     <div class="footer-links">
       <a href="/">Home</a>
-      <a href="/legal">Privacy Policy</a>
-      <a href="/legal">Terms of Service</a>
-      <a href="/legal">Affiliate Disclosure</a>
-      <a href="/cdn-cgi/l/email-protection#0162606d62766e6f6a41666c60686d2f626e6c">Contact</a>
+      <a href="/legal/#privacy">Privacy Policy</a>
+      <a href="/legal/#terms">Terms of Service</a>
+      <a href="/legal/#affiliate">Affiliate Disclosure</a>
+      <a href="mailto:brian@calcwonk.com">brian@calcwonk.com</a>
     </div>
     <p class="footer-disclaimer">
+    <p class="footer-copy">CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice.</p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+  </div>
+</footer>
+<script>
+  function showTab(tab, btn) {
+    // Hide all tab content panels
+    document.querySelectorAll('.tab-content').forEach(p => {
+      p.style.display = 'none';
+      p.classList.remove('active');
+    });
+    // Deactivate all buttons
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    // Show selected panel
+    const panel = document.getElementById(tab);
+    if (panel) { panel.style.display = 'block'; panel.classList.add('active'); }
+    // Activate selected button
+    if (btn) btn.classList.add('active');
+  }
+
+  // Handle anchor links for direct tab access from footer links
+  window.addEventListener('DOMContentLoaded', function() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'privacy' || hash === 'terms' || hash === 'affiliate') {
+      showTab(hash, document.querySelector('[onclick*="' + hash + '"]'));
+    } else {
+      // Default: show affiliate tab
+      showTab('affiliate', document.querySelector('[onclick*="affiliate"]'));
+    }
+  });
+</script>
+</body>
+</html>
