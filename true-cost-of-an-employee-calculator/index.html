@@ -1278,26 +1278,31 @@
 
   async function submitToKit(email) {
     try {
-      // Use Kit's own form submission mechanism
-      document.getElementById('kitEmailField').value = email;
-      
-      // Submit via XMLHttpRequest to Kit endpoint
-      return new Promise((resolve) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://app.kit.com/forms/9253807/subscriptions', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4) { resolve(true); }
-        };
-        xhr.onerror = function() { resolve(true); };
-        xhr.ontimeout = function() { resolve(true); };
-        xhr.timeout = 5000;
-        const params = 'email_address=' + encodeURIComponent(email) + '&tags[]=employee-cost-calculator';
-        xhr.send(params);
+      // Try Kit API v4 first
+      const r = await fetch('https://api.kit.com/v4/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Kit-Api-Key': '4nLr9nW8Ngj0M_3WhIXOsg'
+        },
+        body: JSON.stringify({ email_address: email, state: 'active' })
       });
-    } catch(e) {
-      return true; // Always generate PDF even if signup fails
-    }
+      if (r.ok) return true;
+    } catch(e) {}
+
+    try {
+      // Fallback: ConvertKit v3 API — subscribe to form directly
+      await fetch('https://api.convertkit.com/v3/forms/9253807/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: '4nLr9nW8Ngj0M_3WhIXOsg',
+          email: email
+        })
+      });
+    } catch(e) {}
+
+    return true; // Always generate PDF regardless
   }
 
   async function handlePDFCapture() {
