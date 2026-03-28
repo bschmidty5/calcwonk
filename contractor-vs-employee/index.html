@@ -825,7 +825,7 @@
         <div class="affiliate-card-desc">Best for W-2 employees — handles payroll taxes, filings, and benefits automatically. Simple enough for first-time employers.</div>
         <span class="affiliate-card-cta">Try Gusto →</span>
       </a>
-      <a href="#" class="affiliate-card">
+      <a href="https://get.deel.com/b99nzenjqw1m" target="_blank" rel="noopener" class="affiliate-card">
         <div class="affiliate-card-name">Deel</div>
         <div class="affiliate-card-desc">Built for contractor payments — handles contracts, invoicing, and international payments in one place. Great if you use multiple contractors.</div>
         <span class="affiliate-card-cta">Try Deel →</span>
@@ -1034,15 +1034,13 @@
         : `Even though the employee costs less, contractors offer flexibility with no long-term commitment — worth considering if the workload may fluctuate.`);
   }
 
-  function toggleFaq(btn) {
-    const answer = btn.nextElementSibling;
-    const isOpen = btn.classList.contains('open');
-    document.querySelectorAll('.faq-question').forEach(q => {
-      q.classList.remove('open');
-      q.nextElementSibling.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.classList.add('open');
-      answer.classList.add('open');
-    }
-  }
+  document.querySelectorAll('input[type="number"], select').forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+
+  calculate();
+
+</script>
+</body>
+</html>
