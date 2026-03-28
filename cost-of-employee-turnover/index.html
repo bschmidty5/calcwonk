@@ -1156,4 +1156,13 @@
     }
   }
 
-  document.querySelectorAll('input[type="number"], select').forEach
+  document.querySelectorAll('input[type="number"], select').forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+
+  calculate();
+
+</script>
+</body>
+</html>
