@@ -941,11 +941,107 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   function fmt(n) {
-    return '$' + Math.round(n).toLocaleString();
+    return '$' + Math.round(Math.abs(n)).toLocaleString();
   }
 
+  function calculate() {
+    const hoursPerWeek     = parseFloat(document.getElementById('hoursPerWeek').value) || 40;
+    const weeksPerYear     = parseFloat(document.getElementById('weeksPerYear').value) || 52;
+    const employeeSalary   = parseFloat(document.getElementById('employeeSalary').value) || 0;
+    const healthMonthly    = parseFloat(document.getElementById('healthMonthly').value) || 0;
+    const retirementMatch  = parseFloat(document.getElementById('retirementMatch').value) || 0;
+    const otherBenefits    = parseFloat(document.getElementById('otherBenefits').value) || 0;
+    const contractorRate   = parseFloat(document.getElementById('contractorRate').value) || 0;
+    const agencyFee        = parseFloat(document.getElementById('agencyFee').value) || 0;
+    const equipmentCost    = parseFloat(document.getElementById('equipmentCost').value) || 0;
+    const managementOverhead = parseFloat(document.getElementById('managementOverhead').value) || 0;
+
+    const totalHours = hoursPerWeek * weeksPerYear;
+
+    // Employee costs
+    const payrollTaxRate   = 0.0815;
+    const payrollTax       = employeeSalary * payrollTaxRate;
+    const healthAnnual     = healthMonthly * 12;
+    const retirementAnnual = employeeSalary * (retirementMatch / 100);
+    const employeeTotal    = employeeSalary + payrollTax + healthAnnual + retirementAnnual + otherBenefits;
+    const employeeHourlyRate = totalHours > 0 ? employeeTotal / totalHours : 0;
+
+    // Contractor costs
+    const contractorBase      = contractorRate * totalHours;
+    const agencyFeeAmt        = contractorBase * (agencyFee / 100);
+    const managementAnnual    = managementOverhead * 12;
+    const contractorTotal     = contractorBase + agencyFeeAmt + equipmentCost + managementAnnual;
+    const contractorHourlyRate = totalHours > 0 ? contractorTotal / totalHours : 0;
+
+    const diff = employeeTotal - contractorTotal;
+    const cheaper = diff > 0 ? 'contractor' : 'employee';
+
+    // Update totals
+    document.getElementById('employeeTotal').textContent   = fmt(employeeTotal);
+    document.getElementById('employeeHourly').textContent  = '$' + employeeHourlyRate.toFixed(2) + ' / hour true cost';
+    document.getElementById('contractorTotal').textContent = fmt(contractorTotal);
+    document.getElementById('contractorHourly').textContent = '$' + contractorHourlyRate.toFixed(2) + ' / hour true cost';
+
+    // Verdict
+    const verdictBanner = document.getElementById('verdictBanner');
+    const savingsAmt = fmt(Math.abs(diff));
+    document.getElementById('verdictIcon').textContent = cheaper === 'employee' ? '👤' : '📋';
+    document.getElementById('verdictTitle').textContent =
+      cheaper === 'employee'
+        ? 'The Employee is Less Expensive'
+        : 'The Contractor is Less Expensive';
+    document.getElementById('verdictSub').textContent =
+      'Based on your inputs, the ' + cheaper + ' costs less annually';
+    document.getElementById('verdictDiff').textContent = savingsAmt;
+    document.getElementById('verdictDiffLabel').textContent = 'annual difference';
+    verdictBanner.classList.remove('cheaper-employee', 'cheaper-contractor');
+    verdictBanner.classList.add('cheaper-' + cheaper);
+
+    // Breakdown table
+    const rows = [
+      ['Base Salary / Contract Cost', fmt(employeeSalary), fmt(contractorBase)],
+      ['Employer Payroll Taxes (8.15%)', fmt(payrollTax), '—'],
+      ['Health Insurance', fmt(healthAnnual), '—'],
+      ['401(k) Match (' + retirementMatch + '%)', fmt(retirementAnnual), '—'],
+      ['Other Benefits', fmt(otherBenefits), '—'],
+      ['Agency / Platform Fee', '—', fmt(agencyFeeAmt)],
+      ['Equipment & Tools', '—', fmt(equipmentCost)],
+      ['Management Overhead', '—', fmt(managementAnnual)],
+      ['TOTAL ANNUAL COST', fmt(employeeTotal), fmt(contractorTotal)],
+    ];
+
+    document.getElementById('breakdownBody').innerHTML = rows.map((r, i) => {
+      const isTotal = i === rows.length - 1;
+      return `<tr${isTotal ? ' class="total-row"' : ''}>
+        <td>${r[0]}</td>
+        <td class="employee-val">${r[1]}</td>
+        <td class="contractor-val">${r[2]}</td>
+      </tr>`;
+    }).join('');
+
+    // Insight
+    document.getElementById('insightText').innerHTML =
+      `Based on your inputs, the <strong>${cheaper} is less expensive by ${savingsAmt}/year</strong>. ` +
+      `The employee's true hourly cost is <strong>$${employeeHourlyRate.toFixed(2)}/hr</strong> vs. the contractor's <strong>$${contractorHourlyRate.toFixed(2)}/hr</strong>. ` +
+      (cheaper === 'contractor'
+        ? `Before choosing the contractor, make sure the working relationship qualifies — if you control their schedule and methods, the IRS may consider them an employee regardless.`
+        : `Even though the employee costs more, consider the long-term value of an employee's institutional knowledge and the flexibility to direct their work.`);
+  }
+
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.classList.remove('open');
+      q.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
 
   document.querySelectorAll('input[type="number"], select').forEach(el => {
     el.addEventListener('input', calculate);
