@@ -693,6 +693,8 @@
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
   <ul class="nav-links">
     <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
@@ -1050,6 +1052,8 @@
     <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
     <div class="footer-links">
       <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
@@ -1062,7 +1066,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const COMPLEXITY_MULTIPLIERS = {
     low: 0.5,
     medium: 1.0,
@@ -1207,217 +1211,13 @@
   }
 
 
-  // ── PDF GENERATION — TURNOVER CALCULATOR ──
-  async function handlePDFCapture() {
-    const btn = document.getElementById('pdfBtn');
-    const status = document.getElementById('pdfStatus');
+  document.querySelectorAll('input[type="number"], select').forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
 
-    if (!window.jspdf) {
-      status.style.display = 'block';
-      status.style.color = '#fca5a5';
-      status.textContent = 'PDF library still loading — please try again in a moment.';
-      return;
-    }
+  calculate();
 
-    btn.disabled = true;
-    btn.textContent = 'Generating...';
-    status.style.display = 'block';
-    status.style.color = '#94a3b8';
-    status.textContent = 'Building your PDF report...';
-
-    // Get current values
-    const salary              = parseFloat(document.getElementById('salary').value) || 0;
-    const annualTurnoverCount = parseFloat(document.getElementById('annualTurnoverCount').value) || 1;
-    const complexity          = document.getElementById('roleComplexity').value;
-    const trainingWeeks       = parseFloat(document.getElementById('trainingWeeks').value) || 1;
-    const managerSalary       = parseFloat(document.getElementById('managerSalary').value) || 0;
-    const jobPostingCost      = parseFloat(document.getElementById('jobPostingCost').value) || 0;
-    const recruiterFee        = parseFloat(document.getElementById('recruiterFee').value) || 0;
-    const interviewHours      = parseFloat(document.getElementById('interviewHours').value) || 0;
-    const backgroundCheck     = parseFloat(document.getElementById('backgroundCheck').value) || 0;
-    const trainingCost        = parseFloat(document.getElementById('trainingCost').value) || 0;
-    const managerOnboardHours = parseFloat(document.getElementById('managerOnboardingHours').value) || 0;
-
-    const complexityMult  = { low: 0.5, medium: 1.0, high: 1.5, vhigh: 2.0 }[complexity] || 1.0;
-    const managerHourly   = managerSalary / 2080;
-    const interviewCost   = interviewHours * managerHourly;
-    const recruitingTotal = jobPostingCost + recruiterFee + interviewCost + backgroundCheck;
-    const productivityLoss = (salary / 52) * 4;
-    const rampUpLoss      = (salary / 52) * trainingWeeks * 0.5;
-    const managerOnboard  = managerOnboardHours * managerHourly;
-    const trainingTotal   = trainingCost + rampUpLoss + managerOnboard;
-    const yearsOfService  = parseFloat(document.getElementById('yearsOfService').value) || 1;
-    const culturalCost    = salary * 0.05 * Math.min(yearsOfService, 5) * complexityMult;
-    const total           = recruitingTotal + productivityLoss + trainingTotal + culturalCost;
-    const annualTotal     = total * annualTurnoverCount;
-    const percentSalary   = salary > 0 ? ((total / salary) * 100).toFixed(0) : 0;
-    const retentionROI    = annualTotal * 0.3; // 30% reduction in turnover with good HR tools
-
-    const fmtN = n => '$' + Math.round(Math.abs(n)).toLocaleString();
-
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-    const pageW = 210; const margin = 20; const contentW = pageW - margin * 2;
-    let y = 0;
-
-    // Header
-    doc.setFillColor(13, 148, 136);
-    doc.rect(0, 0, pageW, 42, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.text('CalcWonk', margin, 18);
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'normal');
-    doc.text('Cost of Employee Turnover — Results Report', margin, 28);
-    doc.setFontSize(9);
-    doc.setTextColor(204, 251, 241);
-    doc.text('Generated ' + new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}), margin, 36);
-    doc.text('calcwonk.com/cost-of-employee-turnover/', pageW - margin, 36, {align:'right'});
-
-    y = 54;
-
-    // Cost per departure highlight
-    doc.setFillColor(254, 242, 242);
-    doc.setDrawColor(220, 38, 38);
-    doc.roundedRect(margin, y, contentW, 28, 3, 3, 'FD');
-    doc.setTextColor(153, 27, 27);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.text('COST PER DEPARTURE', margin + 8, y + 9);
-    doc.setFontSize(26);
-    doc.setTextColor(220, 38, 38);
-    doc.text(fmtN(total), margin + 8, y + 22);
-    doc.setFontSize(11);
-    doc.setTextColor(100, 116, 139);
-    doc.setFont('helvetica', 'normal');
-    doc.text(percentSalary + '% of annual salary', pageW/2 + 10, y + 13);
-    doc.text('Annual impact: ' + fmtN(annualTotal), pageW/2 + 10, y + 22);
-    y += 36;
-
-    // Breakdown table
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.setTextColor(30, 41, 59);
-    doc.text('Cost Breakdown', margin, y);
-    y += 6;
-
-    doc.setFillColor(30, 41, 59);
-    doc.rect(margin, y, contentW, 7, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Category', margin + 4, y + 5);
-    doc.text('Amount', pageW - margin - 4, y + 5, {align:'right'});
-    y += 7;
-
-    const rows = [
-      ['Recruiting (posting, fees, interviews, checks)', recruitingTotal],
-      ['Productivity loss during vacancy (4 weeks)', productivityLoss],
-      ['New hire ramp-up loss (' + trainingWeeks + ' weeks at 50%)', rampUpLoss],
-      ['Formal training costs', trainingCost],
-      ['Manager onboarding time', managerOnboard],
-      ['Institutional knowledge & culture loss', culturalCost],
-      ['TOTAL COST PER DEPARTURE', total],
-    ];
-
-    rows.forEach(([label, val], i) => {
-      const isTotal = i === rows.length - 1;
-      if (isTotal) {
-        doc.setFillColor(254, 242, 242);
-        doc.setDrawColor(220, 38, 38);
-        doc.rect(margin, y, contentW, 8, 'FD');
-        doc.setTextColor(153, 27, 27);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(10);
-      } else {
-        doc.setFillColor(i % 2 === 0 ? 248 : 255, i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 252 : 255);
-        doc.rect(margin, y, contentW, 7, 'F');
-        doc.setTextColor(30, 41, 59);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(9);
-      }
-      doc.text(label, margin + 4, y + (isTotal ? 5.5 : 5));
-      doc.text(fmtN(val), pageW - margin - 4, y + (isTotal ? 5.5 : 5), {align:'right'});
-      y += isTotal ? 8 : 7;
-    });
-
-    y += 8;
-
-    // Benchmark
-    doc.setFillColor(255, 247, 237);
-    doc.setDrawColor(249, 115, 22);
-    doc.roundedRect(margin, y, contentW, 20, 2, 2, 'FD');
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
-    doc.setTextColor(154, 52, 18);
-    doc.text('BENCHMARK', margin + 4, y + 7);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(124, 45, 18);
-    const benchmark = 'Industry research places average turnover cost at 50–200% of annual salary. Your result of ' + percentSalary + '% ' + (percentSalary < 75 ? 'is below average — typical for lower-complexity roles.' : percentSalary < 150 ? 'is within the typical range.' : 'is above average — reflecting a senior or specialized role.');
-    const bLines = doc.splitTextToSize(benchmark, contentW - 8);
-    doc.text(bLines, margin + 4, y + 14);
-    y += 26;
-
-    // Key insight
-    doc.setFillColor(248, 250, 252);
-    doc.setDrawColor(226, 232, 240);
-    doc.roundedRect(margin, y, contentW, 26, 2, 2, 'FD');
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
-    doc.setTextColor(30, 41, 59);
-    doc.text('💡  KEY INSIGHT', margin + 4, y + 7);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(51, 65, 85);
-    const insight1 = 'Across ' + annualTurnoverCount + ' departure' + (annualTurnoverCount > 1 ? 's' : '') + ' per year, turnover is costing your business ' + fmtN(annualTotal) + ' annually.';
-    const insight2 = 'A 30% reduction in turnover — achievable with better onboarding and HR tools — would save approximately';
-    const insight3 = fmtN(retentionROI) + ' per year. The math on retention almost always pencils out.';
-    doc.text(insight1, margin + 4, y + 14);
-    doc.text(insight2, margin + 4, y + 20);
-    doc.text(insight3, margin + 4, y + 26);
-    y += 32;
-
-    // Gusto recommendation
-    doc.setFillColor(240, 253, 250);
-    doc.setDrawColor(13, 148, 136);
-    doc.roundedRect(margin, y, contentW, 22, 2, 2, 'FD');
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
-    doc.setTextColor(15, 118, 110);
-    doc.text('NEXT STEP — REDUCE TURNOVER WITH GUSTO', margin + 4, y + 7);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(20, 78, 74);
-    const gustoText = "Gusto's structured onboarding, benefits administration, and employee self-service tools are proven retention drivers. Try free at gusto.com/r/brian7e7eb3a4";
-    const gLines = doc.splitTextToSize(gustoText, contentW - 8);
-    doc.text(gLines, margin + 4, y + 14);
-    y += 28;
-
-    // Footer
-    doc.setDrawColor(226, 232, 240);
-    doc.line(margin, y, pageW - margin, y);
-    y += 5;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7.5);
-    doc.setTextColor(100, 116, 139);
-    doc.text('Generated by CalcWonk · calcwonk.com · For informational purposes only. Not financial or legal advice.', margin, y);
-    y += 4;
-    doc.text('CalcWonk may earn commissions from affiliate recommendations. See calcwonk.com/legal/ for disclosure.', margin, y);
-
-    doc.save('CalcWonk-Turnover-Cost-Report.pdf');
-
-    btn.disabled = false;
-    btn.textContent = 'Download My PDF Report →';
-    status.style.color = '#6ee7b7';
-    status.textContent = '✅ Your PDF has been downloaded! Check your downloads folder.';
-    const kitSection = document.getElementById('kitSignupSection');
-    if (kitSection) { kitSection.style.display = 'block'; kitSection.scrollIntoView({behavior:'smooth', block:'nearest'}); }
-
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'pdf_download', { event_category: 'engagement', event_label: 'turnover_calculator' });
-    }
-  }
-
-  document.querySelectorAll('input[type="number"], select').forEac
+</script>
+</body>
+</html>
