@@ -717,6 +717,8 @@
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
   <ul class="nav-links">
     <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
@@ -1104,6 +1106,8 @@
     <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
     <div class="footer-links">
       <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
@@ -1116,7 +1120,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── BENCHMARKS ──
   const BENCHMARKS = {
     retail:        { label: 'Retail',               gross: '25–45%', operating: '3–8%',   net: '2–5%',   ebitda: '5–10%' },
@@ -1273,17 +1277,14 @@
       </tr>`;
   }
 
-  function toggleFaq(btn) {
-    const answer = btn.nextElementSibling;
-    const isOpen = btn.classList.contains('open');
-    document.querySelectorAll('.faq-question').forEach(q => {
-      q.classList.remove('open');
-      q.nextElementSibling.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.classList.add('open');
-      answer.classList.add('open');
-    }
-  }
 
-  document.querySelectorAll('input[type="number"], select').forEac
+  document.querySelectorAll('input[type="number"], select').forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+
+  calculate();
+
+</script>
+</body>
+</html>
