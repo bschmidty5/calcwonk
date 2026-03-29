@@ -11,8 +11,9 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contractor vs. Employee Calculator — 1099 vs W2 True Cost | CalcWonk</title>
-  <meta name="description" content="Compare the true cost of hiring a contractor vs. an employee. See the real difference between 1099 and W2 including taxes, benefits, and hidden costs." />
+  <title>Cost of Employee Turnover Calculator — What Losing Staff Really Costs | CalcWonk</title>
+  <meta name="description" content="Calculate the true cost of employee turnover including recruiting, training, lost productivity, and management time. Most businesses underestimate this number significantly." />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" async></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -28,10 +29,9 @@
       --gray-light: #f8fafc;
       --border: #e2e8f0;
       --white: #ffffff;
-      --green: #16a34a;
-      --green-light: #dcfce7;
-      --purple: #7c3aed;
-      --purple-light: #ede9fe;
+      --red: #dc2626;
+      --red-light: #fee2e2;
+      --red-border: #fecaca;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -188,10 +188,7 @@
       color: var(--navy);
     }
 
-    .hint {
-      font-size: 0.75rem;
-      color: var(--gray);
-    }
+    .hint { font-size: 0.75rem; color: var(--gray); }
 
     .input-wrapper {
       position: relative;
@@ -235,52 +232,114 @@
     .has-prefix input { padding-left: 1.75rem; }
     .has-suffix input { padding-right: 2.5rem; }
 
-    /* ── COMPARISON COLUMNS ── */
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    /* ── RESULTS CARD ── */
+    .results-card {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .results-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    @media (max-width: 580px) { .comparison-grid { grid-template-columns: 1fr; } }
-
-    .col-header {
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 0;
-    }
-
-    .col-header.employee { background: var(--teal-xlight); border: 2px solid var(--teal-light); }
-    .col-header.contractor { background: var(--purple-light); border: 2px solid #c4b5fd; }
-
-    .col-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+    .results-total-label {
+      font-size: 0.8rem;
+      color: #94a3b8;
       text-transform: uppercase;
+      letter-spacing: 0.06em;
       margin-bottom: 0.25rem;
     }
 
-    .col-label.employee { color: var(--teal-dark); }
-    .col-label.contractor { color: var(--purple); }
-
-    .col-total {
+    .results-total-value {
       font-family: 'Playfair Display', serif;
-      font-size: 1.9rem;
+      font-size: 2.4rem;
+      color: #fca5a5;
       line-height: 1;
-      margin-bottom: 0.2rem;
     }
 
-    .col-total.employee { color: var(--teal-dark); }
-    .col-total.contractor { color: var(--purple); }
+    .results-total-sub {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 0.3rem;
+    }
 
-    .col-sub { font-size: 0.78rem; color: var(--gray); }
+    .results-secondary { text-align: right; }
 
-    /* ── VERDICT BANNER ── */
-    .verdict-banner {
-      background: var(--navy);
-      border-radius: 12px;
+    .secondary-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--orange);
+    }
+
+    .secondary-label { font-size: 0.75rem; color: #94a3b8; }
+
+    /* ── BREAKDOWN BARS ── */
+    .breakdown-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .breakdown-item {
+      display: grid;
+      grid-template-columns: 160px 1fr 80px;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 480px) {
+      .breakdown-item { grid-template-columns: 110px 1fr 70px; }
+    }
+
+    .breakdown-label {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .breakdown-bar-track {
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .breakdown-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    .bar-recruiting { background: #f87171; }
+    .bar-training { background: var(--orange); }
+    .bar-productivity { background: #34d399; }
+    .bar-management { background: #818cf8; }
+    .bar-cultural { background: #e879f9; }
+
+    .breakdown-value {
+      font-size: 0.8rem;
+      color: var(--white);
+      text-align: right;
+      font-weight: 500;
+    }
+
+    /* ── ANNUAL IMPACT BOX ── */
+    .annual-impact {
+      background: var(--red-light);
+      border: 1px solid var(--red-border);
+      border-radius: 10px;
       padding: 1.25rem 1.5rem;
       margin-bottom: 1.5rem;
       display: flex;
@@ -289,69 +348,35 @@
       flex-wrap: wrap;
     }
 
-    .verdict-icon { font-size: 1.75rem; flex-shrink: 0; }
+    .annual-impact-icon { font-size: 2rem; flex-shrink: 0; }
 
-    .verdict-text { flex: 1; }
+    .annual-impact-text { flex: 1; }
 
-    .verdict-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--white);
+    .annual-impact-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--red);
       margin-bottom: 0.2rem;
     }
 
-    .verdict-sub { font-size: 0.85rem; color: #94a3b8; }
+    .annual-impact-sub {
+      font-size: 0.85rem;
+      color: #7f1d1d;
+    }
 
-    .verdict-diff {
+    .annual-impact-number {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      color: var(--orange);
+      font-size: 1.75rem;
+      color: var(--red);
       text-align: right;
       flex-shrink: 0;
     }
 
-    .verdict-diff-label { font-size: 0.72rem; color: #94a3b8; text-align: right; }
-
-    /* ── BREAKDOWN TABLE ── */
-    .breakdown-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
-      margin-bottom: 1.5rem;
+    .annual-impact-number-label {
+      font-size: 0.72rem;
+      color: #991b1b;
+      text-align: right;
     }
-
-    .breakdown-table th {
-      text-align: left;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--gray);
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--border);
-    }
-
-    .breakdown-table th:not(:first-child) { text-align: right; }
-
-    .breakdown-table td {
-      padding: 0.6rem 0.75rem;
-      border-bottom: 1px solid var(--border);
-      color: var(--navy);
-    }
-
-    .breakdown-table td:not(:first-child) { text-align: right; font-weight: 500; }
-
-    .breakdown-table tr.total-row td {
-      font-weight: 700;
-      font-size: 0.95rem;
-      border-top: 2px solid var(--border);
-      border-bottom: none;
-    }
-
-    .breakdown-table tr.total-row td.employee-val { color: var(--teal-dark); }
-    .breakdown-table tr.total-row td.contractor-val { color: var(--purple); }
-
-    .na { color: #cbd5e1; font-weight: 400 !important; }
 
     /* ── INSIGHT BOX ── */
     .insight-box {
@@ -375,23 +400,84 @@
 
     .insight-text strong { color: #9a3412; }
 
-    /* ── WARNING BOX ── */
-    .warning-box {
-      background: #fef9c3;
-      border: 1px solid #fde047;
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      display: flex;
-      gap: 0.75rem;
-      align-items: flex-start;
+    /* ── SUMMARY TABLE ── */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
       margin-bottom: 1.5rem;
     }
 
-    .warning-text {
-      font-size: 0.85rem;
-      color: #713f12;
-      line-height: 1.6;
+    .summary-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+      padding: 0.5rem 0.75rem;
+      border-bottom: 2px solid var(--border);
     }
+
+    .summary-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--navy);
+    }
+
+    .summary-table td:last-child { text-align: right; font-weight: 500; }
+
+    .summary-table tr:last-child td {
+      border-bottom: none;
+      font-weight: 700;
+      color: var(--red);
+      font-size: 0.95rem;
+      background: var(--red-light);
+    }
+
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+
+    /* ── RELATED TOOLS ── */
+    .related-tools {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 540px) { .related-tools { grid-template-columns: 1fr; } }
+
+    .related-tool {
+      background: var(--teal-xlight);
+      border: 1.5px solid var(--teal-light);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-decoration: none;
+      transition: box-shadow 0.2s;
+    }
+
+    .related-tool:hover { box-shadow: 0 4px 12px rgba(13,148,136,0.12); }
+
+    .related-tool-text h4 {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+
+    .related-tool-text p { font-size: 0.78rem; color: var(--gray); margin: 0; }
+    .related-tool-arrow { font-size: 1.1rem; color: var(--teal); flex-shrink: 0; }
 
     /* ── AFFILIATE ── */
     .affiliate-section {
@@ -469,34 +555,6 @@
 
     .affiliate-disclosure a { color: var(--teal); text-decoration: none; }
     .affiliate-disclosure a:hover { text-decoration: underline; }
-
-    /* ── RELATED TOOL ── */
-    .related-tool {
-      background: var(--teal-xlight);
-      border: 1.5px solid var(--teal-light);
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      text-decoration: none;
-      margin-bottom: 2.5rem;
-      transition: box-shadow 0.2s;
-    }
-
-    .related-tool:hover { box-shadow: 0 4px 12px rgba(13,148,136,0.12); }
-
-    .related-tool-text h4 {
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--navy);
-      margin-bottom: 0.2rem;
-    }
-
-    .related-tool-text p { font-size: 0.82rem; color: var(--gray); margin: 0; }
-
-    .related-tool-arrow { font-size: 1.25rem; color: var(--teal); flex-shrink: 0; }
 
     /* ── CONTENT ── */
     .content-section { margin-bottom: 2.5rem; }
@@ -612,6 +670,20 @@
     .footer-links a:hover { color: var(--teal-light); }
     .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 600px; line-height: 1.5; }
     .footer-copy { font-size: 0.8rem; color: #475569; }
+
+    /* ── PDF CAPTURE ── */
+    .pdf-capture { background: var(--navy); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .pdf-capture-text h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--white); margin-bottom: 0.3rem; }
+    .pdf-capture-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+    .pdf-capture-form { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+    .pdf-email-input { padding: 0.6rem 1rem; border-radius: 8px; border: 1.5px solid #334155; background: #1e293b; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; width: 220px; transition: border-color 0.2s; }
+    .pdf-email-input::placeholder { color: #64748b; }
+    .pdf-email-input:focus { outline: none; border-color: var(--teal); }
+    .pdf-download-btn { background: var(--teal); color: #ffffff !important; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.1s; white-space: nowrap; }
+    .pdf-download-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+    .pdf-download-btn:disabled { background: #334155; cursor: not-allowed; transform: none; }
+    .pdf-status { font-size: 0.8rem; color: var(--teal-light); margin-top: 0.5rem; display: none; width: 100%; }
+    .pdf-privacy { font-size: 0.72rem; color: #475569; margin-top: 0.5rem; width: 100%; }
   </style>
 </head>
 <body>
@@ -621,17 +693,17 @@
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
   <ul class="nav-links">
     <li><a href="/">Tools</a></li>
-    <li><a href="/legal">Disclosures</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
 
 <!-- PAGE HERO -->
 <div class="page-hero">
   <div class="breadcrumb">
-    <a href="/">CalcWonk</a> › Small Business › Contractor vs. Employee Calculator
+    <a href="/">CalcWonk</a> › Small Business › Cost of Employee Turnover
   </div>
-  <h1>Contractor vs. Employee Calculator</h1>
-  <p>1099 or W-2? The answer isn't just about hourly rate. See the true cost difference — including taxes, benefits, flexibility, and hidden risks.</p>
+  <h1>Cost of Employee Turnover Calculator</h1>
+  <p>Losing an employee costs far more than most business owners realize. Calculate the full financial impact — from recruiting costs to lost productivity — before it happens to you.</p>
 </div>
 
 <!-- MAIN -->
@@ -640,154 +712,160 @@
   <!-- CALCULATOR -->
   <div class="calc-card">
     <div class="calc-header">
-      <span>⚖️</span>
+      <span>📉</span>
       <h2>Enter Your Numbers</h2>
     </div>
     <div class="calc-body">
 
-      <!-- SHARED INPUTS -->
+      <!-- EMPLOYEE DETAILS -->
       <div class="input-section">
-        <div class="input-section-title">Role Details</div>
+        <div class="input-section-title">Employee Details</div>
         <div class="input-grid">
           <div class="input-group">
-            <label for="hoursPerWeek">Hours Per Week</label>
-            <span class="hint">Expected weekly hours for this role</span>
+            <label for="salary">Annual Salary</label>
+            <span class="hint">Departing employee's base salary</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="salary" value="65000" min="0" step="1000" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="yearsOfService">Years of Service</label>
+            <span class="hint">How long the employee worked there</span>
             <div class="input-wrapper has-suffix">
-              <input type="number" id="hoursPerWeek" value="40" min="1" max="60" />
+              <input type="number" id="yearsOfService" value="2" min="0" max="40" step="0.5" />
+              <span class="input-suffix">yrs</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="roleComplexity">Role Complexity</label>
+            <span class="hint">How specialized or hard to fill is this role?</span>
+            <div class="input-wrapper">
+              <select id="roleComplexity" style="width:100%;padding:0.6rem 0.75rem;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--navy);background:var(--white);">
+                <option value="low">Low — entry level, easy to fill</option>
+                <option value="medium" selected>Medium — some experience required</option>
+                <option value="high">High — specialized or senior role</option>
+                <option value="executive">Executive — C-suite or VP level</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="annualTurnoverCount">Employees Lost Per Year</label>
+            <span class="hint">Total turnover across your business</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="annualTurnoverCount" value="3" min="1" max="100" />
+              <span class="input-suffix">ppl</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECRUITING COSTS -->
+      <div class="input-section">
+        <div class="input-section-title">Recruiting Costs</div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label for="jobPostingCost">Job Posting & Advertising</label>
+            <span class="hint">Indeed, LinkedIn, etc.</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="jobPostingCost" value="500" min="0" step="50" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="recruiterFee">Recruiter / Agency Fee</label>
+            <span class="hint">Leave $0 if hiring directly</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="recruiterFee" value="0" min="0" step="500" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="interviewHours">Interview Time (Total Hours)</label>
+            <span class="hint">All staff time spent interviewing</span>
+            <div class="input-wrapper has-suffix">
+              <input type="number" id="interviewHours" value="10" min="0" step="1" />
               <span class="input-suffix">hrs</span>
             </div>
           </div>
           <div class="input-group">
-            <label for="weeksPerYear">Weeks Per Year</label>
-            <span class="hint">How many weeks you need this role</span>
+            <label for="backgroundCheck">Background Check & Testing</label>
+            <span class="hint">Per hire cost</span>
+            <div class="input-wrapper has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="backgroundCheck" value="150" min="0" step="25" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ONBOARDING & TRAINING -->
+      <div class="input-section">
+        <div class="input-section-title">Onboarding & Training</div>
+        <div class="input-grid">
+          <div class="input-group">
+            <label for="trainingWeeks">Time to Full Productivity</label>
+            <span class="hint">Weeks until new hire performs at full capacity</span>
             <div class="input-wrapper has-suffix">
-              <input type="number" id="weeksPerYear" value="52" min="1" max="52" />
+              <input type="number" id="trainingWeeks" value="12" min="1" max="104" />
               <span class="input-suffix">wks</span>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- EMPLOYEE INPUTS -->
-      <div class="input-section">
-        <div class="input-section-title" style="color:var(--teal-dark)">Employee (W-2) Details</div>
-        <div class="input-grid">
           <div class="input-group">
-            <label for="employeeSalary">Annual Salary</label>
-            <span class="hint">Base salary before taxes</span>
+            <label for="trainingCost">Formal Training Costs</label>
+            <span class="hint">Courses, materials, certifications</span>
             <div class="input-wrapper has-prefix">
               <span class="input-prefix">$</span>
-              <input type="number" id="employeeSalary" value="65000" min="0" step="1000" />
+              <input type="number" id="trainingCost" value="1000" min="0" step="100" />
             </div>
           </div>
           <div class="input-group">
-            <label for="healthMonthly">Health Insurance / Month</label>
-            <span class="hint">Employer's share</span>
-            <div class="input-wrapper has-prefix">
-              <span class="input-prefix">$</span>
-              <input type="number" id="healthMonthly" value="550" min="0" step="10" />
-            </div>
-          </div>
-          <div class="input-group">
-            <label for="retirementMatch">401(k) Match</label>
-            <span class="hint">% of salary you contribute</span>
+            <label for="managerOnboardingHours">Manager Onboarding Time</label>
+            <span class="hint">Hours your manager spends onboarding the new hire</span>
             <div class="input-wrapper has-suffix">
-              <input type="number" id="retirementMatch" value="3" min="0" max="10" step="0.5" />
-              <span class="input-suffix">%</span>
+              <input type="number" id="managerOnboardingHours" value="20" min="0" step="1" />
+              <span class="input-suffix">hrs</span>
             </div>
           </div>
           <div class="input-group">
-            <label for="otherBenefits">Other Benefits / Year</label>
-            <span class="hint">PTO value, dental, vision, etc.</span>
+            <label for="managerSalary">Manager's Annual Salary</label>
+            <span class="hint">Used to calculate manager time cost</span>
             <div class="input-wrapper has-prefix">
               <span class="input-prefix">$</span>
-              <input type="number" id="otherBenefits" value="4000" min="0" step="100" />
+              <input type="number" id="managerSalary" value="90000" min="0" step="1000" />
             </div>
           </div>
         </div>
       </div>
 
-      <!-- CONTRACTOR INPUTS -->
-      <div class="input-section">
-        <div class="input-section-title" style="color:var(--purple)">Contractor (1099) Details</div>
-        <div class="input-grid">
-          <div class="input-group">
-            <label for="contractorRate">Hourly Rate</label>
-            <span class="hint">What the contractor charges</span>
-            <div class="input-wrapper has-prefix">
-              <span class="input-prefix">$</span>
-              <input type="number" id="contractorRate" value="65" min="0" step="1" />
-            </div>
+      <!-- RESULTS -->
+      <div class="results-card">
+        <div class="results-main">
+          <div>
+            <div class="results-total-label">Total Cost Per Departure</div>
+            <div class="results-total-value" id="totalCost">$0</div>
+            <div class="results-total-sub" id="percentOfSalary">0% of annual salary</div>
           </div>
-          <div class="input-group">
-            <label for="agencyFee">Agency / Platform Fee</label>
-            <span class="hint">If using a staffing agency or platform</span>
-            <div class="input-wrapper has-suffix">
-              <input type="number" id="agencyFee" value="0" min="0" max="30" step="1" />
-              <span class="input-suffix">%</span>
-            </div>
-          </div>
-          <div class="input-group">
-            <label for="equipmentCost">Equipment & Tools</label>
-            <span class="hint">Any gear you provide the contractor</span>
-            <div class="input-wrapper has-prefix">
-              <span class="input-prefix">$</span>
-              <input type="number" id="equipmentCost" value="0" min="0" step="100" />
-            </div>
-          </div>
-          <div class="input-group">
-            <label for="managementOverhead">Management Overhead / Mo</label>
-            <span class="hint">Extra time managing contracts, invoices</span>
-            <div class="input-wrapper has-prefix">
-              <span class="input-prefix">$</span>
-              <input type="number" id="managementOverhead" value="100" min="0" step="50" />
-            </div>
+          <div class="results-secondary">
+            <div class="secondary-value" id="multiplierDisplay">0x</div>
+            <div class="secondary-label">salary multiplier</div>
           </div>
         </div>
+        <div class="breakdown-list" id="breakdownBars"></div>
       </div>
 
-      <!-- RESULTS: COMPARISON COLUMNS -->
-      <div class="comparison-grid">
-        <div class="col-header employee">
-          <div class="col-label employee">Employee (W-2)</div>
-          <div class="col-total employee" id="employeeTotal">$0</div>
-          <div class="col-sub" id="employeeHourly">$0 / hour true cost</div>
-        </div>
-        <div class="col-header contractor">
-          <div class="col-label contractor">Contractor (1099)</div>
-          <div class="col-total contractor" id="contractorTotal">$0</div>
-          <div class="col-sub" id="contractorHourly">$0 / hour true cost</div>
-        </div>
-      </div>
-
-      <!-- VERDICT -->
-      <div class="verdict-banner" id="verdictBanner">
-        <div class="verdict-icon" id="verdictIcon">⚖️</div>
-        <div class="verdict-text">
-          <div class="verdict-title" id="verdictTitle">Enter your numbers to see the verdict</div>
-          <div class="verdict-sub" id="verdictSub">Adjust the inputs above to compare your specific situation</div>
+      <!-- ANNUAL IMPACT -->
+      <div class="annual-impact">
+        <div class="annual-impact-icon">🔥</div>
+        <div class="annual-impact-text">
+          <div class="annual-impact-title" id="annualImpactTitle">Annual Turnover Cost</div>
+          <div class="annual-impact-sub" id="annualImpactSub">Based on your turnover count</div>
         </div>
         <div>
-          <div class="verdict-diff" id="verdictDiff">—</div>
-          <div class="verdict-diff-label" id="verdictDiffLabel">annual difference</div>
+          <div class="annual-impact-number" id="annualTotal">$0</div>
+          <div class="annual-impact-number-label">per year</div>
         </div>
       </div>
-
-      <!-- BREAKDOWN TABLE -->
-      <table class="breakdown-table">
-        <thead>
-          <tr>
-            <th>Cost Item</th>
-            <th style="color:var(--teal-dark)">Employee</th>
-            <th style="color:var(--purple)">Contractor</th>
-          </tr>
-        </thead>
-        <tbody id="breakdownBody">
-          <tr>
-            <td colspan="3" style="text-align:center;color:var(--gray);padding:1.5rem">Enter your numbers above to see the full breakdown</td>
-          </tr>
-        </tbody>
-      </table>
 
       <!-- INSIGHT -->
       <div class="insight-box">
@@ -795,64 +873,111 @@
         <div class="insight-text" id="insightText">Enter your numbers above to see your personalized insight.</div>
       </div>
 
-      <!-- MISCLASSIFICATION WARNING -->
-      <div class="warning-box">
-        <div style="font-size:1.25rem;flex-shrink:0">⚠️</div>
-        <div class="warning-text">
-          <strong>Misclassification Risk:</strong> If you control how, when, and where someone works, the IRS may classify them as an employee regardless of how you pay them. Misclassifying an employee as a contractor can result in back taxes, penalties, and interest. When in doubt, consult a CPA or employment attorney before making the call.
-        </div>
-      </div>
+      <!-- SUMMARY TABLE -->
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Cost Category</th>
+            <th style="text-align:right">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="summaryBody">
+          <tr><td colspan="2" style="text-align:center;color:var(--gray);padding:1rem">Enter your numbers above</td></tr>
+        </tbody>
+      </table>
 
     </div>
   </div>
 
-  <!-- RELATED TOOL -->
-  <a href="/true-cost-of-an-employee-calculator/" class="related-tool">
-    <div class="related-tool-text">
-      <h4>👤 True Cost of an Employee Calculator</h4>
-      <p>Already decided on an employee? See the full all-in cost breakdown including every tax and benefit line.</p>
-    </div>
-    <div class="related-tool-arrow">→</div>
-  </a>
+  <!-- RELATED TOOLS -->
+  <div class="related-tools">
+    <a href="/true-cost-of-an-employee-calculator/" class="related-tool">
+      <div class="related-tool-text">
+        <h4>👤 True Cost of an Employee</h4>
+        <p>See what replacing this person will actually cost you.</p>
+      </div>
+      <div class="related-tool-arrow">→</div>
+    </a>
+    <a href="/contractor-vs-employee/" class="related-tool">
+      <div class="related-tool-text">
+        <h4>⚖️ Contractor vs. Employee</h4>
+        <p>Could a contractor fill this role at lower risk?</p>
+      </div>
+      <div class="related-tool-arrow">→</div>
+    </a>
+  </div>
 
-  <!-- AFFILIATE -->
+  <!-- PDF CAPTURE -->
+  <div class="pdf-capture">
+    <div class="pdf-capture-text">
+      <h3>📄 Download Your Results as a PDF</h3>
+      <p>Get a formatted report with your exact turnover cost, breakdown, and retention ROI insight — instantly downloaded to your device.</p>
+    </div>
+    <div style="width:100%;">
+      <div class="pdf-capture-form">
+        <button class="pdf-download-btn" id="pdfBtn" onclick="handlePDFCapture()">Download My PDF Report →</button>
+      </div>
+      <div class="pdf-status" id="pdfStatus"></div>
+      <div class="pdf-privacy">🔒 Your numbers are never stored or shared. PDF generated on your device.</div>
+    </div>
+  </div>
+
+  <!-- KIT EMAIL SIGNUP -->
+  <div class="kit-signup-section" id="kitSignupSection" style="display:none; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:1.25rem 1.5rem; margin:-1rem 0 2rem;">
+    <p style="font-size:0.875rem; color:#1e293b; font-weight:600; margin-bottom:0.25rem;">📬 Get More Free Tools & Small Business Finance Tips</p>
+    <p style="font-size:0.8rem; color:#64748b; margin-bottom:1rem;">Join CalcWonk subscribers — new calculators, financial insights, and small business resources. No spam, unsubscribe anytime.</p>
+    <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+    <form action="https://app.kit.com/forms/9253807/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9253807" data-uid="91aa4bbf85" data-format="inline" data-version="5" style="width:100%;margin-top:0.75rem;">
+      <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" style="list-style:none;padding:0;color:#dc2626;font-size:0.8rem;"></ul>
+      <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields" style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <div class="formkit-field" style="flex:1 0 200px;">
+          <input class="formkit-input" name="email_address" aria-label="Email Address" placeholder="your@email.com" required type="email" style="width:100%;padding:0.65rem 1rem;border-radius:8px;border:1.5px solid #e2e8f0;font-family:DM Sans,sans-serif;font-size:0.9rem;color:#1e293b;background:#fff;" />
+          <input type="hidden" name="tags[]" value="turnover-calculator" />
+        </div>
+        <button data-element="submit" style="background:#0d9488;color:#fff;border:none;padding:0.65rem 1.25rem;border-radius:8px;font-family:DM Sans,sans-serif;font-size:0.875rem;font-weight:700;cursor:pointer;white-space:nowrap;">
+          <div class="formkit-spinner" style="display:none;"><div></div><div></div><div></div></div>
+          <span>Get Free Updates →</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+    <!-- AFFILIATE -->
   <div class="affiliate-section">
-    <h3>Managing Contractors or Employees? Get the Right Tools</h3>
-    <p>Whether you hire W-2 employees or 1099 contractors, the right software saves hours of admin work and keeps you compliant.</p>
+    <h3>Reduce Turnover With the Right HR Tools</h3>
+    <p>The best way to cut turnover costs is to reduce turnover itself. Better onboarding, benefits, and HR management make a measurable difference in retention.</p>
     <div class="affiliate-cards">
       <a href="https://gusto.com/r/brian7e7eb3a4" target="_blank" rel="noopener" class="affiliate-card">
         <div class="affiliate-card-name">Gusto</div>
-        <div class="affiliate-card-desc">Best for W-2 employees — handles payroll taxes, filings, and benefits automatically. Simple enough for first-time employers.</div>
+        <div class="affiliate-card-desc">Strong onboarding flows, benefits administration, and employee self-service tools that improve retention from day one.</div>
         <span class="affiliate-card-cta">Try Gusto →</span>
       </a>
-      <a href="https://get.deel.com/b99nzenjqw1m" target="_blank" rel="noopener" class="affiliate-card">
-        <div class="affiliate-card-name">Deel</div>
-        <div class="affiliate-card-desc">Built for contractor payments — handles contracts, invoicing, and international payments in one place. Great if you use multiple contractors.</div>
-        <span class="affiliate-card-cta">Try Deel →</span>
+      <a href="#" class="affiliate-card">
+        <div class="affiliate-card-name">Rippling</div>
+        <div class="affiliate-card-desc">Unified HR, payroll, and IT platform that reduces friction across the employee lifecycle — from offer letter to offboarding.</div>
+        <span class="affiliate-card-cta">Learn More →</span>
       </a>
     </div>
     <div class="affiliate-disclosure">
       <span>ℹ️</span>
-      <span>CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal">See our Affiliate Disclosure</a>.</span>
+      <span>CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. We only recommend products we believe are genuinely useful. <a href="/legal/">See our Affiliate Disclosure</a>.</span>
     </div>
   </div>
 
   <!-- CONTENT -->
   <div class="content-section">
-    <h2>1099 vs W-2: What the Numbers Don't Tell You</h2>
-    <p>The hourly rate comparison is just the surface. A contractor charging $65/hour looks expensive next to an employee earning $65,000/year — until you factor in what that employee actually costs you. And on the flip side, contractors come with risks and hidden costs that don't show up in the invoice.</p>
+    <h2>Why Employee Turnover Costs More Than You Think</h2>
+    <p>Most business owners mentally account for recruiting costs when someone leaves — the job posting, maybe an agency fee. But that's typically less than a third of the real cost. The majority of turnover expense is invisible: the productivity lost during the vacancy, the manager time spent interviewing and onboarding, the reduced output of a new hire still learning the role, and the institutional knowledge that walks out the door and never comes back.</p>
+    <p>Research consistently puts the cost of replacing an employee at 50–200% of their annual salary depending on seniority and role complexity. For a $65,000 employee in a mid-level role, that's $32,500–$130,000 per departure. For a senior or specialized role, the number climbs higher still.</p>
 
-    <h3>Why Contractors Cost More Per Hour — But Less Overall</h3>
-    <p>A contractor's rate is typically 20–40% higher than an equivalent employee's hourly rate, and for good reason. Contractors pay both sides of Social Security and Medicare taxes themselves (15.3% vs the employee's 7.65%), they fund their own benefits, and they absorb their own overhead. When you hire a contractor you're not overpaying — you're paying for what you'd otherwise be providing yourself.</p>
-    <p>The math often favors contractors for short-term, specialized, or fluctuating workloads. You pay for exactly the hours you need, with no commitment beyond the contract. For a role you need 20 hours a week for six months, a contractor is almost always cheaper than a part-time employee when you factor in all the fixed costs of employment.</p>
+    <h3>The Four Hidden Cost Categories</h3>
+    <p><strong>Recruiting costs</strong> are the visible part — job postings, recruiter fees, interview time, background checks. These are real but often the smallest component of total turnover cost.</p>
+    <p><strong>Productivity loss during vacancy</strong> is where the money really goes. Work doesn't stop when someone leaves — it either piles up, gets redistributed to already-stretched colleagues, or simply doesn't get done. A role vacant for six weeks at $65,000/year represents $7,500 in salary-equivalent output lost before you've hired anyone.</p>
+    <p><strong>Training and ramp-up time</strong> compounds the productivity loss. A new hire typically operates at 25% productivity in their first month, rising to full capacity over three to six months depending on role complexity. Every week of partial productivity is a real cost against your business.</p>
+    <p><strong>Manager and team time</strong> is the most overlooked category. Interviewing candidates, onboarding a new hire, answering questions, reviewing work more closely than usual — all of this pulls your highest-paid people away from higher-value activities. At $90,000/year, a manager's time costs roughly $43/hour. Twenty hours of onboarding time is nearly $900 in management cost alone.</p>
 
-    <h3>Why Employees Cost More — But Deliver More Control</h3>
-    <p>The fully-loaded cost of an employee is typically 25–40% above their salary. But what you get in return is meaningful: you can direct their work, set their hours, require them to use your systems, and build institutional knowledge over time. Employees are investments in your organization. Contractors are transactions.</p>
-    <p>For roles central to your business — customer-facing positions, core operations, anything requiring deep integration with your team — an employee usually makes more strategic sense even when the cost is higher.</p>
-
-    <h3>The Misclassification Risk Is Real</h3>
-    <p>The IRS uses a behavioral, financial, and relationship test to determine whether a worker is truly a contractor or a de facto employee. If you set their hours, require them to use your equipment, prohibit them from working for competitors, or direct how (not just what) they deliver — there's a meaningful risk of misclassification. The penalties include back payroll taxes, interest, and fines that can far exceed whatever you saved by not putting someone on payroll.</p>
-    <p>When the work is ongoing, integral to your business, and performed under your direction, hire an employee. When the work is project-based, specialized, and independently delivered — a contractor often makes both financial and legal sense.</p>
+    <h3>What Retention Is Actually Worth</h3>
+    <p>If your average turnover cost is $45,000 per employee and you lose five people a year, that's $225,000 annually — enough to fund meaningful retention investments many times over. Better benefits, more flexible working arrangements, stronger onboarding, regular compensation reviews, and improved management training all cost a fraction of what turnover costs. The math on retention almost always pencils out.</p>
   </div>
 
   <!-- FAQ -->
@@ -862,51 +987,51 @@
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Is it cheaper to hire a contractor or an employee?
+          What is the average cost of employee turnover?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          It depends on the role and duration. For short-term or specialized work, contractors are usually cheaper when you factor in the benefits, payroll taxes, and overhead an employee requires. For ongoing, full-time roles, employees often cost less per hour of actual work — contractors charge a premium precisely because they cover their own taxes and benefits.
+          Industry research consistently estimates employee turnover costs at 50–200% of the departing employee's annual salary. For entry-level roles it tends to be on the lower end (50–75%), for mid-level roles 100–150%, and for senior or highly specialized roles 150–200% or more. The wide range reflects how much role complexity and ramp-up time affect the total cost.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          What taxes do I pay on a contractor vs. an employee?
+          What is included in the cost of employee turnover?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          For employees, you pay the employer's share of Social Security (6.2%) and Medicare (1.45%), plus federal and state unemployment taxes — typically 8–10% on top of salary. For contractors, you pay nothing in payroll taxes. You simply pay their invoice and issue a 1099 form if you pay them more than $600 in a year. The contractor is responsible for their own self-employment taxes.
+          A complete turnover cost includes: recruiting expenses (job postings, recruiter fees, background checks), interview time for all staff involved, productivity loss during the vacancy period, reduced output from the new hire during ramp-up, formal training costs, manager and HR time spent onboarding, and the intangible cost of lost institutional knowledge. Most businesses only account for the first two categories, which is why the real number surprises them.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          What is the ABC test for contractor classification?
+          How long does it take a new employee to reach full productivity?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          Several states use the ABC test to determine worker classification. To be a legitimate contractor, the worker must be: (A) free from your control and direction, (B) performing work outside your usual course of business, and (C) customarily engaged in an independent trade or business. All three must be true. States like California apply this test strictly — what's a contractor relationship in Texas may be an employment relationship in California.
+          It depends heavily on role complexity. Entry-level roles with structured training typically reach full productivity in 4–8 weeks. Mid-level professional roles often take 3–6 months. Senior or highly specialized roles can take 6–12 months or longer to reach the productivity level of an experienced incumbent. This calculator uses your input to estimate the productivity cost during the ramp-up period.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Can a contractor work full time for just one company?
+          What is a good employee retention rate?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          Technically yes, but it significantly increases misclassification risk. One of the key factors the IRS considers is whether the worker has multiple clients. A contractor who works exclusively for one company, under that company's direction, for an extended period looks a lot like an employee to the IRS regardless of how the relationship is structured on paper.
+          A retention rate above 90% is generally considered healthy — meaning fewer than 10% of your workforce leaves in a given year. Rates vary significantly by industry. Retail and hospitality typically see higher turnover (20–40%), while professional services and technology companies often target 85–95% retention. Calculating your actual turnover cost, as this calculator helps you do, is the first step toward building a business case for retention investments.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          What is a 1099 form and when do I need to issue one?
+          How can I reduce employee turnover?
           <span class="faq-chevron">▼</span>
         </button>
         <div class="faq-answer">
-          A 1099-NEC form reports non-employee compensation to the IRS. You must issue one to any contractor you pay $600 or more in a calendar year. The deadline is January 31 of the following year. You send one copy to the contractor and file one with the IRS. Failing to issue required 1099s can result in penalties of $50–$280 per form.
+          The highest-impact retention levers are competitive compensation, strong onboarding (employees who have a poor onboarding experience are significantly more likely to leave within the first year), clear growth paths, flexible working arrangements, and the quality of direct management. Regular stay interviews — asking employees what would make them leave and what keeps them — surface retention risks before they become departures. The ROI on retention investments is almost always strongly positive when measured against your actual turnover cost.
         </div>
       </div>
 
@@ -914,7 +1039,7 @@
   </div>
 
   <p style="font-size:0.8rem;color:var(--gray);text-align:center;margin-top:-1rem">
-    CalcWonk tools are built for business owners who want real numbers, not ballpark guesses. Bookmark this page and revisit it every time you're considering a new hire.
+    CalcWonk tools are built for business owners who want real numbers, not ballpark guesses. Bookmark this page and share it with anyone managing a team.
   </p>
 
 </div>
@@ -925,9 +1050,9 @@
     <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
     <div class="footer-links">
       <a href="/">Home</a>
-      <a href="/legal">Privacy Policy</a>
-      <a href="/legal">Terms of Service</a>
-      <a href="/legal">Affiliate Disclosure</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
       <a href="mailto:brian@calcwonk.com">Contact</a>
     </div>
     <p class="footer-disclaimer">
@@ -938,100 +1063,361 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const COMPLEXITY_MULTIPLIERS = {
+    low: 0.5,
+    medium: 1.0,
+    high: 1.5,
+    executive: 2.0
+  };
+
   function fmt(n) {
     return '$' + Math.round(n).toLocaleString();
   }
 
   function calculate() {
-    const hoursPerWeek    = parseFloat(document.getElementById('hoursPerWeek').value) || 0;
-    const weeksPerYear    = parseFloat(document.getElementById('weeksPerYear').value) || 52;
-    const totalHours      = hoursPerWeek * weeksPerYear;
+    const salary               = parseFloat(document.getElementById('salary').value) || 0;
+    const yearsOfService       = parseFloat(document.getElementById('yearsOfService').value) || 1;
+    const complexity           = document.getElementById('roleComplexity').value;
+    const annualTurnoverCount  = parseFloat(document.getElementById('annualTurnoverCount').value) || 1;
+    const jobPostingCost       = parseFloat(document.getElementById('jobPostingCost').value) || 0;
+    const recruiterFee         = parseFloat(document.getElementById('recruiterFee').value) || 0;
+    const interviewHours       = parseFloat(document.getElementById('interviewHours').value) || 0;
+    const backgroundCheck      = parseFloat(document.getElementById('backgroundCheck').value) || 0;
+    const trainingWeeks        = parseFloat(document.getElementById('trainingWeeks').value) || 1;
+    const trainingCost         = parseFloat(document.getElementById('trainingCost').value) || 0;
+    const managerOnboardHours  = parseFloat(document.getElementById('managerOnboardingHours').value) || 0;
+    const managerSalary        = parseFloat(document.getElementById('managerSalary').value) || 0;
 
-    // Employee costs
-    const salary          = parseFloat(document.getElementById('employeeSalary').value) || 0;
-    const healthMo        = parseFloat(document.getElementById('healthMonthly').value) || 0;
-    const retirePct       = parseFloat(document.getElementById('retirementMatch').value) || 0;
-    const otherBenefits   = parseFloat(document.getElementById('otherBenefits').value) || 0;
+    const complexityMult = COMPLEXITY_MULTIPLIERS[complexity];
 
-    const payrollTax      = salary * 0.0815;
-    const healthAnnual    = healthMo * 12;
-    const retirement      = salary * (retirePct / 100);
-    const employeeTotal   = salary + payrollTax + healthAnnual + retirement + otherBenefits;
-    const employeeHourly  = totalHours > 0 ? employeeTotal / totalHours : 0;
+    // Hourly rates
+    const employeeHourly = salary / 2080;
+    const managerHourly  = managerSalary / 2080;
 
-    // Contractor costs
-    const contractorRate  = parseFloat(document.getElementById('contractorRate').value) || 0;
-    const agencyFeePct    = parseFloat(document.getElementById('agencyFee').value) || 0;
-    const equipment       = parseFloat(document.getElementById('equipmentCost').value) || 0;
-    const mgmtMo          = parseFloat(document.getElementById('managementOverhead').value) || 0;
+    // Recruiting
+    const interviewCost  = interviewHours * managerHourly;
+    const recruitingTotal = jobPostingCost + recruiterFee + interviewCost + backgroundCheck;
 
-    const baseContractor  = contractorRate * totalHours;
-    const agencyFeeAmt    = baseContractor * (agencyFeePct / 100);
-    const mgmtAnnual      = mgmtMo * 12;
-    const contractorTotal = baseContractor + agencyFeeAmt + equipment + mgmtAnnual;
-    const contractorHourly = totalHours > 0 ? contractorTotal / totalHours : 0;
+    // Productivity loss during vacancy (assume 4 weeks average vacancy)
+    const vacancyWeeks = 4;
+    const productivityLoss = (salary / 52) * vacancyWeeks;
 
-    // Update comparison columns
-    document.getElementById('employeeTotal').textContent    = fmt(employeeTotal);
-    document.getElementById('employeeHourly').textContent   = fmt(employeeHourly) + ' / hour true cost';
-    document.getElementById('contractorTotal').textContent  = fmt(contractorTotal);
-    document.getElementById('contractorHourly').textContent = fmt(contractorHourly) + ' / hour true cost';
+    // Training & ramp-up
+    // New hire at ~50% productivity during ramp-up period
+    const rampUpLoss = (salary / 52) * trainingWeeks * 0.5;
+    const managerOnboardCost = managerOnboardHours * managerHourly;
+    const trainingTotal = trainingCost + rampUpLoss + managerOnboardCost;
 
-    // Verdict
-    const diff = Math.abs(employeeTotal - contractorTotal);
-    const cheaper = employeeTotal < contractorTotal ? 'employee' : 'contractor';
-    document.getElementById('verdictDiff').textContent = fmt(diff);
+    // Cultural / intangible (knowledge loss, team morale impact)
+    // Scaled by years of service and complexity
+    const culturalCost = salary * 0.05 * Math.min(yearsOfService, 5) * complexityMult;
 
-    if (employeeTotal < contractorTotal) {
-      document.getElementById('verdictIcon').textContent = '👤';
-      document.getElementById('verdictTitle').textContent = 'The employee is cheaper overall';
-      document.getElementById('verdictSub').textContent = `At these rates, hiring an employee saves you ${fmt(diff)}/year vs. a contractor — but remember, employees offer more control and commitment.`;
-    } else if (contractorTotal < employeeTotal) {
-      document.getElementById('verdictIcon').textContent = '📋';
-      document.getElementById('verdictTitle').textContent = 'The contractor is cheaper overall';
-      document.getElementById('verdictSub').textContent = `At these rates, using a contractor saves you ${fmt(diff)}/year vs. an employee — but check misclassification risk if the work is ongoing.`;
-    } else {
-      document.getElementById('verdictIcon').textContent = '⚖️';
-      document.getElementById('verdictTitle').textContent = 'The costs are roughly equal';
-      document.getElementById('verdictSub').textContent = 'At these rates the financial difference is minimal — the decision comes down to control, commitment, and misclassification risk.';
-    }
+    const total = recruitingTotal + productivityLoss + trainingTotal + culturalCost;
+    const percentOfSalary = salary > 0 ? ((total / salary) * 100).toFixed(0) : 0;
+    const multiplier = salary > 0 ? (total / salary).toFixed(2) : 0;
+    const annualTotal = total * annualTurnoverCount;
 
-    // Breakdown table
-    const rows = [
-      ['Base wages / salary', salary, baseContractor],
-      ['Employer payroll taxes (8.15%)', payrollTax, null],
-      ['Health insurance', healthAnnual, null],
-      [`401(k) match (${retirePct}%)`, retirement, null],
-      ['Other benefits', otherBenefits, null],
-      ['Agency / platform fee', null, agencyFeeAmt],
-      ['Equipment & tools', null, equipment],
-      ['Management overhead', null, mgmtAnnual],
+    // Update results
+    document.getElementById('totalCost').textContent       = fmt(total);
+    document.getElementById('percentOfSalary').textContent = percentOfSalary + '% of annual salary';
+    document.getElementById('multiplierDisplay').textContent = multiplier + 'x';
+    document.getElementById('annualTotal').textContent     = fmt(annualTotal);
+    document.getElementById('annualImpactTitle').textContent =
+      `Annual Cost of ${annualTurnoverCount} Departure${annualTurnoverCount > 1 ? 's' : ''}`;
+    document.getElementById('annualImpactSub').textContent =
+      `At ${annualTurnoverCount} employee${annualTurnoverCount > 1 ? 's' : ''} lost per year, turnover is costing your business:`;
+
+    // Breakdown bars
+    const bars = [
+      { label: 'Recruiting',        value: recruitingTotal,  cls: 'bar-recruiting' },
+      { label: 'Vacancy Loss',      value: productivityLoss, cls: 'bar-productivity' },
+      { label: 'Training & Ramp',   value: trainingTotal,    cls: 'bar-training' },
+      { label: 'Knowledge & Culture', value: culturalCost,   cls: 'bar-cultural' },
     ];
 
-    document.getElementById('breakdownBody').innerHTML = rows.map(([label, emp, con]) => {
-      const empCell = emp != null && emp > 0
-        ? `<td class="employee-val" style="color:var(--teal-dark)">${fmt(emp)}</td>`
-        : `<td class="na">—</td>`;
-      const conCell = con != null && con > 0
-        ? `<td class="contractor-val" style="color:var(--purple)">${fmt(con)}</td>`
-        : `<td class="na">—</td>`;
-      return `<tr><td>${label}</td>${empCell}${conCell}</tr>`;
-    }).join('') + `
-      <tr class="total-row">
-        <td>Total Annual Cost</td>
-        <td class="employee-val">${fmt(employeeTotal)}</td>
-        <td class="contractor-val">${fmt(contractorTotal)}</td>
-      </tr>`;
+    document.getElementById('breakdownBars').innerHTML = bars.map(b => {
+      const pct = total > 0 ? (b.value / total * 100).toFixed(1) : 0;
+      return `
+        <div class="breakdown-item">
+          <span class="breakdown-label">${b.label}</span>
+          <div class="breakdown-bar-track">
+            <div class="breakdown-bar-fill ${b.cls}" style="width:${pct}%"></div>
+          </div>
+          <span class="breakdown-value">${fmt(b.value)}</span>
+        </div>`;
+    }).join('');
 
     // Insight
-    const savingsAmt = fmt(diff);
-    const cheaperLabel = cheaper === 'employee' ? 'employee' : 'contractor';
+    const biggestCost = bars.reduce((a, b) => a.value > b.value ? a : b);
     document.getElementById('insightText').innerHTML =
-      `Based on your inputs, the <strong>${cheaperLabel} is less expensive by ${savingsAmt}/year</strong>. ` +
-      `The employee's true hourly cost is <strong>${fmt(employeeHourly)}/hr</strong> vs. the contractor's <strong>${fmt(contractorHourly)}/hr</strong>. ` +
-      (cheaper === 'contractor'
-        ? `Before choosing the contractor, make sure the working relationship qualifies — if you control their schedule and methods, the IRS may consider them an employee regardless.`
-        : `Even though the employee costs less, contractors offer flexibility with no long-term commitment — worth considering if the workload may fluctuate.`);
+      `Replacing this employee will cost approximately <strong>${fmt(total)} — ${percentOfSalary}% of their annual salary</strong>. ` +
+      `Your largest cost driver is <strong>${biggestCost.label.toLowerCase()} at ${fmt(biggestCost.value)}</strong>. ` +
+      `Across ${annualTurnoverCount} departure${annualTurnoverCount > 1 ? 's' : ''} per year, turnover is costing your business <strong>${fmt(annualTotal)} annually</strong> — ` +
+      `enough to fund significant retention investments many times over.`;
+
+    // Summary table
+    const rows = [
+      ['Job posting & advertising', jobPostingCost],
+      ['Recruiter / agency fee', recruiterFee],
+      ['Interview time cost', interviewCost],
+      ['Background check & testing', backgroundCheck],
+      ['Productivity loss during vacancy', productivityLoss],
+      ['New hire ramp-up productivity loss', rampUpLoss],
+      ['Formal training costs', trainingCost],
+      ['Manager onboarding time', managerOnboardCost],
+      ['Institutional knowledge & culture loss', culturalCost],
+      ['TOTAL COST PER DEPARTURE', total],
+    ];
+
+    const dotColors = {
+      'Job posting & advertising': '#f87171',
+      'Recruiter / agency fee': '#f87171',
+      'Interview time cost': '#f87171',
+      'Background check & testing': '#f87171',
+      'Productivity loss during vacancy': '#34d399',
+      'New hire ramp-up productivity loss': '#f97316',
+      'Formal training costs': '#f97316',
+      'Manager onboarding time': '#818cf8',
+      'Institutional knowledge & culture loss': '#e879f9',
+    };
+
+    document.getElementById('summaryBody').innerHTML = rows.map(([label, val], i) => {
+      const isTotal = i === rows.length - 1;
+      const dot = dotColors[label]
+        ? `<span class="dot" style="background:${dotColors[label]}"></span>`
+        : '';
+      return `<tr${isTotal ? ' style="background:var(--red-light)"' : ''}>
+        <td>${dot}${label}</td>
+        <td>${fmt(val)}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.classList.remove('open');
+      q.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+
+
+  // ── PDF GENERATION — TURNOVER CALCULATOR ──
+  async function handlePDFCapture() {
+    const btn = document.getElementById('pdfBtn');
+    const status = document.getElementById('pdfStatus');
+
+    if (!window.jspdf) {
+      status.style.display = 'block';
+      status.style.color = '#fca5a5';
+      status.textContent = 'PDF library still loading — please try again in a moment.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Generating...';
+    status.style.display = 'block';
+    status.style.color = '#94a3b8';
+    status.textContent = 'Building your PDF report...';
+
+    // Get current values
+    const salary              = parseFloat(document.getElementById('salary').value) || 0;
+    const annualTurnoverCount = parseFloat(document.getElementById('annualTurnoverCount').value) || 1;
+    const complexity          = document.getElementById('roleComplexity').value;
+    const trainingWeeks       = parseFloat(document.getElementById('trainingWeeks').value) || 1;
+    const managerSalary       = parseFloat(document.getElementById('managerSalary').value) || 0;
+    const jobPostingCost      = parseFloat(document.getElementById('jobPostingCost').value) || 0;
+    const recruiterFee        = parseFloat(document.getElementById('recruiterFee').value) || 0;
+    const interviewHours      = parseFloat(document.getElementById('interviewHours').value) || 0;
+    const backgroundCheck     = parseFloat(document.getElementById('backgroundCheck').value) || 0;
+    const trainingCost        = parseFloat(document.getElementById('trainingCost').value) || 0;
+    const managerOnboardHours = parseFloat(document.getElementById('managerOnboardingHours').value) || 0;
+
+    const complexityMult  = { low: 0.5, medium: 1.0, high: 1.5, vhigh: 2.0 }[complexity] || 1.0;
+    const managerHourly   = managerSalary / 2080;
+    const interviewCost   = interviewHours * managerHourly;
+    const recruitingTotal = jobPostingCost + recruiterFee + interviewCost + backgroundCheck;
+    const productivityLoss = (salary / 52) * 4;
+    const rampUpLoss      = (salary / 52) * trainingWeeks * 0.5;
+    const managerOnboard  = managerOnboardHours * managerHourly;
+    const trainingTotal   = trainingCost + rampUpLoss + managerOnboard;
+    const yearsOfService  = parseFloat(document.getElementById('yearsOfService').value) || 1;
+    const culturalCost    = salary * 0.05 * Math.min(yearsOfService, 5) * complexityMult;
+    const total           = recruitingTotal + productivityLoss + trainingTotal + culturalCost;
+    const annualTotal     = total * annualTurnoverCount;
+    const percentSalary   = salary > 0 ? ((total / salary) * 100).toFixed(0) : 0;
+    const retentionROI    = annualTotal * 0.3; // 30% reduction in turnover with good HR tools
+
+    const fmtN = n => '$' + Math.round(Math.abs(n)).toLocaleString();
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pageW = 210; const margin = 20; const contentW = pageW - margin * 2;
+    let y = 0;
+
+    // Header
+    doc.setFillColor(13, 148, 136);
+    doc.rect(0, 0, pageW, 42, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.text('CalcWonk', margin, 18);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Cost of Employee Turnover — Results Report', margin, 28);
+    doc.setFontSize(9);
+    doc.setTextColor(204, 251, 241);
+    doc.text('Generated ' + new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}), margin, 36);
+    doc.text('calcwonk.com/cost-of-employee-turnover/', pageW - margin, 36, {align:'right'});
+
+    y = 54;
+
+    // Cost per departure highlight
+    doc.setFillColor(254, 242, 242);
+    doc.setDrawColor(220, 38, 38);
+    doc.roundedRect(margin, y, contentW, 28, 3, 3, 'FD');
+    doc.setTextColor(153, 27, 27);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.text('COST PER DEPARTURE', margin + 8, y + 9);
+    doc.setFontSize(26);
+    doc.setTextColor(220, 38, 38);
+    doc.text(fmtN(total), margin + 8, y + 22);
+    doc.setFontSize(11);
+    doc.setTextColor(100, 116, 139);
+    doc.setFont('helvetica', 'normal');
+    doc.text(percentSalary + '% of annual salary', pageW/2 + 10, y + 13);
+    doc.text('Annual impact: ' + fmtN(annualTotal), pageW/2 + 10, y + 22);
+    y += 36;
+
+    // Breakdown table
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(30, 41, 59);
+    doc.text('Cost Breakdown', margin, y);
+    y += 6;
+
+    doc.setFillColor(30, 41, 59);
+    doc.rect(margin, y, contentW, 7, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Category', margin + 4, y + 5);
+    doc.text('Amount', pageW - margin - 4, y + 5, {align:'right'});
+    y += 7;
+
+    const rows = [
+      ['Recruiting (posting, fees, interviews, checks)', recruitingTotal],
+      ['Productivity loss during vacancy (4 weeks)', productivityLoss],
+      ['New hire ramp-up loss (' + trainingWeeks + ' weeks at 50%)', rampUpLoss],
+      ['Formal training costs', trainingCost],
+      ['Manager onboarding time', managerOnboard],
+      ['Institutional knowledge & culture loss', culturalCost],
+      ['TOTAL COST PER DEPARTURE', total],
+    ];
+
+    rows.forEach(([label, val], i) => {
+      const isTotal = i === rows.length - 1;
+      if (isTotal) {
+        doc.setFillColor(254, 242, 242);
+        doc.setDrawColor(220, 38, 38);
+        doc.rect(margin, y, contentW, 8, 'FD');
+        doc.setTextColor(153, 27, 27);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10);
+      } else {
+        doc.setFillColor(i % 2 === 0 ? 248 : 255, i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 252 : 255);
+        doc.rect(margin, y, contentW, 7, 'F');
+        doc.setTextColor(30, 41, 59);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+      }
+      doc.text(label, margin + 4, y + (isTotal ? 5.5 : 5));
+      doc.text(fmtN(val), pageW - margin - 4, y + (isTotal ? 5.5 : 5), {align:'right'});
+      y += isTotal ? 8 : 7;
+    });
+
+    y += 8;
+
+    // Benchmark
+    doc.setFillColor(255, 247, 237);
+    doc.setDrawColor(249, 115, 22);
+    doc.roundedRect(margin, y, contentW, 20, 2, 2, 'FD');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(154, 52, 18);
+    doc.text('BENCHMARK', margin + 4, y + 7);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(124, 45, 18);
+    const benchmark = 'Industry research places average turnover cost at 50–200% of annual salary. Your result of ' + percentSalary + '% ' + (percentSalary < 75 ? 'is below average — typical for lower-complexity roles.' : percentSalary < 150 ? 'is within the typical range.' : 'is above average — reflecting a senior or specialized role.');
+    const bLines = doc.splitTextToSize(benchmark, contentW - 8);
+    doc.text(bLines, margin + 4, y + 14);
+    y += 26;
+
+    // Key insight
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(226, 232, 240);
+    doc.roundedRect(margin, y, contentW, 26, 2, 2, 'FD');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(30, 41, 59);
+    doc.text('💡  KEY INSIGHT', margin + 4, y + 7);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(51, 65, 85);
+    const insight1 = 'Across ' + annualTurnoverCount + ' departure' + (annualTurnoverCount > 1 ? 's' : '') + ' per year, turnover is costing your business ' + fmtN(annualTotal) + ' annually.';
+    const insight2 = 'A 30% reduction in turnover — achievable with better onboarding and HR tools — would save approximately';
+    const insight3 = fmtN(retentionROI) + ' per year. The math on retention almost always pencils out.';
+    doc.text(insight1, margin + 4, y + 14);
+    doc.text(insight2, margin + 4, y + 20);
+    doc.text(insight3, margin + 4, y + 26);
+    y += 32;
+
+    // Gusto recommendation
+    doc.setFillColor(240, 253, 250);
+    doc.setDrawColor(13, 148, 136);
+    doc.roundedRect(margin, y, contentW, 22, 2, 2, 'FD');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(15, 118, 110);
+    doc.text('NEXT STEP — REDUCE TURNOVER WITH GUSTO', margin + 4, y + 7);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(20, 78, 74);
+    const gustoText = "Gusto's structured onboarding, benefits administration, and employee self-service tools are proven retention drivers. Try free at gusto.com/r/brian7e7eb3a4";
+    const gLines = doc.splitTextToSize(gustoText, contentW - 8);
+    doc.text(gLines, margin + 4, y + 14);
+    y += 28;
+
+    // Footer
+    doc.setDrawColor(226, 232, 240);
+    doc.line(margin, y, pageW - margin, y);
+    y += 5;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(100, 116, 139);
+    doc.text('Generated by CalcWonk · calcwonk.com · For informational purposes only. Not financial or legal advice.', margin, y);
+    y += 4;
+    doc.text('CalcWonk may earn commissions from affiliate recommendations. See calcwonk.com/legal/ for disclosure.', margin, y);
+
+    doc.save('CalcWonk-Turnover-Cost-Report.pdf');
+
+    btn.disabled = false;
+    btn.textContent = 'Download My PDF Report →';
+    status.style.color = '#6ee7b7';
+    status.textContent = '✅ Your PDF has been downloaded! Check your downloads folder.';
+    const kitSection = document.getElementById('kitSignupSection');
+    if (kitSection) { kitSection.style.display = 'block'; kitSection.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'pdf_download', { event_category: 'engagement', event_label: 'turnover_calculator' });
+    }
   }
 
   document.querySelectorAll('input[type="number"], select').forEac
