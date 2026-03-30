@@ -640,6 +640,8 @@
   <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
   <ul class="nav-links">
     <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
     <li><a href="/legal/">Disclosures</a></li>
   </ul>
 </nav>
@@ -978,7 +980,7 @@
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="mailto:brian@calcwonk.com">Contact</a>
+      <a href="/cdn-cgi/l/email-protection#197b6b707877597a78757a6e767772377a7674">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice.
@@ -987,7 +989,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
   let breakEvenChart = null;
 
@@ -1133,14 +1135,7 @@
 
     if (breakEvenChart) breakEvenChart.destroy();
 
-    breakEvenChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'Revenue',
-            data: revenueData,
+    breakEvenChart =evenueData,
             borderColor: '#0d9488',
             backgroundColor: 'rgba(13,148,136,0.08)',
             borderWidth: 2.5,
@@ -1246,5 +1241,6 @@
       answer.classList.add('open');
     }
   }
+
 
   document.querySelectorAll('input[type="number"], select').forEac
