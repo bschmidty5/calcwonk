@@ -980,7 +980,7 @@
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="/cdn-cgi/l/email-protection#197b6b707877597a78757a6e767772377a7674">Contact</a>
+      <a href="mailto:brian@calcwonk.com">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Calculator results are for informational purposes only and do not constitute financial, legal, or professional advice.
@@ -989,7 +989,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
   let breakEvenChart = null;
 
@@ -1024,7 +1024,19 @@
     }
 
     const contributionMargin    = price - varCost;
-    const contributionMarginPct = (contributionMargin / price * 100).toFixed(1);
+    const contributionMarginPct = price > 0 ? (contributionMargin / price * 100).toFixed(1) : '0.0';
+
+    // Guard against division by zero — if price <= variable cost, break-even is undefined
+    if (contributionMargin <= 0) {
+      document.getElementById('breakEvenUnits').textContent = '—';
+      document.getElementById('breakEvenUnitsSub').textContent = 'Price must exceed variable cost';
+      document.getElementById('breakEvenRevenue').textContent = '—';
+      document.getElementById('contributionMargin').textContent = fmt(contributionMargin);
+      document.getElementById('contributionMarginPct').textContent = contributionMarginPct + '% margin';
+      document.getElementById('insightText').innerHTML =
+        'Your selling price must be higher than your variable cost per unit to calculate a break-even point. Increase your price or reduce your variable cost to continue.';
+      return;
+    }
 
     // Break-even
     const breakEvenUnits   = totalFixed / contributionMargin;
@@ -1135,7 +1147,14 @@
 
     if (breakEvenChart) breakEvenChart.destroy();
 
-    breakEvenChart =evenueData,
+    breakEvenChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Revenue',
+            data: revenueData,
             borderColor: '#0d9488',
             backgroundColor: 'rgba(13,148,136,0.08)',
             borderWidth: 2.5,
@@ -1162,6 +1181,19 @@
             pointRadius: 0,
             fill: false,
             tension: 0,
+          },
+          {
+            label: 'Break-Even Point',
+            data: labels.map((u, i) => {
+              const nearBE = Math.abs(u - breakEvenUnits) <= (maxUnits / steps / 2);
+              return nearBE ? (breakEvenUnits * price) : null;
+            }),
+            borderColor: '#1e293b',
+            backgroundColor: '#1e293b',
+            pointRadius: labels.map((u) => Math.abs(u - breakEvenUnits) <= (maxUnits / steps / 2) ? 6 : 0),
+            pointHoverRadius: 8,
+            showLine: false,
+            fill: false,
           }
         ]
       },
@@ -1182,16 +1214,10 @@
               title: ctx => ctx[0].label + ' units'
             }
           },
-          annotation: {
-            annotations: {
-              breakEvenLine: {
-                type: 'line',
-                xMin: breakEvenUnits / (Math.max(Math.ceil(breakEvenUnits * 2), currentUnits * 1.5, 50) / 20),
-                xMax: breakEvenUnits / (Math.max(Math.ceil(breakEvenUnits * 2), currentUnits * 1.5, 50) / 20),
-                borderColor: '#1e293b',
-                borderWidth: 1.5,
-                borderDash: [4, 4],
-              }
+          tooltip: {
+            callbacks: {
+              label: ctx => ctx.dataset.label + ': $' + Math.round(ctx.raw).toLocaleString(),
+              title: ctx => ctx[0].label + ' units'
             }
           }
         },
@@ -1243,4 +1269,13 @@
   }
 
 
-  document.querySelectorAll('input[type="number"], select').forEac
+  document.querySelectorAll('input[type="number"], select').forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+
+  calculate();
+
+</script>
+</body>
+</html>
