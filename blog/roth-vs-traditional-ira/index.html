@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roth vs. Traditional IRA: How to Know Which One Is Right for You | CalcWonk</title>
+  <meta name="description" content="The Roth vs. traditional IRA decision comes down to one question: will your tax rate be higher now or in retirement? Here's how to think through it — and model both scenarios with real numbers." />
+  <meta name="google-site-verification" content="ff98ab57f993bbf3" />
+  <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
+  <link rel="canonical" href="https://calcwonk.com/blog/roth-vs-traditional-ira/" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488; --teal-dark: #0f766e; --teal-light: #ccfbf1; --teal-xlight: #f0fdfa;
+      --orange: #f97316; --orange-light: #fff7ed; --orange-border: #fed7aa;
+      --navy: #1e293b; --gray: #64748b; --gray-light: #f8fafc; --border: #e2e8f0; --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--navy); line-height: 1.7; }
+    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); text-decoration: none; }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+    .article-wrapper { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .breadcrumb { font-size: 0.8rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--teal); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-header { margin-bottom: 2rem; }
+    .article-category { display: inline-block; background: var(--teal-light); color: var(--teal-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 1rem; }
+    .article-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--navy); line-height: 1.25; margin-bottom: 1rem; }
+    .article-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.82rem; color: var(--gray); flex-wrap: wrap; }
+    .article-meta-divider { color: var(--border); }
+    .article-body { font-size: 1rem; color: #334155; }
+    .article-body p { margin-bottom: 1.25rem; }
+    .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2rem 0 0.75rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .article-body h2:first-of-type { border-top: none; padding-top: 0; }
+    .article-body h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .article-body a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+    .article-body a:hover { color: var(--teal-dark); }
+    .article-body strong { color: var(--navy); font-weight: 600; }
+    .callout { background: var(--teal-xlight); border-left: 4px solid var(--teal); border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin: 1.75rem 0; font-size: 0.95rem; color: #134e4a; }
+    .callout strong { color: var(--teal-dark); }
+    .warning-box { background: #fef9c3; border-left: 4px solid #facc15; border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin: 1.75rem 0; font-size: 0.95rem; color: #713f12; }
+    .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1.5rem 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+    .comparison-table th { background: var(--navy); color: var(--white); padding: 0.65rem 1rem; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .comparison-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); color: var(--navy); vertical-align: top; }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:nth-child(even) td { background: var(--gray-light); }
+    .comparison-table .highlight td { background: var(--teal-xlight); font-weight: 600; color: var(--teal-dark); }
+    .calc-cta { background: var(--navy); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .calc-cta-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.3rem; }
+    .calc-cta-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+    .calc-cta-btn { display: inline-block; background: var(--teal); color: #ffffff !important; text-decoration: none !important; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background 0.2s, transform 0.1s; flex-shrink: 0; -webkit-text-fill-color: #ffffff; }
+    .calc-cta-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+    .affiliate-box { background: var(--orange-light); border: 1px solid var(--orange-border); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .affiliate-box-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 0.5rem; }
+    .affiliate-box h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .affiliate-box p { font-size: 0.875rem; color: #7c2d12; margin-bottom: 0.9rem; }
+    .affiliate-box a.btn { display: inline-block; background: var(--orange); color: #ffffff !important; text-decoration: none !important; padding: 0.55rem 1.25rem; border-radius: 7px; font-weight: 700; font-size: 0.875rem; -webkit-text-fill-color: #ffffff; }
+    .affiliate-box a.btn:hover { background: #ea6c00; }
+    .affiliate-disclosure { font-size: 0.72rem; color: #92400e; margin-top: 0.6rem; }
+    .affiliate-disclosure a { color: #92400e; }
+    .author-bio-block { background: var(--gray-light); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin: 2.5rem 0; display: flex; gap: 1.25rem; align-items: flex-start; }
+    .author-bio-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); flex-shrink: 0; }
+    .author-bio-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.15rem; }
+    .author-bio-title { font-size: 0.78rem; color: var(--teal-dark); font-weight: 600; margin-bottom: 0.5rem; }
+    .author-bio-text { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+    .author-bio-text a { color: var(--teal); }
+    .related-section { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border); }
+    .related-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) { .related-grid { grid-template-columns: 1fr; } }
+    .related-card { background: var(--gray-light); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .related-card:hover { border-color: var(--teal); box-shadow: 0 4px 12px rgba(13,148,136,0.08); }
+    .related-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--teal); margin-bottom: 0.3rem; }
+    .related-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--navy); line-height: 1.4; }
+    footer { background: var(--navy); color: #94a3b8; padding: 2.5rem 2rem; }
+    .footer-inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); text-decoration: none; }
+    .footer-logo span { color: var(--teal-light); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal-light); }
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+    @media (max-width: 600px) { .nav-links { display: none; } }
+    html, body { background: #ffffff !important; color: #1e293b !important; }
+    .article-wrapper { background: #ffffff !important; }
+    .article-body { color: #334155 !important; background: #ffffff !important; }
+    .article-body > p, .article-body > ul > li, .article-body > ol > li { color: #334155 !important; }
+    .article-body h2, .article-body h3 { color: #1e293b !important; background: transparent !important; }
+    .article-header h1 { color: #1e293b !important; }
+    .breadcrumb { color: #64748b !important; background: transparent !important; }
+    .calc-cta-text h3 { color: #ffffff !important; }
+    .calc-cta-text p { color: #94a3b8 !important; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+
+  <div class="breadcrumb">
+    <a href="/">CalcWonk</a> › <a href="/blog/">Blog</a> › Roth vs. Traditional IRA: How to Know Which One Is Right for You
+  </div>
+
+  <header class="article-header">
+    <span class="article-category">Personal Finance</span>
+    <h1>Roth vs. Traditional IRA: How to Know Which One Is Right for You</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px;">Brian Schmidt</a></span>
+      <span class="article-meta-divider">·</span>
+      <span>Founder, CalcWonk · MPA, Public Policy</span>
+      <span class="article-meta-divider">·</span>
+      <span>April 2026</span>
+      <span class="article-meta-divider">·</span>
+      <span>7 min read</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>The Roth vs. traditional IRA debate generates more confident opinions than almost any other personal finance topic — and most of those opinions skip the one thing that actually determines the answer: your tax rate.</p>
+
+    <p>The decision isn't complicated. It comes down to a single question: will you be in a higher tax bracket now, or in retirement? Pay taxes now at your lower rate (Roth) or defer them until retirement at your lower rate (traditional). Get that question right and the rest follows. Here's how to think through it honestly.</p>
+
+    <h2>The Core Difference in Plain English</h2>
+
+    <p>A <strong>traditional IRA</strong> lets you contribute pre-tax dollars — meaning you get a tax deduction today, your money grows tax-deferred, and you pay ordinary income tax when you withdraw in retirement. You're deferring the tax bill to later.</p>
+
+    <p>A <strong>Roth IRA</strong> lets you contribute after-tax dollars — meaning no deduction today, but your money grows tax-free and qualified withdrawals in retirement are completely tax-free. You're paying the tax bill now and getting all the growth tax-free.</p>
+
+    <p>Neither is universally better. The right choice depends entirely on when you'll face the lower tax rate — now or later.</p>
+
+    <div class="callout">
+      <strong>The one-sentence rule:</strong> If you expect to be in a higher tax bracket in retirement than you are today, choose Roth. If you expect to be in a lower tax bracket in retirement, choose traditional. If you're not sure, Roth has meaningful advantages that make it the default choice for most people under 50.
+    </div>
+
+    <h2>The Math That Actually Decides It</h2>
+
+    <p>Assume you have $6,500 to contribute and you're in the 22% tax bracket today. Here's what each choice looks like over 30 years at 7% average annual growth.</p>
+
+    <h3>Traditional IRA path</h3>
+    <p>You contribute $6,500 pre-tax and save $1,430 on taxes today. Over 30 years at 7%, $6,500 grows to approximately $49,500. At withdrawal you pay income tax on the full amount. If you're in the 22% bracket in retirement, you net about $38,600. If you're in the 12% bracket in retirement, you net about $43,600.</p>
+
+    <h3>Roth IRA path</h3>
+    <p>You contribute $6,500 after-tax with no deduction. Over 30 years at 7%, $6,500 grows to approximately $49,500. At qualified withdrawal you pay no tax — you keep the full $49,500 regardless of your retirement tax bracket.</p>
+
+    <p>The verdict: if your retirement tax rate matches today's 22%, the Roth wins by about $10,900 over 30 years. If your retirement rate drops to 12%, the traditional catches up significantly. If your retirement rate rises to 24% or higher, the Roth advantage grows dramatically.</p>
+
+    <div class="calc-cta">
+      <div class="calc-cta-text">
+        <h3>Model Your Specific Numbers</h3>
+        <p>Enter your age, income, contribution amount, and expected retirement tax rate to see which account wins for your situation.</p>
+      </div>
+      <a href="/roth-vs-traditional-ira-calculator/" class="calc-cta-btn">Use the Calculator →</a>
+    </div>
+
+    <h2>Who Should Choose a Roth IRA</h2>
+
+    <p>The Roth makes clear sense in several specific situations.</p>
+
+    <h3>You're early in your career</h3>
+    <p>Most people earn their lowest income — and pay their lowest tax rates — in their 20s and early 30s. If you're in the 10% or 12% bracket now and expect to earn significantly more later, paying tax at 12% today to avoid paying it at 22% or 24% later is an easy decision. The Roth is almost always right for people in their 20s who are just starting out.</p>
+
+    <h3>You expect your income to grow significantly</h3>
+    <p>If you're on a trajectory toward substantially higher earnings and higher tax brackets, locking in today's lower rate with a Roth is smart tax planning. A 35-year-old earning $75,000 who expects to earn $150,000 in ten years is likely better served by a Roth while the lower rate is available.</p>
+
+    <h3>You want tax-free flexibility in retirement</h3>
+    <p>Roth IRAs have no required minimum distributions during your lifetime. Traditional IRAs require you to start taking withdrawals at age 73 whether you need the money or not — and those withdrawals are taxable income. The Roth's flexibility is genuinely valuable if you have other income sources in retirement and don't need to draw from your IRA on a fixed schedule.</p>
+
+    <h3>You want a tax-free emergency backstop</h3>
+    <p>Roth contributions — not earnings, but the money you put in — can be withdrawn at any time without penalty or tax. This makes a Roth IRA a useful secondary emergency fund for people who have maximized their liquid savings. The traditional IRA doesn't offer this flexibility.</p>
+
+    <h2>Who Should Choose a Traditional IRA</h2>
+
+    <p>The traditional IRA is the right choice in fewer but genuinely meaningful situations.</p>
+
+    <h3>You're in your peak earning years</h3>
+    <p>A 55-year-old in the 32% or 35% bracket who plans to retire on significantly lower income has a compelling case for the traditional IRA. Deferring taxes at 35% today to pay them at 22% in retirement is meaningful arbitrage. The higher your current bracket and the more your income drops in retirement, the stronger the traditional IRA case becomes.</p>
+
+    <h3>You need the deduction now</h3>
+    <p>If you're self-employed, have irregular income, or are in a high-income year, the traditional IRA deduction can meaningfully reduce your current tax bill. For someone managing their tax liability in an unusually high-income year, the immediate deduction has real value beyond the long-term growth math.</p>
+
+    <h3>You're above the Roth income limits</h3>
+    <p>For 2026, Roth IRA contributions phase out between $150,000 and $165,000 for single filers, and between $236,000 and $246,000 for married filing jointly. Above those limits you can't contribute to a Roth directly. The backdoor Roth strategy exists for high earners but involves additional complexity worth discussing with a financial advisor.</p>
+
+    <div class="warning-box">
+      ⚠️ <strong>The retirement bracket trap:</strong> Many people assume they'll be in a lower bracket in retirement because they'll earn less. But Social Security income, required minimum distributions from traditional IRAs and 401(k)s, and other retirement income can push retirees into higher brackets than expected. This is one reason the Roth tends to outperform in real-world outcomes more often than the theoretical math suggests.
+    </div>
+
+    <h2>Roth vs. Traditional IRA — Side by Side</h2>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Roth IRA</th>
+          <th>Traditional IRA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tax treatment of contributions</td>
+          <td>After-tax — no deduction</td>
+          <td>Pre-tax — deductible</td>
+        </tr>
+        <tr>
+          <td>Tax treatment of growth</td>
+          <td>Tax-free</td>
+          <td>Tax-deferred</td>
+        </tr>
+        <tr>
+          <td>Tax treatment of withdrawals</td>
+          <td>Tax-free (qualified)</td>
+          <td>Taxed as ordinary income</td>
+        </tr>
+        <tr>
+          <td>Required minimum distributions</td>
+          <td>None during your lifetime</td>
+          <td>Starting at age 73</td>
+        </tr>
+        <tr>
+          <td>Early withdrawal of contributions</td>
+          <td>Anytime, no penalty</td>
+          <td>10% penalty before age 59½</td>
+        </tr>
+        <tr>
+          <td>Income limits (2026)</td>
+          <td>Phase out $150k–$165k single</td>
+          <td>No income limit to contribute</td>
+        </tr>
+        <tr>
+          <td>Best for</td>
+          <td>Lower bracket now, higher later</td>
+          <td>Higher bracket now, lower later</td>
+        </tr>
+        <tr class="highlight">
+          <td>2026 contribution limit</td>
+          <td>$7,000 ($8,000 if age 50+)</td>
+          <td>$7,000 ($8,000 if age 50+)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>The Factor Most People Underestimate</h2>
+
+    <p>Tax rates are not fixed. What you pay in retirement depends on federal tax law at the time you withdraw — and nobody knows what that will be in 20 or 30 years. The current federal tax cuts from the 2017 Tax Cuts and Jobs Act were scheduled to expire after 2025, which would push marginal rates higher for many earners. If rates rise, people who chose the Roth and paid taxes at lower rates will have made the right call.</p>
+
+    <p>This uncertainty is the strongest argument for the Roth for most people under 50 — it's a hedge against future tax rate increases. Paying a known tax rate today is arguably better than deferring to an unknown rate in retirement, especially when today's rates are historically moderate.</p>
+
+    <h3>The case for doing both</h3>
+    <p>If you have access to both a Roth IRA and a traditional 401(k) through your employer — or can contribute to both in the same year — having money in both types of accounts gives you tax diversification in retirement. You can draw from whichever account minimizes your tax bill in any given year. This flexibility has real value that's hard to model in advance but easy to appreciate once you're in retirement.</p>
+
+    <div class="calc-cta">
+      <div class="calc-cta-text">
+        <h3>See Which Account Wins for Your Numbers</h3>
+        <p>Enter your age, contribution amount, current tax rate, and expected retirement rate — and see the projected after-tax value of each account side by side.</p>
+      </div>
+      <a href="/roth-vs-traditional-ira-calculator/" class="calc-cta-btn">Run the Comparison →</a>
+    </div>
+
+    <h2>The Practical Decision Framework</h2>
+
+    <p>If you're still not sure which to choose after working through the calculator, here's a simple framework that gets most people to the right answer.</p>
+
+    <p>If you're under 40 and in the 10%, 12%, or 22% bracket — choose Roth. You're almost certainly in your lower-earning years and the tax-free growth over 25 to 40 years is hard to beat.</p>
+
+    <p>If you're over 50 and in the 32% or higher bracket — lean traditional. The immediate tax relief at high rates combined with a likely lower retirement income makes deferral worthwhile.</p>
+
+    <p>If you're in the 22% to 24% bracket and unsure — split the difference with both account types if possible, or default to Roth for the flexibility and RMD advantages.</p>
+
+    <p>If you're above the Roth income limits — talk to a financial advisor about the backdoor Roth strategy or focus on maximizing your 401(k) with a Roth option if your employer offers one.</p>
+
+    <div class="affiliate-box">
+      <div class="affiliate-box-label">Tool Recommendation</div>
+      <h3>Automate Your IRA With a Robo-Advisor</h3>
+      <p>Once you've decided between Roth and traditional, the next question is where to open the account. Betterment offers both Roth and traditional IRAs with automated investing, tax-loss harvesting, and low fees — you set your contribution and they handle the rest. It's one of the cleanest options for people who want their retirement savings on autopilot.</p>
+      <a href="#" class="btn">Try Betterment →</a>
+      <div class="affiliate-disclosure">CalcWonk may earn a commission if you sign up through this link — at no extra cost to you. <a href="/legal/">See our disclosure</a>.</div>
+    </div>
+
+    <p>The Roth vs. traditional IRA question is genuinely answerable — it just requires knowing your current tax rate, making a reasonable estimate of your retirement tax rate, and running the numbers for your specific situation. The calculator does that work in under a minute. The framework above handles the cases where the answer is already clear without needing the calculator at all.</p>
+
+  </div>
+
+  <div class="author-bio-block">
+    <div class="author-bio-avatar">B</div>
+    <div>
+      <div class="author-bio-name">Brian Schmidt</div>
+      <div class="author-bio-title">Founder, CalcWonk · MPA, Public Policy</div>
+      <div class="author-bio-text">Brian Schmidt has spent 20 years managing multi-million dollar budgets, overseeing payroll and HR systems, and making the kinds of financial decisions these calculators are built around. He currently leads a Missouri-based nonprofit organization focused on policy and systems change, and previously served as Executive Director of the Missouri General Assembly's Joint Committee on Tax Policy. His work on child care financing has been featured in the Washington Post. He built CalcWonk to give business owners and individuals the same data-driven tools he wished he'd had. <a href="/about/">Learn more about Brian →</a></div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <div class="related-title">Related Tools & Reading</div>
+    <div class="related-grid">
+      <a href="/roth-vs-traditional-ira-calculator/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Roth vs. Traditional IRA Calculator</h4>
+      </a>
+      <a href="/break-even-calculator/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Break-Even Calculator</h4>
+      </a>
+      <a href="/blog/how-much-does-it-cost-to-hire-an-employee/" class="related-card">
+        <div class="related-card-label">Blog Post</div>
+        <h4>How Much Does It Really Cost to Hire an Employee?</h4>
+      </a>
+      <a href="/blog/how-much-more-should-a-contractor-make-than-an-employee/" class="related-card">
+        <div class="related-card-label">Blog Post</div>
+        <h4>How Much More Should a Contractor Make Than an Employee?</h4>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
+      <a href="mailto:brian@calcwonk.com">Contact</a>
+    </div>
+    <p class="footer-disclaimer">CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.</p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+  </div>
+</footer>
+
+</body>
+</html>
