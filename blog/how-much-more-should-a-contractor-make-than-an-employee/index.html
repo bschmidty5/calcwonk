@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Much More Should a Contractor Make Than an Employee? | CalcWonk</title>
+  <meta name="description" content="Contractors typically need to earn 25–40% more than an equivalent employee to break even. Here's the math behind the number — and how to calculate it for your specific situation." />
+  <meta name="google-site-verification" content="ff98ab57f993bbf3" />
+  <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
+  <link rel="canonical" href="https://calcwonk.com/blog/how-much-more-should-a-contractor-make-than-an-employee/" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #ccfbf1;
+      --teal-xlight: #f0fdfa;
+      --orange: #f97316;
+      --orange-light: #fff7ed;
+      --orange-border: #fed7aa;
+      --navy: #1e293b;
+      --gray: #64748b;
+      --gray-light: #f8fafc;
+      --border: #e2e8f0;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      line-height: 1.7;
+    }
+
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); text-decoration: none; }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+
+    .article-wrapper { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+    .breadcrumb { font-size: 0.8rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--teal); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .article-header { margin-bottom: 2rem; }
+
+    .article-category {
+      display: inline-block;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .article-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.82rem; color: var(--gray); flex-wrap: wrap; }
+    .article-meta-divider { color: var(--border); }
+
+    .article-body { font-size: 1rem; color: #334155; }
+    .article-body p { margin-bottom: 1.25rem; }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin: 2rem 0 0.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .article-body h2:first-of-type { border-top: none; padding-top: 0; }
+    .article-body h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .article-body a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+    .article-body a:hover { color: var(--teal-dark); }
+    .article-body strong { color: var(--navy); font-weight: 600; }
+
+    .callout {
+      background: var(--teal-xlight);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 10px 10px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+      font-size: 0.95rem;
+      color: #134e4a;
+    }
+
+    .callout strong { color: var(--teal-dark); }
+
+    .warning-box {
+      background: #fef9c3;
+      border-left: 4px solid #facc15;
+      border-radius: 0 10px 10px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+      font-size: 0.95rem;
+      color: #713f12;
+    }
+
+    .number-box {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .number-box-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 0.5rem; }
+    .number-box-value { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--teal-light); line-height: 1; margin-bottom: 0.5rem; }
+    .number-box-sub { font-size: 0.85rem; color: #64748b; }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin: 1.5rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .comparison-table th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.65rem 1rem;
+      text-align: left;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .comparison-table td {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--navy);
+      vertical-align: top;
+    }
+
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:nth-child(even) td { background: var(--gray-light); }
+    .comparison-table .highlight td { background: var(--teal-xlight); font-weight: 600; color: var(--teal-dark); }
+
+    .calc-cta {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      margin: 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .calc-cta-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.3rem; }
+    .calc-cta-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+
+    .calc-cta-btn {
+      display: inline-block;
+      background: var(--teal);
+      color: #ffffff !important;
+      text-decoration: none !important;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.1s;
+      flex-shrink: 0;
+      -webkit-text-fill-color: #ffffff;
+    }
+
+    .calc-cta-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+    .affiliate-box {
+      background: var(--orange-light);
+      border: 1px solid var(--orange-border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .affiliate-box-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 0.5rem; }
+    .affiliate-box h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .affiliate-box p { font-size: 0.875rem; color: #7c2d12; margin-bottom: 0.9rem; }
+
+    .affiliate-box a.btn {
+      display: inline-block;
+      background: var(--orange);
+      color: #ffffff !important;
+      text-decoration: none !important;
+      padding: 0.55rem 1.25rem;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      -webkit-text-fill-color: #ffffff;
+      margin-right: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .affiliate-box a.btn:hover { background: #ea6c00; }
+    .affiliate-disclosure { font-size: 0.72rem; color: #92400e; margin-top: 0.6rem; }
+    .affiliate-disclosure a { color: #92400e; }
+
+    .author-bio-block {
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin: 2.5rem 0;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .author-bio-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .author-bio-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.15rem; }
+    .author-bio-title { font-size: 0.78rem; color: var(--teal-dark); font-weight: 600; margin-bottom: 0.5rem; }
+    .author-bio-text { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+    .author-bio-text a { color: var(--teal); }
+
+    .related-section { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border); }
+    .related-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1rem; }
+
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) { .related-grid { grid-template-columns: 1fr; } }
+
+    .related-card {
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .related-card:hover { border-color: var(--teal); box-shadow: 0 4px 12px rgba(13,148,136,0.08); }
+    .related-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--teal); margin-bottom: 0.3rem; }
+    .related-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--navy); line-height: 1.4; }
+
+    footer { background: var(--navy); color: #94a3b8; padding: 2.5rem 2rem; }
+    .footer-inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); text-decoration: none; }
+    .footer-logo span { color: var(--teal-light); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal-light); }
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+
+    @media (max-width: 600px) { .nav-links { display: none; } }
+
+    html, body { background: #ffffff !important; color: #1e293b !important; }
+    .article-wrapper { background: #ffffff !important; }
+    .article-body { color: #334155 !important; background: #ffffff !important; }
+    .article-body p, .article-body li { color: #334155 !important; }
+    .article-body h2, .article-body h3 { color: #1e293b !important; background: transparent !important; }
+    .article-header h1 { color: #1e293b !important; }
+    .breadcrumb { color: #64748b !important; background: transparent !important; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+
+  <div class="breadcrumb">
+    <a href="/">CalcWonk</a> › <a href="/blog/">Blog</a> › How Much More Should a Contractor Make Than an Employee?
+  </div>
+
+  <header class="article-header">
+    <span class="article-category">Hiring & HR</span>
+    <h1>How Much More Should a Contractor Make Than an Employee?</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px;">Brian Schmidt</a></span>
+      <span class="article-meta-divider">·</span>
+      <span>Founder, CalcWonk · MPA, Public Policy</span>
+      <span class="article-meta-divider">·</span>
+      <span>March 2026</span>
+      <span class="article-meta-divider">·</span>
+      <span>7 min read</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>A contractor charging $80 per hour when your salaried employee earns $65,000 a year sounds expensive. But before you assume the contractor is overcharging, it's worth doing the math — because that contractor is covering costs you don't see on their invoice.</p>
+
+    <p>The question of how much more a contractor should make than an equivalent employee has a real answer. It's not a matter of opinion or negotiation — it's basic arithmetic. Here's how to work through it.</p>
+
+    <h2>The Short Answer: 25–40% More</h2>
+
+    <p>A contractor typically needs to earn <strong>25 to 40 percent more per hour</strong> than an equivalent employee just to break even on total compensation. That range reflects the costs the contractor absorbs that an employer would otherwise pay — payroll taxes, benefits, and the cost of unpaid time off.</p>
+
+    <p>At the low end of that range, you're looking at a contractor who provides their own equipment, works consistently without gaps, and doesn't rely on expensive benefits. At the high end, you're looking at a contractor who carries their own health insurance, saves aggressively for retirement, and accounts for vacation time, sick days, and slower business periods.</p>
+
+    <div class="number-box">
+      <div class="number-box-label">The Rule of Thumb</div>
+      <div class="number-box-value">1.25–1.40x</div>
+      <div class="number-box-sub">A contractor's hourly rate should be 1.25 to 1.40 times the equivalent employee's hourly rate to represent equal total compensation</div>
+    </div>
+
+    <h2>Where That Number Comes From</h2>
+
+    <p>The gap between contractor and employee compensation comes down to four cost categories that shift from employer to contractor when you move from a W-2 to a 1099 relationship.</p>
+
+    <h3>Self-Employment Taxes: The Biggest Single Factor</h3>
+
+    <p>When you hire an employee, you split the Social Security and Medicare tax burden with them. You pay 7.65% as the employer and they pay 7.65% as the employee — 15.3% total split down the middle. When someone works as a contractor, they pay the full 15.3% themselves as self-employment tax, though they can deduct half of it on their return.</p>
+
+    <p>The net effect is that a contractor earning $65 per hour pays approximately $6–$8 more per hour in taxes than an employee earning the equivalent hourly rate. That alone justifies a meaningful rate premium before you factor in anything else.</p>
+
+    <h3>Health Insurance: The Wildcard</h3>
+
+    <p>Employer-sponsored health insurance typically costs $500–$700 per month for single coverage, with the employer covering most of that. An individual contractor buying coverage on the open market pays $400–$700 per month themselves — and gets no employer contribution. On an annualized basis that's $5,000–$8,000 per year that an employee receives as a benefit but a contractor must fund from their hourly rate.</p>
+
+    <p>Divided across 2,000 billable hours in a year, health insurance alone adds $2.50–$4.00 to the hourly rate a contractor needs just to match an employee's health coverage.</p>
+
+    <h3>Retirement: No 401(k) Match</h3>
+
+    <p>Many employers contribute 3–5% of salary to a 401(k) match. On a $65,000 salary that's $1,950–$3,250 per year in retirement contributions the employee receives at no cost to them. A contractor who wants equivalent retirement savings has to fund it entirely themselves. That adds another $1–$1.50 per hour to the breakeven hourly rate.</p>
+
+    <h3>Unpaid Time Off: The Hidden Multiplier</h3>
+
+    <p>An employee earning $65,000 per year gets paid whether they're working, on vacation, or out sick. A contractor earns nothing during those same days. A contractor who takes two weeks of vacation, five sick days, and a handful of holidays loses roughly three to four weeks of billable income per year — around $7,500–$10,000 on a $65 per hour rate. To maintain the same annual income as the employee they need to charge more per billable hour to compensate for those unbillable days.</p>
+
+    <div class="callout">
+      <strong>The math in plain English:</strong> If an employee earns $65,000 per year and works 2,080 hours, their base hourly equivalent is $31.25. Add payroll taxes, benefits, and overhead and their total all-in cost to the employer is typically $40–$45 per hour. A contractor taking on equivalent costs needs to charge $50–$60 per hour just to match that — before adding profit margin or any premium for flexibility and expertise.
+    </div>
+
+    <h2>A Real Example: $65,000 Employee vs. Equivalent Contractor</h2>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Cost Component</th>
+          <th>Employee (Employer Pays)</th>
+          <th>Contractor (Self-Funded)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Base compensation</td>
+          <td>$65,000/year ($31.25/hr)</td>
+          <td>Must be built into rate</td>
+        </tr>
+        <tr>
+          <td>Payroll taxes (employer share)</td>
+          <td>$5,298/year (8.15%)</td>
+          <td>Contractor pays both sides (~$9,945 SE tax)</td>
+        </tr>
+        <tr>
+          <td>Health insurance</td>
+          <td>$6,000–$8,400/year</td>
+          <td>$5,000–$8,400/year self-purchased</td>
+        </tr>
+        <tr>
+          <td>401(k) match (4%)</td>
+          <td>$2,600/year</td>
+          <td>Self-funded or forgone</td>
+        </tr>
+        <tr>
+          <td>PTO / sick days (15 days)</td>
+          <td>Paid — no deduction from salary</td>
+          <td>~$7,500 in lost billable time</td>
+        </tr>
+        <tr class="highlight">
+          <td>Equivalent hourly rate needed</td>
+          <td>$31.25/hr (salary only)</td>
+          <td>$42–$50/hr to break even</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>This is why a contractor charging $50 per hour to do the same work as an employee earning $65,000 per year is not overcharging — they're roughly at parity on total compensation. A contractor charging $60 per hour is earning a modest premium that reflects their flexibility and the risks they absorb.</p>
+
+    <h2>When the Premium Should Be Higher</h2>
+
+    <p>The 25–40% range is a floor for equivalent compensation, not a ceiling for contractor rates. Several factors push contractor rates legitimately higher.</p>
+
+    <h3>Specialized Expertise</h3>
+    <p>A contractor brought in for specialized skills that don't exist on your team — a specific technology, a niche industry background, a particular certification — commands a premium above the compensation parity rate. You're not just paying for their time. You're paying for skills you couldn't easily hire full-time.</p>
+
+    <h3>Short Engagements</h3>
+    <p>A contractor hired for a two-week project has higher overhead per engagement than one hired for six months. They need to account for the time spent finding and onboarding new clients, the gaps between engagements, and the risk of a short-term project ending early. Short engagements legitimately command higher daily or hourly rates.</p>
+
+    <h3>High-Demand Markets</h3>
+    <p>In competitive labor markets — software development, specialized consulting, certain creative fields — contractor rates reflect market demand rather than just cost recovery. If the market rate for a freelance developer is $120 per hour, that's what you pay regardless of what an equivalent employee earns.</p>
+
+    <div class="calc-cta">
+      <div class="calc-cta-text">
+        <h3>Calculate Your Specific Situation</h3>
+        <p>Enter your actual salary, hourly rate, hours, and benefits to see the true cost comparison for your role.</p>
+      </div>
+      <a href="/contractor-vs-employee/" class="calc-cta-btn">Use the Calculator →</a>
+    </div>
+
+    <h2>The Question Business Owners Should Actually Ask</h2>
+
+    <p>The question isn't really "how much more does the contractor make?" — it's "which arrangement costs me less for the work I actually need?"</p>
+
+    <p>For a role you need 40 hours per week indefinitely, the math almost always favors hiring an employee. The contractor's higher hourly rate compounds over thousands of annual hours and the cost advantage of not paying benefits gets outweighed by the premium rate. For a role you need 20 hours per week for four months, the contractor typically wins — you pay more per hour but far less in total because there's no long-term commitment, no benefits overhead, and no severance risk.</p>
+
+    <p>The break-even point between contractor and employee depends on three variables: the contractor's hourly rate, the number of hours needed, and the duration of the engagement. Get those three numbers into the calculator and the answer becomes clear.</p>
+
+    <h2>What This Means If You're Hiring a Contractor</h2>
+
+    <p>When evaluating a contractor's rate, start from the employee equivalent — what would you pay a full-time employee in this role? Convert that to an hourly rate and add 30–40% to arrive at a fair contractor rate. If the contractor is quoting significantly above that, you should understand why — specialized expertise, short engagement, high market demand. If they're quoting below it, make sure the quality and scope match what you need.</p>
+
+    <p>The other thing to watch is misclassification risk. A contractor arrangement that looks like employment — exclusive relationship, employer-directed schedule, employer-provided equipment — creates legal and tax exposure that no rate discount is worth. If the work calls for an employee, structure it that way.</p>
+
+    <div class="affiliate-box">
+      <div class="affiliate-box-label">Tool Recommendations</div>
+      <h3>Managing Contractors or Employees? Get the Right Tools</h3>
+      <p>Deel handles contractor payments, contracts, and compliance in one place — including international contractors. Gusto handles W-2 payroll, tax filings, and benefits for employees. If you're managing both, both tools are worth knowing.</p>
+      <a href="https://get.deel.com/b99nzenjqw1m" target="_blank" rel="noopener" class="btn">Try Deel →</a>
+      <a href="https://gusto.com/r/brian7e7eb3a4" target="_blank" rel="noopener" class="btn">Try Gusto →</a>
+      <div class="affiliate-disclosure">CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. <a href="/legal/">See our disclosure</a>.</div>
+    </div>
+
+    <p>The contractor vs. employee rate question has a real answer grounded in math, not opinion. A contractor charging 25–40% more than an equivalent employee's hourly rate isn't overcharging — they're covering costs that an employer would otherwise carry. The question of which arrangement is right for your situation depends on the specifics of the role. The calculator exists for exactly that reason.</p>
+
+  </div>
+
+  <div class="author-bio-block">
+    <div class="author-bio-avatar">B</div>
+    <div>
+      <div class="author-bio-name">Brian Schmidt</div>
+      <div class="author-bio-title">Founder, CalcWonk · MPA, Public Policy</div>
+      <div class="author-bio-text">Brian Schmidt has spent 20 years managing multi-million dollar budgets, overseeing payroll and HR systems, and making the kinds of financial decisions these calculators are built around. He currently leads a Missouri-based nonprofit organization focused on policy and systems change, and previously served as Executive Director of the Missouri General Assembly's Joint Committee on Tax Policy. His work on child care financing has been featured in the Washington Post. He built CalcWonk to give business owners and individuals the same data-driven tools he wished he'd had. <a href="/about/">Learn more about Brian →</a></div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <div class="related-title">Related Tools & Reading</div>
+    <div class="related-grid">
+      <a href="/contractor-vs-employee/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Contractor vs. Employee Calculator</h4>
+      </a>
+      <a href="/true-cost-of-an-employee-calculator/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>True Cost of an Employee Calculator</h4>
+      </a>
+      <a href="/blog/1099-vs-w2-how-to-make-the-right-call/" class="related-card">
+        <div class="related-card-label">Blog Post</div>
+        <h4>1099 vs. W-2: How to Make the Right Call</h4>
+      </a>
+      <a href="/cost-of-employee-turnover/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Cost of Employee Turnover Calculator</h4>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
+      <a href="mailto:brian@calcwonk.com">Contact</a>
+    </div>
+    <p class="footer-disclaimer">CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.</p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+  </div>
+</footer>
+
+</body>
+</html>
