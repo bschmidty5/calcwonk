@@ -3,63 +3,65 @@
 
   <url>
     <loc>https://calcwonk.com/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <!-- CALCULATORS -->
   <url>
     <loc>https://calcwonk.com/true-cost-of-an-employee-calculator/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/contractor-vs-employee/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/cost-of-employee-turnover/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/break-even-calculator/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/profit-margin-calculator/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/business-loan-true-cost/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/roth-vs-traditional-ira-calculator/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- BLOG -->
   <url>
     <loc>https://calcwonk.com/blog/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -94,21 +96,22 @@
 
   <url>
     <loc>https://calcwonk.com/blog/how-much-more-should-a-contractor-make-than-an-employee/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://calcwonk.com/blog/how-much-more-should-a-contractor-make-than-an-employee/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <loc>https://calcwonk.com/blog/roth-vs-traditional-ira/</loc>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- STATIC PAGES -->
   <url>
     <loc>https://calcwonk.com/about/</loc>
-    <lastmod>2026-03-28</lastmod>
+    <lastmod>2026-04-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
