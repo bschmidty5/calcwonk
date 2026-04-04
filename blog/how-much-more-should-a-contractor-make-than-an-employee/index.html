@@ -142,9 +142,9 @@
       text-align: center;
     }
 
-    .number-box-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 0.5rem; }
+    .number-box-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #e2e8f0; margin-bottom: 0.5rem; }
     .number-box-value { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--teal-light); line-height: 1; margin-bottom: 0.5rem; }
-    .number-box-sub { font-size: 0.85rem; color: #64748b; }
+    .number-box-sub { font-size: 0.85rem; color: #f1f5f9; }
 
     .comparison-table {
       width: 100%;
@@ -190,7 +190,7 @@
     }
 
     .calc-cta-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.3rem; }
-    .calc-cta-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+    .calc-cta-text p { font-size: 0.85rem; color: #e2e8f0; margin: 0; }
 
     .calc-cta-btn {
       display: inline-block;
@@ -303,10 +303,15 @@
     html, body { background: #ffffff !important; color: #1e293b !important; }
     .article-wrapper { background: #ffffff !important; }
     .article-body { color: #334155 !important; background: #ffffff !important; }
-    .article-body p, .article-body li { color: #334155 !important; }
+    .article-body > p, .article-body > ul > li, .article-body > ol > li { color: #334155 !important; }
     .article-body h2, .article-body h3 { color: #1e293b !important; background: transparent !important; }
     .article-header h1 { color: #1e293b !important; }
     .breadcrumb { color: #64748b !important; background: transparent !important; }
+    .calc-cta-text h3 { color: #ffffff !important; }
+    .calc-cta-text p { color: #e2e8f0 !important; }
+    .number-box-label { color: #94a3b8 !important; }
+    .number-box-value { color: var(--teal-light) !important; }
+    .number-box-sub { color: #64748b !important; }
   </style>
 </head>
 <body>
@@ -527,7 +532,7 @@
       <a href="mailto:brian@calcwonk.com">Contact</a>
     </div>
     <p class="footer-disclaimer">CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.</p>
-    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved
   </div>
 </footer>
 
