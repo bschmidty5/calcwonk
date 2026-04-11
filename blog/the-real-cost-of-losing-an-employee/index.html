@@ -127,9 +127,10 @@
     .article-wrapper { background: #ffffff !important; }
     .article-body { color: #334155 !important; background: #ffffff !important; }
     .article-body > p, .article-body > ul > li, .article-body > ol > li { color: #334155 !important; }
-    .calc-cta-text h3 { color: #ffffff !important; }
-    .calc-cta-text p { color: #e2e8f0 !important; }
-    .article-body h2, .article-body h3 { color: #1e293b !important; background: transparent !important; }
+    .calc-cta-text h3, .article-body .calc-cta-text h3 { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+    .calc-cta-text p, .article-body .calc-cta-text p { color: #e2e8f0 !important; }
+    .article-body h2, .article-body > h3, .article-body > div:not(.calc-cta) h3 { color: #1e293b !important; background: transparent !important; }
+    .article-body .calc-cta h3, .article-body .calc-cta-text h3 { color: #ffffff !important; background: transparent !important; }
     .article-header h1 { color: #1e293b !important; }
     .breadcrumb { color: #64748b !important; background: transparent !important; }
   </style>
