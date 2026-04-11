@@ -82,7 +82,7 @@
 
     .calc-cta { background: var(--navy); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
     .calc-cta-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.3rem; }
-    .calc-cta-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+    .calc-cta-text p { font-size: 0.85rem; color: #e2e8f0; margin: 0; }
     .calc-cta-btn { display: inline-block; background: var(--teal); color: #ffffff !important; text-decoration: none !important; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background 0.2s, transform 0.1s; flex-shrink: 0; -webkit-text-fill-color: #ffffff; }
     .calc-cta-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
 
@@ -126,7 +126,9 @@
     html, body { background: #ffffff !important; color: #1e293b !important; }
     .article-wrapper { background: #ffffff !important; }
     .article-body { color: #334155 !important; background: #ffffff !important; }
-    .article-body p, .article-body li { color: #334155 !important; }
+    .article-body > p, .article-body > ul > li, .article-body > ol > li { color: #334155 !important; }
+    .calc-cta-text h3 { color: #ffffff !important; }
+    .calc-cta-text p { color: #e2e8f0 !important; }
     .article-body h2, .article-body h3 { color: #1e293b !important; background: transparent !important; }
     .article-header h1 { color: #1e293b !important; }
     .breadcrumb { color: #64748b !important; background: transparent !important; }
@@ -293,5 +295,9 @@
       <a href="/legal/">Affiliate Disclosure</a>
       <a href="mailto:brian@calcwonk.com">Contact</a>
     </div>
-    <p class="footer-disclaimer">CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.</p>
-    <p class="footer-copy
+    <p class="footer-disclaimer">CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professio
+  </div>
+</footer>
+
+</body>
+</html>
