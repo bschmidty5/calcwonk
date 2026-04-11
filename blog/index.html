@@ -373,17 +373,17 @@
 
   <!-- CATEGORY FILTER -->
   <div class="category-filter">
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">Small Business</button>
-    <button class="filter-btn">Personal Finance</button>
-    <button class="filter-btn">Hiring & HR</button>
+    <button class="filter-btn active" onclick="filterPosts('All')">All</button>
+    <button class="filter-btn" onclick="filterPosts('Small Business')">Small Business</button>
+    <button class="filter-btn" onclick="filterPosts('Personal Finance')">Personal Finance</button>
+    <button class="filter-btn" onclick="filterPosts('Hiring & HR')">Hiring & HR</button>
   </div>
 
   <!-- POSTS LIST -->
   <div class="posts-list">
 
     <!-- POST 1 — LIVE -->
-    <a href="/blog/how-much-does-it-cost-to-hire-an-employee/" class="post-card">
+    <a href="/blog/how-much-does-it-cost-to-hire-an-employee/" class="post-card" data-category="Hiring & HR">
       <div class="post-card-icon">👤</div>
       <div class="post-card-body">
         <div class="post-card-meta">
@@ -397,7 +397,7 @@
       <div class="post-card-arrow">→</div>
     </a>
 
-    <a href="/blog/1099-vs-w2-how-to-make-the-right-call/" class="post-card">
+    <a href="/blog/1099-vs-w2-how-to-make-the-right-call/" class="post-card" data-category="Hiring & HR">
       <div class="post-card-icon">⚖️</div>
       <div class="post-card-body">
         <div class="post-card-meta">
@@ -411,7 +411,7 @@
       <div class="post-card-arrow">→</div>
     </a>
 
-    <a href="/blog/the-real-cost-of-losing-an-employee/" class="post-card">
+    <a href="/blog/the-real-cost-of-losing-an-employee/" class="post-card" data-category="Hiring & HR">
       <div class="post-card-icon">📉</div>
       <div class="post-card-body">
         <div class="post-card-meta">
@@ -425,7 +425,7 @@
       <div class="post-card-arrow">→</div>
     </a>
 
-    <a href="/blog/how-to-calculate-break-even-point/" class="post-card">
+    <a href="/blog/how-to-calculate-break-even-point/" class="post-card" data-category="Small Business">
       <div class="post-card-icon">📊</div>
       <div class="post-card-body">
         <div class="post-card-meta">
@@ -439,7 +439,7 @@
       <div class="post-card-arrow">→</div>
     </a>
 
-    <a href="/blog/how-much-more-should-a-contractor-make-than-an-employee/" class="post-card">
+    <a href="/blog/how-much-more-should-a-contractor-make-than-an-employee/" class="post-card" data-category="Hiring & HR">
       <div class="post-card-icon">⚖️</div>
       <div class="post-card-body">
         <div class="post-card-meta">
@@ -453,7 +453,7 @@
       <div class="post-card-arrow">→</div>
     </a>
 
-    <a href="/blog/roth-vs-traditional-ira/" class="post-card">
+    <a href="/blog/roth-vs-traditional-ira/" class="post-card" data-category="Personal Finance">
       <div class="post-card-icon orange">📈</div>
       <div class="post-card-body">
         <div class="post-card-meta">
@@ -467,16 +467,19 @@
       <div class="post-card-arrow">→</div>
     </a>
 
-    <div class="post-card coming-soon">
+    <a href="/blog/what-your-business-loan-really-costs/" class="post-card" data-category="Small Business">
       <div class="post-card-icon orange">🏦</div>
       <div class="post-card-body">
         <div class="post-card-meta">
-          <span class="coming-soon-badge">Coming Soon</span>
+          <span class="post-card-category">Small Business</span>
+          <span class="post-card-date">April 2026</span>
+          <span class="post-card-read">7 min read</span>
         </div>
         <div class="post-card-title">What Your Business Loan Really Costs (Beyond the APR)</div>
         <div class="post-card-excerpt">APR doesn't tell the whole story. Origination fees, closing costs, and prepayment penalties can add thousands to what looks like a competitive rate.</div>
       </div>
-    </div>
+      <div class="post-card-arrow">→</div>
+    </a>
 
   </div>
 
@@ -499,7 +502,61 @@
       <a href="/legal/">Privacy Policy</a>
       <a href="/legal/">Terms of Service</a>
       <a href="/legal/">Affiliate Disclosure</a>
-      <a href="/cdn-cgi/l/email-protection#c1a3b3a8a0af81a2a0ada2b6aeafaaefa2aeac">Contact</a>
+      <a href="mailto:brian@calcwonk.com">Contact</a>
     </div>
     <p class="footer-disclaimer">
       CalcWonk participates in affiliate programs and may earn a commission if you sign up for products through our links — at no extra cost to you. Content is for informational purposes only and does not const
+    </p>
+  </div>
+</footer>
+
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const postCards = document.querySelectorAll('.post-card[data-category]');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const selected = btn.textContent.trim();
+
+      postCards.forEach(card => {
+        if (selected === 'All' || card.dataset.category === selected) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  function filterPosts(category) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === category);
+    });
+
+    // Show/hide post cards
+    document.querySelectorAll('.post-card:not(.coming-soon)').forEach(card => {
+      if (category === 'All') {
+        card.style.display = '';
+      } else {
+        const cardCategory = card.querySelector('.post-card-category');
+        const match = cardCategory && cardCategory.textContent.trim() === category;
+        card.style.display = match ? '' : 'none';
+      }
+    });
+
+    // Always show coming soon cards
+    document.querySelectorAll('.post-card.coming-soon').forEach(card => {
+      card.style.display = '';
+    });
+  }
+</script>
+</body>
+</html>
