@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Is a Good Profit Margin for a Small Business? | CalcWonk</title>
+  <meta name="description" content="Profit margins vary widely by industry — what's good for a restaurant is terrible for a software company. Here's how to benchmark your margins and what to do if they're too thin." />
+  <meta name="google-site-verification" content="ff98ab57f993bbf3" />
+  <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
+  <link rel="canonical" href="https://calcwonk.com/blog/what-is-a-good-profit-margin-for-a-small-business/" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488; --teal-dark: #0f766e; --teal-light: #ccfbf1; --teal-xlight: #f0fdfa;
+      --orange: #f97316; --orange-light: #fff7ed; --orange-border: #fed7aa;
+      --navy: #1e293b; --gray: #64748b; --gray-light: #f8fafc; --border: #e2e8f0; --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--navy); line-height: 1.7; }
+    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); text-decoration: none; }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+    .article-wrapper { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .breadcrumb { font-size: 0.8rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--teal); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-header { margin-bottom: 2rem; }
+    .article-category { display: inline-block; background: var(--teal-light); color: var(--teal-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 1rem; }
+    .article-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--navy); line-height: 1.25; margin-bottom: 1rem; }
+    .article-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.82rem; color: var(--gray); flex-wrap: wrap; }
+    .article-meta-divider { color: var(--border); }
+    .article-body { font-size: 1rem; color: #334155; }
+    .article-body p { margin-bottom: 1.25rem; }
+    .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2rem 0 0.75rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .article-body h2:first-of-type { border-top: none; padding-top: 0; }
+    .article-body h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .article-body a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+    .article-body a:hover { color: var(--teal-dark); }
+    .article-body strong { color: var(--navy); font-weight: 600; }
+    .callout { background: var(--teal-xlight); border-left: 4px solid var(--teal); border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin: 1.75rem 0; font-size: 0.95rem; color: #134e4a; }
+    .callout strong { color: var(--teal-dark); }
+    .warning-box { background: #fef9c3; border-left: 4px solid #facc15; border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin: 1.75rem 0; font-size: 0.95rem; color: #713f12; }
+    .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1.5rem 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+    .comparison-table th { background: var(--navy); color: var(--white); padding: 0.65rem 1rem; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .comparison-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); color: var(--navy); vertical-align: top; }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:nth-child(even) td { background: var(--gray-light); }
+    .comparison-table .highlight td { background: var(--teal-xlight); font-weight: 600; color: var(--teal-dark); }
+    .calc-cta { background: var(--navy); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .calc-cta-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.3rem; }
+    .calc-cta-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+    .calc-cta-btn { display: inline-block; background: var(--teal); color: #ffffff !important; text-decoration: none !important; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background 0.2s, transform 0.1s; flex-shrink: 0; -webkit-text-fill-color: #ffffff; }
+    .calc-cta-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+    .affiliate-box { background: var(--orange-light); border: 1px solid var(--orange-border); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .affiliate-box-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 0.5rem; }
+    .affiliate-box h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .affiliate-box p { font-size: 0.875rem; color: #7c2d12; margin-bottom: 0.9rem; }
+    .affiliate-box a.btn { display: inline-block; background: var(--orange); color: #ffffff !important; text-decoration: none !important; padding: 0.55rem 1.25rem; border-radius: 7px; font-weight: 700; font-size: 0.875rem; -webkit-text-fill-color: #ffffff; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .affiliate-box a.btn:hover { background: #ea6c00; }
+    .affiliate-disclosure { font-size: 0.72rem; color: #92400e; margin-top: 0.6rem; }
+    .affiliate-disclosure a { color: #92400e; }
+    .author-bio-block { background: var(--gray-light); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin: 2.5rem 0; display: flex; gap: 1.25rem; align-items: flex-start; }
+    .author-bio-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); flex-shrink: 0; }
+    .author-bio-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.15rem; }
+    .author-bio-title { font-size: 0.78rem; color: var(--teal-dark); font-weight: 600; margin-bottom: 0.5rem; }
+    .author-bio-text { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+    .author-bio-text a { color: var(--teal); }
+    .related-section { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border); }
+    .related-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) { .related-grid { grid-template-columns: 1fr; } }
+    .related-card { background: var(--gray-light); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .related-card:hover { border-color: var(--teal); box-shadow: 0 4px 12px rgba(13,148,136,0.08); }
+    .related-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--teal); margin-bottom: 0.3rem; }
+    .related-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--navy); line-height: 1.4; }
+    footer { background: var(--navy); color: #94a3b8; padding: 2.5rem 2rem; }
+    .footer-inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); text-decoration: none; }
+    .footer-logo span { color: var(--teal-light); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal-light); }
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+    @media (max-width: 600px) { .nav-links { display: none; } }
+    html, body { background: #ffffff !important; color: #1e293b !important; }
+    .article-wrapper { background: #ffffff !important; }
+    .article-body { color: #334155 !important; background: #ffffff !important; }
+    .article-body > p, .article-body > ul > li, .article-body > ol > li { color: #334155 !important; }
+    .article-body h2, .article-body > h3, .article-body > div:not(.calc-cta) h3 { color: #1e293b !important; background: transparent !important; }
+    .article-body .calc-cta h3, .article-body .calc-cta-text h3 { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; background: transparent !important; }
+    .calc-cta-text h3, .article-body .calc-cta-text h3 { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+    .calc-cta-text p, .article-body .calc-cta-text p { color: #94a3b8 !important; }
+    .article-header h1 { color: #1e293b !important; }
+    .breadcrumb { color: #64748b !important; background: transparent !important; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+
+  <div class="breadcrumb">
+    <a href="/">CalcWonk</a> › <a href="/blog/">Blog</a> › What Is a Good Profit Margin for a Small Business?
+  </div>
+
+  <header class="article-header">
+    <span class="article-category">Small Business</span>
+    <h1>What Is a Good Profit Margin for a Small Business?</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px;">Brian Schmidt</a></span>
+      <span class="article-meta-divider">·</span>
+      <span>Founder, CalcWonk · MPA, Public Policy</span>
+      <span class="article-meta-divider">·</span>
+      <span>April 2026</span>
+      <span class="article-meta-divider">·</span>
+      <span>7 min read</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>The question sounds simple. The answer isn't — because a "good" profit margin depends entirely on your industry, your business model, and what you're trying to do with the number.</p>
+
+    <p>A 5% net profit margin would be catastrophic for a software company and perfectly healthy for a grocery store. A 60% gross margin sounds impressive until you realize your operating expenses are consuming all of it. Knowing your margin is only useful if you know what to compare it against and what it's actually telling you. Here's how to think through it.</p>
+
+    <h2>The Three Margins You Need to Know</h2>
+
+    <p>Most conversations about profit margin conflate three different numbers that measure very different things. Getting them straight is the starting point for any useful analysis.</p>
+
+    <h3>Gross profit margin</h3>
+    <p><strong>Gross profit margin</strong> measures what's left after subtracting the direct cost of producing your product or delivering your service — the cost of goods sold. If you sell a product for $100 and it costs $60 to make, your gross margin is 40%. This is the margin that reflects your pricing power and production efficiency. It doesn't account for rent, salaries, marketing, or anything else.</p>
+
+    <h3>Operating profit margin</h3>
+    <p><strong>Operating profit margin</strong> takes gross profit and subtracts operating expenses — salaries, rent, utilities, marketing, software subscriptions. This is the margin that reflects how efficiently you run the business day to day. It's a more complete picture than gross margin because it captures the overhead reality most businesses live with.</p>
+
+    <h3>Net profit margin</h3>
+    <p><strong>Net profit margin</strong> is what's left after everything — including interest payments, taxes, and any one-time expenses. This is the number that tells you what the business actually earned as a percentage of revenue. It's the most comprehensive measure and the one most relevant for evaluating overall business health.</p>
+
+    <div class="callout">
+      <strong>The rule of thumb:</strong> Gross margin tells you if your pricing and production make sense. Operating margin tells you if your business model is efficient. Net margin tells you if the whole enterprise is worth running.
+    </div>
+
+    <h2>What Counts as a Good Profit Margin by Industry</h2>
+
+    <p>There is no universal answer — but there are reasonable benchmarks by industry that make the comparison meaningful.</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Industry</th>
+          <th>Typical Gross Margin</th>
+          <th>Typical Net Margin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Software / SaaS</td>
+          <td>70–85%</td>
+          <td>15–25%</td>
+        </tr>
+        <tr>
+          <td>Consulting / Professional Services</td>
+          <td>50–70%</td>
+          <td>10–20%</td>
+        </tr>
+        <tr>
+          <td>Healthcare / Medical</td>
+          <td>40–60%</td>
+          <td>5–15%</td>
+        </tr>
+        <tr>
+          <td>Retail (general)</td>
+          <td>30–50%</td>
+          <td>2–6%</td>
+        </tr>
+        <tr>
+          <td>Construction</td>
+          <td>20–35%</td>
+          <td>2–8%</td>
+        </tr>
+        <tr>
+          <td>Restaurants / Food Service</td>
+          <td>60–70%</td>
+          <td>3–9%</td>
+        </tr>
+        <tr>
+          <td>Manufacturing</td>
+          <td>25–40%</td>
+          <td>5–10%</td>
+        </tr>
+        <tr class="highlight">
+          <td>Small business average (all industries)</td>
+          <td>—</td>
+          <td>7–10%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The restaurant industry illustrates the gap between gross and net margin well. A restaurant might have a 65% gross margin on food — the markup from ingredient cost to menu price is substantial. But after paying kitchen staff, servers, rent, utilities, and equipment maintenance, net margins typically compress to 3–9%. High gross margin and thin net margin is the defining characteristic of the hospitality industry.</p>
+
+    <p>Software businesses show the opposite dynamic — high gross margins that translate into meaningful net margins because the cost of delivering another unit of software is nearly zero once it's built.</p>
+
+    <div class="calc-cta">
+      <div class="calc-cta-text">
+        <h3>Calculate Your Profit Margins</h3>
+        <p>Enter your revenue and costs to see your gross, operating, and net margins — with benchmarks for your industry.</p>
+      </div>
+      <a href="/profit-margin-calculator/" class="calc-cta-btn">Use the Calculator →</a>
+    </div>
+
+    <h2>What to Do If Your Margins Are Too Thin</h2>
+
+    <p>A margin below your industry benchmark isn't a verdict — it's a diagnosis. The question is where the compression is happening and whether it's fixable.</p>
+
+    <h3>If your gross margin is too low</h3>
+    <p>Low gross margin means either your prices are too low, your cost of goods is too high, or both. The fix is either raising prices — which requires understanding your pricing power and competitive position — or reducing production costs through supplier negotiation, process efficiency, or product mix changes. This is the most fundamental margin problem because every dollar of revenue you generate is starting from a weak foundation.</p>
+
+    <h3>If your gross margin is fine but operating margin is thin</h3>
+    <p>This is an overhead problem. Your product or service is priced correctly and costs are under control at the production level — but the business itself is expensive to run. Salaries, rent, marketing spend, and software subscriptions are consuming what should be profit. The lever here is operating expense review — identifying what's generating revenue and what's overhead that can be reduced or eliminated.</p>
+
+    <h3>If your operating margin is fine but net margin is thin</h3>
+    <p>This points to debt service, tax exposure, or one-time charges. High interest payments on business loans compress net margin without affecting operations. This is where the true cost of borrowing becomes visible — a business loan that looks manageable on a monthly payment basis can quietly erode net margin significantly when you calculate it as a percentage of revenue.</p>
+
+    <div class="warning-box">
+      ⚠️ <strong>The margin trap:</strong> Many small business owners focus exclusively on revenue growth without tracking margin compression. A business that grows from $500,000 to $1,000,000 in revenue while its net margin drops from 10% to 4% has actually generated less profit despite doubling in size. More revenue with shrinking margins is a warning sign, not a success story.
+    </div>
+
+    <h2>The Break-Even Connection</h2>
+
+    <p>Profit margin and break-even analysis are two sides of the same coin. Your gross margin directly determines your break-even point — the higher your gross margin, the less revenue you need to cover your fixed costs. A business with a 60% gross margin needs to generate significantly less revenue to break even than one with a 25% gross margin at the same fixed cost level.</p>
+
+    <p>This is why service businesses and software companies can often operate profitably at relatively modest revenue levels, while manufacturing and retail businesses need substantially higher volume to cover their lower-margin economics.</p>
+
+    <div class="calc-cta">
+      <div class="calc-cta-text">
+        <h3>Find Your Break-Even Point</h3>
+        <p>See exactly how much revenue you need to cover your costs — and how your margins affect that number.</p>
+      </div>
+      <a href="/break-even-calculator/" class="calc-cta-btn">Use the Calculator →</a>
+    </div>
+
+    <h2>How to Actually Improve Your Profit Margin</h2>
+
+    <p>There are only four ways to improve profit margin — raise prices, reduce cost of goods, reduce operating expenses, or increase volume to spread fixed costs. Most margin improvement strategies are a combination of all four, but the starting point matters.</p>
+
+    <p>Raising prices is the highest-leverage move for most small businesses because it flows directly to the bottom line with no additional cost. A 5% price increase on $500,000 in revenue adds $25,000 in gross profit with zero additional expense — that's a meaningful margin improvement. Most small business owners underestimate their pricing power and leave margin on the table out of competitive fear that often isn't warranted.</p>
+
+    <p>Reducing cost of goods is the next lever — renegotiating supplier contracts, consolidating purchasing, or shifting product mix toward higher-margin items. This requires understanding which products or services carry the best margins and intentionally selling more of them.</p>
+
+    <p>Operating expense reduction is slower and more complex because it involves trade-offs — cutting marketing spend might reduce costs but also reduce revenue. The goal is identifying overhead that doesn't generate revenue and eliminating it without affecting the revenue-generating parts of the business.</p>
+
+    <p>Volume growth spreads fixed costs across more revenue, improving operating margin without changing anything about pricing or costs. This is why scale matters in low-margin businesses — the fixed cost base stays relatively constant while revenue grows, creating operating leverage that improves margins over time.</p>
+
+    <div class="affiliate-box">
+      <div class="affiliate-box-label">Tool Recommendation</div>
+      <h3>Track Your Margins Automatically</h3>
+      <p>Calculating margins manually works until it doesn't. Accounting software that connects to your bank accounts, invoicing, and expenses gives you real-time margin visibility without the spreadsheet — so you know when margins are compressing before it becomes a problem.</p>
+      <a href="#" class="btn">Try QuickBooks →</a>
+      <a href="#" class="btn">Try FreshBooks →</a>
+      <div class="affiliate-disclosure">CalcWonk may earn a commission if you sign up through these links — at no extra cost to you. <a href="/legal/">See our disclosure</a>.</div>
+    </div>
+
+    <p>Profit margin is one of the most important numbers in your business — and one of the most frequently misunderstood. Knowing your gross, operating, and net margins, benchmarking them against your industry, and understanding where compression is happening gives you a clear picture of what to fix and in what order. The calculator does the arithmetic. The interpretation is what turns the number into action.</p>
+
+  </div>
+
+  <div class="author-bio-block">
+    <div class="author-bio-avatar">B</div>
+    <div>
+      <div class="author-bio-name">Brian Schmidt</div>
+      <div class="author-bio-title">Founder, CalcWonk · MPA, Public Policy</div>
+      <div class="author-bio-text">Brian Schmidt has spent 20 years managing multi-million dollar budgets, overseeing payroll and HR systems, and making the kinds of financial decisions these calculators are built around. He currently leads a Missouri-based nonprofit organization focused on policy and systems change, and previously served as Executive Director of the Missouri General Assembly's Joint Committee on Tax Policy. His work on child care financing has been featured in the Washington Post. He built CalcWonk to give business owners and individuals the same data-driven tools he wished he'd had. <a href="/about/">Learn more about Brian →</a></div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <div class="related-title">Related Tools & Reading</div>
+    <div class="related-grid">
+      <a href="/profit-margin-calculator/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Profit Margin Calculator</h4>
+      </a>
+      <a href="/break-even-calculator/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Break-Even Calculator</h4>
+      </a>
+      <a href="/true-cost-of-an-employee-calculator/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>True Cost of an Employee Calculator</h4>
+      </a>
+      <a href="/blog/how-to-calculate-break-even-point/" class="related-card">
+        <div class="related-card-label">Blog Post</div>
+        <h4>How to Calculate Your Break-Even Point</h4>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
+      <a href="mailto:brian@calcwonk.com">Contact</a>
+    </div>
+    <p class="footer-disclaimer">CalcWonk participates in affiliate programs and may earn a commission if you sign up through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.</p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+  </div>
+</footer>
+
+</body>
+</html>
