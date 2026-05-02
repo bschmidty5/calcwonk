@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Calculate the Fully Loaded Cost of an Employee | CalcWonk</title>
+  <meta name="description" content="The fully loaded cost of an employee is typically 1.25 to 1.4 times their base salary. Here's exactly how to calculate it — and why the number matters more than most employers realize." />
+  <meta name="google-site-verification" content="ff98ab57f993bbf3" />
+  <meta name="fo-verify" content="b49da62c-f24d-40c3-ae54-1091d84534dc" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87Q6FHJRM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H87Q6FHJRM');
+  </script>
+  <link rel="canonical" href="https://calcwonk.com/blog/how-to-calculate-the-fully-loaded-cost-of-an-employee/" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0d9488; --teal-dark: #0f766e; --teal-light: #ccfbf1; --teal-xlight: #f0fdfa;
+      --orange: #f97316; --orange-light: #fff7ed; --orange-border: #fed7aa;
+      --navy: #1e293b; --gray: #64748b; --gray-light: #f8fafc; --border: #e2e8f0; --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--navy); line-height: 1.7; }
+    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); text-decoration: none; }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+    .article-wrapper { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .breadcrumb { font-size: 0.8rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--teal); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-header { margin-bottom: 2rem; }
+    .article-category { display: inline-block; background: var(--teal-light); color: var(--teal-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 1rem; }
+    .article-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--navy); line-height: 1.25; margin-bottom: 1rem; }
+    .article-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.82rem; color: var(--gray); flex-wrap: wrap; }
+    .article-meta-divider { color: var(--border); }
+    .article-body { font-size: 1rem; color: #334155; }
+    .article-body p { margin-bottom: 1.25rem; }
+    .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2rem 0 0.75rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .article-body h2:first-of-type { border-top: none; padding-top: 0; }
+    .article-body h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .article-body a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
+    .article-body a:hover { color: var(--teal-dark); }
+    .article-body strong { color: var(--navy); font-weight: 600; }
+    .callout { background: var(--teal-xlight); border-left: 4px solid var(--teal); border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin: 1.75rem 0; font-size: 0.95rem; color: #134e4a; }
+    .callout strong { color: var(--teal-dark); }
+    .warning-box { background: #fef9c3; border-left: 4px solid #facc15; border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin: 1.75rem 0; font-size: 0.95rem; color: #713f12; }
+    .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1.5rem 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+    .comparison-table th { background: var(--navy); color: var(--white); padding: 0.65rem 1rem; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .comparison-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); color: var(--navy); vertical-align: top; }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:nth-child(even) td { background: var(--gray-light); }
+    .comparison-table .highlight td { background: var(--teal-xlight); font-weight: 600; color: var(--teal-dark); }
+    .calc-cta { background: var(--navy); border-radius: 14px; padding: 1.75rem 2rem; margin: 2rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .calc-cta-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.3rem; }
+    .calc-cta-text p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+    .calc-cta-btn { display: inline-block; background: var(--teal); color: #ffffff !important; text-decoration: none !important; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background 0.2s, transform 0.1s; flex-shrink: 0; -webkit-text-fill-color: #ffffff; }
+    .calc-cta-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+    .affiliate-box { background: var(--orange-light); border: 1px solid var(--orange-border); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .affiliate-box-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 0.5rem; }
+    .affiliate-box h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .affiliate-box p { font-size: 0.875rem; color: #7c2d12; margin-bottom: 0.9rem; }
+    .affiliate-box a.btn { display: inline-block; background: var(--orange); color: #ffffff !important; text-decoration: none !important; padding: 0.55rem 1.25rem; border-radius: 7px; font-weight: 700; font-size: 0.875rem; -webkit-text-fill-color: #ffffff; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .affiliate-box a.btn:hover { background: #ea6c00; }
+    .affiliate-disclosure { font-size: 0.72rem; color: #92400e; margin-top: 0.6rem; }
+    .affiliate-disclosure a { color: #92400e; }
+    .author-bio-block { background: var(--gray-light); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin: 2.5rem 0; display: flex; gap: 1.25rem; align-items: flex-start; }
+    .author-bio-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--teal-dark)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); flex-shrink: 0; }
+    .author-bio-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.15rem; }
+    .author-bio-title { font-size: 0.78rem; color: var(--teal-dark); font-weight: 600; margin-bottom: 0.5rem; }
+    .author-bio-text { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+    .author-bio-text a { color: var(--teal); }
+    .related-section { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border); }
+    .related-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) { .related-grid { grid-template-columns: 1fr; } }
+    .related-card { background: var(--gray-light); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .related-card:hover { border-color: var(--teal); box-shadow: 0 4px 12px rgba(13,148,136,0.08); }
+    .related-card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--teal); margin-bottom: 0.3rem; }
+    .related-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--navy); line-height: 1.4; }
+    footer { background: var(--navy); color: #94a3b8; padding: 2.5rem 2rem; }
+    .footer-inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); text-decoration: none; }
+    .footer-logo span { color: var(--teal-light); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal-light); }
+    .footer-disclaimer { font-size: 0.78rem; color: #64748b; max-width: 560px; line-height: 1.5; }
+    .footer-copy { font-size: 0.8rem; color: #475569; }
+    @media (max-width: 600px) { .nav-links { display: none; } }
+    html, body { background: #ffffff !important; color: #1e293b !important; }
+    .article-wrapper { background: #ffffff !important; }
+    .article-body { color: #334155 !important; background: #ffffff !important; }
+    .article-body > p, .article-body > ul > li, .article-body > ol > li { color: #334155 !important; }
+    .article-body h2, .article-body > h3, .article-body > div:not(.calc-cta) h3 { color: #1e293b !important; background: transparent !important; }
+    .article-body .calc-cta h3, .article-body .calc-cta-text h3 { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; background: transparent !important; }
+    .calc-cta-text h3, .article-body .calc-cta-text h3 { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+    .calc-cta-text p, .article-body .calc-cta-text p { color: #94a3b8 !important; }
+    .article-header h1 { color: #1e293b !important; }
+    .breadcrumb { color: #64748b !important; background: transparent !important; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Calc<span>Wonk</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Tools</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/legal/">Disclosures</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+
+  <div class="breadcrumb">
+    <a href="/">CalcWonk</a> › <a href="/blog/">Blog</a> › How to Calculate the Fully Loaded Cost of an Employee
+  </div>
+
+  <header class="article-header">
+    <span class="article-category">Hiring & HR</span>
+    <h1>How to Calculate the Fully Loaded Cost of an Employee</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/" style="color:var(--teal);text-decoration:underline;text-underline-offset:2px;">Brian Schmidt</a></span>
+      <span class="article-meta-divider">·</span>
+      <span>Founder, CalcWonk · MPA, Public Policy</span>
+      <span class="article-meta-divider">·</span>
+      <span>April 2026</span>
+      <span class="article-meta-divider">·</span>
+      <span>7 min read</span>
+    </div>
+  </header>
+
+  <div class="article-body">
+
+    <p>When a hiring manager says an employee "costs $65,000 a year," they're describing the salary. The fully loaded cost — what the business actually spends to have that person on payroll — is a different and larger number. Understanding the gap between the two is one of the most important calculations in running a business.</p>
+
+    <p>The fully loaded cost of an employee typically runs 1.25 to 1.4 times their base salary. On a $65,000 salary that's $81,000 to $91,000 in total annual cost. Here's exactly how to calculate it for your specific situation.</p>
+
+    <h2>The Four Components of Fully Loaded Cost</h2>
+
+    <p>Fully loaded cost has four distinct components. Each is calculable, each varies by employer, and each adds meaningfully to what most people think an employee costs.</p>
+
+    <h3>Component 1 — Mandatory Payroll Taxes</h3>
+
+    <p>These are non-negotiable — every employer pays them on every W-2 employee regardless of size, industry, or location.</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Tax</th>
+          <th>Employer Rate</th>
+          <th>On $65,000 Salary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Social Security (FICA)</td>
+          <td>6.2%</td>
+          <td>$4,030</td>
+        </tr>
+        <tr>
+          <td>Medicare (FICA)</td>
+          <td>1.45%</td>
+          <td>$943</td>
+        </tr>
+        <tr>
+          <td>Federal Unemployment (FUTA)</td>
+          <td>0.6% (on first $7,000)</td>
+          <td>$42</td>
+        </tr>
+        <tr>
+          <td>State Unemployment (SUTA)</td>
+          <td>Varies by state</td>
+          <td>$200–$600 typical</td>
+        </tr>
+        <tr class="highlight">
+          <td>Payroll tax subtotal</td>
+          <td>~8–9% of salary</td>
+          <td>$5,215–$5,615</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>State unemployment tax rates vary significantly — new employers typically pay 2–3% on the first $7,000–$12,000 of wages, while experienced employers with low turnover histories may pay much less. Missouri's new employer SUTA rate, for example, is 2.511% on the first $11,000 of wages.</p>
+
+    <h3>Component 2 — Benefits</h3>
+
+    <p>Benefits are the largest source of variation in fully loaded cost calculations. An employer who offers no benefits beyond legally required ones has a very different cost structure from one offering comprehensive health, dental, vision, and retirement.</p>
+
+    <p><strong>Health insurance</strong> is typically the biggest line item — employer contributions average $6,000–$8,400 per year for single coverage and $15,000–$22,000 for family coverage. Most employers cover 70–80% of the premium, leaving the employee to pay the remainder through payroll deduction.</p>
+
+    <p><strong>Retirement contributions</strong> — a 401(k) match of 3–4% of salary adds $1,950–$2,600 on a $65,000 salary. Employers who don't offer a match pay nothing here, while those with generous matching programs may contribute 5–6%.</p>
+
+    <p><strong>Other common benefits</strong> — dental and vision insurance ($500–$1,500/year employer cost), life insurance ($200–$500/year), short and long-term disability ($300–$800/year), and paid time off. PTO is often overlooked in fully loaded cost calculations because it's built into the salary — but an employee who takes 15 days of paid leave is being paid for approximately 5.8% of their year without producing work.</p>
+
+    <div class="callout">
+      <strong>The benefits range:</strong> A minimal benefits package — health insurance only — adds roughly $6,000–$8,400 to annual cost. A comprehensive package with health, dental, vision, 401(k) match, life insurance, and disability adds $10,000–$15,000 or more. The difference between "we offer benefits" and "we offer good benefits" is $4,000–$7,000 per employee per year.
+    </div>
+
+    <h3>Component 3 — Overhead and Equipment</h3>
+
+    <p>Every employee requires physical or digital infrastructure to do their job. This component is the most variable and the most frequently omitted from informal cost calculations.</p>
+
+    <p>Office space costs $2,000–$8,000 per employee per year depending on location and workspace type. Remote employees eliminate this cost entirely — one of the clearest financial arguments for remote work at scale. Equipment — computer, monitors, peripherals, phone — runs $1,500–$3,000 upfront and $300–$600 per year in maintenance and replacement. Software licenses, tools, and subscriptions add $500–$2,000 per year depending on role and industry.</p>
+
+    <p>Recruiting and onboarding costs are one-time but real — job postings, recruiter time, interview scheduling, background checks, and training typically cost $3,000–$8,000 for a professional hire. Amortized over a two-year expected tenure that's $1,500–$4,000 per year of employment.</p>
+
+    <h3>Component 4 — Indirect Labor Costs</h3>
+
+    <p>This is the component most employers underestimate. An employee is rarely productive for all 2,080 hours in a standard work year.</p>
+
+    <p>Paid time off — vacation, sick days, and holidays — accounts for 200–280 hours of paid non-productive time for a typical employee with two weeks vacation and standard holidays. Training and onboarding time, particularly in the first six months, reduces productive output by 10–20%. Administrative time — meetings, HR requirements, compliance training — consumes another 5–10% of the average employee's year.</p>
+
+    <p>The practical result is that an employee paid for 2,080 hours typically delivers 1,700–1,850 hours of productive work. The gap between what you pay for and what you get is built into the effective hourly cost of every employee.</p>
+
+    <h2>The Fully Loaded Cost Calculation Step by Step</h2>
+
+    <p>Here's the complete calculation for a $65,000 salary employee with a mid-range benefits package at an office-based company.</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Cost Component</th>
+          <th>Annual Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Base salary</td>
+          <td>$65,000</td>
+        </tr>
+        <tr>
+          <td>Payroll taxes (8.5%)</td>
+          <td>$5,525</td>
+        </tr>
+        <tr>
+          <td>Health insurance (employer share)</td>
+          <td>$7,200</td>
+        </tr>
+        <tr>
+          <td>401(k) match (4%)</td>
+          <td>$2,600</td>
+        </tr>
+        <tr>
+          <td>Dental, vision, life insurance</td>
+          <td>$1,200</td>
+        </tr>
+        <tr>
+          <td>Office space and equipment</td>
+          <td>$4,000</td>
+        </tr>
+        <tr>
+          <td>Software and tools</td>
+          <td>$1,000</td>
+        </tr>
+        <tr>
+          <td>Recruiting/onboarding (amortized)</td>
+          <td>$2,500</td>
+        </tr>
+        <tr class="highlight">
+          <td>Total fully loaded cost</td>
+          <td>$89,025</td>
+        </tr>
+        <tr class="highlight">
+          <td>Multiplier vs. base salary</td>
+          <td>1.37x</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>That 1.37x multiplier is right in the middle of the 1.25–1.4x range. The specific number for your employee will be higher or lower depending on your benefits package, your location's real estate costs, and how much equipment and tooling the role requires.</p>
+
+    <div class="calc-cta">
+      <div class="calc-cta-text">
+        <h3>Calculate Your Specific Employee Cost</h3>
+        <p>Enter your actual salary, benefits, overhead, and hours to get the true fully loaded cost for your situation.</p>
+      </div>
+      <a href="/true-cost-of-an-employee-calculator/" class="calc-cta-btn">Use the Calculator →</a>
+    </div>
+
+    <h2>Why the Fully Loaded Cost Number Matters</h2>
+
+    <p>Most hiring decisions are made with reference to salary — "we have budget for a $70,000 hire." The fully loaded cost reframes that question. A $70,000 salary hire at a 1.35x multiplier costs $94,500 per year. Does the role generate or enable enough value to justify $94,500, not $70,000? That's the right question.</p>
+
+    <p>The calculation also matters when comparing hiring an employee to engaging a contractor. A contractor charging $65 per hour on a 40-hour week costs $135,200 per year at full utilization — more than the fully loaded employee cost. But the contractor cost only runs when you need the work, carries no benefits overhead, and requires no long-term commitment. The comparison only makes sense when you use the right numbers on both sides.</p>
+
+    <p>Budget forecasting is the third major use case. A business planning to add three employees next year that budgets $210,000 in salary has actually committed to $262,500–$294,000 in fully loaded cost. That gap — $52,500 to $84,000 — is the difference between a budget that works and one that doesn't.</p>
+
+    <h2>The Difference Between Industries</h2>
+
+    <p>The 1.25–1.4x multiplier is a general range that shifts meaningfully by industry and role type.</p>
+
+    <p>Service businesses with lean benefits packages — small professional firms, early-stage startups — often operate at the low end of the range, 1.25–1.30x. Manufacturing companies with union contracts, comprehensive benefits, and high equipment costs often run 1.4–1.5x. Financial services and healthcare organizations with regulatory training requirements, compliance infrastructure, and rich benefits packages frequently exceed 1.5x.</p>
+
+    <p>Remote-first companies are an interesting case — eliminating real estate costs per employee can push the multiplier down to 1.20–1.28x even with competitive benefits, which is one reason remote work has genuine financial logic beyond the talent access argument.</p>
+
+    <div class="warning-box">
+      ⚠️ <strong>The undercount trap:</strong> The most common mistake in fully loaded cost calculations is including salary and payroll taxes but omitting benefits, overhead, and indirect costs. That produces a number around 1.08–1.10x that dramatically understates the real cost. If your calculation lands below 1.20x you've almost certainly missed something significant.
+    </div>
+
+    <h2>Making the Calculation Actionable</h2>
+
+    <p>The fully loaded cost calculation has three practical uses in most businesses. First — hiring decisions: use it to confirm you're budgeting correctly before opening a role, not after the offer is accepted. Second — contractor vs. employee comparisons: use the fully loaded cost on both sides of the comparison to make sure you're comparing equivalent numbers. Third — headcount planning: multiply your planned headcount additions by 1.3x as a quick planning estimate before doing the detailed calculation for each role.</p>
+
+    <p>The number itself isn't what matters — it's having the right number before you make the decision rather than discovering the real cost after you're committed.</p>
+
+    <div class="affiliate-box">
+      <div class="affiliate-box-label">Tool Recommendation</div>
+      <h3>Let Payroll Software Handle the Math</h3>
+      <p>Calculating fully loaded cost manually works once. Tracking it across a growing team — with changing benefit costs, turnover, and tax rate adjustments — is where payroll software earns its keep. Gusto handles payroll, tax filings, benefits administration, and compliance in one place, and gives you the real numbers behind each employee's cost automatically.</p>
+      <a href="https://gusto.com/r/brian7e7eb3a4" target="_blank" rel="noopener" class="btn">Try Gusto →</a>
+      <div class="affiliate-disclosure">CalcWonk may earn a commission if you sign up through this link — at no extra cost to you. <a href="/legal/">See our disclosure</a>.</div>
+    </div>
+
+    <p>The fully loaded cost of an employee is one of the most important numbers in running a business — and one of the most consistently underestimated. The 1.25–1.4x multiplier is a useful starting point, but your specific number depends on your benefits, your real estate costs, your industry, and your role mix. The calculator gives you the precise figure. The methodology above tells you where every dollar comes from.</p>
+
+  </div>
+
+  <div class="author-bio-block">
+    <div class="author-bio-avatar">B</div>
+    <div>
+      <div class="author-bio-name">Brian Schmidt</div>
+      <div class="author-bio-title">Founder, CalcWonk · MPA, Public Policy</div>
+      <div class="author-bio-text">Brian Schmidt has spent 20 years managing multi-million dollar budgets, overseeing payroll and HR systems, and making the kinds of financial decisions these calculators are built around. He currently leads a Missouri-based nonprofit organization focused on policy and systems change, and previously served as Executive Director of the Missouri General Assembly's Joint Committee on Tax Policy. His work on child care financing has been featured in the Washington Post. He built CalcWonk to give business owners and individuals the same data-driven tools he wished he'd had. <a href="/about/">Learn more about Brian →</a></div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <div class="related-title">Related Tools & Reading</div>
+    <div class="related-grid">
+      <a href="/true-cost-of-an-employee-calculator/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>True Cost of an Employee Calculator</h4>
+      </a>
+      <a href="/contractor-vs-employee/" class="related-card">
+        <div class="related-card-label">Calculator</div>
+        <h4>Contractor vs. Employee Calculator</h4>
+      </a>
+      <a href="/blog/how-much-does-it-cost-to-hire-an-employee/" class="related-card">
+        <div class="related-card-label">Blog Post</div>
+        <h4>How Much Does It Really Cost to Hire an Employee?</h4>
+      </a>
+      <a href="/blog/how-much-more-should-a-contractor-make-than-an-employee/" class="related-card">
+        <div class="related-card-label">Blog Post</div>
+        <h4>How Much More Should a Contractor Make Than an Employee?</h4>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Calc<span>Wonk</span></a>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/legal/">Privacy Policy</a>
+      <a href="/legal/">Terms of Service</a>
+      <a href="/legal/">Affiliate Disclosure</a>
+      <a href="mailto:brian@calcwonk.com">Contact</a>
+    </div>
+    <p class="footer-disclaimer">CalcWonk participates in affiliate programs and may earn a commission if you sign up through our links — at no extra cost to you. Content is for informational purposes only and does not constitute financial, legal, or professional advice.</p>
+    <p class="footer-copy">© 2026 CalcWonk · All rights reserved</p>
+  </div>
+</footer>
+
+</body>
+</html>
