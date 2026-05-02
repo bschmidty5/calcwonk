@@ -3,7 +3,7 @@
 
   <url>
     <loc>https://calcwonk.com/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,28 +11,28 @@
   <!-- CALCULATORS -->
   <url>
     <loc>https://calcwonk.com/true-cost-of-an-employee-calculator/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/contractor-vs-employee/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/cost-of-employee-turnover/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/break-even-calculator/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -46,14 +46,14 @@
 
   <url>
     <loc>https://calcwonk.com/business-loan-true-cost/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://calcwonk.com/roth-vs-traditional-ira-calculator/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -61,7 +61,7 @@
   <!-- BLOG -->
   <url>
     <loc>https://calcwonk.com/blog/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -118,6 +118,13 @@
   <url>
     <loc>https://calcwonk.com/blog/what-is-a-good-profit-margin-for-a-small-business/</loc>
     <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://calcwonk.com/blog/how-to-calculate-the-fully-loaded-cost-of-an-employee/</loc>
+    <lastmod>2026-04-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
